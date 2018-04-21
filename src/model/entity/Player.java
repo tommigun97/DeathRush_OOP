@@ -51,18 +51,16 @@ public class Player extends AbstractLivenessEntity {
     }
 
     @Override
-    public void move() {
-        if (this.getCurrentDirection().isPresent()) {
-            this.getCurrentDirection().get().changeLocation(this.getLocation(), this.getMovementSpeed());
+    public final void shoot() {
+        if (this.getWeapon().isPresent()) {
+            this.getWeapon().get().shoot(this.getCurrentDirection(), this.getCurrentRoom(), true, this.getLocation());
         }
-        // TODO check the position of obstacles and the weight of the room
     }
 
     @Override
-    public final void shoot() {
-        if (this.getWeapon().isPresent()) {
-            this.getWeapon().get().shoot(this.getCurrentDirection().get(), this.getCurrentRoom(), true, this.getLocation());
-        }
+    public void checkCollisions() {
+        // TODO Auto-generated method stub
+        
     }
 
 }

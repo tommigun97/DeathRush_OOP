@@ -51,31 +51,25 @@ public enum LivenessEntityType {
      * @param currentDirection
      * @return
      */
-    public String imageToDrow(final Optional<Direction> direction) {
+    public String imageToDrow(final Direction direction) {
         //TODO
         Pair<String, String> images = new Pair<>(null, null);
-        if (!direction.isPresent()) {
-            return this.stand;
-        } else {
-            if (direction.get() == Direction.N || direction.get() == Direction.NW || direction.get() == Direction.NE) {
+            if (direction == Direction.N || direction == Direction.NW || direction == Direction.NE) {
                 images = this.northImages;
-            } else if (direction.get() == Direction.S || direction.get() == Direction.SW
-                    || direction.get() == Direction.SE) {
+            } else if (direction == Direction.S || direction == Direction.SW
+                    || direction == Direction.SE) {
                 images = this.southImages;
-            } else if (direction.get() == Direction.W) {
+            } else if (direction == Direction.W) {
                 images = this.westImages;
-            } else if (direction.get() == Direction.E) {
+            } else if (direction == Direction.E) {
                 images = this.eastImages;
             }
-        }
-        this.changeCurrentSide();
-        return this.currentSide == Side.Dx ? images.getSecond() : images.getFirst();
+        this.changeCurrentSide();return this.currentSide==Side.Dx?images.getSecond():images.getFirst();
+
     }
 
     private void changeCurrentSide() {
         this.currentSide = currentSide == Side.Dx ? Side.Sx : Side.Dx;
     }
-    
-    
 
 }

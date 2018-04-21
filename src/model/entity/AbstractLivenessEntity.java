@@ -17,7 +17,7 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
     private int life;
     private Location location;
     private Optional<WeaponInterface> weapon;
-    private Optional<Direction> currentDirection;
+    private Direction currentDirection;
     private RoomInterface currentRoom;
     private double movementSpeed;
     private LivenessEntityType type;
@@ -34,10 +34,11 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
      */
     public AbstractLivenessEntity(final Location location, final RoomInterface currentRoom,
             final LivenessEntityType type) {
+        // metti a posto la direzione nella EntityType
         this.life = type.getMaxLife();
         this.location = location;
         this.weapon = type.getWeapon();
-        this.currentDirection = Optional.empty();
+        this.currentDirection = null;
         this.currentRoom = currentRoom;
         this.movementSpeed = type.getMovementSpeed();
         this.maxLife = type.getMaxLife();
@@ -121,7 +122,7 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
     /**
      * @return get the current Direction
      */
-    public Optional<Direction> getCurrentDirection() {
+    public Direction getCurrentDirection() {
         return currentDirection;
     }
 
@@ -129,7 +130,7 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
      * @param currentDirection
      *            change the Entity Direction
      */
-    public void setCurrentDirection(final Optional<Direction> currentDirection) {
+    public void setCurrentDirection(final Direction currentDirection) {
         this.currentDirection = currentDirection;
     }
 
@@ -163,6 +164,12 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
     }
 
     @Override
+    public void move() {
+        this.getCurrentDirection().changeLocation(this.getLocation(), this.getMovementSpeed());
+        // TODO check the position of obstacles and the weight of the room
+    }
+
+    @Override
     public final Location getLocation() {
         return location;
     }
@@ -175,11 +182,6 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
     @Override
     public String getImage() {
         return type.imageToDrow(this.currentDirection);
-    }
-
-    @Override
-    public void checkCollisions() {
-        // TODO
     }
 
 }
