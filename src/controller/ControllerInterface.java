@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 import utilities.Pair;
+import view.View;
+import view.ViewInterface;
 
 public interface ControllerInterface {
 
@@ -12,7 +14,11 @@ public interface ControllerInterface {
 	 */
 	public void startGameLoop();
 	
-	//public void setView(ViewInterface view);
+	/**
+	 * Set the GUI of the game
+	 * @param view
+	 */
+	public void setView(ViewInterface view);
 	
 	/**
 	 * Set Game loop in pause

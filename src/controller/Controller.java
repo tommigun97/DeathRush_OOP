@@ -3,6 +3,8 @@ package controller;
 import java.util.List;
 
 import utilities.Pair;
+import view.View;
+import view.ViewInterface;
 
 /**
  * Description of Controller
@@ -13,7 +15,8 @@ import utilities.Pair;
 public class Controller implements ControllerInterface {
 	
 	static String FILENAME = "ScoreList";
-
+	
+	private ViewInterface view;
 	private Score sc = new Score(FILENAME);
 
 	@Override
@@ -22,9 +25,9 @@ public class Controller implements ControllerInterface {
 
 	}
 
-	/*
-	 * public void setView(ViewInterface view) { this.view = view; }
-	 */
+	public void setView(ViewInterface view) {
+		this.view = view; 
+	}
 
 	@Override
 	public final void pauseGameLoop() {
@@ -46,7 +49,7 @@ public class Controller implements ControllerInterface {
 
 	@Override
 	public final boolean setPlayerName(final String namePlayer) {
-		// this.sc.saveOnFile(new Pair<>(namePlayer, model.getTime));
+		this.sc.saveOnFile(new Pair<>(namePlayer, model.getTime()));
 		return false;
 	}
 

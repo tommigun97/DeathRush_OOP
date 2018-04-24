@@ -1,5 +1,12 @@
 package controller;
 
+import java.util.LinkedList;
+import java.util.List;
+import model.Direction;
+import model.Location;
+import utilities.Pair;
+import view.ViewInterface;
+
 /**
  * This is the heart of the game. It will refresh game's frame
  * every second. The GameLoop synchronizes View and Model.
@@ -9,48 +16,78 @@ public class GameLoop extends Thread {
 	
 	/**
 	 * Enum to describe the possible states of the GameLoop
-	 * @author tommi
 	 *
 	 */
 	private enum Status {
 		RUNNING, PAUSED, KILLED, READY;
 	}
-
+	
+	private long period = 20;
 	private volatile Status state;
-	private final int fps;
-	//private final ViewInterface view;
-	//private final ControllerInterface controller;
-	//private final InputInterface input;
-	private volatile int time;
-	//private volatile ModelInterface model;
+	private final ViewInterface view;
+	private final ControllerInterface controller;
+	private final InputInterface input;
+	private volatile ModelInterface model;
 	
 	
-	public GameLoop(final int fps, final ControllerInterface controller
-			/*, final ViewInferface view, final InputInterface input*/) {
-		this.fps = fps;
-		//this.controller = controller;
-		/*this.view = view;
-		 * this.input = input;
-		 */
+	public GameLoop(final ControllerInterface controller
+			, final ViewInterface view, final InputInterface input) {
+		this.controller = controller;
+		this.view = view;
+		this.input = input;
+		this.model = new Model();
+		 
 	}
 	
-	public void run() {
+	public void run(){
 		long previous = System.currentTimeMillis();
-		long lag = 0;
 		this.setState(Status.RUNNING);
-		while(!this.isInState(Status.KILLED)) {
-			long current = System.currentTimeMillis();
-			long elapsed = current - previous;
-			previous = current;
-			lag += elapsed;
-			//processInput();
-			while(lag >= this.fps) {
-				//update();
-				lag -= this.fps;
+		while(!this.isInState(Status.KILLED)){
+			if(this.model.getGameStatus().equals(GameStatus.Running)) {
+				long current = System.currentTimeMillis();
+				int elapsed = (int)(current - previous);
+				processInput();
+				updateGame(elapsed);		
+				render();
+				waitForNextFrame(current);
+				previous = current;
 			}
-			//render(lag/this.fps);
+			else if(this.model.getGameStatus().equals(GameStatus.Over)) {
+				this.setState(Status.KILLED);
+			}
 		}
-		
+		this.controller.abortGameLoop();
+	}
+	
+	protected void waitForNextFrame(long current){
+		long dt = System.currentTimeMillis() - current;
+		if (dt < period){
+			try {
+				Thread.sleep(period-dt);
+			} catch (Exception ex){}
+		}
+	}
+	
+	public void processInput() {
+		this.model.
+	}
+	
+	public void render() {
+		this.view.render();
+	}
+	
+	public void updateGame(int elapsed) {
+		this.model.getWorld.updateState(elapsed);
+		checkEvents();
+	}
+	
+	private void checkEvents() {
+		final List<Pair<Pair<String, Double>, Location>> toDraw = new LinkedList<>();
+		final Location player = this.model.getPlayerLocation();
+		toDraw.add(new Pair<>(new Pair<>("Image.png", 0d), new Location(player)));
+		this.model.getEntitiesToDraw().forEach(x-> {
+			toDraw.add(new Pair<>(new Pair<>(EntityType.getImage(x), x.getLocation())));
+		});
 	}
 	
 	private synchronized boolean isInState(final Status state) {
@@ -77,10 +114,4 @@ public class GameLoop extends Thread {
 		}
 	}
 	
-	public int getScore() {
-		if (this.isInState(Status.KILLED)) {
-            throw new IllegalStateException();
-        }
-		return this.time;
-	}
 }

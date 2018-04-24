@@ -25,7 +25,7 @@ public class Score implements ScoreInterface {
 	}
 	
 	@Override
-	public void saveOnFile(Pair<String, Integer> a) throws IOException {
+	public final void saveOnFile(Pair<String, Integer> a) throws IOException {
 		File file = new File(this.fileName);
 		if(!file.exists()) {
 			System.out.println("Creazione nuovo file in corso...");
@@ -63,7 +63,7 @@ public class Score implements ScoreInterface {
 	}
 
 	@Override
-	public void deleteAllScore() {
+	public final void deleteAllScore() {
 		File f = new File(fileName);
 		if(!f.exists()){			
 			throw new IllegalArgumentException("File Inesistente!");
@@ -73,12 +73,12 @@ public class Score implements ScoreInterface {
 	}
 	
 	@Override
-	public List<Pair<String, Integer>> getScoreList() throws IOException {
+	public final List<Pair<String, Integer>> getScoreList() throws IOException {
 
 		List<Pair<String, Integer>> list = new ArrayList<>();	
 		FileReader file = new FileReader(this.fileName);
 		BufferedReader br = new BufferedReader(file);
-		while(br.readLine()!=null) {
+		while(br.readLine()!=null){
 			final String name = br.readLine();
 			final int score = Integer.parseInt(br.readLine());
 			list.add(new Pair<String, Integer>(name, score));
@@ -88,7 +88,7 @@ public class Score implements ScoreInterface {
 	}
 
 	@Override
-	public boolean isRecord(Pair<String, Integer> a) {
+	public final boolean isRecord(Pair<String, Integer> a) {
 		return a.equals(scoreList.get(0));
 	}
 
