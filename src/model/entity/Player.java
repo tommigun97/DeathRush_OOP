@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Direction;
 import model.Location;
 import model.RoomInterface;
 
@@ -16,9 +17,21 @@ public class Player extends AbstractLivenessEntity {
      * @param type Player's type
      */
     public Player(final Location location, final RoomInterface currentRoom,
-            final LivenessEntityType type) {
-        super(location, currentRoom, type);
+            final LivenessEntityType type, final Direction currentDiretion) {
+        super(location, currentRoom, type, currentDiretion);
         this.coin = 0;
+    }
+
+    @Override
+    public void checkCollisions() {
+        // TODO Auto-generated method stub
+    }
+
+    /**
+     * @return current Player's coin
+     */
+    public int getCoin() {
+        return this.coin;
     }
 
     /**
@@ -43,24 +56,11 @@ public class Player extends AbstractLivenessEntity {
         }
     }
 
-    /**
-     * @return current Player's coin
-     */
-    public int getCoin() {
-        return this.coin;
-    }
-
     @Override
     public final void shoot() {
         if (this.getWeapon().isPresent()) {
             this.getWeapon().get().shoot(this.getCurrentDirection(), this.getCurrentRoom(), true, this.getLocation());
         }
-    }
-
-    @Override
-    public void checkCollisions() {
-        // TODO Auto-generated method stub
-        
     }
 
 }

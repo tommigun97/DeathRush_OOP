@@ -7,7 +7,7 @@ import model.Location;
  * Bullet used by the Player and the Enemies.
  *
  */
-public class Bullet implements EntityIterface {
+public class Bullet implements Entity {
     private final boolean playerBulletIdentifier;
     private final BulletType type;
     private final Location location;
@@ -39,12 +39,14 @@ public class Bullet implements EntityIterface {
         return this.type.getDamage();
     }
 
-    /**
-     * Update the position of the bullet using its direction.
-     */
-    public void move() {
-        this.direction.changeLocation(this.location, this.type.getSpeed());
-        // TODO
+    @Override
+    public final String getImage() {
+        return type.getImage();
+    }
+
+    @Override
+    public final Location getLocation() {
+        return this.location;
     }
 
     /**
@@ -54,14 +56,11 @@ public class Bullet implements EntityIterface {
         return playerBulletIdentifier;
     }
 
-    @Override
-    public final Location getLocation() {
-        return this.location;
-    }
-
-    @Override
-    public final String getImage() {
-        return type.getImage();
+    /**
+     * Update the position of the bullet using its direction.
+     */
+    public void move() {
+        this.direction.changeLocation(this.location, this.type.getSpeed());
     }
 
 }

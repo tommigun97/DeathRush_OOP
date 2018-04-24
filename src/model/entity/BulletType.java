@@ -29,13 +29,6 @@ public enum BulletType {
     }
 
     /**
-     * @return speed of bullet
-     */
-    public double getSpeed() {
-        return speed;
-    }
-
-    /**
      * @return damage of bullet
      */
     public int getDamage() {
@@ -47,6 +40,13 @@ public enum BulletType {
      */
     public String getImage() {
         return image;
+    }
+
+    /**
+     * @return speed of bullet
+     */
+    public double getSpeed() {
+        return speed;
     }
 
 }

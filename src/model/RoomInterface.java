@@ -1,6 +1,8 @@
 package model;
 
-import model.entity.EntityIterface;
+import java.util.List;
+
+import model.entity.Entity;
 
 /**
  * description of a current room.
@@ -8,10 +10,15 @@ import model.entity.EntityIterface;
  */
 public interface RoomInterface {
     /**
-     * Add an entity to the Room
+     * Add an entity to the Room.
      * 
      * @param entity
      *            the Entities to add
      */
-    void addEntities(EntityIterface entity);
+    void addEntities(Entity entity);
+
+    /**
+     * @return List of the entities in the room
+     */
+    List<Entity> getEntities();
 }

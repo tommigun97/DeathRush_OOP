@@ -10,21 +10,21 @@ import model.RoomInterface;
  */
 public class StalkerEnemy extends Enemy {
 
-    private Player entityToStalk;
+    private final Player entityToStalk;
 
     public StalkerEnemy(final Location location, final RoomInterface currentRoom, final LivenessEntityType type,
-            final Player entityToStalk) {
-        super(location, currentRoom, type);
+            final Player entityToStalk, Direction currentDirection) {
+        super(location, currentRoom, type, currentDirection);
         this.entityToStalk = entityToStalk;
     }
 
     @Override
     public final void move() {
         Direction d;
-        if (this.entityToStalk.getLocation().getY() > this.getLocation().getY()) { // si muove a nord
+        if (this.entityToStalk.getLocation().getY() < this.getLocation().getY()) { // si muove a nord
             d = this.entityToStalk.getLocation().getX() > this.getLocation().getX() ? Direction.NE
                     : this.entityToStalk.getLocation().getX() < this.getLocation().getX() ? Direction.NW : Direction.N;
-        } else if (this.entityToStalk.getLocation().getY() < this.getLocation().getY()) { // si muove a sud
+        } else if (this.entityToStalk.getLocation().getY() > this.getLocation().getY()) { // si muove a sud
             d = this.entityToStalk.getLocation().getX() > this.getLocation().getX() ? Direction.SE
                     : this.entityToStalk.getLocation().getX() < this.getLocation().getX() ? Direction.SW : Direction.S;
         } else { // e sullo stesso piano delle y bisogna capire solo se deve andare a est o a
@@ -33,12 +33,6 @@ public class StalkerEnemy extends Enemy {
         }
         this.setCurrentDirection(d);
         super.move();
-
-    }
-
-    @Override
-    public void checkCollisions() {
-        // TODO Auto-generated method stub
 
     }
 

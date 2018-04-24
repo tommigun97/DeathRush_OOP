@@ -26,13 +26,6 @@ public enum WeaponType {
         this.bullet = bullet;
     }
 
-
-    
-    
-    
-    
-    
-    
     /**
      * @return the frequency
      */

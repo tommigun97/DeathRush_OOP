@@ -1,5 +1,6 @@
 package model.entity;
 
+import model.Direction;
 import model.Location;
 import model.RoomInterface;
 
@@ -9,8 +10,14 @@ import model.RoomInterface;
  */
 public abstract class Enemy extends AbstractLivenessEntity {
 
-    public Enemy(final Location location, final RoomInterface currentRoom, final LivenessEntityType type) {
-        super(location, currentRoom, type);
+    public Enemy(final Location location, final RoomInterface currentRoom, final LivenessEntityType type, final Direction currentDirection) {
+        super(location, currentRoom, type, currentDirection);
+    }
+
+    @Override
+    public void checkCollisions() {
+        // TODO Auto-generated method stub
+
     }
 
     @Override

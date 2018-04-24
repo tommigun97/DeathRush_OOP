@@ -11,7 +11,7 @@ import model.weapon.WeaponInterface;
  * 
  *
  */
-public abstract class AbstractLivenessEntity implements EntityIterface, LivenessEntityInterface, DeadlyEntity {
+public abstract class AbstractLivenessEntity implements Entity, LivenessEntityInterface, CollisionedEntity {
 
     private int maxLife;
     private int life;
@@ -21,6 +21,7 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
     private RoomInterface currentRoom;
     private double movementSpeed;
     private LivenessEntityType type;
+    private final boolean consistence;
 
     /**
      * 
@@ -33,8 +34,7 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
      *            EntityType
      */
     public AbstractLivenessEntity(final Location location, final RoomInterface currentRoom,
-            final LivenessEntityType type) {
-        // metti a posto la direzione nella EntityType
+            final LivenessEntityType type, final Direction currentDirection) {
         this.life = type.getMaxLife();
         this.location = location;
         this.weapon = type.getWeapon();
@@ -42,81 +42,8 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
         this.currentRoom = currentRoom;
         this.movementSpeed = type.getMovementSpeed();
         this.maxLife = type.getMaxLife();
-    }
-
-    /**
-     * @return The max value for Entity's life
-     */
-    public int getMaxLife() {
-        return maxLife;
-    }
-
-    /**
-     * @param location
-     *            the new Entity's Location
-     */
-    public void setLocation(final Location location) {
-        this.location = location;
-    }
-
-    /**
-     * @param currentRoom
-     *            the new Entity's current Room
-     */
-    public void setCurrentRoom(final RoomInterface currentRoom) {
-        this.currentRoom = currentRoom;
-    }
-
-    /**
-     * @return Entity type
-     */
-    public LivenessEntityType getType() {
-        return this.type;
-    }
-
-    /**
-     * @param maxLife
-     *            max Value that Entity could have
-     */
-    public void setMaxLife(final int maxLife) {
-        this.maxLife = maxLife;
-    }
-
-    /**
-     * @return Entity's movements speed
-     */
-    public double getMovementSpeed() {
-        return movementSpeed;
-    }
-
-    /**
-     * @param movementSpeed
-     *            new Entity's movements speed value
-     */
-    public void setMovementSpeed(final double movementSpeed) {
-        this.movementSpeed = movementSpeed;
-    }
-
-    /**
-     * @return Room where Entity is placed
-     */
-    public RoomInterface getCurrentRoom() {
-        return currentRoom;
-    }
-
-    /**
-     * @return the Entity current Weapon
-     */
-    public Optional<WeaponInterface> getWeapon() {
-        return weapon;
-    }
-
-    /**
-     * @param weapon
-     *            set a new Entity Weapon
-     */
-    public void setWeapon(final Optional<WeaponInterface> weapon) {
-        this.weapon = weapon;
+        this.consistence = type.isConsistence();
+        this.currentDirection = currentDirection;
     }
 
     /**
@@ -127,11 +54,60 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
     }
 
     /**
-     * @param currentDirection
-     *            change the Entity Direction
+     * @return Room where Entity is placed
      */
-    public void setCurrentDirection(final Direction currentDirection) {
-        this.currentDirection = currentDirection;
+    public RoomInterface getCurrentRoom() {
+        return currentRoom;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see model.entity.EntityIterface#getImage()
+     */
+    @Override
+    public String getImage() {
+        return type.imageToDrow(this.currentDirection);
+    }
+
+    /**
+     * @return how much life has the entity
+     */
+    public int getLife() {
+        return life;
+    }
+
+    @Override
+    public final Location getLocation() {
+        return location;
+    }
+
+    /**
+     * @return The max value for Entity's life
+     */
+    public int getMaxLife() {
+        return maxLife;
+    }
+
+    /**
+     * @return Entity's movements speed
+     */
+    public double getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    /**
+     * @return Entity type
+     */
+    public LivenessEntityType getType() {
+        return this.type;
+    }
+
+    /**
+     * @return the Entity current Weapon
+     */
+    public Optional<WeaponInterface> getWeapon() {
+        return weapon;
     }
 
     /**
@@ -156,32 +132,68 @@ public abstract class AbstractLivenessEntity implements EntityIterface, Liveness
         life -= damage;
     }
 
-    /**
-     * @return how much life has the entity
-     */
-    public int getLife() {
-        return life;
-    }
-
     @Override
     public void move() {
-        this.getCurrentDirection().changeLocation(this.getLocation(), this.getMovementSpeed());
-        // TODO check the position of obstacles and the weight of the room
+//        if (!this.consistence) {
+//            this.currentDirection.changeLocation(this.location, this.movementSpeed);
+//        } else {
+//            final Location prev = this.location;
+//            this.currentDirection.changeLocation(this.location, this.movementSpeed);
+//            if (this.currentRoom.getEntities().stream().filter(e -> e instanceof Obstacles)
+//                    .anyMatch(e -> this.location.locationsCollide(e.getLocation()))) {
+//                this.location = prev;
+//            }
+//        }
+        this.currentDirection.changeLocation(this.location, this.movementSpeed);
+
     }
 
-    @Override
-    public final Location getLocation() {
-        return location;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see model.entity.EntityIterface#getImage()
+    /**
+     * @param currentDirection
+     *            change the Entity Direction
      */
-    @Override
-    public String getImage() {
-        return type.imageToDrow(this.currentDirection);
+    public void setCurrentDirection(final Direction currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+    /**
+     * @param currentRoom
+     *            the new Entity's current Room
+     */
+    public void setCurrentRoom(final RoomInterface currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
+    /**
+     * @param location
+     *            the new Entity's Location
+     */
+    public void setLocation(final Location location) {
+        this.location = location;
+    }
+
+    /**
+     * @param maxLife
+     *            max Value that Entity could have
+     */
+    public void setMaxLife(final int maxLife) {
+        this.maxLife = maxLife;
+    }
+
+    /**
+     * @param movementSpeed
+     *            new Entity's movements speed value
+     */
+    public void setMovementSpeed(final double movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
+    /**
+     * @param weapon
+     *            set a new Entity Weapon
+     */
+    public void setWeapon(final Optional<WeaponInterface> weapon) {
+        this.weapon = weapon;
     }
 
 }
