@@ -32,13 +32,6 @@ public interface Entity {
     void setLocation(Location loc);
 
     /**
-     * @param property
-     *            that someone want get
-     * @return the correct property
-     */
-    Object getProperty(String property);
-
-    /**
      * @return the entity's behavior
      */
     Optional<Behavior> getBehaviour();
@@ -48,6 +41,51 @@ public interface Entity {
      */
     EntityType getType();
 
+    /**
+     * @param property
+     *            the property chosen
+     * @return the int property
+     */
+    int getIntegerProperty(String property);
 
+    /**
+     * @param property
+     *            the property chosen
+     * @return the double property
+     */
+
+    double getDoubleProperty(String property);
+
+    /**
+     * @param property
+     *            the property chosen
+     * @return the boolean property
+     */
+
+    boolean getBooleanProperty(String property);
+
+    /**
+     * @param property
+     *            property to change
+     * @param value
+     *            property's new value
+     */
+    void changeIntProperty(String property, int value);
+
+    /**
+     * @param property
+     *            property to change
+     * @param value
+     *            property's new value
+     */
+    void changeDoubleProperty(String property, double value);
+
+    /**
+     * @param property
+     *            property to change
+     * @param value
+     *            property's new value
+     */
+    void changeBooleanProperty(String property, boolean value);
 
 }
