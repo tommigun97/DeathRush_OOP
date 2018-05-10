@@ -95,4 +95,16 @@ public class Location {
     public void setArea(final Area newarea) {
         this.area = newarea;
     }
+
+    /**
+     * Method for identify that to things are colliding.
+     * 
+     * @param l
+     *            location of other object
+     * @return
+     */
+    public boolean locationsCollide(Location l) {
+        // verifica con una prova visuale perchè se no così non si capisce
+        return this.x == l.x && this.y == l.y;
+    }
 }
