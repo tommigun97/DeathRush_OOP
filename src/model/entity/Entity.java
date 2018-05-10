@@ -1,25 +1,53 @@
 package model.entity;
 
+import java.util.Optional;
+
 import model.Location;
 
 /**
- * The entities of the game.
+ * Described every entities of the game.
  *
  */
 public interface Entity {
-
     /**
-     * Method for get the Path of the entity image.
-     * 
-     * @return String
+     * @return image of the entities to draw
      */
     String getImage();
 
     /**
-     * Getter for entity location.
-     * 
-     * @return Location
+     * @param image
+     *            path of the image
+     */
+    void setImage(String image);
+
+    /**
+     * @return where the entity is placed
      */
     Location getLocation();
+
+    /**
+     * @param loc
+     *            new location
+     */
+    void setLocation(Location loc);
+
+    /**
+     * @param property
+     *            that someone want get
+     * @return the correct property
+     */
+    Object getProperty(String property);
+
+    /**
+     * @return the entity's behavior
+     */
+    Optional<Behavior> getBehaviour();
+
+    /**
+     * @return the type of the entity
+     */
+    EntityType getType();
+
+
 
 }
