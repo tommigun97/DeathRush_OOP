@@ -14,6 +14,7 @@ public class View implements ViewInterface {
 
     private static Stage mainWindow;
     private static GameScene currentScene;
+
     /**
      * Setter for the main window.
      * 

@@ -7,7 +7,16 @@ import javafx.scene.Scene;
  *
  */
 public interface GameScene {
+    /**
+     * 
+     * @param width
+     * @param heigth
+     */
+    void resize(double width, double heigth);
 
-    void resize(double width,  double heigth);
+    /**
+     * 
+     * @return
+     */
     Scene getScene();
 }

@@ -15,7 +15,7 @@ public class PrincipalScene implements GameScene {
     }
 
     @Override
-    public Scene getScene() {
+    public final Scene getScene() {
         // TODO Auto-generated method stub
         return null;
     }

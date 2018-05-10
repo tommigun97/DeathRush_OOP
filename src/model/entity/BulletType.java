@@ -1,5 +1,4 @@
 package model.entity;
-
 /**
  * enum for the description of bullets.
  *

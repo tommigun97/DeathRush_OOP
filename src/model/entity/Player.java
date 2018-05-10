@@ -51,7 +51,7 @@ public class Player extends AbstractLivenessEntity {
     }
 
     @Override
-    public void move() {
+    public final void move() {
         if (this.getCurrentDirection().isPresent()) {
             this.getCurrentDirection().get().changeLocation(this.getLocation(), this.getMovementSpeed());
         }

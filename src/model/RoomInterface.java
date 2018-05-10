@@ -8,7 +8,7 @@ import model.entity.EntityIterface;
  */
 public interface RoomInterface {
     /**
-     * Add an entity to the Room
+     * Add an entity to the Room.
      * 
      * @param entity
      *            the Entities to add

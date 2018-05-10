@@ -6,30 +6,45 @@ package model;
  * directions.
  */
 public enum Direction {
+    /**
+     * 
+     */
     N {
         @Override
         public void changeLocation(final Location loc, final double speed) {
             loc.setY(loc.getY() - speed);
         }
     },
+    /**
+     * 
+     */
     S {
         @Override
         public void changeLocation(final Location loc, final double speed) {
             loc.setY(loc.getY() + speed);
         }
     },
+    /**
+     * 
+     */
     W {
         @Override
         public void changeLocation(final Location loc, final double speed) {
             loc.setX(loc.getX() - speed);
         }
     },
+    /**
+     * 
+     */
     E {
         @Override
         public void changeLocation(final Location loc, final double speed) {
             loc.setX(loc.getX() + speed);
         }
     },
+    /**
+     * 
+     */
     NW {
         @Override
         public void changeLocation(final Location loc, final double speed) {
@@ -37,6 +52,9 @@ public enum Direction {
             Direction.W.changeLocation(loc, speed * OBLIQUITY_MODIFIER);
         }
     },
+    /**
+     * 
+     */
     NE {
         @Override
         public void changeLocation(final Location loc, final double speed) {
@@ -44,6 +62,9 @@ public enum Direction {
             Direction.E.changeLocation(loc, speed * OBLIQUITY_MODIFIER);
         }
     },
+    /**
+     * 
+     */
     SW {
         @Override
         public void changeLocation(final Location loc, final double speed) {
@@ -51,6 +72,9 @@ public enum Direction {
             Direction.W.changeLocation(loc, speed * OBLIQUITY_MODIFIER);
         }
     },
+    /**
+     * 
+     */
     SE {
         @Override
         public void changeLocation(final Location loc, final double speed) {
