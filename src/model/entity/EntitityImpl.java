@@ -80,22 +80,22 @@ public final class EntitityImpl implements Entity {
 
     @Override
     public void changeIntProperty(final String property, final int value) {
-        this.properties.putProperty(property, value);
+        this.properties.changeProperty(property, value);
     }
 
     @Override
     public void changeDoubleProperty(final String property, final double value) {
-        this.properties.putProperty(property, value);
+        this.properties.changeProperty(property, value);
     }
 
     @Override
     public void changeBooleanProperty(final String property, final boolean value) {
-        this.properties.putProperty(property, value);
+        this.properties.changeProperty(property, value);
     }
 
     @Override
-    public void changeObjectProperty(final String property, final boolean value) {
-        this.properties.putProperty(property, value);
+    public void changeObjectProperty(final String property, final Object value) {
+        this.properties.changeProperty(property, value);
 
     }
 

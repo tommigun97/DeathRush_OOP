@@ -44,6 +44,13 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, int value);
+    /**
+     * @param property
+     *            property's name
+     * @param value
+     *            property's value
+     */
+    void changeProperty(String property, int value);
 
     /**
      * @param property
@@ -52,6 +59,13 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, double value);
+    /**
+     * @param property
+     *            property's name
+     * @param value
+     *            property's value
+     */
+    void changeProperty(String property, double value);
 
     /**
      * @param property
@@ -60,6 +74,13 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, boolean value);
+    /**
+     * @param property
+     *            property's name
+     * @param value
+     *            property's value
+     */
+    void changeProperty(String property, boolean value);
 
     /**
      * @param property
@@ -68,6 +89,13 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, Object value);
+    /**
+     * @param property
+     *            property's name
+     * @param value
+     *            property's value
+     */
+    void changeProperty(String property, Object value);
 
     /**
      * @param property

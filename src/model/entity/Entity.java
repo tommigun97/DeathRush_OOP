@@ -102,6 +102,6 @@ public interface Entity {
      * @param value
      *            property's new value
      */
-    void changeObjectProperty(String property, boolean value);
+    void changeObjectProperty(String property, Object value);
 
 }
