@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import utilities.Pair;
+import view.ViewInterface;
 
 /**
  * Description of Controller.
@@ -14,7 +15,7 @@ public class Controller implements ControllerInterface {
 
     private static String FILENAME = "ScoreList";
 
-    //private Score sc = new Score(FILENAME);
+    // private Score sc = new Score(FILENAME);
 
     @Override
     public final void startGameLoop() {
@@ -66,6 +67,11 @@ public class Controller implements ControllerInterface {
     public final List<Pair<String, Pair<Integer, Integer>>> getMap() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public final void setView(final ViewInterface v) {
+        this.setView(v);
     }
 
 }
