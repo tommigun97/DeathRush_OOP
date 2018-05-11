@@ -70,8 +70,10 @@ public class MainMenu extends Application {
     @Override
     public final void start(final Stage primaryStage) throws Exception {
         Scene scene = new Scene(createContent());
-        primaryStage.setTitle("VIDEO GAME");
+        primaryStage.setTitle("DEATH RUSH v0.1");
         primaryStage.setScene(scene);
+        primaryStage.setMinWidth(WIDTH);
+        primaryStage.setMinHeight(HEINGHT);
         primaryStage.show();
     }
 
