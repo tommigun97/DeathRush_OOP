@@ -1,20 +1,11 @@
 package view.menu;
 
-import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.LinearGradient;
-import javafx.scene.paint.Stop;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -22,157 +13,61 @@ import javafx.stage.Stage;
  * @author lorenzo casini
  *
  */
-public class MainMenu extends Application {
+public final class MainMenu extends Scene {
 
     private static final double WIDTH = 800;
-    private static final double HEINGHT = 600;
-    private static final double SEP_LEN = 200;
-    private static final double R_TITLE_W = 375;
-    private static final double R_TITLE_H = 60;
-    private static final double FONT_WEIGHT = 50;
+    private static final double HEIGHT = 600;
+    private static final MainMenu MAINSCENE = new MainMenu();
+    private static final double BUTTON_WIDTH = 200;
+    private static final double BUTTON_PADDING = 10;
+    private static Stage mainStage;
+    private final Button newGame = new Button("New Game");
+    private final Button bestScores = new Button("Best Score");
+    private final Button settings = new Button("Settings");
+    private final Button credits = new Button("Credits");
+    private final Button exit = new Button("Exit");
 
-    /**
-     * This method create the basic component of the MainMenu (Title,BoxMenu).
-     * 
-     * @return StackPane for the Scene.
-     */
-    private Parent createContent() {
-        StackPane root = new StackPane();
-
-        root.setPrefSize(WIDTH, HEINGHT);
-
-        // add background image
-
-        /*
-         * try (InputStream is = Files.newInputStream(Paths.get("image.png"))) {
-         * ImageView img = new ImageView(new Image(is)); img.setFitWidth(IMG_BG_WIDTH);
-         * img.setFitHeight(IMG_BG_HEIGHT); root.getChildren().add(img); } catch
-         * (IOException e) { System.out.println("Couldn't load image"); }
-         */
-
-        Title title = new Title("DEATH RUSH");
-        title.setAlignment(Pos.CENTER);
-
-        MenuBox vbox = new MenuBox(new MenuItem("NEW GAME"), new MenuItem("BEST SCORE"), new MenuItem("SETTINGS"),
-                new MenuItem("CREDIT"), new MenuItem("EXIT"));
-
+    private MainMenu() {
+        super(new StackPane(), WIDTH, HEIGHT);
+        final VBox vbox = new VBox(newGame, bestScores, settings, credits, exit);
+        vbox.setPrefWidth(BUTTON_WIDTH);
         vbox.setAlignment(Pos.BOTTOM_CENTER);
-
-        root.getChildren().addAll(title, vbox);
-
-        return root;
-
+        vbox.setSpacing(10);
+        vbox.setPadding(new Insets(BUTTON_PADDING));
+        //buttons id for style.css
+        this.newGame.setMinWidth(vbox.getPrefWidth());
+        this.newGame.setId("menu-buttons");
+        this.bestScores.setMinWidth(vbox.getPrefWidth());
+        this.bestScores.setId("menu-buttons");
+        this.settings.setMinWidth(vbox.getPrefWidth());
+        this.settings.setId("menu-buttons");
+        this.credits.setMinWidth(vbox.getPrefWidth());
+        this.credits.setId("menu-buttons");
+        this.exit.setMinWidth(vbox.getPrefWidth());
+        this.exit.setId("menu-buttons");
+        //need add the input handler 
+        final StackPane layout = new StackPane();
+        layout.getChildren().addAll(vbox);
+        layout.setId("mainPane");
+        this.setRoot(layout);
+        this.getStylesheets().add("style.css");
     }
 
     /**
-     * This method create the Scene.
+     * Getter of this Scene.
+     * 
+     * @param mainWindow
+     *            The Stage to place this Scene.
+     * @return The current Scene.
      */
-    @Override
-    public final void start(final Stage primaryStage) throws Exception {
-        Scene scene = new Scene(createContent());
-        primaryStage.setTitle("DEATH RUSH v0.1");
-        primaryStage.setScene(scene);
-        primaryStage.setMinWidth(WIDTH);
-        primaryStage.setMinHeight(HEINGHT);
-        primaryStage.show();
+    public static MainMenu get(final Stage mainWindow) {
+        mainStage = mainWindow;
+        mainStage.setFullScreen(false);
+        mainStage.setWidth(WIDTH);
+        mainStage.setHeight(HEIGHT);
+        mainStage.centerOnScreen();
+        mainStage.setTitle("DEATH RUSH  v0.1");
+        return MAINSCENE;
     }
 
-    /**
-     * 
-     * This method extends the StackPane and create a personalized title.
-     *
-     */
-    private static class Title extends StackPane {
-        Title(final String name) {
-            Rectangle bg = new Rectangle(R_TITLE_W, R_TITLE_H);
-            bg.setStroke(Color.RED);
-            bg.setStrokeWidth(2);
-            bg.setFill(null);
-            Text text = new Text(name);
-            text.setFill(Color.BLACK);
-            text.setFont(Font.font("Times New Roman", FontWeight.SEMI_BOLD, FONT_WEIGHT));
-            getChildren().addAll(bg, text);
-        }
-    }
-
-    /**
-     * 
-     * This method extends the VBox anche create the separator for the MenuBox.
-     *
-     */
-    private static class MenuBox extends VBox {
-
-        MenuBox(final MenuItem... items) {
-            getChildren().add(createSeperator());
-
-            for (MenuItem item : items) {
-                getChildren().addAll(item, createSeperator());
-            }
-        }
-
-        private Line createSeperator() {
-            Line sep = new Line();
-            sep.setEndX(SEP_LEN);
-            sep.setStroke(Color.DARKGREY);
-            return sep;
-        }
-
-    }
-
-    /**
-     * 
-     * This class extends the StackPane and create a simple effect for the MenuBox.
-     * 
-     * @author lorenzo casini
-     */
-    private static class MenuItem extends StackPane {
-        MenuItem(final String name) {
-            LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE,
-                    new Stop[] { new Stop(0, Color.DARKBLUE), new Stop(0.1, Color.BLACK), new Stop(0.9, Color.BLACK),
-                            new Stop(1, Color.DARKBLUE)
-
-                    });
-
-            Rectangle bg = new Rectangle(200, 30);
-            bg.setOpacity(0.4);
-
-            Text text = new Text(name);
-            text.setFill(Color.DARKGREY);
-            text.setFont(Font.font("Times New Roman", FontWeight.SEMI_BOLD, 20));
-
-            setAlignment(Pos.BOTTOM_CENTER);
-            getChildren().addAll(bg, text);
-
-            setOnMouseEntered(event -> {
-                bg.setWidth(220);
-                bg.setFill(gradient);
-                text.setFill(Color.WHITE);
-
-            });
-
-            setOnMouseExited(event -> {
-                bg.setWidth(200);
-                bg.setFill(Color.BLACK);
-                text.setFill(Color.DARKGREY);
-            });
-            setOnMousePressed(event -> {
-                bg.setFill(Color.DARKVIOLET);
-
-            });
-
-            setOnMouseReleased(event -> {
-                bg.setFill(gradient);
-            });
-
-        }
-    }
-
-    /**
-     * 
-     * @param args
-     */
-    public static void main(final String[] args) {
-
-        launch(args);
-    }
 }

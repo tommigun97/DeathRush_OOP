@@ -14,6 +14,7 @@ import view.ViewInterface;
 public class Controller implements ControllerInterface {
 
     private static String FILENAME = "ScoreList";
+    private ViewInterface view;
 
     // private Score sc = new Score(FILENAME);
 
@@ -71,7 +72,12 @@ public class Controller implements ControllerInterface {
 
     @Override
     public final void setView(final ViewInterface v) {
-        this.setView(v);
+        this.view(v);
+    }
+
+    private void view(ViewInterface v) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

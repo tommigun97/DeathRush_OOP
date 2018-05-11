@@ -1,6 +1,7 @@
 package view;
 
 import controller.ControllerInterface;
+import javafx.application.Application;
 import view.View;
 
 public class View implements ViewInterface {
@@ -29,8 +30,7 @@ public class View implements ViewInterface {
 
     @Override
     public void startView() {
-        // TODO Auto-generated method stub
-
+        Application.launch(MainWindow.class);
     }
 
 }
