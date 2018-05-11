@@ -66,6 +66,14 @@ public interface Entity {
 
     /**
      * @param property
+     *            the property chosen
+     * @return the Object property
+     */
+
+    Object getObjectProperty(String property);
+
+    /**
+     * @param property
      *            property to change
      * @param value
      *            property's new value
@@ -87,5 +95,13 @@ public interface Entity {
      *            property's new value
      */
     void changeBooleanProperty(String property, boolean value);
+
+    /**
+     * @param property
+     *            property to change
+     * @param value
+     *            property's new value
+     */
+    void changeObjectProperty(String property, boolean value);
 
 }
