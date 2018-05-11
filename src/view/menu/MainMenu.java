@@ -26,10 +26,10 @@ public class MainMenu extends Application {
 
     private static final double WIDTH = 800;
     private static final double HEINGHT = 600;
-    public static final double SEP_LEN = 200;
-    public static final double R_TITLE_W = 375;
-    public static final double R_TITLE_H = 60;
-    public static final double FONT_WEIGHT = 50;
+    private static final double SEP_LEN = 200;
+    private static final double R_TITLE_W = 375;
+    private static final double R_TITLE_H = 60;
+    private static final double FONT_WEIGHT = 50;
 
     /**
      * This method create the basic component of the MainMenu (Title,BoxMenu).
@@ -53,7 +53,7 @@ public class MainMenu extends Application {
         Title title = new Title("DEATH RUSH");
         title.setAlignment(Pos.CENTER);
 
-        MenuBox vbox = new MenuBox(new MenuItem("CONTINUE"), new MenuItem("NEW GAME"), new MenuItem("SETTINGS"),
+        MenuBox vbox = new MenuBox(new MenuItem("NEW GAME"), new MenuItem("BEST SCORE"), new MenuItem("SETTINGS"),
                 new MenuItem("CREDIT"), new MenuItem("EXIT"));
 
         vbox.setAlignment(Pos.BOTTOM_CENTER);
