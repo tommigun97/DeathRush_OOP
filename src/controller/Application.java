@@ -10,8 +10,10 @@ public final class Application {
 
     /**
      * Start a new application.
-     * @param args
+     * 
+     * @param args.
      */
+
     public static void main(final String[] args) {
         final ControllerInterface c = new Controller();
         final ViewInterface v = new View(c);
