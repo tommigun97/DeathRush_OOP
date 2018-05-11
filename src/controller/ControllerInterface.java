@@ -12,7 +12,7 @@ public interface ControllerInterface {
 	 *  Make the Game Loop start to work
 	 *  
 	 */
-	public void startGameLoop();
+	public void startGameLoop() throws IllegalStateException;
 	
 	/**
 	 * Set the GUI of the game
@@ -56,8 +56,6 @@ public interface ControllerInterface {
      */
 	public boolean isGameLoopPaused();
 	
-	public List<Pair<String, Pair<Integer, Integer>>> getMap();
-	
-	
-	
+//  public Timer getTimer();
+		
 }
