@@ -48,4 +48,15 @@ public final class PropertyMapImpl implements PropertyMap {
 
     }
 
+    @Override
+    public Object getObjectProperty(final String property) {
+        return m.get(property);
+    }
+
+    @Override
+    public void putProperty(final String property, final Object value) {
+        m.put(property, value);
+
+    }
+
 }

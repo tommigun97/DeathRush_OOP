@@ -24,6 +24,14 @@ public interface PropertyMap {
     /**
      * @param property
      *            the property chosen
+     * @return the object property
+     */
+
+    Object getObjectProperty(String property);
+
+    /**
+     * @param property
+     *            the property chosen
      * @return the boolean property
      */
 
@@ -52,6 +60,14 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, boolean value);
+
+    /**
+     * @param property
+     *            property's name
+     * @param value
+     *            property's value
+     */
+    void putProperty(String property, Object value);
 
     /**
      * @param property

@@ -74,6 +74,11 @@ public final class EntitityImpl implements Entity {
     }
 
     @Override
+    public Object getObjectProperty(final String property) {
+        return this.properties.getObjectProperty(property);
+    }
+
+    @Override
     public void changeIntProperty(final String property, final int value) {
         this.properties.putProperty(property, value);
     }
@@ -86,6 +91,12 @@ public final class EntitityImpl implements Entity {
     @Override
     public void changeBooleanProperty(final String property, final boolean value) {
         this.properties.putProperty(property, value);
+    }
+
+    @Override
+    public void changeObjectProperty(final String property, final boolean value) {
+        this.properties.putProperty(property, value);
+
     }
 
     /**
@@ -127,6 +138,17 @@ public final class EntitityImpl implements Entity {
          * @return the builder
          */
         public EntitiesBuilder with(final String property, final double value) {
+            this.properties.putProperty(property, value);
+            return this;
+        }
+        /**
+         * @param property
+         *            the name of the property
+         * @param value
+         *            the value of the property
+         * @return the builder
+         */
+        public EntitiesBuilder with(final String property, final Object value) {
             this.properties.putProperty(property, value);
             return this;
         }
