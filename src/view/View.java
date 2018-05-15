@@ -2,11 +2,20 @@ package view;
 
 import controller.ControllerInterface;
 import javafx.application.Application;
+import view.GameScreen;
+import view.InputHandler;
 import view.View;
 
+/**
+ * 
+ * @author lorenzo
+ *
+ */
 public class View implements ViewInterface {
 
     private static ControllerInterface controller;
+    private final InputHandler inputHandler = InputHandler.getInputHandler();
+    private static GameScreen gameScreen;
 
     /**
      * Constructor of the class. It saves the controller of the game.
@@ -33,14 +42,24 @@ public class View implements ViewInterface {
         Application.launch(MainWindow.class);
     }
 
-    public static void setGameScreen(GameScreen gameScreen) {
-        // TODO Auto-generated method stub
-        
+    /**
+     * Setter for the Game Screen. It is necessary to save it in order to call some
+     * methods in it.
+     * 
+     * @param gamescreen
+     *            The GameScreen
+     */
+    static void setGameScreen(final GameScreen gamescreen) {
+        View.gameScreen = gamescreen;
     }
 
-    public static Object getController() {
-        // TODO Auto-generated method stub
-        return null;
+    /**
+     * Getter of the controller
+     * 
+     * @return The controller of the game
+     */
+    static ControllerInterface getController() {
+        return View.controller;
     }
 
 }
