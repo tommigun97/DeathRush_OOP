@@ -3,11 +3,6 @@ package view;
 import controller.ControllerInterface;
 import javafx.application.Application;
 
-/**
- * 
- * @author lorenzo
- *
- */
 public class View implements ViewInterface {
 
     private static ControllerInterface controller;
