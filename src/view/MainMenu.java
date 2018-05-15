@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author lorenzo casini
+ * 
  *
  */
 public final class MainMenu extends Scene {
@@ -37,14 +37,6 @@ public final class MainMenu extends Scene {
         // buttons id for style.css
         this.newGame.setMinWidth(vbox.getPrefWidth());
         this.newGame.setId("menu-buttons");
-        this.newGame.setOnAction(e -> {
-            InputHandler.getInputHandler().emptyList();
-            View.getController().startGameLoop();
-            final GameScreen gameScreen = new GameScreen();
-            View.setGameScreen(gameScreen);
-            mainStage.setScene(gameScreen.get(mainStage));
-            mainStage.setFullScreen(gameScreen.isFullScreen());
-        });
         this.bestScores.setMinWidth(vbox.getPrefWidth());
         this.bestScores.setId("menu-buttons");
         this.settings.setMinWidth(vbox.getPrefWidth());
@@ -53,7 +45,8 @@ public final class MainMenu extends Scene {
         this.credits.setId("menu-buttons");
         this.exit.setMinWidth(vbox.getPrefWidth());
         this.exit.setId("menu-buttons");
-        // need add the input handler
+        //ExitHandler.closeGame(mainStage);
+        this.exit.setOnAction(e -> ExitHandler.closeGame(mainStage));
         final StackPane layout = new StackPane();
         layout.getChildren().addAll(vbox);
         layout.setId("mainPane");

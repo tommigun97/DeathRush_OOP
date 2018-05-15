@@ -1,15 +1,11 @@
 package controller;
 
-import java.util.List;
 import java.util.Optional;
-import utilities.Pair;
-import view.View;
 import view.ViewInterface;
 
 /**
  * Description of Controller.
  * 
- * @author tommi
  * 
  */
 public class Controller implements ControllerInterface {
@@ -19,7 +15,10 @@ public class Controller implements ControllerInterface {
 	private ViewInterface view;
 	private Optional<GameLoop> game;
 	private Score sc = new Score(FILENAME);
-
+	
+	/**
+	 * The constructor of the Class.
+	 */
 	public Controller() {
 		this.game = Optional.empty();
 	}
@@ -33,8 +32,12 @@ public class Controller implements ControllerInterface {
 		this.game = Optional.of(gl);
 		gl.start();
 	}
-
-	public void setView(ViewInterface view) {
+	/**
+	 * Setter of the View from the interface.
+	 * @param view 
+	 *                     the current view.
+	 */
+	public void setView(final ViewInterface view) {
 		this.view = view;
 	}
 
@@ -87,9 +90,4 @@ public class Controller implements ControllerInterface {
 		return this.game.get().isPaused();
 	}
 
-
-    private void view(ViewInterface v) {
-        // TODO Auto-generated method stub
-        
-    }
 }

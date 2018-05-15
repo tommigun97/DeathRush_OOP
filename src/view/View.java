@@ -2,9 +2,6 @@ package view;
 
 import controller.ControllerInterface;
 import javafx.application.Application;
-import view.GameScreen;
-import view.InputHandler;
-import view.View;
 
 /**
  * 
@@ -14,8 +11,7 @@ import view.View;
 public class View implements ViewInterface {
 
     private static ControllerInterface controller;
-    private final InputHandler inputHandler = InputHandler.getInputHandler();
-    private static GameScreen gameScreen;
+    //private final InputHandler inputHandler = InputHandler.getInputHandler();
 
     /**
      * Constructor of the class. It saves the controller of the game.
@@ -28,7 +24,7 @@ public class View implements ViewInterface {
     }
 
     /**
-     * Setter of the controller (thread safe)
+     * Setter of the controller (thread safe).
      * 
      * @param c
      *            The controller of the game
@@ -38,7 +34,7 @@ public class View implements ViewInterface {
     }
 
     @Override
-    public void startView() {
+    public final void startView() {
         Application.launch(MainWindow.class);
     }
 
@@ -49,12 +45,12 @@ public class View implements ViewInterface {
      * @param gamescreen
      *            The GameScreen
      */
-    static void setGameScreen(final GameScreen gamescreen) {
-        View.gameScreen = gamescreen;
-    }
+   /* static void setGameWindow(final GameWindow gamescreen) {
+        View.gameWindow = gamescreen;
+    }*/
 
     /**
-     * Getter of the controller
+     * Getter of the controller.
      * 
      * @return The controller of the game
      */
