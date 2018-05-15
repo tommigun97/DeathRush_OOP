@@ -4,7 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import model.Direction;
 import model.Location;
-//import utilities.Input;
+import model.Model;
+import utilities.Input;
 import utilities.Pair;
 import view.ViewInterface;
 
@@ -27,21 +28,20 @@ public class GameLoop extends Thread {
     private volatile Status state;
     private final ViewInterface view;
     private final ControllerInterface controller;
-    private final InputManager input;
-    private ModelInterface model;
+   // private final InputManager input;
+    private Model model;
 
     public GameLoop(final ControllerInterface controller, final ViewInterface view) {
         this.controller = controller;
         this.view = view;
-        this.input = InputManager.getInputHandler();
-        this.model = new Model();
+       // this.input = InputManager.getInputHandler();
     }
 
     public void run() {
         long previous = System.currentTimeMillis();
         this.setState(Status.RUNNING);
         while (!this.isInState(Status.KILLED)) {
-            if (this.model.getGameStatus().equals(GameStatus.Running)) {
+            /*if (this.model.getGameStatus().equals(GameStatus.Running)) {
                 long current = System.currentTimeMillis();
                 int elapsed = (int) (current - previous);
                 processInput();
@@ -51,7 +51,7 @@ public class GameLoop extends Thread {
                 previous = current;
             } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
                 this.setState(Status.KILLED);
-            }
+            }*/
         }
         this.controller.abortGameLoop();
     }
@@ -66,7 +66,7 @@ public class GameLoop extends Thread {
         }
     }
 
-    public void processInput() {
+    /*public void processInput() {
         this.input.addInput();
         input.getInputList().forEach(x -> {
             if (x.equals(Input.W)) {
@@ -92,14 +92,14 @@ public class GameLoop extends Thread {
                 this.view.showMap();
             }
         });
-    }
+    }*/
 
     public void render() {
-        this.view.render();
+        //this.view.render();
     }
 
     public void updateGame(int elapsed) {
-        this.model.getWorld().updateState(elapsed);
+        //this.model.getWorld().updateState(elapsed);
         checkEvents();
     }
 
