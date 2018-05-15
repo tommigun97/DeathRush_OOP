@@ -7,6 +7,9 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import view.GameScreen;
+import view.InputHandler;
+import view.View;
 
 /**
  * 
@@ -34,9 +37,17 @@ public final class MainMenu extends Scene {
         vbox.setAlignment(Pos.BOTTOM_CENTER);
         vbox.setSpacing(10);
         vbox.setPadding(new Insets(BUTTON_PADDING));
-        //buttons id for style.css
+        // buttons id for style.css
         this.newGame.setMinWidth(vbox.getPrefWidth());
         this.newGame.setId("menu-buttons");
+       /* this.newGame.setOnAction(e -> {
+            InputHandler.getInputHandler().emptyList();
+            View.getController().startGameLoop();
+            final GameScreen gameScreen = new GameScreen();
+            View.setGameScreen(gameScreen);
+            mainStage.setScene(gameScreen.get(mainStage));
+            mainStage.setFullScreen(gameScreen.isFullScreen());
+        });*/
         this.bestScores.setMinWidth(vbox.getPrefWidth());
         this.bestScores.setId("menu-buttons");
         this.settings.setMinWidth(vbox.getPrefWidth());
@@ -45,7 +56,7 @@ public final class MainMenu extends Scene {
         this.credits.setId("menu-buttons");
         this.exit.setMinWidth(vbox.getPrefWidth());
         this.exit.setId("menu-buttons");
-        //need add the input handler 
+        // need add the input handler
         final StackPane layout = new StackPane();
         layout.getChildren().addAll(vbox);
         layout.setId("mainPane");
