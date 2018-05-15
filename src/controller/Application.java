@@ -11,7 +11,8 @@ public final class Application {
     /**
      * Start a new application.
      * 
-     * @param args.
+     * @param 
+     *          args.
      */
 
     public static void main(final String[] args) {
