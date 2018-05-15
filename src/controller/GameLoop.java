@@ -1,12 +1,6 @@
 package controller;
 
-import java.util.LinkedList;
-import java.util.List;
-import model.Direction;
-import model.Location;
 import model.Model;
-import utilities.Input;
-import utilities.Pair;
 import view.ViewInterface;
 
 /**
