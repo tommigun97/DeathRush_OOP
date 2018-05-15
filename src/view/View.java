@@ -33,4 +33,14 @@ public class View implements ViewInterface {
         Application.launch(MainWindow.class);
     }
 
+    public static void setGameScreen(GameScreen gameScreen) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public static Object getController() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
