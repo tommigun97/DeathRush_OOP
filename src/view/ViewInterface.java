@@ -1,27 +1,11 @@
 package view;
-
-import java.util.List;
-
-import model.Location;
-import utilities.Pair;
-
 /**
- * Define the duties of generic View.
+ * Interface for the View Class.
+ * @author lorenzo
  *
  */
 public interface ViewInterface {
 
-    /**
-     * Method for draw Entity.
-     * 
-     * @param entityToDraw
-     *            Entities to draw
-     */
-    void draw(List<Pair<String, Location>> entityToDraw);
-
-    /**
-     * Start view.
-     */
-    void start();
+    void startView();
 
 }

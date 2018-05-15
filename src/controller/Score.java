@@ -92,4 +92,49 @@ public class Score implements ScoreInterface {
 		return a.equals(scoreList.get(0));
 	}
 
+    private void putScoreInAList(final Pair<String, Integer> a) throws IOException {
+        this.scoreList.add(a);
+        this.sortList(scoreList);
+        if (this.isRecord(a)) {
+            System.out.println("NEW RECORD!!");
+        }
+        if (scoreList.size() > MAX_SCORE) {
+            scoreList.remove(scoreList.size() - 1);
+        }
+    }
+
+    private void sortList(final List<Pair<String, Integer>> scoreList2) {
+        Collections.sort(scoreList2, (a, b) -> a.getSecond() - b.getSecond());
+    }
+
+    @Override
+    public void deleteAllScore() {
+        File f = new File(fileName);
+        if (!f.exists()) {
+            throw new IllegalArgumentException("File Inesistente!");
+        }
+        f.delete();
+        this.scoreList.clear();
+    }
+
+    @Override
+    public List<Pair<String, Integer>> getScoreList() throws IOException {
+
+        List<Pair<String, Integer>> list = new ArrayList<>();
+        FileReader file = new FileReader(this.fileName);
+        BufferedReader br = new BufferedReader(file);
+        while (br.readLine() != null) {
+            final String name = br.readLine();
+            final int score = Integer.parseInt(br.readLine());
+            list.add(new Pair<String, Integer>(name, score));
+        }
+        br.close();
+        return list;
+    }
+
+    @Override
+    public boolean isRecord(final Pair<String, Integer> a) {
+        return a.equals(scoreList.get(0));
+    }
+
 }

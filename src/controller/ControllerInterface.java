@@ -1,11 +1,24 @@
 package controller;
 
 import java.util.List;
+
 import utilities.Pair;
 import view.View;
 import view.ViewInterface;
 
+/**
+ * 
+ * @author tommi
+ *
+ */
 public interface ControllerInterface {
+    /**
+     * Start the View.
+     * 
+     * @param v 
+     * The provided ViewInterface
+     */
+    void setView(ViewInterface v);
 
 	
 	/**
@@ -47,9 +60,9 @@ public interface ControllerInterface {
      *
      * @return True if there is a running GameLoop, false otherwise.
      */
-	public boolean isGameLoopRunning();
-	
-	/**
+    boolean isGameLoopRunning();
+
+    /**
      * Checks if there is a paused game (existing and not running).
      *
      * @return True if there is a paused GameLoop, false otherwise.

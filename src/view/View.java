@@ -1,49 +1,36 @@
 package view;
 
-import java.util.List;
+import controller.ControllerInterface;
+import javafx.application.Application;
+import view.View;
 
-import javafx.stage.Stage;
-import model.Location;
-import utilities.Pair;
-
-/**
- * @author Simone Del Gatto
- *
- */
 public class View implements ViewInterface {
 
-    private static Stage mainWindow;
-    private static GameScene currentScene;
+    private static ControllerInterface controller;
+
     /**
-     * Setter for the main window.
+     * Constructor of the class. It saves the controller of the game.
      * 
-     * @param mainWindow
-     *            the value of mainWindow
+     * @param c
+     *            The controller of the game.
      */
-    public static void setMainWindow(final Stage mainWindow) {
-        View.mainWindow = mainWindow;
+    public View(final ControllerInterface c) {
+        this.setController(c);
     }
 
     /**
-     * @param width
-     *            the new width of the graphic interface
-     * @param height
-     *            the new height of the graphic interface
+     * Setter of the controller (thread safe)
+     * 
+     * @param c
+     *            The controller of the game
      */
-    public static void resize(final double width, final double height) {
-        // TODO
+    private synchronized void setController(final ControllerInterface c) {
+        View.controller = c;
     }
 
     @Override
-    public void draw(final List<Pair<String, Location>> entityToDraw) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void start() {
-        // TODO Auto-generated method stub
-
+    public void startView() {
+        Application.launch(MainWindow.class);
     }
 
 }

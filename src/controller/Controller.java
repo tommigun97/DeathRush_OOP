@@ -7,7 +7,7 @@ import view.View;
 import view.ViewInterface;
 
 /**
- * Description of Controller
+ * Description of Controller.
  * 
  * @author tommi
  * 
@@ -87,4 +87,13 @@ public class Controller implements ControllerInterface {
 		return this.game.get().isPaused();
 	}
 
+    @Override
+    public final void setView(final ViewInterface v) {
+        this.view(v);
+    }
+
+    private void view(ViewInterface v) {
+        // TODO Auto-generated method stub
+        
+    }
 }

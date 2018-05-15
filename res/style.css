@@ -1,0 +1,15 @@
+
+#mainPane {
+    -fx-background-color: purple;
+    -fx-font-size: 15pt;
+    
+}
+#menu-buttons {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+#menu-buttons:hover {
+    -fx-background-color: black;
+    -fx-text-fill: red;
+}
