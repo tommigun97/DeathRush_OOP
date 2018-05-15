@@ -2,7 +2,6 @@ package view;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import view.menu.MainMenu;
 
 /**
  * Class responsible for creating the main window (Stage) of the application.
