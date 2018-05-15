@@ -1,7 +1,12 @@
+@font-face {
+    font-family:'Arcade Interlaced';
+    src: url('/font/arcade.ttf');
+}
 
 #mainPane {
+	-fx-font-family:'Arcade Interlaced';
     -fx-background-color: purple;
-    -fx-font-size: 15pt;
+    -fx-font-size: 15.0pt;
     
 }
 #menu-buttons {
