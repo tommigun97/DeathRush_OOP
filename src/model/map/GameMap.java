@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -15,13 +14,25 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import model.entity.Door;
+import model.entity.EntitityImpl.EntitiesBuilder;
 import model.room.Room;
-import model.room.Room.Coordinates;
+import model.room.RoomImpl.RoomBuilder;
 import utilities.Pair;
 
 
 public class GameMap implements Map{
+    
+    private final static int MAXROOM = 15;
+    private final static int MAXDOOR = 4;
 
+    private HashMap<Room, Set<Pair<Door, Coordinates>>> linked;
+    private Room firstRoom;
+    
+    public GameMap() {
+       
+    }
+    
+    
     @Override
     public Set<Door> getDoors() {
         // TODO Auto-generated method stub
@@ -52,8 +63,7 @@ public class GameMap implements Map{
         
     }
 /*
-    private final static int MAXROOM = 15;
-    private final static int MAXDOOR = 4;
+    
     
     private HashMap<Room, Set<Pair<Door, Coordinates>>> linked;
     private Room firstRoom;

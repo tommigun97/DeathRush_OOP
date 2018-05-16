@@ -5,7 +5,6 @@ import java.util.Set;
 
 import model.entity.Door;
 import model.room.Room;
-import model.room.Room.Coordinates;
 
 public interface Map {
     
