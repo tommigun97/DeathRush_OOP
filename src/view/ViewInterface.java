@@ -2,6 +2,7 @@ package view;
 
 import java.util.List;
 
+import controller.Time;
 import model.Location;
 import utilities.Pair;
 
@@ -36,8 +37,9 @@ public interface ViewInterface {
      *            .
      * @param money
      *            .
+     * @param time 
      */
 
-    void updateInfoToDraw(List<Integer> palyerInfo, int money);
+    void updateInfoToDraw(List<Integer> palyerInfo, int money, List<Integer> time);
 
 }

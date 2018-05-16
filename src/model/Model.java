@@ -2,6 +2,7 @@ package model;
 
 import java.util.List;
 
+import controller.Time;
 import utilities.Pair;
 
 /**
@@ -52,10 +53,10 @@ public interface Model {
      * @return the player money
      */
     int getMoney();
-    // Time getTime();
+    
+    Time getTime();
+    
     GameStatus getGameStatus();
-    // non esistono ancora la classe time e l'enumerazione game status
-
     /**
      * @return a list of the player ability
      */

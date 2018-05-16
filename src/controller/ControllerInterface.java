@@ -2,11 +2,6 @@ package controller;
 
 import view.ViewInterface;
 
-/**
- * 
- * @author tommi
- *
- */
 public interface ControllerInterface {
 
     /**
@@ -46,7 +41,7 @@ public interface ControllerInterface {
      *            .
      * @return True if the operation was successful, false otherwise.
      */
-    boolean setPlayerName(String namePlayer);
+    boolean getCurrentHighScores(String namePlayer);
 
     /**
      * Checks if there is a running game (existing and not paused).
@@ -63,10 +58,14 @@ public interface ControllerInterface {
     boolean isGameLoopPaused();
 
     /**
-     * 
+     *  take Input List from view and call model to execute it.
      */
     void processInput();
 
-    // public Timer getTimer();
+    /**
+     * 
+     * @return the model time
+     */
+	Time getTimer();
 
 }
