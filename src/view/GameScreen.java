@@ -1,10 +1,19 @@
 package view;
 
 public class GameScreen {
-
-    public static void setResolution(double currentWidth, double currentHeight, boolean fullScreen) {
+ 
+    /**
+     * 
+     * @param currentWidth
+     *            .
+     * @param currentHeight
+     *            .
+     * @param fullScreen
+     *            .
+     */
+    public static void setResolution(final double currentWidth, final double currentHeight, final boolean fullScreen) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

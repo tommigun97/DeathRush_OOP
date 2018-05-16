@@ -1,14 +1,16 @@
 package model.entity;
 
-import java.util.Optional;
-
 import model.Location;
 import model.room.Room;
 import utilities.Pair;
 
-public class GameDoor  implements Door {
-    
-    
+/**
+ * 
+ * @author Anis
+ *
+ */
+public class GameDoor implements Door {
+
     private final String image;
     private Location loc;
     private final EntityType type;
@@ -24,7 +26,7 @@ public class GameDoor  implements Door {
     }
 
     @Override
-    public Pair<Room, Room> getLink() {
+    public final Pair<Room, Room> getLink() {
         return this.linking;
     }
 
@@ -38,20 +40,35 @@ public class GameDoor  implements Door {
         return this.doorStatus;
     }
 
+    /**
+     * 
+     * @return .
+     */
     public String getImage() {
         return image;
     }
 
+    /**
+     * 
+     * @return .
+     */
     public Location getLoc() {
         return loc;
     }
-
+    /**
+     * 
+     * @return .
+     */
     public EntityType getType() {
         return type;
     }
-    
-    public static class GameDoorBuilder{
-        
+/**
+ * 
+ * @author Anis
+ *
+ */
+    public static class GameDoorBuilder {
+
         private String image;
         private Location loc;
         private EntityType type;
@@ -62,14 +79,29 @@ public class GameDoor  implements Door {
             this.image = image;
             return this;
         }
+/**
+ * 
+ * @param loc .
+ * @return .
+ */
         public GameDoorBuilder setLocation(final Location loc) {
             this.loc = loc;
             return this;
         }
+/**
+ * 
+ * @param type .
+ * @return .
+ */
         public GameDoorBuilder setType(final EntityType type) {
             this.type = type;
             return this;
         }
+/**
+ * 
+ * @param link .
+ * @return .
+ */
         public GameDoorBuilder setLink(final Pair<Room, Room> link) {
             this.linking = link;
             return this;
@@ -78,10 +110,14 @@ public class GameDoor  implements Door {
             this.doorStatus = doorStatus;
             return this;
         }
+/**
+ * 
+ * @return .
+ */
         public GameDoor build() {
             return new GameDoor(image, loc, type, linking, doorStatus);
         }
-        
+
     }
 
 }

@@ -7,10 +7,15 @@ import javafx.application.Application;
 import model.Location;
 import utilities.Pair;
 
+/**
+ * 
+ * @author lorenzo
+ *
+ */
 public class View implements ViewInterface {
 
     private static ControllerInterface controller;
-    //private final InputHandler inputHandler = InputHandler.getInputHandler();
+    // private final InputHandler inputHandler = InputHandler.getInputHandler();
 
     /**
      * Constructor of the class. It saves the controller of the game.
@@ -44,9 +49,10 @@ public class View implements ViewInterface {
      * @param gamescreen
      *            The GameScreen
      */
-   /* static void setGameWindow(final GameWindow gamescreen) {
-        View.gameWindow = gamescreen;
-    }*/
+    /*
+     * static void setGameWindow(final GameWindow gamescreen) { View.gameWindow =
+     * gamescreen; }
+     */
 
     /**
      * Getter of the controller.
@@ -58,21 +64,21 @@ public class View implements ViewInterface {
     }
 
     @Override
-    public void drawRoom(String roomBackGround) {
+    public void drawRoom(final String roomBackGround) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void drawEntities(List<Pair<String, Location>> entityToDrow) {
+    public void drawEntities(final List<Pair<String, Location>> entityToDrow) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void updateInfoToDraw(List<Integer> palyerInfo, int money) {
+    public void updateInfoToDraw(final List<Integer> palyerInfo, final int money) {
         // TODO Auto-generated method stub
-        
+
     }
 
 }
