@@ -76,7 +76,7 @@ public class View implements ViewInterface {
     }
 
     @Override
-    public void updateInfoToDraw(final List<Integer> palyerInfo, final int money) {
+    public void updateInfoToDraw(final List<Integer> palyerInfo, final int money, final List<Integer> time) {
         // TODO Auto-generated method stub
 
     }

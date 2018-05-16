@@ -1,15 +1,7 @@
 package controller;
 
-import java.util.List;
-
-import model.Direction;
 import view.ViewInterface;
 
-/**
- * 
- * @author tommi
- *
- */
 public interface ControllerInterface {
 
     /**
@@ -66,11 +58,14 @@ public interface ControllerInterface {
     boolean isGameLoopPaused();
 
     /**
-     * @return 
-     * 
+     *  take Input List from view and call model to execute it.
      */
     void processInput();
 
-	int getTimer();
+    /**
+     * 
+     * @return the model time
+     */
+	Time getTimer();
 
 }

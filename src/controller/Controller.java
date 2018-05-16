@@ -25,6 +25,7 @@ public class Controller implements ControllerInterface {
 	private Optional<GameLoop> game;
 	private final InputHandler input;
 	private Model model;
+	private Time gameTime;
 	private Score sc = new Score(FILENAME);
 
 	/**
@@ -33,6 +34,7 @@ public class Controller implements ControllerInterface {
 	public Controller() {
 		this.game = Optional.empty();
 		this.input = InputHandler.getInputHandler();
+		this.gameTime = getTimer();
 	}
 
 	@Override
@@ -56,8 +58,9 @@ public class Controller implements ControllerInterface {
 	}
 
 	@Override
-	public int getTimer() {
-		return this.model.getTime();
+	public final Time getTimer() {
+		//return this.model.getTime();
+		return new Time();
 	}
 
 	@Override
@@ -112,9 +115,6 @@ public class Controller implements ControllerInterface {
 		return shot;
 	}
 
-	/**
-	 * take Input List from view and call model to execute it.
-	 */
 	public void processInput() {
 		List<Direction> shotDirectionList = new LinkedList<>();
 		this.input.getShotList().forEach(x -> {
@@ -152,9 +152,9 @@ public class Controller implements ControllerInterface {
 	}
 
 	@Override
-	public boolean getCurrentHighScores(String namePlayer) {
+	public boolean getCurrentHighScores(final String namePlayer) {
 		try {
-			this.sc.saveOnFile(new Pair<String, Integer>(namePlayer, this.getTimer()));
+			this.sc.saveOnFile(new Pair<String, Integer>(namePlayer, this.gameTime.getTotalSecond()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
