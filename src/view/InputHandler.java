@@ -18,6 +18,7 @@ public final class InputHandler {
     private boolean s = false;
     private boolean a = false;
     private boolean d = false;
+    private boolean shotUp, shotDown, shotLeft, shotRight;
 
     private InputHandler() {
     };
@@ -36,7 +37,7 @@ public final class InputHandler {
      * 
      * @return A list of the current inputs.
      */
-    public List<Input> getList() {
+    public List<Input> getMovementList() {
         final List<Input> currentInputList = new LinkedList<>();
         if (this.w) {
             currentInputList.add(Input.W);
@@ -53,6 +54,23 @@ public final class InputHandler {
         return currentInputList;
     }
 
+    public List<Input> getShotList(){
+    	final List<Input> currentInputList = new LinkedList<>();
+        if (this.shotUp) {
+            currentInputList.add(Input.SHOT_UP);
+        }
+        if (this.shotDown) {
+            currentInputList.add(Input.SHOT_DOWN);
+        }
+        if (this.shotLeft) {
+            currentInputList.add(Input.SHOT_LEFT);
+        }
+        if (this.shotRight) {
+            currentInputList.add(Input.SHOT_RIGHT);
+        }
+        return currentInputList;
+    }
+    
     /**
      * This method empties the list of the input. Call this method every time a new
      * game is created.
@@ -63,6 +81,10 @@ public final class InputHandler {
         this.s = false;
         this.a = false;
         this.d = false;
+        this.shotUp = false;
+        this.shotDown = false;
+        this.shotRight = false;
+        this.shotLeft = false;
     }
 
     /**
@@ -102,8 +124,15 @@ public final class InputHandler {
             this.s = action;
         } else if (code == KeyCode.D) {
             this.d = action;
+        } else if (code == KeyCode.UP) {
+            this.shotUp = action;
+        } else if (code == KeyCode.DOWN) {
+            this.shotDown = action;
+        } else if (code == KeyCode.LEFT) {
+            this.shotLeft = action;
+        } else if (code == KeyCode.RIGHT) {
+            this.shotRight = action;
         }
-
     }
 
 }
