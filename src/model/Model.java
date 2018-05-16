@@ -31,7 +31,7 @@ public interface Model {
      * @param shoots
      *            number of shot that player should shoot
      */
-    void update(List<Direction> directions, int shoots);
+    void update(Direction directions, List<Direction> shoot);
 
     /**
      * Initialize the game world.
@@ -53,6 +53,11 @@ public interface Model {
      */
     int getMoney();
     // Time getTime();
-    // GameStatus getGameStatus();
+    GameStatus getGameStatus();
     // non esistono ancora la classe time e l'enumerazione game status
+
+    /**
+     * @return a list of the player ability
+     */
+	List<Integer> getPalyerInfo();
 }

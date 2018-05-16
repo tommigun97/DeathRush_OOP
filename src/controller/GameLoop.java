@@ -1,6 +1,11 @@
 package controller;
 
+import model.Direction;
+import model.GameStatus;
 import model.Model;
+import model.room.Room;
+import utilities.Input;
+import view.InputHandler;
 import view.ViewInterface;
 
 /**
@@ -22,30 +27,28 @@ public class GameLoop extends Thread {
     private volatile Status state;
     private final ViewInterface view;
     private final ControllerInterface controller;
-   // private final InputManager input;
     private Model model;
+    private Room room;
 
     public GameLoop(final ControllerInterface controller, final ViewInterface view) {
         this.controller = controller;
         this.view = view;
-       // this.input = InputManager.getInputHandler();
     }
 
     public void run() {
         long previous = System.currentTimeMillis();
         this.setState(Status.RUNNING);
         while (!this.isInState(Status.KILLED)) {
-            /*if (this.model.getGameStatus().equals(GameStatus.Running)) {
+            if (this.model.getGameStatus().equals(GameStatus.Running)) {
                 long current = System.currentTimeMillis();
                 int elapsed = (int) (current - previous);
-                processInput();
+                controller.processInput();
                 updateGame(elapsed);
-                render();
                 waitForNextFrame(current);
                 previous = current;
             } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
                 this.setState(Status.KILLED);
-            }*/
+            }
         }
         this.controller.abortGameLoop();
     }
@@ -59,46 +62,19 @@ public class GameLoop extends Thread {
             }
         }
     }
-
-    /*public void processInput() {
-        this.input.addInput();
-        input.getInputList().forEach(x -> {
-            if (x.equals(Input.W)) {
-                this.model.getPlayer().move();
-            } else if (x.equals(Input.S)) {
-                this.model.getPlayer().move();
-            } else if (x.equals(Input.A)) {
-                this.model.getPlayer().move();
-            } else if (x.equals(Input.D)) {
-                this.model.getPlayer().move();
-            } else if (x.equals(Input.SHOT_UP)) {
-                this.model.getPlayer().shot();
-            } else if (x.equals(Input.SHOT_DOWN)) {
-                this.model.getPlayer().shot();
-            } else if (x.equals(Input.SHOT_LEFT)) {
-                this.model.getPlayer().shot();
-            } else if (x.equals(Input.SHOT_RIGHT)) {
-                this.model.getPlayer().shot();
-            } else if (x.equals(Input.ESC)) {
-                this.controller.pauseGameLoop();
-                this.view.showPauseMenu();
-            } else if (x.equals(Input.M)) {
-                this.view.showMap();
-            }
-        });
-    }*/
-
-    public void render() {
-        //this.view.render();
-    }
-
+	
     public void updateGame(int elapsed) {
-        //this.model.getWorld().updateState(elapsed);
-        checkEvents();
+    	this.model.start();
+    	this.view.drawRoom(this.model.getRoomBackGround());
+    	this.view.drawEntities(this.model.getEntityToDrow());
+    	this.view.updateInfoToDraw(this.model.getPalyerInfo(), this.model.getMoney()/*, this.model.getTime*/);
+    	checkEvents();
     }
 
     private void checkEvents() {
-
+    	if(this.model.getPalyerLife() <= 0) {
+    		this.setState(Status.KILLED);
+    	}
     }
 
     private synchronized boolean isInState(final Status state) {
