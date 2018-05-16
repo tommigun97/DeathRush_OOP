@@ -13,9 +13,9 @@ public class GameDoor  implements Door {
     private Location loc;
     private final EntityType type;
     private final Pair<Room, Room> linking;
-    private setDoor doorStatus;
+    private DoorStatus doorStatus;
     
-    public GameDoor(final String image, Location loc, final EntityType type, Pair<Room, Room> linking, setDoor doorStatus) {
+    public GameDoor(final String image, Location loc, final EntityType type, Pair<Room, Room> linking, DoorStatus doorStatus) {
         this.image = image;
         this.loc = loc;
         this.type = type;
@@ -29,12 +29,12 @@ public class GameDoor  implements Door {
     }
 
     @Override
-    public void setDoorStatus(setDoor status) {
+    public void setDoorStatus(DoorStatus status) {
         this.doorStatus = status;
     }
 
     @Override
-    public setDoor getDoorStatus() {
+    public DoorStatus getDoorStatus() {
         return this.doorStatus;
     }
 
@@ -56,7 +56,7 @@ public class GameDoor  implements Door {
         private Location loc;
         private EntityType type;
         private Pair<Room, Room> linking;
-        private setDoor doorStatus;
+        private DoorStatus doorStatus;
         
         public GameDoorBuilder setImage(final String image) {
             this.image = image;
@@ -74,7 +74,7 @@ public class GameDoor  implements Door {
             this.linking = link;
             return this;
         }
-        public GameDoorBuilder setStatus(setDoor doorStatus) {
+        public GameDoorBuilder setStatus(DoorStatus doorStatus) {
             this.doorStatus = doorStatus;
             return this;
         }

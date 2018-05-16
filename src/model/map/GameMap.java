@@ -12,10 +12,11 @@ import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import model.entity.Door;
 import model.entity.EntitityImpl.EntitiesBuilder;
+import model.entity.GameDoor.GameDoorBuilder;
 import model.room.Room;
+import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
 import utilities.Pair;
 
@@ -25,11 +26,17 @@ public class GameMap implements Map{
     private final static int MAXROOM = 15;
     private final static int MAXDOOR = 4;
 
-    private HashMap<Room, Set<Pair<Door, Coordinates>>> linked;
+    private HashMap<Room, Set<Pair<Door, Coordinates>>> map;
+    private Set<Door> doors;
     private Room firstRoom;
+    private RoomBuilder rBuilder;
+    private GameDoorBuilder dBuilder;
     
     public GameMap() {
-       
+        this.map = new HashMap<>();
+        this.doors = new HashSet<>();
+        this.firstRoom = rBuilder.setRoomID(0).setComplited(true).setTypes(RoomType.FIRTS).build();
+        this.initMap(firstRoom);
     }
     
     
@@ -51,17 +58,34 @@ public class GameMap implements Map{
         return null;
     }
 
-    @Override
-    public void addLink(Room x, Room y, Coordinates z) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
     public void addNewRoom(Room x) {
-        // TODO Auto-generated method stub
-        
+        if (!this.map.containsKey(x)) {
+                this.map.put(x, new HashSet<>());
+        }
+}
+    
+    private void initMap(Room firstroom) {
+        this.addLink(firstRoom, this.rBuilder.setRoomID(1).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.NORTH, true);
+        this.addLink(firstRoom, this.rBuilder.setRoomID(4).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.SOUTH, true);
+        this.addLink(firstRoom, this.rBuilder.setRoomID(2).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.WEST, true);
+        this.addLink(firstRoom, this.rBuilder.setRoomID(3).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.EAST, true);
+        this.map.get(firstRoom)
+                                        .stream()
+                                        .forEach(d -> {
+                                                this.completeMap(new Random().nextInt(6) + 3, d.getA());
+                                        });
     }
+    
+    public void addLink(Room x, Room y, Coordinates z, DoorStatus statusLink) {
+        if (!this.map.containsKey(x))
+                this.map.put(x, new HashSet<>());
+        if (!this.map.containsKey(y))
+                this.map.put(y, new HashSet<>());
+        Door d = dBuilder.setLink(new Pair<Room, Room>(x, y)).setStatus(statusLink).build();
+        this.map.get(x).add(new Pair<Door, Coordinates>(d, z));
+        this.map.get(y).add(new Pair<Door, Coordinates>(d, Coordinates.reversCoordinate(z)));
+    }
+}
 /*
     
     
@@ -119,27 +143,9 @@ public class GameMap implements Map{
             }
     }
     
-    public void addNewRoom(Room x) {
-            if (!this.linked.containsKey(x)) {
-                    this.linked.put(x, new HashSet<>());
-            }
-    }
 
-    public void addLink(Room x, Room y, Coordinates z) {
-            if (!this.linked.containsKey(x))
-                    this.linked.put(x, new HashSet<>());
-            if (!this.linked.containsKey(y))
-                    this.linked.put(y, new HashSet<>());
-            Door d = new DoorImpl(x, y);
-            Pair<Door, Coordinates> p = new Pair<>();
-            p.setX(d);
-            p.setY(z);
-            this.linked.get(x).add(p);
-            Pair<Door, Coordinates> p1 = new Pair<>();
-            p1.setX(d);
-            p1.setY(Coordinates.reversCoordinate(z));
-            this.linked.get(y).add(p1);
-    }
+
+
     
     public Optional<Door> getDoor(Room x, Room z) {
             return this.getDoors()
@@ -164,7 +170,6 @@ public class GameMap implements Map{
 
     public Optional<Room> getRoom(int x) {
             return this.linked.keySet().stream().filter(y -> y.getRoomID() == x).findAny();
-            
     }
     
     public String toString() {

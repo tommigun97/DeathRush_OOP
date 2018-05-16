@@ -2,11 +2,13 @@ package model.room;
 
 
 import java.util.List;
+
 import java.util.Set;
 
 import model.entity.Door;
 import model.entity.Entity;
 
+import model.entity.Door.DoorStatus;
 
 
 /**
@@ -48,6 +50,7 @@ public class RoomImpl implements Room {
      */
     public void setComplited(final boolean complited) {
         this.complited = complited;
+        
     }
     /**
      *  @param door
@@ -73,7 +76,15 @@ public class RoomImpl implements Room {
      @Override
     public final String toString() {
          return "" + this.roomID;
-     }
+    }
+     
+    public void openDoors() {
+        this.doorsRoom.forEach(x -> x.setDoorStatus(DoorStatus.OPEN));
+    }
+    public void closeDoors() {
+        this.doorsRoom.forEach(x -> x.setDoorStatus(DoorStatus.CLOSE));
+    }
+    
 
      public static class RoomBuilder{
          
