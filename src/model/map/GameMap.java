@@ -19,6 +19,7 @@ import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
 import utilities.Pair;
+import model.entity.Door.DoorStatus;
 
 
 public class GameMap implements Map{
@@ -65,15 +66,11 @@ public class GameMap implements Map{
 }
     
     private void initMap(Room firstroom) {
-        this.addLink(firstRoom, this.rBuilder.setRoomID(1).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.NORTH, true);
-        this.addLink(firstRoom, this.rBuilder.setRoomID(4).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.SOUTH, true);
-        this.addLink(firstRoom, this.rBuilder.setRoomID(2).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.WEST, true);
-        this.addLink(firstRoom, this.rBuilder.setRoomID(3).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.EAST, true);
-        this.map.get(firstRoom)
-                                        .stream()
-                                        .forEach(d -> {
-                                                this.completeMap(new Random().nextInt(6) + 3, d.getA());
-                                        });
+        this.addLink(firstRoom, this.rBuilder.setRoomID(1).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.NORTH, DoorStatus.OPEN);
+        this.addLink(firstRoom, this.rBuilder.setRoomID(4).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.SOUTH, DoorStatus.OPEN);
+        this.addLink(firstRoom, this.rBuilder.setRoomID(2).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.WEST, DoorStatus.OPEN);
+        this.addLink(firstRoom, this.rBuilder.setRoomID(3).setTypes(RoomType.INTERMEDIATE).build(), Coordinates.EAST, DoorStatus.OPEN);
+ 
     }
     
     public void addLink(Room x, Room y, Coordinates z, DoorStatus statusLink) {
@@ -176,4 +173,4 @@ public class GameMap implements Map{
             return "" + this.linked;
     }
     */
-}
+
