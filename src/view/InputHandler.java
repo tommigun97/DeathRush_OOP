@@ -27,7 +27,7 @@ public final class InputHandler {
      * 
      * @return The singleton instance of this class.
      */
-    static InputHandler getInputHandler() {
+    public static InputHandler getInputHandler() {
         return InputHandler.INPUTHANDLER;
     }
 
@@ -36,7 +36,7 @@ public final class InputHandler {
      * 
      * @return A list of the current inputs.
      */
-    List<Input> getList() {
+    public List<Input> getList() {
         final List<Input> currentInputList = new LinkedList<>();
         if (this.w) {
             currentInputList.add(Input.W);

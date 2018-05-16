@@ -6,6 +6,16 @@ package model;
  * directions.
  */
 public enum Direction {
+	
+	/**
+	*
+	*/
+	NOTHING {
+		@Override
+		public void changeLocation(Location loc, double speed) {
+			
+		}
+	},
     /**
      * 
      */

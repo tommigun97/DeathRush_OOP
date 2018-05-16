@@ -53,6 +53,6 @@ public interface Model {
      */
     int getMoney();
     // Time getTime();
-    // GameStatus getGameStatus();
+    GameStatus getGameStatus();
     // non esistono ancora la classe time e l'enumerazione game status
 }

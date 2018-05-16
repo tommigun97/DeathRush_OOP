@@ -1,6 +1,9 @@
 package controller;
 
+import model.GameStatus;
 import model.Model;
+import utilities.Input;
+import view.InputHandler;
 import view.ViewInterface;
 
 /**
@@ -22,20 +25,20 @@ public class GameLoop extends Thread {
     private volatile Status state;
     private final ViewInterface view;
     private final ControllerInterface controller;
-   // private final InputManager input;
+    private final InputHandler input;
     private Model model;
 
     public GameLoop(final ControllerInterface controller, final ViewInterface view) {
         this.controller = controller;
         this.view = view;
-       // this.input = InputManager.getInputHandler();
+        this.input = InputHandler.getInputHandler();
     }
 
     public void run() {
         long previous = System.currentTimeMillis();
         this.setState(Status.RUNNING);
         while (!this.isInState(Status.KILLED)) {
-            /*if (this.model.getGameStatus().equals(GameStatus.Running)) {
+            if (this.model.getGameStatus().equals(GameStatus.Running)) {
                 long current = System.currentTimeMillis();
                 int elapsed = (int) (current - previous);
                 processInput();
@@ -45,7 +48,7 @@ public class GameLoop extends Thread {
                 previous = current;
             } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
                 this.setState(Status.KILLED);
-            }*/
+            }
         }
         this.controller.abortGameLoop();
     }
@@ -60,12 +63,11 @@ public class GameLoop extends Thread {
         }
     }
 
-    /*public void processInput() {
-        this.input.addInput();
-        input.getInputList().forEach(x -> {
+    public void processInput() {
+       this.input.getList().forEach(x -> {
             if (x.equals(Input.W)) {
-                this.model.getPlayer().move();
-            } else if (x.equals(Input.S)) {
+                ;
+            /*} else if (x.equals(Input.S)) {
                 this.model.getPlayer().move();
             } else if (x.equals(Input.A)) {
                 this.model.getPlayer().move();
@@ -84,9 +86,9 @@ public class GameLoop extends Thread {
                 this.view.showPauseMenu();
             } else if (x.equals(Input.M)) {
                 this.view.showMap();
-            }
+            }*/
         });
-    }*/
+    }
 
     public void render() {
         //this.view.render();
