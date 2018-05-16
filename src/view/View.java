@@ -1,13 +1,12 @@
 package view;
 
+import java.util.List;
+
 import controller.ControllerInterface;
 import javafx.application.Application;
+import model.Location;
+import utilities.Pair;
 
-/**
- * 
- * @author lorenzo
- *
- */
 public class View implements ViewInterface {
 
     private static ControllerInterface controller;
@@ -56,6 +55,24 @@ public class View implements ViewInterface {
      */
     static ControllerInterface getController() {
         return View.controller;
+    }
+
+    @Override
+    public void drawRoom(String roomBackGround) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void drawEntities(List<Pair<String, Location>> entityToDrow) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void updateInfoToDraw(List<Integer> palyerInfo, int money) {
+        // TODO Auto-generated method stub
+        
     }
 
 }

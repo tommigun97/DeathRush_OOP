@@ -63,6 +63,8 @@ public interface ControllerInterface {
      */
     public boolean isGameLoopPaused();
 
+	public void processInput();
+
     // public Timer getTimer();
 
 }
