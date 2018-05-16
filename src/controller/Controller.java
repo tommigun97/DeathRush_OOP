@@ -17,138 +17,143 @@ import view.ViewInterface;
  */
 public class Controller implements ControllerInterface {
 
-	static String FILENAME = "ScoreList";
+   // static String FILENAME = "ScoreList";
 
-	private ViewInterface view;
-	private Optional<GameLoop> game;
+    private ViewInterface view;
+    private Optional<GameLoop> game;
     private final InputHandler input;
     private Model model;
-	private Score sc = new Score(FILENAME);
-	
-	/**
-	 * The constructor of the Class.
-	 */
-	public Controller() {
-		this.game = Optional.empty();
-		this.input = InputHandler.getInputHandler();
-	}
+    //private Score sc = new Score(FILENAME);
 
-	@Override
-	public final void startGameLoop() throws IllegalStateException {
-		if (!this.game.isPresent()) {
-			throw new IllegalStateException();
-		}
-		final GameLoop gl = new GameLoop(this, this.view);
-		this.game = Optional.of(gl);
-		gl.start();
-	}
-	/**
-	 * Setter of the View from the interface.
-	 * @param view 
-	 *                     the current view.
-	 */
-	public void setView(final ViewInterface view) {
-		this.view = view;
-	}
+    /**
+     * The constructor of the Class.
+     */
+    public Controller() {
+        this.game = Optional.empty();
+        this.input = InputHandler.getInputHandler();
+    }
 
-	// @Override
-	// public Timer getTimer() {
-	// return this.model.getTimer();
-	// }
+    @Override
+    public final void startGameLoop() throws IllegalStateException {
+        if (!this.game.isPresent()) {
+            throw new IllegalStateException();
+        }
+        final GameLoop gl = new GameLoop(this, this.view);
+        this.game = Optional.of(gl);
+        gl.start();
+    }
 
-	@Override
-	public final void pauseGameLoop() {
-		if (this.game.isPresent()) {
-			this.game.get().pause();
-		}
-	}
+    /**
+     * Setter of the View from the interface.
+     * 
+     * @param view
+     *            the current view.
+     */
+    public void setView(final ViewInterface view) {
+        this.view = view;
+    }
 
-	@Override
-	public final void abortGameLoop() {
-		if (this.game.isPresent()) {
-			this.game.get().abort();
-			this.game = Optional.empty();
-		}
-	}
+    // @Override
+    // public Timer getTimer() {
+    // return this.model.getTimer();
+    // }
 
-	@Override
-	public final void resumeGameLoop() {
-		if (this.game.isPresent()) {
-			this.game.get().resumeGame();
-		}
-	}
+    @Override
+    public final void pauseGameLoop() {
+        if (this.game.isPresent()) {
+            this.game.get().pause();
+        }
+    }
 
-	@Override
-	public final boolean setPlayerName(final String namePlayer) {
-		//this.sc.saveOnFile(new Pair<>(namePlayer, model.getTime()));
-		return false;
-	}
+    @Override
+    public final void abortGameLoop() {
+        if (this.game.isPresent()) {
+            this.game.get().abort();
+            this.game = Optional.empty();
+        }
+    }
 
-	@Override
-	public final boolean isGameLoopRunning() {
-		if (!this.game.isPresent()) {
-			return false;
-		}
-		return this.game.get().isRunning();
-	}
+    @Override
+    public final void resumeGameLoop() {
+        if (this.game.isPresent()) {
+            this.game.get().resumeGame();
+        }
+    }
 
-	@Override
-	public final boolean isGameLoopPaused() {
-		if (!this.game.isPresent()) {
-			return false;
-		}
-		return this.game.get().isPaused();
-	}
+    @Override
+    public final boolean setPlayerName(final String namePlayer) {
+        // this.sc.saveOnFile(new Pair<>(namePlayer, model.getTime()));
+        return false;
+    }
 
-	private Direction translateShot(Input e) {
-		Direction shot = Direction.NOTHING;
-		if (e.equals(Input.SHOT_UP)) {
-			shot = Direction.N;
-		} else if (e.equals(Input.SHOT_DOWN)) {
-			shot = Direction.S;
-		} else if (e.equals(Input.SHOT_LEFT)) {
-			shot = Direction.W;
-		} else if (e.equals(Input.SHOT_RIGHT)) {
-			shot = Direction.E;
-		}
-		return shot;
-	}
+    @Override
+    public final boolean isGameLoopRunning() {
+        if (!this.game.isPresent()) {
+            return false;
+        }
+        return this.game.get().isRunning();
+    }
 
-	public void processInput() {
-		List<Direction> shotDirectionList = new LinkedList<>();
-		this.input.getShotList().forEach(x-> {
-			shotDirectionList.add(translateShot(x));
-		});
-		if (this.input.getMovementList().size() > 2) {
-			this.model.update(Direction.NOTHING, shotDirectionList);
-		} else if (this.input.getMovementList().size() == 2) {
-			if (this.input.getMovementList().contains(Input.W) && this.input.getMovementList().contains(Input.D)) {
-				this.model.update(Direction.NE, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.W)
-					&& this.input.getMovementList().contains(Input.A)) {
-				this.model.update(Direction.NW, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.W)
-					&& this.input.getMovementList().contains(Input.S)) {
-				this.model.update(Direction.NOTHING, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.S)
-					&& this.input.getMovementList().contains(Input.D)) {
-				this.model.update(Direction.SE, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.S)
-					&& this.input.getMovementList().contains(Input.A)) {
-				this.model.update(Direction.SW, shotDirectionList);
-			}
-		} else if (this.input.getMovementList().size() < 2) {
-			if (this.input.getMovementList().contains(Input.W)) {
-				this.model.update(Direction.N, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.A)) {
-				this.model.update(Direction.W, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.D)) {
-				this.model.update(Direction.E, shotDirectionList);
-			} else if (this.input.getMovementList().contains(Input.S)) {
-				this.model.update(Direction.S, shotDirectionList);
-			}
-		}
+    @Override
+    public final boolean isGameLoopPaused() {
+        if (!this.game.isPresent()) {
+            return false;
+        }
+        return this.game.get().isPaused();
+    }
 
-	}
-	
+    private Direction translateShot(final Input e) {
+        Direction shot = Direction.NOTHING;
+        if (e.equals(Input.SHOT_UP)) {
+            shot = Direction.N;
+        } else if (e.equals(Input.SHOT_DOWN)) {
+            shot = Direction.S;
+        } else if (e.equals(Input.SHOT_LEFT)) {
+            shot = Direction.W;
+        } else if (e.equals(Input.SHOT_RIGHT)) {
+            shot = Direction.E;
+        }
+        return shot;
+    }
+
+    /**
+     * Missing JavaDoc.
+     */
+    public void processInput() {
+        List<Direction> shotDirectionList = new LinkedList<>();
+        this.input.getShotList().forEach(x -> {
+            shotDirectionList.add(translateShot(x));
+        });
+        if (this.input.getMovementList().size() > 2) {
+            this.model.update(Direction.NOTHING, shotDirectionList);
+        } else if (this.input.getMovementList().size() == 2) {
+            if (this.input.getMovementList().contains(Input.W) && this.input.getMovementList().contains(Input.D)) {
+                this.model.update(Direction.NE, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.W)
+                    && this.input.getMovementList().contains(Input.A)) {
+                this.model.update(Direction.NW, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.W)
+                    && this.input.getMovementList().contains(Input.S)) {
+                this.model.update(Direction.NOTHING, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.S)
+                    && this.input.getMovementList().contains(Input.D)) {
+                this.model.update(Direction.SE, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.S)
+                    && this.input.getMovementList().contains(Input.A)) {
+                this.model.update(Direction.SW, shotDirectionList);
+            }
+        } else if (this.input.getMovementList().size() < 2) {
+            if (this.input.getMovementList().contains(Input.W)) {
+                this.model.update(Direction.N, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.A)) {
+                this.model.update(Direction.W, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.D)) {
+                this.model.update(Direction.E, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.S)) {
+                this.model.update(Direction.S, shotDirectionList);
+            }
+        }
+
+    }
+
 }

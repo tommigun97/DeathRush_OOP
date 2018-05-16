@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import model.entity.EntitityImpl;
 import model.entity.Entity;
-import static model.entity.EntityType.*;
+import model.entity.EntityType;
 
 /**
  * class for testing entities.
@@ -23,8 +23,8 @@ public class MiniTest {
 
     @Test
     void buildingTest() {
-        final Entity w = new EntitityImpl.EntitiesBuilder().with("alive", true).with("speed", INT_PROP).with("maxLife", DOUBLE_PROP)
-                .setType(PLAYER).with("string", STRING_PROP).build();
+        final Entity w = new EntitityImpl.EntitiesBuilder().with("alive", true).with("speed", INT_PROP)
+                .with("maxLife", DOUBLE_PROP).setType(EntityType.PLAYER).with("string", STRING_PROP).build();
 
         assertEquals(w.getDoubleProperty("maxLife"), DOUBLE_PROP);
         assertEquals(w.getIntegerProperty("speed"), INT_PROP);

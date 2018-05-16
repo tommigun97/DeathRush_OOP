@@ -10,13 +10,34 @@ import utilities.Pair;
  *
  */
 public interface ViewInterface {
-
+    /**
+     * 
+     */
     void startView();
 
-	void drawRoom(String roomBackGround);
+    /**
+     * 
+     * @param roomBackGround
+     *            .
+     */
 
-	void drawEntities(List<Pair<String, Location>> entityToDrow);
+    void drawRoom(String roomBackGround);
 
-	void updateInfoToDraw(List<Integer> palyerInfo, int money);
+    /**
+     * 
+     * @param entityToDrow
+     *            .
+     */
+    void drawEntities(List<Pair<String, Location>> entityToDrow);
+
+    /**
+     * 
+     * @param palyerInfo
+     *            .
+     * @param money
+     *            .
+     */
+
+    void updateInfoToDraw(List<Integer> palyerInfo, int money);
 
 }

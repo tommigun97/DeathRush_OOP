@@ -1,9 +1,5 @@
 package controller;
 
-import java.util.List;
-
-import utilities.Pair;
-import view.View;
 import view.ViewInterface;
 
 /**
@@ -14,40 +10,43 @@ import view.ViewInterface;
 public interface ControllerInterface {
 
     /**
-     * Make the Game Loop start to work
+     * Make the Game Loop start to work.
      * 
+     * @throws IllegalStateException .
      */
-    public void startGameLoop() throws IllegalStateException;
+    void startGameLoop() throws IllegalStateException;
 
     /**
-     * Set the GUI of the game
+     * Set the GUI of the game.
      * 
      * @param view
+     *            .
      */
-    public void setView(ViewInterface view);
+    void setView(ViewInterface view);
 
     /**
-     * Set Game loop in pause
+     * Set Game loop in pause.
      */
-    public void pauseGameLoop();
+    void pauseGameLoop();
 
     /***
-     * Kill the Game loop
+     * Kill the Game loop.
      */
-    public void abortGameLoop();
+    void abortGameLoop();
 
     /**
-     * Resume Game loop from pause
+     * Resume Game loop from pause.
      */
-    public void resumeGameLoop();
+    void resumeGameLoop();
 
     /**
-     * Save the score (time) and the name player
+     * Save the score (time) and the name player.
      * 
      * @param namePlayer
+     *            .
      * @return True if the operation was successful, false otherwise.
      */
-    public boolean setPlayerName(String namePlayer);
+    boolean setPlayerName(String namePlayer);
 
     /**
      * Checks if there is a running game (existing and not paused).
@@ -61,9 +60,12 @@ public interface ControllerInterface {
      *
      * @return True if there is a paused GameLoop, false otherwise.
      */
-    public boolean isGameLoopPaused();
+    boolean isGameLoopPaused();
 
-	public void processInput();
+    /**
+     * 
+     */
+    void processInput();
 
     // public Timer getTimer();
 

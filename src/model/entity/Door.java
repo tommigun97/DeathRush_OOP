@@ -1,11 +1,7 @@
 package model.entity;
 
-
 import model.room.Room;
 import utilities.Pair;
-
-
-
 
 /**
  * 
@@ -18,26 +14,27 @@ public interface Door {
      * @author anisl
      *
      */
-    enum setDoor{
+    enum DoorStatus{
 
-        OPEN,
-        CLOSE;
+        OPEN, CLOSE;
     }
+
     /**
-     * Method for getting Room that are link by Door
+     * Method for getting Room that are link by Door.
      * 
      * @return Pair<Room, Room>
      */
     Pair<Room, Room> getLink();
+
     /**
      * 
      * @param status
-     *          Door status
+     *            Door status
      */
-    void setDoorStatus(setDoor status);
+    void setDoorStatus(DoorStatus status);
     /**
      * 
      * @return setDoor
      */
-    setDoor getDoorStatus();
+    DoorStatus getDoorStatus();
 }

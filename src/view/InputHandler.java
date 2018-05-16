@@ -54,8 +54,12 @@ public final class InputHandler {
         return currentInputList;
     }
 
-    public List<Input> getShotList(){
-    	final List<Input> currentInputList = new LinkedList<>();
+    /**
+     * 
+     * @return .
+     */
+    public List<Input> getShotList() {
+        final List<Input> currentInputList = new LinkedList<>();
         if (this.shotUp) {
             currentInputList.add(Input.SHOT_UP);
         }
@@ -70,7 +74,7 @@ public final class InputHandler {
         }
         return currentInputList;
     }
-    
+
     /**
      * This method empties the list of the input. Call this method every time a new
      * game is created.

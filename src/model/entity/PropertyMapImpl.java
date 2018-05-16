@@ -10,7 +10,7 @@ import java.util.Map;
 public final class PropertyMapImpl implements PropertyMap {
 
     private final Map<String, Object> m = new HashMap<>();
-    private final static String NOT_PROPERTY = "The Property requested doesn't exist";
+    private static final String NOT_PROPERTY = "The Property requested doesn't exist";
 
     @Override
     public int getIntegerProperty(final String property) {
@@ -19,7 +19,7 @@ public final class PropertyMapImpl implements PropertyMap {
         } else {
             throw new IllegalArgumentException(NOT_PROPERTY);
         }
-        
+
     }
 
     @Override
