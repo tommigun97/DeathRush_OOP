@@ -8,6 +8,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+
 /**
  * 
  * 
@@ -41,6 +42,10 @@ public final class MainMenu extends Scene {
         this.bestScores.setId("menu-buttons");
         this.settings.setMinWidth(vbox.getPrefWidth());
         this.settings.setId("menu-buttons");
+        this.settings.setOnAction(e -> {
+            mainStage.setScene(SettingsWindow.get(MainMenu.mainStage));
+            // SettingsWindow.update();
+        });
         this.credits.setMinWidth(vbox.getPrefWidth());
         this.credits.setId("menu-buttons");
         this.credits.setOnAction(e -> ShowCredits.display());
