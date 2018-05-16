@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.List;
+
+import model.Direction;
 import view.ViewInterface;
 
 /**
@@ -46,7 +49,7 @@ public interface ControllerInterface {
      *            .
      * @return True if the operation was successful, false otherwise.
      */
-    boolean setPlayerName(String namePlayer);
+    boolean getCurrentHighScores(String namePlayer);
 
     /**
      * Checks if there is a running game (existing and not paused).
@@ -63,10 +66,11 @@ public interface ControllerInterface {
     boolean isGameLoopPaused();
 
     /**
+     * @return 
      * 
      */
     void processInput();
 
-    // public Timer getTimer();
+	int getTimer();
 
 }
