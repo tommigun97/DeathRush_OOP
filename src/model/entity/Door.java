@@ -12,7 +12,7 @@ import utilities.Pair;
  * @author anisl
  *
  */
-public interface Door  extends Entity{
+public interface Door {
     /**
      * 
      * @author anisl
