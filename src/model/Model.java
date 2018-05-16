@@ -28,9 +28,9 @@ public interface Model {
 
     /**
      * @param directions
-     *            direction where the player have to move
-     * @param shoots
-     *            number of shot that player should shoot
+     *            direction where the player have to move.
+     * @param shoot
+     *            number of shot that player should shoot.
      */
     void update(Direction directions, List<Direction> shoot);
 
@@ -53,12 +53,21 @@ public interface Model {
      * @return the player money
      */
     int getMoney();
-    
+
+    /**
+     * 
+     * @return .
+     */
     Time getTime();
-    
+
+    /**
+     * 
+     * @return .
+     */
     GameStatus getGameStatus();
+
     /**
      * @return a list of the player ability
      */
-	List<Integer> getPalyerInfo();
+    List<Integer> getPalyerInfo();
 }

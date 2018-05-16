@@ -16,8 +16,22 @@ public class GameDoor implements Door {
     private final EntityType type;
     private final Pair<Room, Room> linking;
     private DoorStatus doorStatus;
-    
-    public GameDoor(final String image, Location loc, final EntityType type, Pair<Room, Room> linking, DoorStatus doorStatus) {
+
+    /**
+     * 
+     * @param image
+     *            .
+     * @param loc
+     *            .
+     * @param type
+     *            .
+     * @param linking
+     *            .
+     * @param doorStatus
+     *            .
+     */
+    public GameDoor(final String image, final Location loc, final EntityType type, final Pair<Room, Room> linking,
+            final DoorStatus doorStatus) {
         this.image = image;
         this.loc = loc;
         this.type = type;
@@ -31,12 +45,12 @@ public class GameDoor implements Door {
     }
 
     @Override
-    public void setDoorStatus(DoorStatus status) {
+    public final void setDoorStatus(final DoorStatus status) {
         this.doorStatus = status;
     }
 
     @Override
-    public DoorStatus getDoorStatus() {
+    public final DoorStatus getDoorStatus() {
         return this.doorStatus;
     }
 
@@ -55,6 +69,7 @@ public class GameDoor implements Door {
     public Location getLoc() {
         return loc;
     }
+
     /**
      * 
      * @return .
@@ -62,11 +77,12 @@ public class GameDoor implements Door {
     public EntityType getType() {
         return type;
     }
-/**
- * 
- * @author Anis
- *
- */
+
+    /**
+     * 
+     * @author Anis
+     *
+     */
     public static class GameDoorBuilder {
 
         private String image;
@@ -74,46 +90,66 @@ public class GameDoor implements Door {
         private EntityType type;
         private Pair<Room, Room> linking;
         private DoorStatus doorStatus;
-        
+
+        /**
+         * 
+         * @param image
+         *            .
+         * @return .
+         */
         public GameDoorBuilder setImage(final String image) {
             this.image = image;
             return this;
         }
-/**
- * 
- * @param loc .
- * @return .
- */
+
+        /**
+         * 
+         * @param loc
+         *            .
+         * @return .
+         */
         public GameDoorBuilder setLocation(final Location loc) {
             this.loc = loc;
             return this;
         }
-/**
- * 
- * @param type .
- * @return .
- */
+
+        /**
+         * 
+         * @param type
+         *            .
+         * @return .
+         */
         public GameDoorBuilder setType(final EntityType type) {
             this.type = type;
             return this;
         }
-/**
- * 
- * @param link .
- * @return .
- */
+
+        /**
+         * 
+         * @param link
+         *            .
+         * @return .
+         */
         public GameDoorBuilder setLink(final Pair<Room, Room> link) {
             this.linking = link;
             return this;
         }
-        public GameDoorBuilder setStatus(DoorStatus doorStatus) {
+
+        /**
+         * 
+         * @param doorStatus
+         *            .
+         * @return .
+         */
+        public GameDoorBuilder setStatus(final DoorStatus doorStatus) {
             this.doorStatus = doorStatus;
             return this;
         }
-/**
- * 
- * @return .
- */
+
+        /**
+         * 
+         * @return .
+         */
         public GameDoor build() {
             return new GameDoor(image, loc, type, linking, doorStatus);
         }

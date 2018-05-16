@@ -2,7 +2,6 @@ package view;
 
 import java.util.List;
 
-import controller.Time;
 import model.Location;
 import utilities.Pair;
 

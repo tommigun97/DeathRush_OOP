@@ -1,57 +1,60 @@
 package controller;
 
 import java.util.List;
-
+/**
+ * 
+ *
+ */
 public interface TimeInterface {
 
-	/**
-	 * start the clock
-	 */
-	public void start();
+    /**
+     * start the clock.
+     */
+    void start();
 
-	/**
-	 * set clock on pause
-	 */
-	public void pause();
+    /**
+     * set clock on pause.
+     */
+    void pause();
 
-	/**
-	 * unPause the clock
-	 */
-	public void resume();
+    /**
+     * unPause the clock.
+     */
+    void resume();
 
-	/**
-	 * delete sec min and hour, and be ready to start a new time
-	 */
-	public void resetTime();
+    /**
+     * delete sec min and hour, and be ready to start a new time.
+     */
+    void resetTime();
 
-	/**
-	 * 
-	 * @return All the time spent in second
-	 */
-	public int getTotalSecond();
+    /**
+     * 
+     * @return All the time spent in second
+     */
+    int getTotalSecond();
 
-	/**
-	 * 
-	 * @return the actual seconds
-	 */
-	public int getSec();
+    /**
+     * 
+     * @return the actual seconds
+     */
+    int getSec();
 
-	/**
-	 * 
-	 * @return the actual mins
-	 */
-	public int getMin();
+    /**
+     * 
+     * @return the actual mins
+     */
+    int getMin();
 
-	/**
-	 * 
-	 * @return the actual hours
-	 */
-	public int getHour();
+    /**
+     * 
+     * @return the actual hours
+     */
+    int getHour();
 
-	/**
-	 * 
-	 * @return a integer list with hour, minutes and seconds
-	 */
-	public List<Integer> transformSecondInTime();
+    /**
+     * 
+     * @return a integer list with hour, minutes and seconds
+     */
+    List<Integer> transformSecondInTime();
 
 }

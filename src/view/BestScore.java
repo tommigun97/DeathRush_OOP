@@ -25,6 +25,14 @@ public class BestScore extends Scene {
 
     private static final BestScore MAINSCENE = new BestScore();
 
+    private static final double FONT_SIZE = 46;
+
+    private static final double DROP_SHADOW_RADIUS = 25;
+
+    private static final double DROP_SHADOW_SPREAD = 0.25;
+
+    private static final double BOTTOM_BOX_SPACING = 15;
+
     private static VBox listScores;
     private static Stage mainStage;
 
@@ -36,13 +44,13 @@ public class BestScore extends Scene {
 
 
         Text mainTitle = new Text("Best Scores");
-        mainTitle.setFont(Font.font(null, FontWeight.BOLD, 46));
+        mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Best Scores");
 
         final DropShadow dropShadow = new DropShadow();
         dropShadow.setColor(Color.DODGERBLUE);
-        dropShadow.setRadius(25);
-        dropShadow.setSpread(0.25);
+        dropShadow.setRadius(DROP_SHADOW_RADIUS);
+        dropShadow.setSpread(DROP_SHADOW_SPREAD);
         dropShadow.setBlurType(BlurType.GAUSSIAN);
         mainTitle.setEffect(dropShadow);
 
@@ -62,7 +70,7 @@ public class BestScore extends Scene {
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
         bottomLayout.setPadding(new Insets(0, 0, 100, 0));
-        bottomBox.setSpacing(15);
+        bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.getChildren().addAll(back, reset);
         bottomLayout.getChildren().add(bottomBox);
@@ -124,7 +132,7 @@ public class BestScore extends Scene {
      * the user.
      */
     private void resetScores() {
-        final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
+        //final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
         /*if (answer) {
             if (View.getController().emptyHighScores()) {
                 BestScore.listHighScores.getChildren().clear();

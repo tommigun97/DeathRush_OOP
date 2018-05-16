@@ -14,7 +14,7 @@ public interface Door {
      * @author anisl
      *
      */
-    enum DoorStatus{
+    enum DoorStatus {
 
         OPEN, CLOSE;
     }
@@ -32,6 +32,7 @@ public interface Door {
      *            Door status
      */
     void setDoorStatus(DoorStatus status);
+
     /**
      * 
      * @return setDoor

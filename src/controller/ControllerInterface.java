@@ -1,13 +1,17 @@
 package controller;
 
 import view.ViewInterface;
-
+/**
+ * 
+ *
+ */
 public interface ControllerInterface {
 
     /**
      * Make the Game Loop start to work.
      * 
-     * @throws IllegalStateException .
+     * @throws IllegalStateException
+     *             .
      */
     void startGameLoop() throws IllegalStateException;
 
@@ -58,7 +62,7 @@ public interface ControllerInterface {
     boolean isGameLoopPaused();
 
     /**
-     *  take Input List from view and call model to execute it.
+     * take Input List from view and call model to execute it.
      */
     void processInput();
 
@@ -66,6 +70,6 @@ public interface ControllerInterface {
      * 
      * @return the model time
      */
-	Time getTimer();
+    Time getTimer();
 
 }

@@ -1,5 +1,9 @@
 package view;
-
+/**
+ * 
+ * @author lorenzo
+ *
+ */
 public class GameScreen {
  
     /**

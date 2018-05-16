@@ -1,21 +1,43 @@
 package model.room;
 
-import java.util.Random;
 import java.util.Set;
 
 import model.entity.Door;
 
-
-
+/**
+ * 
+ *
+ */
 public interface Room {
-    
-         void addDoor(Door doorList);
+    /**
+     * 
+     * @param doorList
+     *            .
+     */
+    void addDoor(Door doorList);
 
-         Set<Door> getDoor();
+    /**
+     * 
+     * @return .
+     */
+    Set<Door> getDoor();
 
-         int getRoomID();
+    /**
+     * 
+     * @return .
+     */
+    int getRoomID();
 
-         boolean isComplited();
+    /**
+     * 
+     * @return .
+     */
+    boolean isComplited();
 
-         void setComplited(boolean complited);
+    /**
+     * 
+     * @param complited
+     *            .
+     */
+    void setComplited(boolean complited);
 }

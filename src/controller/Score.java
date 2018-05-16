@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 import utilities.Pair;
+
 /**
  * 
  * 
@@ -21,16 +22,16 @@ public class Score implements ScoreInterface {
     private static final Integer MAX_SCORE = 10;
 
     private List<Pair<String, Integer>> scoreList = new ArrayList<>();
-	private final String fileName;
+    private final String fileName;
 
-	/**
-	 * 
-	 * @param fileName
-	 *            .
-	 */
-	public Score(final String fileName) {
-		this.fileName = fileName;
-	}
+    /**
+     * 
+     * @param fileName
+     *            .
+     */
+    public Score(final String fileName) {
+        this.fileName = fileName;
+    }
 
     @Override
     public final void saveOnFile(final Pair<String, Integer> a) throws IOException {
@@ -55,17 +56,18 @@ public class Score implements ScoreInterface {
         bw.close();
     }
 
-	/**
-	 * call isRecord and sortList method, to remove sort the score and keep only the
-	 * best ten score
-	 * 
-	 * @param a is the new score
-	 * @throws IOException
-	 */
-	private void putScoreInAList(final Pair<String, Integer> a) throws IOException {
-		this.scoreList = this.getScoreList();
-		this.scoreList.add(a);
-		this.sortList(scoreList);
+    /**
+     * call isRecord and sortList method, to remove sort the score and keep only the
+     * best ten score.
+     * 
+     * @param a
+     *            is the new score
+     * @throws IOException
+     */
+    private void putScoreInAList(final Pair<String, Integer> a) throws IOException {
+        this.scoreList = this.getScoreList();
+        this.scoreList.add(a);
+        this.sortList(scoreList);
         if (this.isRecord(a)) {
             System.out.println("NEW RECORD!!");
         }
@@ -74,10 +76,11 @@ public class Score implements ScoreInterface {
         }
     }
 
-	/**
-	 * sort the scoreList2
-	 * @param scoreList2
-	 */
+    /**
+     * sort the scoreList2.
+     * 
+     * @param scoreList2
+     */
     private void sortList(final List<Pair<String, Integer>> scoreList2) {
         Collections.sort(scoreList2, (a, b) -> a.getSecond() - b.getSecond());
     }

@@ -20,12 +20,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import view.MainMenu;
 import utilities.Pair;
 
 /**
- * This class is responsible for showing to the user the "Options" screen. It
- * extends the current Scene.
+ * This class is responsible for showing to the user the Settings window. 
+ * It extends the current Scene.
  *
  */
 public class SettingsWindow extends Scene {

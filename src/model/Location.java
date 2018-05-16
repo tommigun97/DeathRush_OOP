@@ -101,9 +101,9 @@ public class Location {
      * 
      * @param l
      *            location of other object
-     * @return
+     * @return .
      */
-    public boolean locationsCollide(Location l) {
+    public boolean locationsCollide(final Location l) {
         // verifica con una prova visuale perchè se no così non si capisce
         return this.x == l.x && this.y == l.y;
     }
