@@ -50,7 +50,9 @@ public final class MainMenu extends Scene {
         });
         this.credits.setMinWidth(vbox.getPrefWidth());
         this.credits.setId("menu-buttons");
-        this.credits.setOnAction(e -> ShowCredits.display());
+        this.credits.setOnAction(e -> {
+            mainStage.setScene(ShowCredits.get(MainMenu.mainStage));
+        });
         this.exit.setMinWidth(vbox.getPrefWidth());
         this.exit.setId("menu-buttons");
         this.exit.setOnAction(e -> ExitHandler.closeGame(mainStage));

@@ -22,14 +22,9 @@ import javafx.stage.Stage;
  */
 public class BestScore extends Scene {
 
-
     private static final BestScore MAINSCENE = new BestScore();
 
     private static final double FONT_SIZE = 46;
-
-    private static final double DROP_SHADOW_RADIUS = 25;
-
-    private static final double DROP_SHADOW_SPREAD = 0.25;
 
     private static final double BOTTOM_BOX_SPACING = 15;
 
@@ -42,17 +37,10 @@ public class BestScore extends Scene {
     public BestScore() {
         super(new StackPane());
 
-
-        Text mainTitle = new Text("Best Scores");
+        Text mainTitle = new Text("Scores");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
-        mainTitle.setText("Best Scores");
-
-        final DropShadow dropShadow = new DropShadow();
-        dropShadow.setColor(Color.DODGERBLUE);
-        dropShadow.setRadius(DROP_SHADOW_RADIUS);
-        dropShadow.setSpread(DROP_SHADOW_SPREAD);
-        dropShadow.setBlurType(BlurType.GAUSSIAN);
-        mainTitle.setEffect(dropShadow);
+        mainTitle.setText("Scores");
+        mainTitle.setId("title");
 
         listScores = new VBox();
         listScores.getStylesheets().add("style.css");
@@ -69,7 +57,7 @@ public class BestScore extends Scene {
         back.setId("menu-buttons");
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
-        bottomLayout.setPadding(new Insets(0, 0, 100, 0));
+        bottomLayout.setPadding(new Insets(0, 0, 50, 0));
         bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.getChildren().addAll(back, reset);
@@ -100,17 +88,15 @@ public class BestScore extends Scene {
      * message, otherwise the list of the highScores.
      */
     private static void showScores() {
-       /* final List<Pair<String, Integer>> listScores = View.getController().getCurrentHighScores();
-        if (listScores.isEmpty()) {
-            listHighScores.getChildren().add(new Label("No HighScores yet"));
-        } else {
-            for (int i = 0; i < listScores.size(); i++) {
-                final Label player = new Label();
-                player.setId("whiteText");
-                player.setText(listScores.get(i).getFirst() + " - " + listScores.get(i).getSecond());
-                listHighScores.getChildren().add(player);
-            }
-        }*/
+        /*
+         * final List<Pair<String, Integer>> listScores =
+         * View.getController().getCurrentHighScores("lorenzo"); if
+         * (listScores.isEmpty()) { listHighScores.getChildren().add(new
+         * Label("No HighScores yet")); } else { for (int i = 0; i < listScores.size();
+         * i++) { final Label player = new Label(); player.setId("whiteText");
+         * player.setText(listScores.get(i).getFirst() + " - " +
+         * listScores.get(i).getSecond()); listHighScores.getChildren().add(player); } }
+         */
     }
 
     /**
@@ -128,19 +114,19 @@ public class BestScore extends Scene {
     }
 
     /**
-     * Private method. It resets the High Scores after asking a confirmation to
-     * the user.
+     * Private method. It resets the High Scores after asking a confirmation to the
+     * user.
      */
     private void resetScores() {
-        //final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
-        /*if (answer) {
-            if (View.getController().emptyHighScores()) {
-                BestScore.listHighScores.getChildren().clear();
-            } else {
-                GenericBox.display(BoxType.ERROR, "Error", "An error occurred while emptying the scores", "Continue");
-            }
-            mainStage.setScene(BestScore.get(mainStage));
-        }*/
+        // final Boolean answer = MessageBox.display("Alert", "Are you sure you want to
+        // reset the Score Board?");
+        /*
+         * if (answer) { if (View.getController().emptyHighScores()) {
+         * BestScore.listHighScores.getChildren().clear(); } else {
+         * GenericBox.display(BoxType.ERROR, "Error",
+         * "An error occurred while emptying the scores", "Continue"); }
+         * mainStage.setScene(BestScore.get(mainStage)); }
+         */
     }
 
 }

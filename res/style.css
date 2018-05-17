@@ -18,3 +18,6 @@
     -fx-background-color: black;
     -fx-text-fill: red;
 }
+#title{
+	-fx-font-family:'Arcade Interlaced';
+}
