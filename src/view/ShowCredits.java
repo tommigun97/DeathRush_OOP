@@ -27,7 +27,6 @@ public class ShowCredits extends Scene {
 
     private static final double BOTTOM_BOX_SPACING = 15;
 
-    private static VBox listInfo;
     private static Stage mainStage;
 
     /**
@@ -47,14 +46,14 @@ public class ShowCredits extends Scene {
         final Text instructionTitle = new Text();
         instructionTitle.setText("How To Play");
         instructionTitle.setId("titleInfo");
-        final Text otherCredits = new Text();
-        otherCredits.setId("titleInfo");
 
         final VBox listInfo = new VBox(10);
         final Label dev1 = new Label("Anis Lico");
         final Label dev2 = new Label("Tommaso Ghini");
         final Label dev3 = new Label("Simone Del Gatto");
         final Label dev4 = new Label("Lorenzo Casini");
+        final Label teresa = new Label("Special thanks to Teresa Ghini for the in-game images");
+        teresa.setId("teresa");
         final Label instructions = new Label();
         instructions.setTextAlignment(TextAlignment.CENTER);
         instructions.setText(
@@ -63,7 +62,7 @@ public class ShowCredits extends Scene {
         listInfo.getStylesheets().add("style.css");
         listInfo.setAlignment(Pos.CENTER);
         listInfo.setPadding(new Insets(10));
-        listInfo.getChildren().addAll(instructionTitle, instructions, label, dev1, dev2, dev3, dev4, otherCredits);
+        listInfo.getChildren().addAll(instructionTitle, instructions, label, dev1, dev2, dev3, dev4, teresa);
 
         final VBox layout = new VBox(10);
         final Button back = new Button("Main Menu");
@@ -73,7 +72,7 @@ public class ShowCredits extends Scene {
         back.setId("menu-buttons");
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
-        bottomLayout.setPadding(new Insets(0, 0, 50, 0));
+        bottomLayout.setPadding(new Insets(0, 0, 30, 0));
         bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.getChildren().add(back);
@@ -96,12 +95,6 @@ public class ShowCredits extends Scene {
     }
 
     /**
-     */
-    private static void showScores() {
-
-    }
-
-    /**
      * Getter of this Scene.
      * 
      * @param mainWindow
@@ -109,16 +102,9 @@ public class ShowCredits extends Scene {
      * @return The current Scene.
      */
     static Scene get(final Stage mainWindow) {
-        showScores();
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - Credits");
         return MAINSCENE;
-    }
-
-    /**
-     */
-    private void resetScores() {
-        // void
     }
 
 }
