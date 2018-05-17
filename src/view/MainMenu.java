@@ -18,7 +18,7 @@ public final class MainMenu extends Scene {
     private static final double WIDTH = 800;
     private static final double HEIGHT = 600;
     private static final MainMenu MAINSCENE = new MainMenu();
-    private static final double BUTTON_WIDTH = 200;
+    private static final double BUTTON_WIDTH = 230;
     private static final double BUTTON_PADDING = 10;
     private static Stage mainStage;
     private final Button newGame = new Button("New Game");
@@ -53,7 +53,6 @@ public final class MainMenu extends Scene {
         this.credits.setOnAction(e -> ShowCredits.display());
         this.exit.setMinWidth(vbox.getPrefWidth());
         this.exit.setId("menu-buttons");
-        // ExitHandler.closeGame(mainStage);
         this.exit.setOnAction(e -> ExitHandler.closeGame(mainStage));
         final StackPane layout = new StackPane();
         layout.getChildren().addAll(vbox);
