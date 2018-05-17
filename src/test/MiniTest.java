@@ -11,6 +11,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import model.Direction;
 import model.entity.CompleteImageSetCalculator;
 import model.entity.EntitityImpl;
 import model.entity.Entity;
@@ -28,12 +29,12 @@ public class MiniTest {
     private static final double NEW_DOUBLE_PROP = 21.5;
     private static final String NEW_STRING_PROP = "MY PROPERTIES ARE CHANGED";
     private static final String UNCORRECT_PROPERTY = "Uncorrect";
-    private static final String[] N_IMAGE = { "n_sx", "n_dx", "n_stand" };
-    private static final String[] S_IMAGE = { "s_sx", "s_dx", "s_stand" };
-    private static final String[] E_IMAGE = { "e_sx", "e_dx", "e_stand" };
-    private static final String[] W_IMAGE = { "w_sx", "w_dx", "w_stand" };
+    private static final List<String> N_IMAGE = new ArrayList<>(Arrays.asList("n_sx", "n_dx", "n_stand"));
+    private static final List<String> S_IMAGE = new ArrayList<>(Arrays.asList("s_sx", "s_dx", "s_stand"));
+    private static final List<String> E_IMAGE = new ArrayList<>(Arrays.asList("e_sx", "e_dx", "e_stand"));
+    private static final List<String> W_IMAGE = new ArrayList<>(Arrays.asList("w_sx", "w_dx", "w_stand"));
 
-/*    @Test
+    @Test
     void buildingTest() {
         final Entity w = new EntitityImpl.EntitiesBuilder().with("alive", true).with("speed", INT_PROP)
                 .with("maxLife", DOUBLE_PROP).setType(EntityType.PLAYER).with("string", STRING_PROP).build();
@@ -70,13 +71,21 @@ public class MiniTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }*/
+    }
 
     @Test
     void completeImageSetCalculatorTest() {
-        CompleteImageSetCalculator c = new CompleteImageSetCalculator(Arrays.asList(N_IMAGE), Arrays.asList(S_IMAGE),
-                Arrays.asList(E_IMAGE), Arrays.asList(W_IMAGE));
-        System.out.println(c.getCurrentImage(Optional.empty()));
+        final CompleteImageSetCalculator c = new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE);
+        assertEquals(c.getCurrentImage(Optional.empty()), "s_stand");
+        assertEquals(c.getCurrentImage(Optional.of(Direction.S)), "s_sx");
+        assertEquals(c.getCurrentImage(Optional.of(Direction.S)), "s_dx");
+        c.getCurrentImage(Optional.of(Direction.S));
+        assertEquals(c.getCurrentImage(Optional.of(Direction.N)), "n_dx");
+        assertEquals(c.getCurrentImage(Optional.of(Direction.NW)), "n_sx");
+        assertEquals(c.getCurrentImage(Optional.of(Direction.E)), "e_dx");
+        assertEquals(c.getCurrentImage(Optional.empty()), "e_stand");
+        assertEquals(c.getCurrentImage(Optional.empty()), "e_stand");
+        assertEquals(c.getCurrentImage(Optional.of(Direction.SW)), "s_sx");
         assertEquals(c.getCurrentImage(Optional.empty()), "s_stand");
     }
 

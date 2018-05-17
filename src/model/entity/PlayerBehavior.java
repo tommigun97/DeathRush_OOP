@@ -15,6 +15,7 @@ public class PlayerBehavior implements Behavior {
     private EntityFactory eFactory;
     private Optional<Direction> currentDirection;
     private long now;
+    // bisogna mettergli un image calculator private ImageCalculator imgCalc;    
 
     public PlayerBehavior(Room currentRoom, EntityFactory eFactory) {
         this.currentRoom = currentRoom;
