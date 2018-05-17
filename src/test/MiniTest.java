@@ -3,7 +3,15 @@ package test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+
 import org.junit.jupiter.api.Test;
+
+import model.entity.CompleteImageSetCalculator;
 import model.entity.EntitityImpl;
 import model.entity.Entity;
 import model.entity.EntityType;
@@ -20,8 +28,12 @@ public class MiniTest {
     private static final double NEW_DOUBLE_PROP = 21.5;
     private static final String NEW_STRING_PROP = "MY PROPERTIES ARE CHANGED";
     private static final String UNCORRECT_PROPERTY = "Uncorrect";
+    private static final String[] N_IMAGE = { "n_sx", "n_dx", "n_stand" };
+    private static final String[] S_IMAGE = { "s_sx", "s_dx", "s_stand" };
+    private static final String[] E_IMAGE = { "e_sx", "e_dx", "e_stand" };
+    private static final String[] W_IMAGE = { "w_sx", "w_dx", "w_stand" };
 
-    @Test
+/*    @Test
     void buildingTest() {
         final Entity w = new EntitityImpl.EntitiesBuilder().with("alive", true).with("speed", INT_PROP)
                 .with("maxLife", DOUBLE_PROP).setType(EntityType.PLAYER).with("string", STRING_PROP).build();
@@ -58,5 +70,14 @@ public class MiniTest {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }*/
+
+    @Test
+    void completeImageSetCalculatorTest() {
+        CompleteImageSetCalculator c = new CompleteImageSetCalculator(Arrays.asList(N_IMAGE), Arrays.asList(S_IMAGE),
+                Arrays.asList(E_IMAGE), Arrays.asList(W_IMAGE));
+        System.out.println(c.getCurrentImage(Optional.empty()));
+        assertEquals(c.getCurrentImage(Optional.empty()), "s_stand");
     }
+
 }

@@ -9,7 +9,7 @@ public interface Behavior {
      * @param e
      *            entity that the behavior is attached
      */
-    void setEntity(Entity e);
+    void setEntity(Entity e); // mettere eccezioni
 
     /**
      * method for update the entity status.
