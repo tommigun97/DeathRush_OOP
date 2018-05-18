@@ -107,4 +107,9 @@ public class Location {
         // verifica con una prova visuale perchè se no così non si capisce
         return this.x == l.x && this.y == l.y;
     }
+
+    @Override
+    public String toString() {
+        return "Location [x=" + x + ", y=" + y + ", area=" + area + "]";
+    }
 }

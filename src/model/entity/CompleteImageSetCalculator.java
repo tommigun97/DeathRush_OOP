@@ -40,8 +40,7 @@ public final class CompleteImageSetCalculator implements ImageCalculator {
 
     @Override
     public String getCurrentImage(final Optional<Direction> d) {
-        String i = "niente";
-        System.out.println(prevDir.isPresent());
+        String i = "";
         if (!d.isPresent() && !prevDir.isPresent()) {
             return southImages.get(STAND_POSITION);
         } else if (!d.isPresent()) {

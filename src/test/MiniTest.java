@@ -11,11 +11,14 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import model.Area;
 import model.Direction;
+import model.Location;
 import model.entity.CompleteImageSetCalculator;
 import model.entity.EntitityImpl;
 import model.entity.Entity;
 import model.entity.EntityType;
+import model.entity.PlayerBehavior;
 
 /**
  * class for testing entities.
@@ -33,6 +36,7 @@ public class MiniTest {
     private static final List<String> S_IMAGE = new ArrayList<>(Arrays.asList("s_sx", "s_dx", "s_stand"));
     private static final List<String> E_IMAGE = new ArrayList<>(Arrays.asList("e_sx", "e_dx", "e_stand"));
     private static final List<String> W_IMAGE = new ArrayList<>(Arrays.asList("w_sx", "w_dx", "w_stand"));
+    private static final Location DEFAULT_LOC = new Location(0, 0, new Area(10, 10));
 
     @Test
     void buildingTest() {
@@ -54,29 +58,28 @@ public class MiniTest {
         try {
             w.changeDoubleProperty(UNCORRECT_PROPERTY, NEW_DOUBLE_PROP);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
         try {
             w.changeIntProperty(UNCORRECT_PROPERTY, NEW_INT_PROP);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
         try {
             w.changeBooleanProperty(UNCORRECT_PROPERTY, true);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
         try {
             w.changeObjectProperty(UNCORRECT_PROPERTY, NEW_STRING_PROP);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
     }
 
     @Test
     void completeImageSetCalculatorTest() {
         final CompleteImageSetCalculator c = new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE);
-        assertEquals(c.getCurrentImage(Optional.empty()), "s_stand");
         assertEquals(c.getCurrentImage(Optional.of(Direction.S)), "s_sx");
         assertEquals(c.getCurrentImage(Optional.of(Direction.S)), "s_dx");
         c.getCurrentImage(Optional.of(Direction.S));
@@ -87,6 +90,26 @@ public class MiniTest {
         assertEquals(c.getCurrentImage(Optional.empty()), "e_stand");
         assertEquals(c.getCurrentImage(Optional.of(Direction.SW)), "s_sx");
         assertEquals(c.getCurrentImage(Optional.empty()), "s_stand");
+    }
+
+    @Test
+    void testPlayerBehavior() {
+        final PlayerBehavior pB = new PlayerBehavior(
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE));
+        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+                .with("Speed", 10.0).build();
+        assertEquals(p.getImage(), "s_stand");
+
+        // test if the entity is moving
+        ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
+        p.getBehaviour().get().update();
+        assertEquals(p.getImage(), "n_sx");
+        assertEquals(p.getLocation().getY(), -10);
+
+        // test if the entity return the correct image after the stop
+        assertEquals(((PlayerBehavior) p.getBehaviour().get()).getCurrentDirection(), Optional.empty());
+        p.getBehaviour().get().update();
+        assertEquals(p.getImage(), "n_stand");
     }
 
 }
