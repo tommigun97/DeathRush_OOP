@@ -1,10 +1,11 @@
 @font-face {
     font-family: Arcade;
-    src: url('/font/arcade.ttf');
+    src:url('arcade.ttf');
 }
 
 #mainPane {
-    -fx-background-color: purple;
+	-fx-background-image: url("tunnel_1.gif");
+	-fx-background-size: cover;
     -fx-font-size: 15.0pt;
     
 }
