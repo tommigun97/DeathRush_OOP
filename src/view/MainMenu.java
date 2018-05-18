@@ -64,6 +64,7 @@ public final class MainMenu extends Scene {
         });
         this.exit.setMinWidth(vbox.getPrefWidth());
         this.exit.setId("menu-buttons");
+        ExitHandler.getExitHandler();
         this.exit.setOnAction(e -> ExitHandler.closeGame(mainStage));
         final StackPane layout = new StackPane();
         layout.getChildren().addAll(mainTitle, vbox);

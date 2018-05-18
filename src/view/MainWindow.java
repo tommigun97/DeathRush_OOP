@@ -1,8 +1,8 @@
 package view;
 
 import javafx.application.Application;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 
 /**
  * Class responsible for creating the main window (Stage) of the application.
@@ -28,8 +28,18 @@ public class MainWindow extends Application {
     public void start(final Stage primaryStage) {
         this.mainWindow.setHeight(HEIGHT);
         this.mainWindow.setWidth(WIDTH);
+        this.mainWindow.setTitle("Death Rush v0.1");
         this.mainWindow.centerOnScreen();
         this.mainWindow.setResizable(false);
+
+        this.mainWindow.setOnCloseRequest(e -> {
+            e.consume();
+            if (View.getController().isGameLoopRunning()) {
+                View.getController().pauseGameLoop();
+            }
+            ExitHandler.closeGame(this.mainWindow);
+        });
+
         this.mainWindow.setScene(MainMenu.get(this.mainWindow));
         this.mainWindow.show();
     }
