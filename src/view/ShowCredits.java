@@ -42,22 +42,27 @@ public class ShowCredits extends Scene {
 
         final Text label = new Text();
         label.setText("Developed and Created by");
-        label.setId("titleInfo");
+        label.setId("credits-info");
         final Text instructionTitle = new Text();
         instructionTitle.setText("How To Play");
-        instructionTitle.setId("titleInfo");
+        instructionTitle.setId("credits-info");
 
         final VBox listInfo = new VBox(10);
         final Label dev1 = new Label("Anis Lico");
+        dev1.setId("credits-text");
         final Label dev2 = new Label("Tommaso Ghini");
+        dev2.setId("credits-text");
         final Label dev3 = new Label("Simone Del Gatto");
+        dev3.setId("credits-text");
         final Label dev4 = new Label("Lorenzo Casini");
+        dev4.setId("credits-text");
         final Label teresa = new Label("Special thanks to Teresa Ghini for the in-game images");
-        teresa.setId("teresa");
+        teresa.setId("credits-teresa");
         final Label instructions = new Label();
         instructions.setTextAlignment(TextAlignment.CENTER);
         instructions.setText(
                 "W - Move up\nA - Move left\nS - Move down\nD - Move right\nUP/DONW/RIGHT/LEFT - Fire\nP - Pause\nESC - Exit");
+        instructions.setId("credits-text");
 
         listInfo.getStylesheets().add("style.css");
         listInfo.setAlignment(Pos.CENTER);

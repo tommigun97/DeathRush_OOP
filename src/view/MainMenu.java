@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -20,6 +23,7 @@ public final class MainMenu extends Scene {
     private static final MainMenu MAINSCENE = new MainMenu();
     private static final double BUTTON_WIDTH = 230;
     private static final double BUTTON_PADDING = 10;
+    private static final double FONT_SIZE = 46;
     private static Stage mainStage;
     private final Button newGame = new Button("New Game");
     private final Button bestScores = new Button("Best Score");
@@ -29,6 +33,11 @@ public final class MainMenu extends Scene {
 
     private MainMenu() {
         super(new StackPane(), WIDTH, HEIGHT);
+
+        Text mainTitle = new Text("Death Rush");
+        mainTitle.setText("Death Rush");
+        mainTitle.setId("title");
+
         final VBox vbox = new VBox(newGame, bestScores, settings, credits, exit);
         vbox.setPrefWidth(BUTTON_WIDTH);
         vbox.setAlignment(Pos.BOTTOM_CENTER);
@@ -57,7 +66,7 @@ public final class MainMenu extends Scene {
         this.exit.setId("menu-buttons");
         this.exit.setOnAction(e -> ExitHandler.closeGame(mainStage));
         final StackPane layout = new StackPane();
-        layout.getChildren().addAll(vbox);
+        layout.getChildren().addAll(mainTitle, vbox);
         layout.setId("mainPane");
         this.setRoot(layout);
         this.getStylesheets().add("style.css");

@@ -21,6 +21,26 @@
 }
 #title{
 	-fx-font-family:'Arcade Interlaced';
+	-fx-fill: white !important;
+	-fx-font-size: 50.0pt;
+}
+#credits-text{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-text-fill: white !important;
+	-fx-font-size: 13.0pt;
+
+}
+#credits-info{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-fill: red !important;
+	-fx-font-size: 15.0pt;
+
+}
+#credits-teresa{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-text-fill: violet !important;
+	-fx-font-size: 10.0pt;
+
 }
 
 
