@@ -1,6 +1,7 @@
 package view;
 
 import javafx.application.Application;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -32,4 +33,5 @@ public class MainWindow extends Application {
         this.mainWindow.setScene(MainMenu.get(this.mainWindow));
         this.mainWindow.show();
     }
+
 }
