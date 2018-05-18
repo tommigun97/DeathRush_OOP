@@ -1,18 +1,14 @@
 package view;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.util.LinkedList;
 import java.util.List;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -23,11 +19,17 @@ import javafx.stage.Stage;
 import utilities.Pair;
 
 /**
- * This class is responsible for showing to the user the Settings window. 
- * It extends the current Scene.
+ * This class is responsible for showing to the user the High Score screen. It
+ * extends the current Scene.
  *
  */
 public class SettingsWindow extends Scene {
+
+    private static final SettingsWindow MAINSCENE = new SettingsWindow();
+
+    private static final double FONT_SIZE = 46;
+
+    private static final double BOTTOM_BOX_SPACING = 15;
 
     private static final double WIDTH = 800;
     private static final double HEIGHT = 800;
@@ -53,32 +55,22 @@ public class SettingsWindow extends Scene {
     private static Stage mainStage;
 
     /**
-     * Constructor of the class. It sets up the Scene with all the graphical
-     * elements.
+     * Constructor for the scene. It sets up the scene.
      */
     public SettingsWindow() {
         super(new StackPane());
 
+        final StackPane mainLayout = new StackPane();
         this.listResolutions.add(new Pair<>(LOWEST_RES, new Pair<>(LOWEST_RES_WIDTH, LOWEST_RES_HEIGHT)));
         this.listResolutions.add(new Pair<>(LOW_RES, new Pair<>(LOW_RES_WIDTH, LOW_RES_HEIGHT)));
         this.listResolutions.add(new Pair<>(MID_RES, new Pair<>(MID_RES_WIDTH, MID_RES_HEIGHT)));
         this.listResolutions.add(new Pair<>(HIGH_RES, new Pair<>(HIGH_RES_WIDTH, HIGH_RES_HEIGHT)));
 
-        final DropShadow dropShadow = new DropShadow();
-        dropShadow.setColor(Color.DODGERBLUE);
-        dropShadow.setRadius(25);
-        dropShadow.setSpread(0.25);
-        dropShadow.setBlurType(BlurType.GAUSSIAN);
+        Text mainTitle = new Text("Settings");
+        mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
+        mainTitle.setText("Settings");
+        mainTitle.setId("title");
 
-        final Text optionsText = new Text("Settings");
-        optionsText.setEffect(dropShadow);
-
-        optionsText.setTranslateX(WIDTH / 2 - 130);
-        optionsText.setTranslateY(100);
-        optionsText.setFont(Font.font(null, FontWeight.BOLD, 72));
-        // optionsText.setId("FX2");
-
-        final Pane mainLayout = new Pane();
         final VBox options = new VBox();
         options.setPadding(new Insets(30));
         options.setTranslateX((WINDOW_SIZE / 2) - (300 / 2 + 50));
@@ -100,26 +92,40 @@ public class SettingsWindow extends Scene {
         options.getChildren().addAll(resolutionLayout);
         mainLayout.getChildren().add(options);
 
-        final HBox bottomLayout = new HBox();
-        // bottomLayout.setPrefWidth(400);
-        // bottomLayout.setTranslateY(HEIGHT - 180);
-        // bottomLayout.setTranslateX(WIDTH / 2 - (400 / 2 - 50));
-        bottomLayout.setSpacing(10);
-        bottomLayout.setPadding(new Insets(20));
-        final Button save = new Button("Save");
-        save.setId("menu-buttons");
-        final Button back = new Button("Main Menu");
-        back.setId("menu-buttons");
-        bottomLayout.getChildren().addAll(back, save);
-        mainLayout.getChildren().addAll(optionsText, bottomLayout);
 
+        final VBox layout = new VBox(10);
+        final Button back = new Button("Main Menu");
+        final Button save = new Button("Save");
+        final StackPane bottomLayout = new StackPane();
+        final HBox bottomBox = new HBox();
+
+        save.setId("menu-buttons");
+        back.setId("menu-buttons");
+
+        bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
+        bottomLayout.setPadding(new Insets(0, 0, 50, 0));
+        bottomBox.setSpacing(BOTTOM_BOX_SPACING);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
+        bottomBox.getChildren().addAll(back, save);
+        bottomLayout.getChildren().addAll(bottomBox);
+
+        
+
+        layout.getChildren().addAll(mainTitle, resolutionText, resolution);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(8));
+        layout.setAlignment(Pos.TOP_CENTER);
+
+        mainLayout.getChildren().addAll(layout, bottomLayout);
         mainLayout.setId("mainPane");
         this.setRoot(mainLayout);
         this.getStylesheets().add("style.css");
-
-        back.setOnAction(e -> mainStage.setScene(MainMenu.get(mainStage)));
+        back.setOnAction(e -> {
+            // listScores.getChildren().clear();
+            mainStage.setScene(MainMenu.get(mainStage));
+        });
         save.setOnAction(e -> {
-            this.save();
+            // this.resetScores();
         });
     }
 
@@ -131,87 +137,16 @@ public class SettingsWindow extends Scene {
     }
 
     /**
-     * It saves the options selected by the user and notify it to the controller.
-     */
-    private void save() {
-        this.changeResolution();
-    }
-
-    /**
-     * Private method. It changes the resolution of the in-game screen and it
-     * notifies other classes about this change.
-     */
-    private void changeResolution() {
-        double currentWidth = LOW_RES_WIDTH, currentHeight = LOW_RES_HEIGHT;
-        for (int i = 0; i < this.listResolutions.size(); i++) {
-            if (this.listResolutions.get(i).getFirst().equals(resolution.getValue())) {
-                currentWidth = this.listResolutions.get(i).getSecond().getFirst();
-                currentHeight = this.listResolutions.get(i).getSecond().getSecond();
-
-                if (this.checkRes(currentWidth, currentHeight)) {
-                    GenericBox.display(BoxType.SUCCESS, "Success", "Settings saved", "Ok");
-                    GameScreen.setResolution(currentWidth, currentHeight, SettingsWindow.fullScreen);
-                } else {
-                    GenericBox.display(BoxType.ERROR, "Error", "Your screen is too small for this resolution!",
-                            "Back to settings");
-                    resolution.setValue(LOW_RES);
-                    break;
-                }
-
-            }
-        }
-    }
-
-    /**
-     * Private method. It checks if the selected resolution is valid for the current
-     * screen. If it's not valid it displays an error.
-     * 
-     * @param currentWidth
-     *            The selected value of the width
-     * @param currentHeight
-     *            The selected value of the height.
-     * @return True if the resolution is valid, false otherwise.
-     */
-    private boolean checkRes(final double currentWidth, final double currentHeight) {
-        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        double screenWidth = screenSize.getWidth();
-        double screenHeight = screenSize.getHeight();
-        if (currentWidth > screenWidth || currentHeight > screenHeight) {
-            return false;
-        }
-        if (currentWidth == screenWidth && currentHeight == screenHeight) {
-            SettingsWindow.fullScreen = true;
-        } else {
-            SettingsWindow.fullScreen = false;
-        }
-        return true;
-    }
-
-    /**
-     * It updates the current options selected.
-     */
-    static void update() {
-        /*
-         * difficult.setValue(View.getController().getDifficulty());
-         * velocity.setValue(View.getController().getFPS());
-         */
-    }
-
-    /**
      * Getter of this Scene.
      * 
      * @param mainWindow
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static SettingsWindow get(final Stage mainWindow) {
+    static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
-        mainStage.setTitle("Death Rush - Settings");
-        return mainScene;
-    }
-
-    static boolean getIsFullScreen() {
-        return fullScreen;
+        mainStage.setTitle("Death Rush - Best Scores");
+        return MAINSCENE;
     }
 
 }
