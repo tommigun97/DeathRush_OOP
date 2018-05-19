@@ -1,7 +1,6 @@
 package model.entity;
 
 import java.util.Optional;
-
 import model.Location;
 
 /**

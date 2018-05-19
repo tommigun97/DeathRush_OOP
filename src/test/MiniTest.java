@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
@@ -80,16 +79,16 @@ public class MiniTest {
     @Test
     void completeImageSetCalculatorTest() {
         final CompleteImageSetCalculator c = new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE);
-        assertEquals(c.getCurrentImage(Optional.of(Direction.S)), "s_sx");
-        assertEquals(c.getCurrentImage(Optional.of(Direction.S)), "s_dx");
-        c.getCurrentImage(Optional.of(Direction.S));
-        assertEquals(c.getCurrentImage(Optional.of(Direction.N)), "n_dx");
-        assertEquals(c.getCurrentImage(Optional.of(Direction.NW)), "n_sx");
-        assertEquals(c.getCurrentImage(Optional.of(Direction.E)), "e_dx");
-        assertEquals(c.getCurrentImage(Optional.empty()), "e_stand");
-        assertEquals(c.getCurrentImage(Optional.empty()), "e_stand");
-        assertEquals(c.getCurrentImage(Optional.of(Direction.SW)), "s_sx");
-        assertEquals(c.getCurrentImage(Optional.empty()), "s_stand");
+        assertEquals(c.getCurrentImage(Direction.S), "s_sx");
+        assertEquals(c.getCurrentImage(Direction.S), "s_dx");
+        c.getCurrentImage(Direction.S);
+        assertEquals(c.getCurrentImage(Direction.N), "n_dx");
+        assertEquals(c.getCurrentImage(Direction.NW), "n_sx");
+        assertEquals(c.getCurrentImage(Direction.E), "e_dx");
+        assertEquals(c.getCurrentImage(Direction.NOTHING), "e_stand");
+        assertEquals(c.getCurrentImage(Direction.NOTHING), "e_stand");
+        assertEquals(c.getCurrentImage(Direction.SW), "s_sx");
+        assertEquals(c.getCurrentImage(Direction.NOTHING), "s_stand");
     }
 
     @Test
@@ -103,11 +102,10 @@ public class MiniTest {
         // test if the entity is moving
         ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
         p.getBehaviour().get().update();
-        assertEquals(p.getImage(), "n_sx");
         assertEquals(p.getLocation().getY(), -10);
 
         // test if the entity return the correct image after the stop
-        assertEquals(((PlayerBehavior) p.getBehaviour().get()).getCurrentDirection(), Optional.empty());
+        assertEquals(((PlayerBehavior) p.getBehaviour().get()).getCurrentDirection(), Direction.NOTHING);
         p.getBehaviour().get().update();
         assertEquals(p.getImage(), "n_stand");
     }

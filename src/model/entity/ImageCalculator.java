@@ -15,6 +15,6 @@ public interface ImageCalculator {
      *            the direction where the entity moves
      * @return the path of the correct image
      */
-    String getCurrentImage(Optional<Direction> d);
+    String getCurrentImage(Direction d);
 
 }
