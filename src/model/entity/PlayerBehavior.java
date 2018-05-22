@@ -1,4 +1,5 @@
 package model.entity;
+
 import model.Direction;
 import model.room.Room;
 
@@ -16,7 +17,8 @@ public final class PlayerBehavior implements Behavior {
     private final ImageCalculator imgCalc;
 
     /**
-     * @param imgCalc calculator player image
+     * @param imgCalc
+     *            calculator player image
      */
     public PlayerBehavior(final ImageCalculator imgCalc) {
         // this.currentRoom = currentRoom;
@@ -45,6 +47,7 @@ public final class PlayerBehavior implements Behavior {
     @Override
     public void setEntity(final Entity e) {
         this.e = e;
+        checkProperties();
         e.setImage(this.imgCalc.getCurrentImage(Direction.NOTHING));
 
     }
@@ -57,14 +60,16 @@ public final class PlayerBehavior implements Behavior {
     }
 
     /**
-     * @param currentDirection new player direction
+     * @param currentDirection
+     *            new player direction
      */
     public void setCurrentDirection(final Direction currentDirection) {
         this.currentDirection = currentDirection;
     }
 
     /**
-     * @param d shoot's direction
+     * @param d
+     *            shoot's direction
      */
     public void shoot(final Direction d) {
         if (System.currentTimeMillis() - this.now <= (long) this.e.getObjectProperty("Shoot Frequency")) {
@@ -85,6 +90,15 @@ public final class PlayerBehavior implements Behavior {
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));
         this.currentDirection = Direction.NOTHING;
 
+    }
+
+    private void checkProperties() {
+        // check per verificare che ci siano tutte le proprietà necessarie per
+        // l'utilizzo del player
+        e.getDoubleProperty("Speed");
+        e.getDoubleProperty("Max Life");
+        e.getDoubleProperty("Current Life");
+        e.getObjectProperty("Shoot Frequency");
     }
 
 }

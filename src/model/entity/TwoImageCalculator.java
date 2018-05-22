@@ -4,7 +4,8 @@ import model.Direction;
 import utilities.Pair;
 
 /**
- * Image calculator for entities that are draw by only two images.
+ * Image calculator for entities that are draw by only two images and it needs
+ * that for every frame the images switch.
  *
  */
 public final class TwoImageCalculator implements ImageCalculator {
@@ -13,8 +14,10 @@ public final class TwoImageCalculator implements ImageCalculator {
     private int c;
 
     /**
-     * @param xImg one of the two images
-     * @param yImg one of the two images
+     * @param xImg
+     *            one of the two images
+     * @param yImg
+     *            one of the two images
      */
     public TwoImageCalculator(final String xImg, final String yImg) {
         this.images = new Pair<String, String>(xImg, yImg);

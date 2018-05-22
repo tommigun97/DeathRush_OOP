@@ -18,6 +18,8 @@ import model.entity.EntitityImpl;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.PlayerBehavior;
+import model.entity.TwoImageCalculator;
+import utilities.Pair;
 
 /**
  * class for testing entities.
@@ -36,6 +38,7 @@ public class MiniTest {
     private static final List<String> E_IMAGE = new ArrayList<>(Arrays.asList("e_sx", "e_dx", "e_stand"));
     private static final List<String> W_IMAGE = new ArrayList<>(Arrays.asList("w_sx", "w_dx", "w_stand"));
     private static final Location DEFAULT_LOC = new Location(0, 0, new Area(10, 10));
+    private static final Pair<String, String> COUPLE_IMAGES = new Pair<String, String>("first", "second");
 
     @Test
     void buildingTest() {
@@ -92,11 +95,31 @@ public class MiniTest {
     }
 
     @Test
+    void twoImageCalculatorTest() {
+        TwoImageCalculator t = new TwoImageCalculator(COUPLE_IMAGES.getFirst(), COUPLE_IMAGES.getSecond());
+        assertEquals(COUPLE_IMAGES.getSecond(), t.getCurrentImage(Direction.NOTHING));
+        assertEquals(COUPLE_IMAGES.getFirst(), t.getCurrentImage(Direction.NOTHING));
+    }
+
+    @Test
     void testPlayerBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE));
+        // test for check if the behavior check the necessary properties of the player
+        try {
+            Entity player = new EntitityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
+                    .setBehaviour(pB).build();
+        } catch (Exception e) {
+            //System.out.println(e.getMessage());
+        }
+        try {
+            Entity player = new EntitityImpl.EntitiesBuilder().with("Speed", 10.0).setBehaviour(pB).build();
+        } catch (Exception e) {
+            //System.out.println(e.getMessage());
+        }
+
         final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 10.0).build();
+                .with("Speed", 10.0).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long)10).build();
         assertEquals(p.getImage(), "s_stand");
 
         // test if the entity is moving
@@ -108,6 +131,7 @@ public class MiniTest {
         assertEquals(((PlayerBehavior) p.getBehaviour().get()).getCurrentDirection(), Direction.NOTHING);
         p.getBehaviour().get().update();
         assertEquals(p.getImage(), "n_stand");
+
     }
 
 }
