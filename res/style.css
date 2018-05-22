@@ -11,8 +11,8 @@
 }
 #menu-buttons {
 	-fx-font-family:'Arcade Interlaced';
-    -fx-background-color: black;
-    -fx-text-fill: white;
+    -fx-background-color: white;
+    -fx-text-fill: black;
 }
 
 #menu-buttons:hover {
