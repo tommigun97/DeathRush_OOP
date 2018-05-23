@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 import utilities.Pair;
 
 /**
- * This class is responsible for showing to the user the High Score screen. It
+ * This class is responsible for showing to the user the Settings Window. It
  * extends the current Scene.
  *
  */

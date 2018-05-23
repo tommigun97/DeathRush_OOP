@@ -42,5 +42,16 @@
 	-fx-font-size: 10.0pt;
 
 }
+#game-box{
+    -fx-background-color: black;
+    -fx-border-radius: 30;
+    -fx-border-width: 2;
+}
+#game-box-bg {
+    -fx-background-color: black;
+    -fx-background-size: cover;
+    -fx-border-radius: 0 0 25 0;
+    -fx-background-radius: 0 0 25 0;
+}
 
 
