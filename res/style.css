@@ -1,18 +1,18 @@
 @font-face {
     font-family: Arcade;
-    src:url('arcade.ttf');
+    src:url('/font/arcade.ttf');
 }
 
 #mainPane {
-	-fx-background-image: url("tunnel_1.gif");
+	-fx-background-image:url("/images/menu/tunnel_1.gif");
 	-fx-background-size: cover;
     -fx-font-size: 15.0pt;
     
 }
 #menu-buttons {
 	-fx-font-family:'Arcade Interlaced';
-    -fx-background-color: black;
-    -fx-text-fill: white;
+    -fx-background-color: white;
+    -fx-text-fill: black;
 }
 
 #menu-buttons:hover {
