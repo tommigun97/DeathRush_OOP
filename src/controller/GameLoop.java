@@ -55,7 +55,6 @@ public class GameLoop extends Thread {
                 this.setState(Status.KILLED);
             }
         }
-        this.controller.getCurrentHighScores("tommi");
         this.controller.abortGameLoop();
     }
 
