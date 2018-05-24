@@ -1,9 +1,12 @@
 package view;
 
+import java.util.List;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
@@ -14,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import utilities.Pair;
 
 /**
  * This class is responsible for showing to the user the High Score screen. It
@@ -88,16 +92,19 @@ public class BestScore extends Scene {
      * message, otherwise the list of the highScores.
      */
     private static void showScores() {
-        /*
-         * final List<Pair<String, Integer>> listScores =
-         * View.getController().getCurrentHighScores("lorenzo"); if
-         * (listScores.isEmpty()) { listHighScores.getChildren().add(new
-         * Label("No HighScores yet")); } else { for (int i = 0; i < listScores.size();
-         * i++) { final Label player = new Label(); player.setId("whiteText");
-         * player.setText(listScores.get(i).getFirst() + " - " +
-         * listScores.get(i).getSecond()); listHighScores.getChildren().add(player); } }
-         */
-    	View.getController().getCurrentHighScores();
+
+        final List<Pair<String, Integer>> scoreList = View.getController().getCurrentHighScores();
+        if (scoreList.isEmpty()) {
+            listScores.getChildren().add(new Label("No HighScores yet"));
+        } else {
+            for (int i = 0; i < scoreList.size(); i++) {
+                final Label player = new Label();
+                player.setId("score-list");
+                player.setText(scoreList.get(i).getFirst() + " - " + scoreList.get(i).getSecond());
+                listScores.getChildren().add(player);
+            }
+        }
+        View.getController().getCurrentHighScores();
     }
 
     /**
@@ -119,15 +126,17 @@ public class BestScore extends Scene {
      * user.
      */
     private void resetScores() {
-        // final Boolean answer = MessageBox.display("Alert", "Are you sure you want to
-        // reset the Score Board?");
-        /*
-         * if (answer) { if (View.getController().emptyHighScores()) {
-         * BestScore.listHighScores.getChildren().clear(); } else {
-         * GenericBox.display(BoxType.ERROR, "Error",
-         * "An error occurred while emptying the scores", "Continue"); }
-         * mainStage.setScene(BestScore.get(mainStage)); }
-         */
+        final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
+
+        if (answer) {
+            if (View.getController().emptyHighScores()) {
+                BestScore.listScores.getChildren().clear();
+            } else {
+                GenericBox.display(BoxType.ERROR, "Error", "An error occurred while emptying the scores", "Continue");
+            }
+            mainStage.setScene(BestScore.get(mainStage));
+        }
+
     }
 
 }

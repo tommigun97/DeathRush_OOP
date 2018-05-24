@@ -178,4 +178,10 @@ public class Controller implements ControllerInterface {
     	return this.sc.getScoreList();
     }
 
+    @Override
+    public boolean emptyHighScores() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

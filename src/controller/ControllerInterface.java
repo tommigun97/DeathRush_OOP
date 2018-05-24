@@ -75,4 +75,6 @@ public interface ControllerInterface {
 	 */
 	Time getTimer();
 
+    boolean emptyHighScores();
+
 }

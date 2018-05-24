@@ -53,5 +53,10 @@
     -fx-border-radius: 0 0 25 0;
     -fx-background-radius: 0 0 25 0;
 }
+#score-list{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-text-fill: white !important;
+	-fx-font-size: 13.0pt;
+}
 
 
