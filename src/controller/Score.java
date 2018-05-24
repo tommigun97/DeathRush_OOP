@@ -1,14 +1,16 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import utilities.Pair;
 
@@ -19,100 +21,114 @@ import utilities.Pair;
  */
 public class Score implements ScoreInterface {
 
-    private static final Integer MAX_SCORE = 10;
+	private static final Integer MAX_SCORE = 10;
 
-    private List<Pair<String, Integer>> scoreList = new ArrayList<>();
-    private final String fileName;
+	private Optional<List<Pair<String, Integer>>> scoreList;
+	private final String fileName;
+	private boolean save;
 
-    /**
-     * 
-     * @param fileName
-     *            .
-     */
-    public Score(final String fileName) {
-        this.fileName = fileName;
-    }
+	/**
+	 * 
+	 * @param fileName
+	 *            .
+	 */
+	public Score(final String fileName) {
+		if (fileName.isEmpty()) {
+			throw new IllegalArgumentException("fileName must be valid.");
+		}
+		this.scoreList = Optional.empty();
+		this.fileName = fileName;
+		this.save = false;
+	}
 
-    @Override
-    public final void saveOnFile(final Pair<String, Integer> a) throws IOException {
-        File file = new File(this.fileName);
-        if (!file.exists()) {
-            System.out.println("Creazione nuovo file in corso...");
-            file.createNewFile();
-        }
-        FileWriter fw = new FileWriter(file);
-        BufferedWriter bw = new BufferedWriter(fw);
-        putScoreInAList(a);
-        this.scoreList.forEach(x -> {
-            try {
-                bw.write(x.getFirst());
-                bw.newLine();
-                bw.write(String.valueOf(x.getSecond()));
-                bw.newLine();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        bw.close();
-    }
+	@Override
+	public void addScore(final Pair<String, Integer> p) {
+		if (!this.scoreList.isPresent()) {
+			this.loadData();
+		}
+		final List<Pair<String, Integer>> list = this.scoreList.get();
+		list.add(p);
+		this.sortList(list);
+		this.resizeList(list);
+		this.scoreList = Optional.of(list);
+		this.save = true;
+	}
 
-    /**
-     * call isRecord and sortList method, to remove sort the score and keep only the
-     * best ten score.
-     * 
-     * @param a
-     *            is the new score
-     * @throws IOException
-     */
-    private void putScoreInAList(final Pair<String, Integer> a) throws IOException {
-        this.scoreList = this.getScoreList();
-        this.scoreList.add(a);
-        this.sortList(scoreList);
-        if (this.isRecord(a)) {
-            System.out.println("NEW RECORD!!");
-        }
-        if (scoreList.size() > MAX_SCORE) {
-            scoreList.remove(scoreList.size() - 1);
-        }
-    }
+	@Override
+	public final void saveOnFile() throws IOException {
+		if (this.scoreList.isPresent() && this.save) {
+			try (DataOutputStream out = new DataOutputStream(new FileOutputStream(this.fileName))) {
+				for (final Pair<String, Integer> p : this.scoreList.get()) {
+					out.writeUTF(p.getFirst());
+					out.writeInt(p.getSecond().intValue());
+				}
+				this.save = false;
+			} catch (final Exception e) {
+			}
+		}
+	}
 
-    /**
-     * sort the scoreList2.
-     * 
-     * @param scoreList2
-     */
-    private void sortList(final List<Pair<String, Integer>> scoreList2) {
-        Collections.sort(scoreList2, (a, b) -> a.getSecond() - b.getSecond());
-    }
+	@Override
+	public final void deleteAllScore() {
+		this.scoreList = Optional.of(new LinkedList<Pair<String, Integer>>());
+		this.save = true;
+	}
 
-    @Override
-    public final void deleteAllScore() {
-        File f = new File(fileName);
-        if (!f.exists()) {
-            throw new IllegalArgumentException("File Inesistente!");
-        }
-        f.delete();
-        this.scoreList.clear();
-    }
+	@Override
+	public final List<Pair<String, Integer>> getScoreList() {
+		if (!this.scoreList.isPresent()) {
+			this.loadData();
+		}
+		return new ArrayList<>(this.scoreList.get());
+	}
 
-    @Override
-    public final List<Pair<String, Integer>> getScoreList() throws IOException {
+	@Override
+	public final boolean isRecord(final Pair<String, Integer> a) {
+		return a.equals(scoreList.get().get(0));
+	}
 
-        List<Pair<String, Integer>> list = new ArrayList<>();
-        FileReader file = new FileReader(this.fileName);
-        BufferedReader br = new BufferedReader(file);
-        while (br.readLine() != null) {
-            final String name = br.readLine();
-            final int score = Integer.parseInt(br.readLine());
-            list.add(new Pair<String, Integer>(name, score));
-        }
-        br.close();
-        return list;
-    }
+	/**
+	 * read the data from file.
+	 */
+	private void loadData() {
+		final List<Pair<String, Integer>> list = new LinkedList<>();
+		try (DataInputStream in = new DataInputStream(new FileInputStream(this.fileName))) {
+			while (true) {
+				final String name = in.readUTF();
+				final Integer score = Integer.valueOf(in.readInt());
+				list.add(new Pair<String, Integer>(name, score));
+			}
+		} catch (final Exception ex) {
+		}
+		this.sortList(list);
+		if (this.resizeList(list)) {
+			this.save = true;
+		}
+		this.scoreList = Optional.of(list);
+	}
 
-    @Override
-    public final boolean isRecord(final Pair<String, Integer> a) {
-        return a.equals(scoreList.get(0));
-    }
+	/**
+	 * Mantain the list dimension to 10
+	 *
+	 * @param l
+	 *            The starting list
+	 * @return True if the list was modified, False otherwise
+	 */
+	private boolean resizeList(final List<Pair<String, Integer>> l) {
+		final boolean changed = l.size() > MAX_SCORE;
+		if (l.size() > MAX_SCORE) {
+			l.remove(l.size() - 1);
+		}
+		return changed;
+	}
+
+	/**
+	 * sort the scoreList2.
+	 * 
+	 * @param scoreList2
+	 */
+	private void sortList(final List<Pair<String, Integer>> scoreList2) {
+		Collections.sort(scoreList2, (a, b) -> a.getSecond() - b.getSecond());
+	}
 
 }

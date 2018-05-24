@@ -97,6 +97,7 @@ public class BestScore extends Scene {
          * player.setText(listScores.get(i).getFirst() + " - " +
          * listScores.get(i).getSecond()); listHighScores.getChildren().add(player); } }
          */
+    	View.getController().getCurrentHighScores();
     }
 
     /**
