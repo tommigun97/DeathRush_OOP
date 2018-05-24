@@ -7,12 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BlurType;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -122,14 +119,13 @@ public class BestScore extends Scene {
     }
 
     /**
-     * Private method. It resets the High Scores after asking a confirmation to the
-     * user.
+     * Private method. It resets the Scores after asking a confirmation to the user.
      */
     private void resetScores() {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
 
         if (answer) {
-            if (View.getController().emptyHighScores()) {
+            if (View.getController().emptyScores()) {
                 BestScore.listScores.getChildren().clear();
             } else {
                 GenericBox.display(BoxType.ERROR, "Error", "An error occurred while emptying the scores", "Continue");

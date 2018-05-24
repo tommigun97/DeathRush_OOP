@@ -156,30 +156,30 @@ public class Controller implements ControllerInterface {
 
     @Override
     public final List<Pair<String, Integer>> getCurrentHighScores() {
-    	
-    	Pair<String, Integer> a = new Pair<>("tommi", 130);
-    	Pair<String, Integer> b = new Pair<>("Anis", 100);
-    	Pair<String, Integer> c = new Pair<>("kaso", 90);
-    	Pair<String, Integer> d = new Pair<>("simo", 80);
-    	
-    	this.sc.addScore(a);
-    	this.sc.addScore(b);
-    	this.sc.addScore(c);
-    	this.sc.addScore(d);
-    	
-    	System.out.println(this.sc.getScoreList());
-    	
-    	try {
-			this.sc.saveOnFile();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    
-    	return this.sc.getScoreList();
+
+        Pair<String, Integer> a = new Pair<>("tommi", 130);
+        Pair<String, Integer> b = new Pair<>("Anis", 100);
+        Pair<String, Integer> c = new Pair<>("kaso", 90);
+        Pair<String, Integer> d = new Pair<>("simo", 80);
+
+        this.sc.addScore(a);
+        this.sc.addScore(b);
+        this.sc.addScore(c);
+        this.sc.addScore(d);
+
+        System.out.println(this.sc.getScoreList());
+
+        try {
+            this.sc.saveOnFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return this.sc.getScoreList();
     }
 
     @Override
-    public boolean emptyHighScores() {
+    public final boolean emptyScores() {
         // TODO Auto-generated method stub
         return false;
     }
