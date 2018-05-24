@@ -41,4 +41,5 @@ public interface ViewInterface {
 
     void updateInfoToDraw(List<Integer> palyerInfo, int money, List<Integer> time);
 
+
 }
