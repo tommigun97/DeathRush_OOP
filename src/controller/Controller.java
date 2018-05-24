@@ -19,19 +19,21 @@ import view.ViewInterface;
  */
 public class Controller implements ControllerInterface {
 
-    static String FILENAME = "ScoreList";
+    private static final String FILENAME = "ScoreList";
+    private static final int N_SCORE = 10;
 
     private ViewInterface view;
     private Optional<GameLoop> game;
     private final InputHandler input;
     private Model model;
     private Time gameTime;
-    private Score sc = new Score(FILENAME);
+    private Score sc ;
 
     /**
      * The constructor of the Class.
      */
     public Controller() {
+        this.sc = new Score(FILENAME);
         this.game = Optional.empty();
         this.input = InputHandler.getInputHandler();
         this.gameTime = getTimer();
@@ -157,7 +159,7 @@ public class Controller implements ControllerInterface {
     @Override
     public final List<Pair<String, Integer>> getCurrentHighScores() {
 
-        Pair<String, Integer> a = new Pair<>("tommi", 130);
+        /*Pair<String, Integer> a = new Pair<>("tommi", 130);
         Pair<String, Integer> b = new Pair<>("Anis", 100);
         Pair<String, Integer> c = new Pair<>("kaso", 90);
         Pair<String, Integer> d = new Pair<>("simo", 80);
@@ -173,15 +175,20 @@ public class Controller implements ControllerInterface {
             this.sc.saveOnFile();
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
 
         return this.sc.getScoreList();
     }
 
     @Override
     public final boolean emptyScores() {
-        // TODO Auto-generated method stub
-        return false;
+        this.sc.deleteAllScore();
+        try {
+            this.sc.saveOnFile();
+        } catch (IllegalStateException | IOException e) {
+            return false;
+        }
+        return true;
     }
 
 }
