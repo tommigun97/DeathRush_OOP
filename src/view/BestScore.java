@@ -93,6 +93,7 @@ public class BestScore extends Scene {
         final List<Pair<String, Integer>> scoreList = View.getController().getCurrentHighScores();
         if (scoreList.isEmpty()) {
             listScores.getChildren().add(new Label("No HighScores yet"));
+            listScores.getChildren().get(0).setId("score-list");
         } else {
             for (int i = 0; i < scoreList.size(); i++) {
                 final Label player = new Label();

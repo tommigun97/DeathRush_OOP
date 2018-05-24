@@ -79,12 +79,12 @@ public class GameLoop extends Thread {
      *            .
      */
     public void updateGame(final int elapsed) {
-        this.model.start();
-        this.view.drawRoom(this.model.getRoomBackGround());
-        this.view.drawEntities(this.model.getEntityToDrow());
-        this.view.updateInfoToDraw(this.model.getPalyerInfo(), this.model.getMoney(),
-                this.model.getTime().transformSecondInTime());
-        checkEvents();
+        /*
+         * this.model.start(); this.view.drawRoom(this.model.getRoomBackGround());
+         * this.view.drawEntities(this.model.getEntityToDrow());
+         * this.view.updateInfoToDraw(this.model.getPalyerInfo(), this.model.getMoney(),
+         * this.model.getTime().transformSecondInTime()); checkEvents();
+         */
     }
 
     private void checkEvents() {

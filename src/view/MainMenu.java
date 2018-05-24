@@ -9,7 +9,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 /**
  * 
  * 
@@ -47,7 +46,7 @@ public final class MainMenu extends Scene {
         this.newGame.setId("menu-buttons");
         this.newGame.setOnAction(e -> {
             InputHandler.getInputHandler().emptyList();
-            //View.getController().startGameLoop();
+            // View.getController().startGameLoop();
             final GameScreen gameScreen = new GameScreen();
             View.setGameScreen(gameScreen);
             mainStage.setScene(gameScreen.get(mainStage));
