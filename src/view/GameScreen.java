@@ -54,7 +54,7 @@ public class GameScreen extends Scene {
     private final Group root = new Group();
     private final Pane backgroundLayer = new Pane();
    // private final DrawEntities drawEntities = new DrawEntities(inGameWidth, inGameHeight);
-   // private final PlayerInfo playerInfo = new PlayerInfo();
+    //private final PlayerInfo playerInfo = new PlayerInfo();
     private final DropShadow dropShadow = new DropShadow();
     private final HBox infoBox = new HBox();
     private final Button pauseButton = new Button(PAUSE);
@@ -71,15 +71,15 @@ public class GameScreen extends Scene {
         super(new StackPane());
 
         final HBox buttonGame = new HBox();
-        pauseButton.setId("menu-buttons");
+        pauseButton.setId("dark-blue");
         pauseButton.setDefaultButton(false);
         pauseButton.setFocusTraversable(false);
         pauseButton.setOnAction(e -> {
             this.pause();
         });
-        infoButton.setId("menu-buttons");
+        infoButton.setId("dark-blue");
         infoButton.setFocusTraversable(false);
-       // infoButton.setOnAction(e -> InfoBox.display());
+        //infoButton.setOnAction(e -> InfoBox.display());
         buttonGame.getChildren().addAll(pauseButton, infoButton);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);
@@ -92,9 +92,9 @@ public class GameScreen extends Scene {
         topLayout.setPadding(new Insets(5, 15, 15, 15));
         topLayout.setSpacing(4);
 
-        /*this.hp.setTextFill(Color.GREEN);
+        this.hp.setTextFill(Color.GREEN);
         this.shields.setTextFill(Color.BLUE);
-        this.score.setTextFill(Color.YELLOW);*/
+        this.score.setTextFill(Color.YELLOW);
 
         final VBox verticalInfoBox = new VBox();
         verticalInfoBox.setAlignment(Pos.CENTER);
@@ -102,16 +102,16 @@ public class GameScreen extends Scene {
         infoBox.getChildren().addAll(this.hp, this.shields);
         verticalInfoBox.getChildren().addAll(infoBox, this.score);
         infoBox.setAlignment(Pos.CENTER);
-        infoBox.setId("game-box");
+        infoBox.setId("hpBox");
         infoBox.setPadding(new Insets(0, 4, 0, 4));
 
-        /*this.dropShadow.setColor(Color.DODGERBLUE);
+        this.dropShadow.setColor(Color.DODGERBLUE);
         this.dropShadow.setRadius(25);
         this.dropShadow.setSpread(0.25);
-        this.dropShadow.setBlurType(BlurType.GAUSSIAN);*/
+        this.dropShadow.setBlurType(BlurType.GAUSSIAN);
 
         topLayout.getChildren().add(verticalInfoBox);
-        topBox.setId("game-box-bg");
+        topBox.setId("gameScreen");
 
         this.root.getChildren().addAll(this.backgroundLayer, topBox);
         this.getInput();
@@ -133,6 +133,8 @@ public class GameScreen extends Scene {
                 this.pause();
             } else if (event.getCode() == KeyCode.ESCAPE) {
                 View.getController().pauseGameLoop();
+                //ClosureHandler.getClosureHandler();
+                //ClosureHandler.closeProgram(this.mainStage);
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
             }
@@ -202,8 +204,8 @@ public class GameScreen extends Scene {
         this.mainStage.setWidth(GameScreen.inGameWidth);
         this.mainStage.setHeight(GameScreen.inGameHeight);
         this.mainStage.centerOnScreen();
-        this.mainStage.setTitle("Death Rush v0.1");
-       // this.mainStage.setFullScreen(SettingsWindow.getIsFullScreen());
+        this.mainStage.setTitle("Death Rush - v0.1");
+        this.mainStage.setFullScreen(SettingsWindow.getIsFullScreen());
         return this;
     }
 
@@ -221,6 +223,7 @@ public class GameScreen extends Scene {
         textLevelWon.setId("FX2");
         levelWon.setPrefSize(WIDTH_LEVEL * resConstantWidth, HEIGHT_LEVEL * resConstantHeight);
         levelWon.setAlignment(Pos.CENTER);
+        textLevelWon.setEffect(dropShadow);
         textLevelWon.setFont(Font.font(null, FontWeight.BOLD, 72 * resConstantWidth));
         textLevelWon.setVisible(true);
         textLevelWon.setTextFill(Color.WHITE);
@@ -294,9 +297,9 @@ public class GameScreen extends Scene {
      * resizes everything in it according to the current resolution.
      */
     private void resize() {
-        this.infoBox.setMinWidth((inGameWidth * resConstantWidth));
-        this.infoBox.setMaxSize((280 * resConstantWidth), (5 * resConstantHeight));
-        this.infoBox.setMinHeight(2);
+        this.infoBox.setMinWidth((280 * resConstantWidth));
+        this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
+        this.infoBox.setMinHeight((50 * resConstantHeight));
         this.infoBox.setSpacing(12 * resConstantWidth);
         this.score.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.hp.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
@@ -316,8 +319,7 @@ public class GameScreen extends Scene {
      * @return True if the current window (Stage) is in full screen mode
      */
     boolean isFullScreen() {
-       // return Options.getIsFullScreen();
-        return true;
+        return SettingsWindow.getIsFullScreen();
     }
 
     /**
