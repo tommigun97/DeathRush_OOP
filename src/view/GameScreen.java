@@ -53,8 +53,9 @@ public class GameScreen extends Scene {
     private static double inGameHeight = BASIC_RES_HEIGHT;
     private final Group root = new Group();
     private final Pane backgroundLayer = new Pane();
-   // private final DrawEntities drawEntities = new DrawEntities(inGameWidth, inGameHeight);
-    //private final PlayerInfo playerInfo = new PlayerInfo();
+    // private final DrawEntities drawEntities = new DrawEntities(inGameWidth,
+    // inGameHeight);
+    // private final PlayerInfo playerInfo = new PlayerInfo();
     private final DropShadow dropShadow = new DropShadow();
     private final HBox infoBox = new HBox();
     private final Button pauseButton = new Button(PAUSE);
@@ -71,46 +72,26 @@ public class GameScreen extends Scene {
         super(new StackPane());
 
         final HBox buttonGame = new HBox();
-        pauseButton.setId("dark-blue");
+        pauseButton.setId("menu-buttons");
         pauseButton.setDefaultButton(false);
         pauseButton.setFocusTraversable(false);
         pauseButton.setOnAction(e -> {
             this.pause();
         });
-        infoButton.setId("dark-blue");
+        infoButton.setId("menu-buttons");
         infoButton.setFocusTraversable(false);
-        //infoButton.setOnAction(e -> InfoBox.display());
+        // infoButton.setOnAction(e -> InfoBox.display());
         buttonGame.getChildren().addAll(pauseButton, infoButton);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);
-        buttonGame.setPadding(new Insets(10, 0, 0, 0));
+        buttonGame.setPadding(new Insets(10, inGameWidth, 0, 0));
 
         final HBox topLayout = new HBox();
         final VBox topBox = new VBox();
         topBox.getChildren().addAll(buttonGame, topLayout);
         topBox.getStylesheets().add("style.css");
-        topLayout.setPadding(new Insets(5, 15, 15, 15));
+        topLayout.setPadding(new Insets(10, 0, 0, 0));
         topLayout.setSpacing(4);
-
-        this.hp.setTextFill(Color.GREEN);
-        this.shields.setTextFill(Color.BLUE);
-        this.score.setTextFill(Color.YELLOW);
-
-        final VBox verticalInfoBox = new VBox();
-        verticalInfoBox.setAlignment(Pos.CENTER);
-        verticalInfoBox.setSpacing(2);
-        infoBox.getChildren().addAll(this.hp, this.shields);
-        verticalInfoBox.getChildren().addAll(infoBox, this.score);
-        infoBox.setAlignment(Pos.CENTER);
-        infoBox.setId("hpBox");
-        infoBox.setPadding(new Insets(0, 4, 0, 4));
-
-        this.dropShadow.setColor(Color.DODGERBLUE);
-        this.dropShadow.setRadius(25);
-        this.dropShadow.setSpread(0.25);
-        this.dropShadow.setBlurType(BlurType.GAUSSIAN);
-
-        topLayout.getChildren().add(verticalInfoBox);
         topBox.setId("gameScreen");
 
         this.root.getChildren().addAll(this.backgroundLayer, topBox);
@@ -133,8 +114,6 @@ public class GameScreen extends Scene {
                 this.pause();
             } else if (event.getCode() == KeyCode.ESCAPE) {
                 View.getController().pauseGameLoop();
-                //ClosureHandler.getClosureHandler();
-                //ClosureHandler.closeProgram(this.mainStage);
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
             }
@@ -146,8 +125,7 @@ public class GameScreen extends Scene {
     }
 
     /**
-     * Private method. It's called when the user wants to pause or resume the
-     * game.
+     * Private method. It's called when the user wants to pause or resume the game.
      * 
      */
     private void pause() {
@@ -169,7 +147,7 @@ public class GameScreen extends Scene {
      *            List of the active entities.
      */
     void drawOnScreen(final List<Pair<Pair<String, Double>, Location>> listEntities) {
-        //this.drawEntities.draw(this.backgroundLayer, listEntities);
+        // this.drawEntities.draw(this.backgroundLayer, listEntities);
     }
 
     /**
@@ -185,11 +163,12 @@ public class GameScreen extends Scene {
      *            Current score.
      */
     void updateInfo(final int hpValue, final int shieldsValue, final int scoreValue) {
-        /*if (hpValue <= 0) {
-            this.mainStage.setScene(GameOverScreen.get(this.mainStage));
-        } else {
-            this.playerInfo.update(this.hp, this.shields, this.score, hpValue, shieldsValue, scoreValue);
-        }*/
+        /*
+         * if (hpValue <= 0) {
+         * this.mainStage.setScene(GameOverScreen.get(this.mainStage)); } else {
+         * this.playerInfo.update(this.hp, this.shields, this.score, hpValue,
+         * shieldsValue, scoreValue); }
+         */
     }
 
     /**
@@ -207,72 +186,6 @@ public class GameScreen extends Scene {
         this.mainStage.setTitle("Death Rush - v0.1");
         this.mainStage.setFullScreen(SettingsWindow.getIsFullScreen());
         return this;
-    }
-
-    /**
-     * This method is called when a level is completed and it displays at the
-     * center of the screen a message.
-     * 
-     * @param nLevel
-     *            The number of the level just completed.
-     */
-    void won(final int nLevel) {
-        final StackPane levelWon = new StackPane();
-        final Label textLevelWon = new Label();
-
-        textLevelWon.setId("FX2");
-        levelWon.setPrefSize(WIDTH_LEVEL * resConstantWidth, HEIGHT_LEVEL * resConstantHeight);
-        levelWon.setAlignment(Pos.CENTER);
-        textLevelWon.setEffect(dropShadow);
-        textLevelWon.setFont(Font.font(null, FontWeight.BOLD, 72 * resConstantWidth));
-        textLevelWon.setVisible(true);
-        textLevelWon.setTextFill(Color.WHITE);
-        textLevelWon.setText("Level " + nLevel + " completed");
-        levelWon.getChildren().add(textLevelWon);
-        levelWon.setLayoutX((GameScreen.inGameWidth / 2) - ((WIDTH_LEVEL * resConstantWidth) / 2));
-        levelWon.setLayoutY((GameScreen.inGameHeight / 2) - ((HEIGHT_LEVEL * resConstantHeight) / 2));
-        this.root.getChildren().add(levelWon);
-        this.showText(textLevelWon);
-    }
-
-    /**
-     * It displays at the top of the screen the name of the powerUp picked up by
-     * the player.
-     * 
-     * @param powerUp
-     *            A String with the name of the current powerUp.
-     */
-    void powerUp(final String powerUp) {
-        final StackPane powerUpPane = new StackPane();
-        final Label powerUpText = new Label();
-
-        powerUpText.setId("powerUp");
-        powerUpPane.setPrefSize(WIDTH_POWER_UP * resConstantWidth, HEIGHT_POWER_UP * resConstantHeight);
-        powerUpPane.setAlignment(Pos.CENTER);
-        powerUpText.setEffect(dropShadow);
-        powerUpText.setFont(Font.font(null, FontWeight.BOLD, 50 * resConstantWidth));
-        powerUpText.setVisible(true);
-        powerUpText.setTextFill(Color.LIGHTSKYBLUE);
-        powerUpText.setText(powerUp);
-        powerUpPane.getChildren().add(powerUpText);
-        powerUpPane.setLayoutX((GameScreen.inGameWidth / 2) - ((WIDTH_POWER_UP * resConstantWidth) / 2));
-        this.root.getChildren().add(powerUpPane);
-        this.showText(powerUpText);
-    }
-
-    /**
-     * Private method. It displays a text for a certain amount of time.
-     * 
-     * @param text
-     *            The text to display
-     */
-    private void showText(final Label text) {
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> text.setVisible(false));
-            }
-        }, DURATION_SHOW_TEXT, 1);
     }
 
     /**
@@ -297,9 +210,9 @@ public class GameScreen extends Scene {
      * resizes everything in it according to the current resolution.
      */
     private void resize() {
-        this.infoBox.setMinWidth((280 * resConstantWidth));
-        this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
-        this.infoBox.setMinHeight((50 * resConstantHeight));
+        this.infoBox.setMinWidth(inGameWidth);
+        this.infoBox.setMaxSize((280 * resConstantWidth), (500 * resConstantHeight));
+        this.infoBox.setMinHeight((500 * resConstantHeight));
         this.infoBox.setSpacing(12 * resConstantWidth);
         this.score.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.hp.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
@@ -323,16 +236,15 @@ public class GameScreen extends Scene {
     }
 
     /**
-     * Private method. Called when the user wants to go back to the main menu
-     * while the game is running. It prompts a dialog box where the user can
-     * choose to go back to the menu or not.
+     * Private method. Called when the user wants to go back to the main menu while
+     * the game is running. It prompts a dialog box where the user can choose to go
+     * back to the menu or not.
      */
     private void backMenu() {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to go back to the menu?");
         if (answer) {
             View.getController().abortGameLoop();
             InputHandler.getInputHandler().emptyList();
-            // isFullScreen = false;
             this.mainStage.setScene(MainMenu.get(this.mainStage));
         } else {
             InputHandler.getInputHandler().emptyList();
