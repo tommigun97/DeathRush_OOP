@@ -9,10 +9,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-//import spaceimpact.utilities.ImageLoader;
+
 
 /**
- * A simple and generic dialog box to show a message to the user.
+ * This class create a MessageBox to interact with the user.
  *
  */
 public final class GenericBox {
@@ -23,24 +23,17 @@ public final class GenericBox {
     };
 
     /**
-     * It displays the dialog box.
+     * Display the MessageBox.
      * 
-     * @param boxType
-     *            The type of this dialog box. This will change the icon of the box.
      * @param title
-     *            The title of this dialog box.
+     *            The title of the MessageBox.
      * @param message
-     *            The message of the dialog box
+     *            The message inside the MessageBox.
      * @param buttonMessage
-     *            The text of the button
+     *            The text inside the buttons
      */
-    static void display(final BoxType boxType, final String title, final String message, final String buttonMessage) {
+    static void display(final String title, final String message, final String buttonMessage) {
         final Stage window = new Stage();
-        /*if (boxType == BoxType.ERROR) {
-            window.getIcons().add(ImageLoader.getLoader().getImageFromPath("Icons/error.png"));
-        } else {
-            window.getIcons().add(ImageLoader.getLoader().getImageFromPath("Icons/success.png"));
-        }*/
         window.setResizable(false);
         window.centerOnScreen();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -48,11 +41,13 @@ public final class GenericBox {
         window.setMinWidth(MIN_WIDTH);
         final Label label = new Label();
         label.setText(message);
+        label.setId("message-text");
 
         final Button yesButton = new Button("Continue");
         yesButton.setOnAction(e -> {
             window.close();
         });
+        yesButton.setId("menu-buttons");
 
         final VBox layout = new VBox(10);
         layout.setMinWidth(MIN_WIDTH);

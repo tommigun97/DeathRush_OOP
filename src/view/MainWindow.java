@@ -6,8 +6,6 @@ import javafx.stage.Stage;
 
 /**
  * Class responsible for creating the main window (Stage) of the application.
- * 
- *
  */
 public class MainWindow extends Application {
 

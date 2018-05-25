@@ -2,16 +2,12 @@ package view;
 
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
-
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -19,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -38,11 +33,6 @@ public class GameScreen extends Scene {
     private static final double BASIC_BUTTON_HEIGHT = 25;
     private static final double BASIC_RES_WIDTH = 1280;
     private static final double BASIC_RES_HEIGHT = 768;
-    private static final double WIDTH_POWER_UP = 800;
-    private static final double HEIGHT_POWER_UP = 160;
-    private static final double WIDTH_LEVEL = 800;
-    private static final double HEIGHT_LEVEL = 250;
-    private static final long DURATION_SHOW_TEXT = 2000;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
 
@@ -56,14 +46,12 @@ public class GameScreen extends Scene {
     // private final DrawEntities drawEntities = new DrawEntities(inGameWidth,
     // inGameHeight);
     // private final PlayerInfo playerInfo = new PlayerInfo();
-    private final DropShadow dropShadow = new DropShadow();
     private final HBox infoBox = new HBox();
     private final Button pauseButton = new Button(PAUSE);
     private final Button infoButton = new Button("Info");
     private final Label hp = new Label();
     private final Label shields = new Label();
     private final Label score = new Label();
-    private final Timer timer = new java.util.Timer();
 
     /**
      * Constructor for GameScreen. It sets up the scene.
@@ -80,7 +68,7 @@ public class GameScreen extends Scene {
         });
         infoButton.setId("menu-buttons");
         infoButton.setFocusTraversable(false);
-        // infoButton.setOnAction(e -> InfoBox.display());
+        // infoButton.setOnAction(e -> InGameInfo.display());
         buttonGame.getChildren().addAll(pauseButton, infoButton);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);

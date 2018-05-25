@@ -10,7 +10,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * 
+ * This class create the MainMenu for the game. It extend the current Scene
  * 
  *
  */
@@ -21,7 +21,6 @@ public final class MainMenu extends Scene {
     private static final MainMenu MAINSCENE = new MainMenu();
     private static final double BUTTON_WIDTH = 230;
     private static final double BUTTON_PADDING = 10;
-    private static final double FONT_SIZE = 46;
     private static Stage mainStage;
     private final Button newGame = new Button("New Game");
     private final Button bestScores = new Button("Best Score");

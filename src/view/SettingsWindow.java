@@ -1,5 +1,4 @@
 package view;
-
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -16,9 +15,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * This class is responsible for showing to the user the Settings Window. It
- * extends the current Scene.
- *
+ * This class is responsible for showing to the user the Settings Window.
  */
 public class SettingsWindow extends Scene {
 
@@ -46,14 +43,20 @@ public class SettingsWindow extends Scene {
 
     private static final double HIGH_RES_HEIGHT = 1080;
 
+    private static final double BOTTOM_LAYOUT_PADDING = 50;
+
     private static Stage mainStage;
+
     private final Button lowRes = new Button("Low (1024x576)");
+
     private final Button midRes = new Button("Mid (1280x720)");
+
     private final Button highRes = new Button("High (1920x1080)");
+
     private static boolean fullScreen = false;
 
     /**
-     * Constructor for the scene. It sets up the scene.
+     * Constructor for the scene.
      */
     public SettingsWindow() {
         super(new StackPane());
@@ -88,7 +91,7 @@ public class SettingsWindow extends Scene {
         back.setId("menu-buttons");
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
-        bottomLayout.setPadding(new Insets(0, 0, 50, 0));
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
         bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.setTranslateY(BUTTON_TRANS);
@@ -110,16 +113,20 @@ public class SettingsWindow extends Scene {
     }
 
     /**
-     * Private method. It changes the resolution of the in-game screen and it
-     * notifies other classes about this change.
+     * This method change the resolution of the in-game screen.
+     * 
+     * @param width
+     *            .
+     * @param weight
+     *            .
      */
-    private void changeResolution(final double Width, final double Height) {
+    private void changeResolution(final double width, final double height) {
 
-        if (this.checkRes(Width, Height)) {
-            GenericBox.display(BoxType.SUCCESS, "Success", "Settings saved", "Ok");
-            GameScreen.setResolution(Width, Height, SettingsWindow.fullScreen);
+        if (this.checkRes(width, height)) {
+            GenericBox.display("Success", "Settings saved", "Ok");
+            GameScreen.setResolution(width, height, SettingsWindow.fullScreen);
         } else {
-            GenericBox.display(BoxType.ERROR, "Error", "Your screen is too small for this resolution!",
+            GenericBox.display("Error", "Your screen is too small for this resolution!",
                     "Back to settings");
         }
 

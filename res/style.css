@@ -53,5 +53,10 @@
 	-fx-text-fill: white !important;
 	-fx-font-size: 13.0pt;
 }
+#message-text{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-text-fill: red !important;
+	-fx-font-size: 10.0pt;
 
+}
 

@@ -2,14 +2,16 @@ package view;
 
 import java.util.List;
 
-import controller.ControllerInterface;
 import javafx.application.Application;
+import javafx.application.Platform;
+import controller.ControllerInterface;
 import model.Location;
+import utilities.Input;
 import utilities.Pair;
 
 /**
- * 
- * @author lorenzo
+ * Main class of the View part of the application. It implements the method of
+ * the ViewInterface.
  *
  */
 public class View implements ViewInterface {
@@ -43,6 +45,37 @@ public class View implements ViewInterface {
         Application.launch(MainWindow.class);
     }
 
+    @Override
+    public final void draw(final List<Pair<Pair<String, Double>, Location>> listEntities) {
+        Platform.runLater(() -> View.gameScreen.drawOnScreen(listEntities));
+    }
+
+    @Override
+    public final void updateInfo(final int hp, final int shields, final int score) {
+        Platform.runLater(() -> View.gameScreen.updateInfo(hp, shields, score));
+    }
+
+    @Override
+    public void showText(final int nLevel) {
+        // Platform.runLater(() -> View.gameScreen.won(nLevel));
+    }
+
+    @Override
+    public void showText(final String powerUp) {
+        // Platform.runLater(() -> View.gameScreen.powerUp(powerUp));
+    }
+
+    /**
+     * Setter for the Game Screen. It is necessary to save it in order to call some
+     * methods in it.
+     * 
+     * @param gamescreen
+     *            The GameScreen
+     */
+    static void setGameScreen(final GameScreen gamescreen) {
+        View.gameScreen = gamescreen;
+    }
+
     /**
      * Getter of the controller.
      * 
@@ -52,32 +85,22 @@ public class View implements ViewInterface {
         return View.controller;
     }
 
-    @Override
-    public void drawRoom(final String roomBackGround) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void drawEntities(final List<Pair<String, Location>> entityToDrow) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void updateInfoToDraw(final List<Integer> palyerInfo, final int money, final List<Integer> time) {
-        // TODO Auto-generated method stub
-
-    }
     /**
-     * Setter for the Game Screen. It is necessary to save it in order to call
-     * some methods in it.
+     * Getter of the current movement.
      * 
-     * @param gamescreen
-     *            The GameScreen
+     * @return The list of the current movement.
      */
-    static void setGameScreen(final GameScreen gamescreen) {
-        View.gameScreen = gamescreen;
+    public final List<Input> getMovementInput() {
+        return this.inputHandler.getMovementList();
+    }
+
+    /**
+     * Getter of the current shots.
+     * 
+     * @return The list of the current shots.
+     */
+    public final List<Input> getShotInput() {
+        return this.inputHandler.getShotList();
     }
 
 }
