@@ -15,9 +15,8 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 /**
- * This class is responsible for showing to the user the High Score screen. It
+ * This class is responsible for showing to the user the Credits window. It
  * extends the current Scene.
- *
  */
 public class ShowCredits extends Scene {
 
@@ -27,10 +26,12 @@ public class ShowCredits extends Scene {
 
     private static final double BOTTOM_BOX_SPACING = 15;
 
+    private static final double BOTTOM_LAYOUT_PADDING = 30;
+
     private static Stage mainStage;
 
     /**
-     * Constructor for the scene. It sets up the scene.
+     * Constructor for the scene.
      */
     public ShowCredits() {
         super(new StackPane());
@@ -77,7 +78,7 @@ public class ShowCredits extends Scene {
         back.setId("menu-buttons");
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
-        bottomLayout.setPadding(new Insets(0, 0, 30, 0));
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
         bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.getChildren().add(back);

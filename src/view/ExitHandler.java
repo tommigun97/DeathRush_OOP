@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 public final class ExitHandler {
 
     private static final ExitHandler EXITHANDLER = new ExitHandler();
-    //Constructor of the ExitHandler Class, implementing Singleton.
+
+    // Constructor of the ExitHandler Class, implementing Singleton.
     private ExitHandler() {
     };
 
@@ -23,9 +24,11 @@ public final class ExitHandler {
     }
 
     /**
-     * This class create a MessageBox with yes/no button for handling the request of the user to exit.
+     * This class create a MessageBox with yes/no button for handling the request of
+     * the user to exit.
      * 
-     * @param mainWindow current window in game.
+     * @param mainWindow
+     *            current window in game.
      */
     static void closeGame(final Stage mainWindow) {
         final Boolean answer = MessageBox.display("ATTENTION !", "Do you want to leave the game?");

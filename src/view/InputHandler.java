@@ -14,11 +14,7 @@ public final class InputHandler {
 
     private static final InputHandler INPUTHANDLER = new InputHandler();
 
-    private boolean w = false;
-    private boolean s = false;
-    private boolean a = false;
-    private boolean d = false;
-    private boolean shotUp, shotDown, shotLeft, shotRight;
+    private boolean w, a, s, d, shotUp, shotDown, shotLeft, shotRight = false;
 
     private InputHandler() {
     };
@@ -33,7 +29,7 @@ public final class InputHandler {
     }
 
     /**
-     * Getter of the current inputs. This method must be called every frame.
+     * Getter of the current inputs(Movement). This method must be called every frame.
      * 
      * @return A list of the current inputs.
      */
@@ -55,8 +51,8 @@ public final class InputHandler {
     }
 
     /**
-     * 
-     * @return .
+     * Getter of the current inputs(Shots). This method must be called every frame.
+     * @return A list of the current inputs.
      */
     public List<Input> getShotList() {
         final List<Input> currentInputList = new LinkedList<>();
@@ -78,7 +74,6 @@ public final class InputHandler {
     /**
      * This method empties the list of the input. Call this method every time a new
      * game is created.
-     * 
      */
     public void emptyList() {
         this.w = false;

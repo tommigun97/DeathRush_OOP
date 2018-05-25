@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * A simple dialog box where the user can choose an option.
+ * This class create a simple MessageBox and provide a yes/no option to the user.
  *
  */
 public final class MessageBox {
@@ -23,12 +23,12 @@ public final class MessageBox {
     };
 
     /**
-     * It displays the dialog box.
+     * It displays the MessageBox.
      * 
      * @param title
-     *            The title of the dialog box.
+     *            The title of the MessageBox.
      * @param message
-     *            The message of the dialog box.
+     *            The message inside the MessageBox..
      * @return The choice of the user where true equals yes and false equals no.
      */
     static boolean display(final String title, final String message) {
@@ -41,6 +41,7 @@ public final class MessageBox {
 
         final Label label = new Label();
         label.setText(message);
+        label.setId("message-text");
 
         final Button yesButton = new Button("Yes");
         final Button noButton = new Button("No");
@@ -49,10 +50,12 @@ public final class MessageBox {
             answer = true;
             window.close();
         });
+        yesButton.setId("menu-buttons");
         noButton.setOnAction(e -> {
             answer = false;
             window.close();
         });
+        noButton.setId("menu-buttons");
 
         final VBox layout = new VBox(10);
         final HBox layoutButton = new HBox(50);

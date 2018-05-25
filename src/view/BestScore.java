@@ -29,11 +29,14 @@ public class BestScore extends Scene {
 
     private static final double BOTTOM_BOX_SPACING = 15;
 
+    private static final double BOTTOM_LAYOUT_PADDING = 50;
+
     private static VBox listScores;
+
     private static Stage mainStage;
 
     /**
-     * Constructor for the scene. It sets up the scene.
+     * Constructor for the scene.
      */
     public BestScore() {
         super(new StackPane());
@@ -58,7 +61,7 @@ public class BestScore extends Scene {
         back.setId("menu-buttons");
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
-        bottomLayout.setPadding(new Insets(0, 0, 50, 0));
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
         bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
         bottomBox.getChildren().addAll(back, reset);
@@ -85,14 +88,14 @@ public class BestScore extends Scene {
     }
 
     /**
-     * Private method. If there are no Scores it shows a simple Label with a
-     * message, otherwise the list of the highScores.
+     * This method show the Score , if there are no Score ,show a static message.
+     * "No Best Score Present ,yet"
      */
     private static void showScores() {
 
         final List<Pair<String, Integer>> scoreList = View.getController().getCurrentHighScores();
         if (scoreList.isEmpty()) {
-            listScores.getChildren().add(new Label("No HighScores yet"));
+            listScores.getChildren().add(new Label("No Best Score Present ,yet"));
             listScores.getChildren().get(0).setId("score-list");
         } else {
             for (int i = 0; i < scoreList.size(); i++) {
@@ -120,7 +123,7 @@ public class BestScore extends Scene {
     }
 
     /**
-     * Private method. It resets the Scores after asking a confirmation to the user.
+     * This method reset the Score list , after user confirmation.
      */
     private void resetScores() {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
@@ -129,7 +132,7 @@ public class BestScore extends Scene {
             if (View.getController().emptyScores()) {
                 BestScore.listScores.getChildren().clear();
             } else {
-                GenericBox.display(BoxType.ERROR, "Error", "An error occurred while emptying the scores", "Continue");
+                GenericBox.display("Error", "An error occurred while emptying the scores", "Continue");
             }
             mainStage.setScene(BestScore.get(mainStage));
         }
