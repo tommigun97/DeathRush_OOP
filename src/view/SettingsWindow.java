@@ -1,22 +1,19 @@
 package view;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import utilities.Pair;
 
 /**
  * This class is responsible for showing to the user the Settings Window. It
@@ -27,32 +24,33 @@ public class SettingsWindow extends Scene {
 
     private static final SettingsWindow MAINSCENE = new SettingsWindow();
 
+    private static final double BOTTOM_BOX_SPACING = 20;
+
+    private static final double BUTTON_PADDING = 20;
+
+    private static final double BUTTON_WIDTH = 250;
+
     private static final double FONT_SIZE = 46;
 
-    private static final double BOTTOM_BOX_SPACING = 15;
+    private static final double BUTTON_TRANS = 200;
 
-    private static final double WIDTH = 800;
-    private static final double HEIGHT = 800;
-    private static final String LOWEST_RES = "1024x576";
-    private static final double LOWEST_RES_WIDTH = 1024;
-    private static final double LOWEST_RES_HEIGHT = 576;
-    private static final double LOW_RES_WIDTH = 1280;
-    private static final double LOW_RES_HEIGHT = 720;
-    private static final String LOW_RES = "1280x720";
-    private static final double MID_RES_WIDTH = 1600;
-    private static final double MID_RES_HEIGHT = 900;
-    private static final String MID_RES = "1600x900";
+    private static final double LOW_RES_WIDTH = 1024;
+
+    private static final double LOW_RES_HEIGHT = 576;
+
+    private static final double MID_RES_WIDTH = 1280;
+
+    private static final double MID_RES_HEIGHT = 720;
+
     private static final double HIGH_RES_WIDTH = 1920;
+
     private static final double HIGH_RES_HEIGHT = 1080;
-    private static final String HIGH_RES = "1920x1080";
-    private static final double WINDOW_SIZE = 800;
 
-    private final List<Pair<String, Pair<Double, Double>>> listResolutions = new LinkedList<>();
-
-    private static boolean fullScreen = false;
-    private static SettingsWindow mainScene = new SettingsWindow();
-    private static ChoiceBox<String> resolution;
     private static Stage mainStage;
+    private final Button lowRes = new Button("Low (1024x576)");
+    private final Button midRes = new Button("Mid (1280x720)");
+    private final Button highRes = new Button("High (1920x1080)");
+    private static boolean fullScreen = false;
 
     /**
      * Constructor for the scene. It sets up the scene.
@@ -61,79 +59,99 @@ public class SettingsWindow extends Scene {
         super(new StackPane());
 
         final StackPane mainLayout = new StackPane();
-        this.listResolutions.add(new Pair<>(LOWEST_RES, new Pair<>(LOWEST_RES_WIDTH, LOWEST_RES_HEIGHT)));
-        this.listResolutions.add(new Pair<>(LOW_RES, new Pair<>(LOW_RES_WIDTH, LOW_RES_HEIGHT)));
-        this.listResolutions.add(new Pair<>(MID_RES, new Pair<>(MID_RES_WIDTH, MID_RES_HEIGHT)));
-        this.listResolutions.add(new Pair<>(HIGH_RES, new Pair<>(HIGH_RES_WIDTH, HIGH_RES_HEIGHT)));
 
         Text mainTitle = new Text("Settings");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Settings");
         mainTitle.setId("title");
 
-        final VBox options = new VBox();
-        options.setPadding(new Insets(30));
-        options.setTranslateX((WINDOW_SIZE / 2) - (300 / 2 + 50));
-        options.setTranslateY((WINDOW_SIZE / 2) - 150);
-        options.setSpacing(50);
-
-        this.setBox();
-
-        final HBox resolutionLayout = new HBox();
-        resolutionLayout.setSpacing(10);
-        final Text resolutionText = new Text("Game Resolution:");
-        resolutionText.setFill(Color.RED);
-        this.listResolutions.forEach(e -> {
-            resolution.getItems().add(e.getFirst());
+        final VBox vboxButton = new VBox(lowRes, midRes, highRes);
+        vboxButton.setPrefWidth(BUTTON_WIDTH);
+        vboxButton.setAlignment(Pos.CENTER);
+        vboxButton.setSpacing(10);
+        vboxButton.setPadding(new Insets(BUTTON_PADDING));
+        vboxButton.getChildren().forEach(e -> e.setId("menu-buttons"));
+        lowRes.setOnAction(e -> {
+            changeResolution(LOW_RES_WIDTH, LOW_RES_HEIGHT);
         });
-        resolution.setValue(LOW_RES);
-        resolutionLayout.getChildren().addAll(resolutionText, resolution);
-
-        options.getChildren().addAll(resolutionLayout);
-        mainLayout.getChildren().add(options);
-
+        midRes.setOnAction(e -> {
+            changeResolution(MID_RES_WIDTH, MID_RES_HEIGHT);
+        });
+        highRes.setOnAction(e -> {
+            changeResolution(HIGH_RES_WIDTH, HIGH_RES_HEIGHT);
+        });
 
         final VBox layout = new VBox(10);
         final Button back = new Button("Main Menu");
-        final Button save = new Button("Save");
         final StackPane bottomLayout = new StackPane();
         final HBox bottomBox = new HBox();
-
-        save.setId("menu-buttons");
         back.setId("menu-buttons");
 
         bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
         bottomLayout.setPadding(new Insets(0, 0, 50, 0));
         bottomBox.setSpacing(BOTTOM_BOX_SPACING);
         bottomBox.setAlignment(Pos.BOTTOM_CENTER);
-        bottomBox.getChildren().addAll(back, save);
-        bottomLayout.getChildren().addAll(bottomBox);
+        bottomBox.setTranslateY(BUTTON_TRANS);
+        bottomBox.getChildren().add(back);
+        bottomLayout.getChildren().add(bottomBox);
 
-        
-
-        layout.getChildren().addAll(mainTitle, resolutionText, resolution);
+        layout.getChildren().addAll(mainTitle, vboxButton, bottomBox);
         layout.setSpacing(10);
         layout.setPadding(new Insets(8));
         layout.setAlignment(Pos.TOP_CENTER);
 
-        mainLayout.getChildren().addAll(layout, bottomLayout);
+        mainLayout.getChildren().addAll(layout);
         mainLayout.setId("mainPane");
         this.setRoot(mainLayout);
         this.getStylesheets().add("style.css");
         back.setOnAction(e -> {
-            // listScores.getChildren().clear();
             mainStage.setScene(MainMenu.get(mainStage));
-        });
-        save.setOnAction(e -> {
-            // this.resetScores();
         });
     }
 
     /**
-     * It creates the dropbox menus (thread safe in the static contest).
+     * Private method. It changes the resolution of the in-game screen and it
+     * notifies other classes about this change.
      */
-    private synchronized void setBox() {
-        resolution = new ChoiceBox<>();
+    private void changeResolution(final double Width, final double Height) {
+
+        if (this.checkRes(Width, Height)) {
+            GenericBox.display(BoxType.SUCCESS, "Success", "Settings saved", "Ok");
+            GameScreen.setResolution(Width, Height, SettingsWindow.fullScreen);
+        } else {
+            GenericBox.display(BoxType.ERROR, "Error", "Your screen is too small for this resolution!",
+                    "Back to settings");
+        }
+
+    }
+
+    /**
+     * Private method. It checks if the selected resolution is valid for the current
+     * screen. If it's not valid it displays an error.
+     * 
+     * @param currentWidth
+     *            The selected value of the width
+     * @param currentHeight
+     *            The selected value of the height.
+     * @return True if the resolution is valid, false otherwise.
+     */
+    private boolean checkRes(final double currentWidth, final double currentHeight) {
+        final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        double screenWidth = screenSize.getWidth();
+        double screenHeight = screenSize.getHeight();
+        if (currentWidth > screenWidth || currentHeight > screenHeight) {
+            return false;
+        }
+        if (currentWidth == screenWidth && currentHeight == screenHeight) {
+            SettingsWindow.fullScreen = true;
+        } else {
+            SettingsWindow.fullScreen = false;
+        }
+        return true;
+    }
+
+    static boolean getIsFullScreen() {
+        return fullScreen;
     }
 
     /**
@@ -145,7 +163,7 @@ public class SettingsWindow extends Scene {
      */
     static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
-        mainStage.setTitle("Death Rush - Best Scores");
+        mainStage.setTitle("Death Rush - Settings");
         return MAINSCENE;
     }
 
