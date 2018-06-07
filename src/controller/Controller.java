@@ -10,7 +10,7 @@ import model.Model;
 import utilities.Input;
 import utilities.Pair;
 import view.InputHandler;
-import view.ViewInterface;
+import view.View;
 
 /**
  * Description of Controller.
@@ -22,7 +22,7 @@ public class Controller implements ControllerInterface {
     private static final String FILENAME = "ScoreList";
     private static final int N_SCORE = 10;
 
-    private ViewInterface view;
+    private View view;
     private Optional<GameLoop> game;
     private final InputHandler input;
     private Model model;
@@ -55,7 +55,7 @@ public class Controller implements ControllerInterface {
      * @param view
      *            the current view.
      */
-    public void setView(final ViewInterface view) {
+    public void setView(final View view) {
         this.view = view;
     }
 

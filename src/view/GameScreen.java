@@ -96,12 +96,12 @@ public class GameScreen extends Scene {
         inputHandler.emptyList();
         this.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.BACK_SPACE) {
-                View.getController().pauseGameLoop();
+                ViewImpl.getController().pauseGameLoop();
                 this.backMenu();
             } else if (event.getCode() == KeyCode.P) {
                 this.pause();
             } else if (event.getCode() == KeyCode.ESCAPE) {
-                View.getController().pauseGameLoop();
+                ViewImpl.getController().pauseGameLoop();
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
             }
@@ -117,12 +117,12 @@ public class GameScreen extends Scene {
      * 
      */
     private void pause() {
-        if (View.getController().isGameLoopPaused()) {
+        if (ViewImpl.getController().isGameLoopPaused()) {
             InputHandler.getInputHandler().emptyList();
-            View.getController().resumeGameLoop();
+            ViewImpl.getController().resumeGameLoop();
             this.pauseButton.setText(PAUSE);
         } else {
-            View.getController().pauseGameLoop();
+            ViewImpl.getController().pauseGameLoop();
             this.pauseButton.setText(RESUME);
         }
 
@@ -231,12 +231,12 @@ public class GameScreen extends Scene {
     private void backMenu() {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to go back to the menu?");
         if (answer) {
-            View.getController().abortGameLoop();
+            ViewImpl.getController().abortGameLoop();
             InputHandler.getInputHandler().emptyList();
             this.mainStage.setScene(MainMenu.get(this.mainStage));
         } else {
             InputHandler.getInputHandler().emptyList();
-            View.getController().resumeGameLoop();
+            ViewImpl.getController().resumeGameLoop();
         }
     }
 

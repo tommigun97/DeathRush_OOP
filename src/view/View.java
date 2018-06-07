@@ -2,105 +2,67 @@ package view;
 
 import java.util.List;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import controller.ControllerInterface;
 import model.Location;
 import utilities.Input;
 import utilities.Pair;
 
 /**
- * Main class of the View part of the application. It implements the method of
- * the ViewInterface.
- *
+ * Interface for a generic View.
  */
-public class View implements ViewInterface {
-
-    private static ControllerInterface controller;
-    private final InputHandler inputHandler = InputHandler.getInputHandler();
-    private static GameScreen gameScreen;
+public interface View {
 
     /**
-     * Constructor of the class. It saves the controller of the game.
-     * 
-     * @param c
-     *            The controller of the game.
+     * It starts the application and shows the main menu.
      */
-    public View(final ControllerInterface c) {
-        this.setController(c);
-    }
+    void startView();
 
     /**
-     * Setter of the controller (thread safe).
+     * It prints on screen all the entities in their correct positions.
      * 
-     * @param c
-     *            The controller of the game
+     * @param listEntities
+     *            a list of the Entities that will be printed on screen
      */
-    private synchronized void setController(final ControllerInterface c) {
-        View.controller = c;
-    }
-
-    @Override
-    public final void startView() {
-        Application.launch(MainWindow.class);
-    }
-
-    @Override
-    public final void draw(final List<Pair<Pair<String, Double>, Location>> listEntities) {
-        Platform.runLater(() -> View.gameScreen.drawOnScreen(listEntities));
-    }
-
-    @Override
-    public final void updateInfo(final int hp, final int shields, final int score) {
-        Platform.runLater(() -> View.gameScreen.updateInfo(hp, shields, score));
-    }
-
-    @Override
-    public void showText(final int nLevel) {
-        // Platform.runLater(() -> View.gameScreen.won(nLevel));
-    }
-
-    @Override
-    public void showText(final String powerUp) {
-        // Platform.runLater(() -> View.gameScreen.powerUp(powerUp));
-    }
+    void draw(List<Pair<Pair<String, Double>, Location>> listEntities);
 
     /**
-     * Setter for the Game Screen. It is necessary to save it in order to call some
-     * methods in it.
+     * It updates the view with the most recent information about the player.
      * 
-     * @param gamescreen
-     *            The GameScreen
+     * @param hp
+     *            current hp (Health Points) of the player
+     * @param shields
+     *            current shields of the player
+     * @param score
+     *            current score of the player
      */
-    static void setGameScreen(final GameScreen gamescreen) {
-        View.gameScreen = gamescreen;
-    }
+    void updateInfo(int hp, int shields, int score);
 
     /**
-     * Getter of the controller.
+     * It returns a list with the inputs(movement) detected during a game.
      * 
-     * @return The controller of the game
+     * @return a list of Input
      */
-    static ControllerInterface getController() {
-        return View.controller;
-    }
+    List<Input> getMovementInput();
 
     /**
-     * Getter of the current movement.
+     * It returns a list with the inputs(shots) detected during a game.
      * 
-     * @return The list of the current movement.
+     * @return a list of Input
      */
-    public final List<Input> getMovementInput() {
-        return this.inputHandler.getMovementList();
-    }
+    List<Input> getShotInput();
 
     /**
-     * Getter of the current shots.
+     * It displays a label with the most recent completed level.
      * 
-     * @return The list of the current shots.
+     * @param nLevel
+     *            the number of the level just completed
      */
-    public final List<Input> getShotInput() {
-        return this.inputHandler.getShotList();
-    }
+    void showText(int nLevel);
 
+    /**
+     * It displays a label with the current power up at the top of the screen.
+     * 
+     * @param powerUp
+     *            a String with the name of the power-up.
+     */
+    void showText(String powerUp);
 }

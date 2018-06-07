@@ -47,7 +47,7 @@ public final class MainMenu extends Scene {
             InputHandler.getInputHandler().emptyList();
             // View.getController().startGameLoop();
             final GameScreen gameScreen = new GameScreen();
-            View.setGameScreen(gameScreen);
+            ViewImpl.setGameScreen(gameScreen);
             mainStage.setScene(gameScreen.get(mainStage));
             mainStage.setFullScreen(gameScreen.isFullScreen());
         });

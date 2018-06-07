@@ -1,7 +1,7 @@
 package controller;
 
+import view.ViewImpl;
 import view.View;
-import view.ViewInterface;
 
 /**
  * Class used to start the application.
@@ -18,7 +18,7 @@ public final class Application {
 
     public static void main(final String[] args) {
         final ControllerInterface c = new Controller();
-        final ViewInterface v = new View(c);
+        final View v = new ViewImpl(c);
         c.setView(v);
         v.startView();
     }
