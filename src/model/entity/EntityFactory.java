@@ -21,7 +21,7 @@ public interface EntityFactory {
      */
     Entity createPalyer(Pair<Double, Double> pos, Room currentRoom); // ricorda questo oggetto deve creare nuovi oggetti
                                                                      // quindi nel suo behavior ci dovrà essere un campo
-                                                                     // eFacrory
+                                                                     // eFactory
 
     /**
      * Create enemy that stalk the player.
