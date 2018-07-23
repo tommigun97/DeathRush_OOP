@@ -33,11 +33,12 @@ public class MiniTest {
     private static final double NEW_DOUBLE_PROP = 21.5;
     private static final String NEW_STRING_PROP = "MY PROPERTIES ARE CHANGED";
     private static final String UNCORRECT_PROPERTY = "Uncorrect";
+    private static final String STAND = "stand";
     private static final List<String> N_IMAGE = new ArrayList<>(Arrays.asList("n_sx", "n_dx", "n_stand"));
     private static final List<String> S_IMAGE = new ArrayList<>(Arrays.asList("s_sx", "s_dx", "s_stand"));
     private static final List<String> E_IMAGE = new ArrayList<>(Arrays.asList("e_sx", "e_dx", "e_stand"));
     private static final List<String> W_IMAGE = new ArrayList<>(Arrays.asList("w_sx", "w_dx", "w_stand"));
-    private static final Location DEFAULT_LOC = new Location(0, 0, new Area(10, 10));
+    private static final Location DEFAULT_LOC = new Location(0.50, 0.50, new Area(0.50, 0.50));
     private static final Pair<String, String> COUPLE_IMAGES = new Pair<String, String>("first", "second");
 
     @Test
@@ -81,17 +82,17 @@ public class MiniTest {
 
     @Test
     void completeImageSetCalculatorTest() {
-        final CompleteImageSetCalculator c = new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE);
+        final CompleteImageSetCalculator c = new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND);
         assertEquals(c.getCurrentImage(Direction.S), "s_sx");
         assertEquals(c.getCurrentImage(Direction.S), "s_dx");
         c.getCurrentImage(Direction.S);
         assertEquals(c.getCurrentImage(Direction.N), "n_dx");
         assertEquals(c.getCurrentImage(Direction.NW), "n_sx");
         assertEquals(c.getCurrentImage(Direction.E), "e_dx");
-        assertEquals(c.getCurrentImage(Direction.NOTHING), "e_stand");
-        assertEquals(c.getCurrentImage(Direction.NOTHING), "e_stand");
+        assertEquals(c.getCurrentImage(Direction.NOTHING), STAND);
+        assertEquals(c.getCurrentImage(Direction.NOTHING), STAND);
         assertEquals(c.getCurrentImage(Direction.SW), "s_sx");
-        assertEquals(c.getCurrentImage(Direction.NOTHING), "s_stand");
+        assertEquals(c.getCurrentImage(Direction.NOTHING), STAND);
     }
 
     @Test
@@ -104,34 +105,64 @@ public class MiniTest {
     @Test
     void testPlayerBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE));
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE,STAND));
         // test for check if the behavior check the necessary properties of the player
         try {
             Entity player = new EntitityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
                     .setBehaviour(pB).build();
         } catch (Exception e) {
-            //System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
         try {
             Entity player = new EntitityImpl.EntitiesBuilder().with("Speed", 10.0).setBehaviour(pB).build();
         } catch (Exception e) {
-            //System.out.println(e.getMessage());
+            // System.out.println(e.getMessage());
         }
 
         final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 10.0).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long)10).build();
-        assertEquals(p.getImage(), "s_stand");
+                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0)
+                .with("Shoot Frequency", (long) 10).build();
+        assertEquals(p.getImage(), STAND);
 
         // test if the entity is moving
         ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
         p.getBehaviour().get().update();
-        assertEquals(p.getLocation().getY(), -10);
+        assertEquals(p.getLocation().getY(), 0.30);
 
         // test if the entity return the correct image after the stop
         assertEquals(((PlayerBehavior) p.getBehaviour().get()).getCurrentDirection(), Direction.NOTHING);
         p.getBehaviour().get().update();
-        assertEquals(p.getImage(), "n_stand");
+        assertEquals(p.getImage(), STAND);
 
+        // test for check that the entity don't come out from the bound
+        p.changeDoubleProperty("Speed", 0.04);
+        //north Bound
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+           ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
+            p.getBehaviour().get().update();
+        }
+        //south Bound
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.S);
+             p.getBehaviour().get().update();
+         }
+        assertTrue(p.getLocation().getY() <= 1 - p.getLocation().getArea().getHeight() / 2);
+        // east Bound
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.E);
+             p.getBehaviour().get().update();
+         }
+        assertTrue(p.getLocation().getY() <= 1 - p.getLocation().getArea().getWidth() / 2);
+        //weast bound
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.W);
+             p.getBehaviour().get().update();
+         }
+        assertTrue(p.getLocation().getY() >= p.getLocation().getArea().getWidth() / 2);
     }
 
 }

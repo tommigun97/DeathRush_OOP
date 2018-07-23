@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.Direction;
+import model.Location;
 import model.room.Room;
 
 /**
@@ -13,7 +14,7 @@ public final class PlayerBehavior implements Behavior {
     // private Room currentRoom;
     // private EntityFactory eFactory;
     private Direction currentDirection;
-    private long now;
+    private long t;
     private final ImageCalculator imgCalc;
 
     /**
@@ -25,7 +26,7 @@ public final class PlayerBehavior implements Behavior {
         // this.eFactory = eFactory;
         this.currentDirection = Direction.NOTHING;
         this.imgCalc = imgCalc;
-        now = System.currentTimeMillis();
+        t = System.currentTimeMillis();
     }
 
     // public Room getCurrentRoom() {
@@ -72,23 +73,28 @@ public final class PlayerBehavior implements Behavior {
      *            shoot's direction
      */
     public void shoot(final Direction d) {
-        if (System.currentTimeMillis() - this.now <= (long) this.e.getObjectProperty("Shoot Frequency")) {
+        if (System.currentTimeMillis() - this.t <= (long) this.e.getObjectProperty("Shoot Frequency")) {
             // da aggingere alla lista delle entità della
             // roomthis.eFactory.createBullet(this.e.getLocation().getX(),
             // this.e.getLocation().getY(), this.currentRoom, d);
         }
-        now = System.currentTimeMillis();
+        t = System.currentTimeMillis();
     }
 
     @Override
     public void update() {
-        // TODO Auto-generated method stub
-        // il player si muove
+        Location prev = new Location(e.getLocation());
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
-
-        // controllo sulle dimensioni della stanza
+        if (this.e.getLocation().getY() <= this.e.getLocation().getArea().getHeight()/2
+                || this.e.getLocation().getY() >= 1 - this.e.getLocation().getArea().getHeight()/2
+                || this.e.getLocation().getX() <= this.e.getLocation().getArea().getWidth()/2
+                || this.e.getLocation().getX() >= 1 - this.e.getLocation().getArea().getWidth()/2) {
+            this.e.setLocation(prev);
+        }
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));
         this.currentDirection = Direction.NOTHING;
+
+        // controllo sugli ostacoli
 
     }
 

@@ -28,6 +28,12 @@ public final class EntitityImpl implements Entity {
     }
 
     @Override
+    public String toString() {
+        return "EntitityImpl [image=" + image + ", loc=" + loc + ", behavior=" + behavior + ", type=" + type
+                + ", properties=" + properties + "]";
+    }
+
+    @Override
     public String getImage() {
         return image;
     }

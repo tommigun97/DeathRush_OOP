@@ -68,6 +68,6 @@ public interface EntityFactory {
      *            the room where the door leads
      * @return the door
      */
-    Entity createDoor(double x, double y, Room currentRoom, Room nextRoom);
+    //Entity createDoor(double x, double y, Room currentRoom, Room nextRoom, DoorStatus status);
 
 }
