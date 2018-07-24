@@ -32,7 +32,7 @@ public interface Model {
      * @param shoot
      *            number of shot that player should shoot.
      */
-    void update(Direction directions, List<Direction> shoot);
+    void update(Direction direction, List<Direction> shoot);
 
     /**
      * Initialize the game world.
