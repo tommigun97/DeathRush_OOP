@@ -16,17 +16,19 @@ public final class PlayerBehavior implements Behavior {
     private Direction currentDirection;
     private long t;
     private final ImageCalculator imgCalc;
+    private final CollisionSupervisor cs;
 
     /**
      * @param imgCalc
      *            calculator player image
      */
-    public PlayerBehavior(final ImageCalculator imgCalc) {
+    public PlayerBehavior(final ImageCalculator imgCalc, final CollisionSupervisor cs) {
         // this.currentRoom = currentRoom;
         // this.eFactory = eFactory;
         this.currentDirection = Direction.NOTHING;
         this.imgCalc = imgCalc;
-        t = System.currentTimeMillis();
+        this.t = System.currentTimeMillis();
+        this.cs = cs;
     }
 
     // public Room getCurrentRoom() {
@@ -85,17 +87,11 @@ public final class PlayerBehavior implements Behavior {
     public void update() {
         Location prev = new Location(e.getLocation());
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
-        if (this.e.getLocation().getY() <= this.e.getLocation().getArea().getHeight()/2
-                || this.e.getLocation().getY() >= 1 - this.e.getLocation().getArea().getHeight()/2
-                || this.e.getLocation().getX() <= this.e.getLocation().getArea().getWidth()/2
-                || this.e.getLocation().getX() >= 1 - this.e.getLocation().getArea().getWidth()/2) {
-            this.e.setLocation(prev);
-        }
+        new CollisionSupervisorImpl().collisionWithBound(prev, e);
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));
         this.currentDirection = Direction.NOTHING;
 
         // controllo sugli ostacoli
-
     }
 
     private void checkProperties() {

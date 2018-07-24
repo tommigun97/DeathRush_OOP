@@ -7,17 +7,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
 
 import model.Area;
 import model.Direction;
 import model.Location;
+import model.entity.CollisionSupervisor;
+import model.entity.CollisionSupervisorImpl;
 import model.entity.CompleteImageSetCalculator;
 import model.entity.EntitityImpl;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.PlayerBehavior;
+import model.entity.StalkerEnemyBehavior;
 import model.entity.TwoImageCalculator;
 import utilities.Pair;
 
@@ -25,7 +29,7 @@ import utilities.Pair;
  * class for testing entities.
  *
  */
-public class MiniTest {
+public class EntityTestV1 {
     private static final int INT_PROP = 20;
     private static final double DOUBLE_PROP = 21.5;
     private static final String STRING_PROP = "I'M AN ENTITY";
@@ -40,6 +44,7 @@ public class MiniTest {
     private static final List<String> W_IMAGE = new ArrayList<>(Arrays.asList("w_sx", "w_dx", "w_stand"));
     private static final Location DEFAULT_LOC = new Location(0.50, 0.50, new Area(0.50, 0.50));
     private static final Pair<String, String> COUPLE_IMAGES = new Pair<String, String>("first", "second");
+    private static final CollisionSupervisor CS = new CollisionSupervisorImpl();
 
     @Test
     void buildingTest() {
@@ -105,7 +110,7 @@ public class MiniTest {
     @Test
     void testPlayerBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE,STAND));
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
         // test for check if the behavior check the necessary properties of the player
         try {
             Entity player = new EntitityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
@@ -120,8 +125,8 @@ public class MiniTest {
         }
 
         final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0)
-                .with("Shoot Frequency", (long) 10).build();
+                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
+                .build();
         assertEquals(p.getImage(), STAND);
 
         // test if the entity is moving
@@ -136,33 +141,111 @@ public class MiniTest {
 
         // test for check that the entity don't come out from the bound
         p.changeDoubleProperty("Speed", 0.04);
-        //north Bound
+        // north Bound
         p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
         for (int i = 0; i < 100; i++) {
-           ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
             p.getBehaviour().get().update();
         }
-        //south Bound
+        // south Bound
         p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
         for (int i = 0; i < 100; i++) {
             ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.S);
-             p.getBehaviour().get().update();
-         }
+            p.getBehaviour().get().update();
+        }
         assertTrue(p.getLocation().getY() <= 1 - p.getLocation().getArea().getHeight() / 2);
         // east Bound
         p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
         for (int i = 0; i < 100; i++) {
             ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.E);
-             p.getBehaviour().get().update();
-         }
+            p.getBehaviour().get().update();
+        }
         assertTrue(p.getLocation().getY() <= 1 - p.getLocation().getArea().getWidth() / 2);
-        //weast bound
+        // weast bound
         p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
         for (int i = 0; i < 100; i++) {
             ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.W);
-             p.getBehaviour().get().update();
-         }
+            p.getBehaviour().get().update();
+        }
         assertTrue(p.getLocation().getY() >= p.getLocation().getArea().getWidth() / 2);
+    }
+
+    @Test
+    void testStalkerEnemyBehavior() {
+        final PlayerBehavior pB = new PlayerBehavior(
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND),CS);
+        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
+                .build();
+        final StalkerEnemyBehavior sB = new StalkerEnemyBehavior(p,
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
+        final Entity stalker = new EntitityImpl.EntitiesBuilder()
+                .setLocation(new Location(0.50, 0.70, new Area(0.2, 0.2))).setImage("error").setBehaviour(sB)
+                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
+                .build();
+        assertEquals(stalker.getImage(), STAND);
+        // check if the NewDIrection is correct
+        // Direction N
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.N));
+        // Direction S
+        stalker.setLocation(new Location(0.50, 0.30, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.S));
+        // Direction E
+        stalker.setLocation(new Location(0.30, 0.50, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.E));
+        // Direction W
+        stalker.setLocation(new Location(0.70, 0.50, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.W));
+        // Direction NE
+        stalker.setLocation(new Location(0.30, 0.70, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.NE));
+        // Direction NW
+        stalker.setLocation(new Location(0.70, 0.70, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.NW));
+        // Direction SE
+        stalker.setLocation(new Location(0.30, 0.30, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.SE));
+        // Direction NW
+        stalker.setLocation(new Location(0.70, 0.30, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.SW));
+        // Same Location
+        stalker.setLocation(new Location(0.50, 0.50, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(
+                ((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.NOTHING));
+
+        // Follow the Player
+        Location prev = new Location(0.30, 0.30, new Area(0.2, 0.2));
+        stalker.setLocation(new Location(0.30, 0.30, new Area(0.2, 0.2)));
+        IntStream.range(0, 20).forEach(i -> ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update());
+        assertTrue(isMuchNear(prev, stalker.getLocation(), p.getLocation()));
+
+        // Follow the Player 2nd try
+        p.setLocation(new Location(0.70, 0.70, new Area(0.2, 0.2)));
+        prev = new Location(stalker.getLocation());
+        System.out.println("start " + stalker.getLocation());
+        IntStream.range(0, 20).forEach(i -> {
+            ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+            /* System.out.println(stalker.getLocation()); */});
+        assertTrue(isMuchNear(prev, stalker.getLocation(), p.getLocation()));
+    }
+
+    private boolean isMuchNear(final Location prev, final Location current, final Location goal) {
+        return distanceVector(prev, goal) >= distanceVector(current, goal);
+    }
+
+    private double distanceVector(final Location l, final Location w) {
+        double x = Math.hypot(Math.abs(l.getX() - w.getX()), Math.abs(l.getY() - w.getY()));
+        System.out.println(x);
+        return x;
     }
 
 }
