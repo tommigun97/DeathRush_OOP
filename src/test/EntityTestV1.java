@@ -6,7 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -14,15 +16,22 @@ import org.junit.jupiter.api.Test;
 import model.Area;
 import model.Direction;
 import model.Location;
+import model.entity.BulletBehavior;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.CompleteImageSetCalculator;
 import model.entity.EntityImpl;
 import model.entity.Entity;
+import model.entity.EntityFactory;
+import model.entity.EntityFactoryImpl;
 import model.entity.EntityType;
+import model.entity.Player;
 import model.entity.PlayerBehavior;
 import model.entity.StalkerEnemyBehavior;
 import model.entity.TwoImageCalculator;
+import model.room.Room;
+import model.room.RoomImpl;
+import model.room.RoomType;
 import utilities.Pair;
 
 /**
@@ -45,6 +54,9 @@ public class EntityTestV1 {
     private static final Location DEFAULT_LOC = new Location(0.50, 0.50, new Area(0.50, 0.50));
     private static final Pair<String, String> COUPLE_IMAGES = new Pair<String, String>("first", "second");
     private static final CollisionSupervisor CS = new CollisionSupervisorImpl();
+    private static final Room DEFAULT_ROOM = new RoomImpl(" ", 0, false, RoomType.INTERMEDIATE, new HashSet<Entity>(),
+            new HashSet<Entity>());
+    private static final EntityFactory E_FACTORY = new EntityFactoryImpl(CS);
 
     @Test
     void buildingTest() {
@@ -110,7 +122,7 @@ public class EntityTestV1 {
     @Test
     void testPlayerBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, DEFAULT_ROOM, E_FACTORY);
         // test for check if the behavior check the necessary properties of the player
         try {
             Entity player = new EntityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
@@ -125,8 +137,8 @@ public class EntityTestV1 {
         }
 
         final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10).with("Shooting Damage", 10)
-                .build();
+                .with("Speed", 0.2).with("Max Life", 10).with("Current Life", 10).with("Shoot Frequency", (long) 10)
+                .with("Shooting Damage", 10).with("Bullet Speed", 10.0).build();
         assertEquals(p.getImage(), STAND);
 
         // test if the entity is moving
@@ -173,10 +185,10 @@ public class EntityTestV1 {
     @Test
     void testStalkerEnemyBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, DEFAULT_ROOM, E_FACTORY);
         final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10).with("Shooting Damage", 10)
-                .build();
+                .with("Speed", 0.2).with("Max Life", 10).with("Current Life", 10).with("Shoot Frequency", (long) 10)
+                .with("Shooting Damage", 10).with("Bullet Speed", 10.0).build();
         final StalkerEnemyBehavior sB = new StalkerEnemyBehavior(p,
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
         final Entity stalker = new EntityImpl.EntitiesBuilder()
@@ -231,7 +243,7 @@ public class EntityTestV1 {
         // Follow the Player 2nd try
         p.setLocation(new Location(0.70, 0.70, new Area(0.2, 0.2)));
         prev = new Location(stalker.getLocation());
-        System.out.println("start " + stalker.getLocation());
+        // System.out.println("start " + stalker.getLocation());
         IntStream.range(0, 20).forEach(i -> {
             ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
             /* System.out.println(stalker.getLocation()); */});
@@ -244,8 +256,31 @@ public class EntityTestV1 {
 
     private double distanceVector(final Location l, final Location w) {
         double x = Math.hypot(Math.abs(l.getX() - w.getX()), Math.abs(l.getY() - w.getY()));
-        System.out.println(x);
+        // System.out.println(x);
         return x;
+    }
+
+    @Test
+    void testShoot() {
+        Entity p = E_FACTORY.createPalyer(new Pair<Double, Double>(DEFAULT_LOC.getX(), DEFAULT_LOC.getY()),
+                DEFAULT_ROOM, Player.SIMO);
+        ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.N);
+        System.out.println();
+        assertTrue(DEFAULT_ROOM.getEntity().size() == 1);
+        IntStream.range(0, 60).forEach(i -> DEFAULT_ROOM.getEntity().forEach(e -> e.getBehaviour().get().update()));
+        assertFalse(DEFAULT_ROOM.getEntity().size() == 1);
+
+    }
+
+    @Test
+    void testBulletBehavior() {
+        Entity b = E_FACTORY.createBullet(0.50, 0.50, DEFAULT_ROOM, Direction.N, EntityType.PLAYER_BULLET, 10, 0.1);
+        DEFAULT_ROOM.addEntity(b);
+        b.getBehaviour().get().update();
+        assertTrue(b.getLocation().getX() == 0.50 && b.getLocation().getY() == 0.40);
+        IntStream.range(0, 60).forEach(i -> ((BulletBehavior) b.getBehaviour().get()).update());
+        assertFalse(DEFAULT_ROOM.getEntity().contains(b));
+
     }
 
 }

@@ -1,7 +1,9 @@
 package model.entity;
 
-import java.util.List;
+import java.util.Set;
+
 import model.Location;
+import model.room.Room;
 
 /**
  * This is the component of the game that have to check the collision between
@@ -23,12 +25,14 @@ public interface CollisionSupervisor {
 
     /**
      * the methods check if entity collide with the bound and in case of collision
-     * remove the entity from the room.  
+     * remove the entity from the room.
      * 
      * @param e
      *            the entity
+     * @param currentRoom
+     *            room where Entity is set
      */
-    void collisionWithBound(Entity e); // manca il riferimento alla stanza dalla quale l'enitità deve essere rimossa
+    void collisionWithBound(Entity e, Room currentRoom); 
 
     /**
      * the methods check if entity collide with some obstacles in the list of other
@@ -39,6 +43,6 @@ public interface CollisionSupervisor {
      * @param allEntities
      *            the other entities
      */
-    void collisionWithObstacles(Entity e, List<Entity> allEntities);
+    void collisionWithObstacles(Entity e, Set<Entity> allEntities);
 
 }

@@ -110,7 +110,7 @@ public class RoomImpl implements Room {
         this.entitiesRoom.remove(entity);
     }
     @Override
-    public Set<Entity> getEnemy() {
+    public Set<Entity> getEntity() {
        return this.entitiesRoom;
     }
 
