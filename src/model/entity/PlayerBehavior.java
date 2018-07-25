@@ -87,7 +87,7 @@ public final class PlayerBehavior implements Behavior {
     public void update() {
         Location prev = new Location(e.getLocation());
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
-        new CollisionSupervisorImpl().collisionWithBound(prev, e);
+        cs.collisionWithBound(prev, e);
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));
         this.currentDirection = Direction.NOTHING;
 
@@ -101,6 +101,7 @@ public final class PlayerBehavior implements Behavior {
         e.getDoubleProperty("Max Life");
         e.getDoubleProperty("Current Life");
         e.getObjectProperty("Shoot Frequency");
+        e.getIntegerProperty("Shooting Damage");
     }
 
 }

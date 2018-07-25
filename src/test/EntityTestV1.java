@@ -124,8 +124,8 @@ public class EntityTestV1 {
             // System.out.println(e.getMessage());
         }
 
-        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
+        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10).with("Shooting Damage", 10)
                 .build();
         assertEquals(p.getImage(), STAND);
 
@@ -173,16 +173,16 @@ public class EntityTestV1 {
     @Test
     void testStalkerEnemyBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND),CS);
-        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
-                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
+        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10).with("Shooting Damage", 10)
                 .build();
         final StalkerEnemyBehavior sB = new StalkerEnemyBehavior(p,
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
         final Entity stalker = new EntityImpl.EntitiesBuilder()
                 .setLocation(new Location(0.50, 0.70, new Area(0.2, 0.2))).setImage("error").setBehaviour(sB)
                 .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
-                .build();
+                .with("Collision Damage", 1).with("Shoot Damage", 1).build();
         assertEquals(stalker.getImage(), STAND);
         // check if the NewDIrection is correct
         // Direction N

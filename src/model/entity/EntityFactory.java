@@ -19,7 +19,7 @@ public interface EntityFactory {
      *            the starting room where player is placed
      * @return the player
      */
-    Entity createPalyer(Pair<Double, Double> pos, Room currentRoom); // ricorda questo oggetto deve creare nuovi oggetti
+    Entity createPalyer(Pair<Double, Double> pos, Room currentRoom, Player who); // ricorda questo oggetto deve creare nuovi oggetti
                                                                      // quindi nel suo behavior ci dovrà essere un campo
                                                                      // eFactory
 
