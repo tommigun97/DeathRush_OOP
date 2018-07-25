@@ -124,7 +124,7 @@ public class EntityTestV1 {
             // System.out.println(e.getMessage());
         }
 
-        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
                 .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10).with("Shooting Damage", 10)
                 .build();
         assertEquals(p.getImage(), STAND);
@@ -174,7 +174,7 @@ public class EntityTestV1 {
     void testStalkerEnemyBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
-        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
                 .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10).with("Shooting Damage", 10)
                 .build();
         final StalkerEnemyBehavior sB = new StalkerEnemyBehavior(p,

@@ -6,9 +6,6 @@ import model.Location;
 import model.room.Room;
 import utilities.Pair;
 import model.entity.DoorStatus;
-
-public class EntityFactoryImpl implements EntityFactory {
-package model.entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +19,6 @@ import utilities.Pair;
  * Implementation of EntityFactory.
  */
 public class EntityFactoryImpl implements EntityFactory {
-    public Entity createPalyer(final Pair<Double, Double> pos, final Room currentRoom, final Player who) {
     private static final Pair<Double, Double> STARTING_POSITION = new Pair<Double, Double>(0.50, 0.50);
     private final CollisionSupervisor cs;
 
@@ -35,6 +31,7 @@ public class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
+    public Entity createPalyer(final Pair<Double, Double> pos, final Room currentRoom, final Player who) {
         PlayerBehavior pB = null;
         Area pA = null;
         double playerSpeed = 0;
@@ -82,7 +79,7 @@ public class EntityFactoryImpl implements EntityFactory {
             startMaxLife = Player.KASO.getStartingMaxLife();
         }
 
-        return new EntitityImpl.EntitiesBuilder()
+        return new EntityImpl.EntitiesBuilder()
                 .setLocation(new Location(STARTING_POSITION.getFirst(), STARTING_POSITION.getSecond(), pA))
                 .setImage("error").setBehaviour(pB).with("Speed", playerSpeed).with("Max Life", startMaxLife)
                 .with("Current Life", startMaxLife).with("Shoot Frequency", (long) shootFequency)
@@ -101,7 +98,6 @@ public class EntityFactoryImpl implements EntityFactory {
         return null;
     }
 
-}
     @Override
     public final Entity createDoor(final double x, final double y, final Room currentRoom, final DoorStatus status, final Room nextRoom, final String image) {
         return new EntityImpl.EntitiesBuilder()
