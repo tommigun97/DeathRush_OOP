@@ -16,7 +16,7 @@ public class RoomImpl implements Room {
     private final int roomID;
     private boolean complited;
     private final RoomType type;
-    private List<Entity> entitiesRoom;
+    private Set<Entity> entitiesRoom;
     private Set<Entity> doorsRoom;
 
     /**
@@ -35,7 +35,7 @@ public class RoomImpl implements Room {
      *            .
      */
     public RoomImpl(final String image, final int roomID, final boolean complited, final RoomType type,
-            final List<Entity> entitiesRoom, final Set<Entity> doorsRoom) {
+            final Set<Entity> entitiesRoom, final Set<Entity> doorsRoom) {
         this.image = image;
         this.roomID = roomID;
         this.complited = complited;
@@ -109,6 +109,10 @@ public class RoomImpl implements Room {
     public final void deleteEntity(final Entity entity) {
         this.entitiesRoom.remove(entity);
     }
+    @Override
+    public Set<Entity> getEnemy() {
+       return this.entitiesRoom;
+    }
 
     /**
      * 
@@ -121,7 +125,7 @@ public class RoomImpl implements Room {
         private int roomID;
         private boolean complited;
         private RoomType type;
-        private List<Entity> entitiesRoom;
+        private Set<Entity> entitiesRoom;
         private Set<Entity> doorsRoom;
 
         /**
@@ -174,7 +178,7 @@ public class RoomImpl implements Room {
          *            .
          * @return .
          */
-        public RoomBuilder setEnemies(final List<Entity> entitiesRoom) {
+        public RoomBuilder setEnemies(final Set<Entity> entitiesRoom) {
             this.entitiesRoom = entitiesRoom;
             return this;
         }
@@ -198,4 +202,6 @@ public class RoomImpl implements Room {
             return new RoomImpl(image, roomID, complited, type, entitiesRoom, doorsRoom);
         }
     }
+
+
 }

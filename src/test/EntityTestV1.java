@@ -17,7 +17,7 @@ import model.Location;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.CompleteImageSetCalculator;
-import model.entity.EntitityImpl;
+import model.entity.EntityImpl;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.PlayerBehavior;
@@ -48,7 +48,7 @@ public class EntityTestV1 {
 
     @Test
     void buildingTest() {
-        final Entity w = new EntitityImpl.EntitiesBuilder().with("alive", true).with("speed", INT_PROP)
+        final Entity w = new EntityImpl.EntitiesBuilder().with("alive", true).with("speed", INT_PROP)
                 .with("maxLife", DOUBLE_PROP).setType(EntityType.PLAYER).with("string", STRING_PROP).build();
 
         assertEquals(w.getDoubleProperty("maxLife"), DOUBLE_PROP);
@@ -113,18 +113,18 @@ public class EntityTestV1 {
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
         // test for check if the behavior check the necessary properties of the player
         try {
-            Entity player = new EntitityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
+            Entity player = new EntityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
                     .setBehaviour(pB).build();
         } catch (Exception e) {
             // System.out.println(e.getMessage());
         }
         try {
-            Entity player = new EntitityImpl.EntitiesBuilder().with("Speed", 10.0).setBehaviour(pB).build();
+            Entity player = new EntityImpl.EntitiesBuilder().with("Speed", 10.0).setBehaviour(pB).build();
         } catch (Exception e) {
             // System.out.println(e.getMessage());
         }
 
-        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
                 .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
                 .build();
         assertEquals(p.getImage(), STAND);
@@ -174,12 +174,12 @@ public class EntityTestV1 {
     void testStalkerEnemyBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND),CS);
-        final Entity p = new EntitityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
                 .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
                 .build();
         final StalkerEnemyBehavior sB = new StalkerEnemyBehavior(p,
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
-        final Entity stalker = new EntitityImpl.EntitiesBuilder()
+        final Entity stalker = new EntityImpl.EntitiesBuilder()
                 .setLocation(new Location(0.50, 0.70, new Area(0.2, 0.2))).setImage("error").setBehaviour(sB)
                 .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
                 .build();

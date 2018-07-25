@@ -1,7 +1,7 @@
 package model.room;
 
+import java.util.List;
 import java.util.Set;
-
 import model.entity.Door;
 import model.entity.Entity;
 
@@ -15,14 +15,13 @@ public interface Room {
      * @param doorList
      *            .
      */
-    void addDoor(Door doorList);
+    
     void addDoor(Entity doorList);
 
     /**
      * 
      * @return .
      */
-    Set<Door> getDoor();
     Set<Entity> getDoor();
 
     /**
@@ -55,6 +54,9 @@ public interface Room {
      * #@return
      * 
      */
-    void deleteEntity(Entity entity);
     
+   
+    void deleteEntity(Entity entity);
+
+    Set<Entity> getEnemy();
 }
