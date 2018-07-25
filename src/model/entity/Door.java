@@ -14,10 +14,6 @@ public interface Door {
      * @author anisl
      *
      */
-   enum DoorStatus{
-       OPEN, CLOSE;
-   }
-
     /**
      * Method for getting Room that are link by Door.
      * 

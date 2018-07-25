@@ -15,7 +15,7 @@ public enum Coordinates {
     private final String name;
     private final int coordinateId;
 
-    private Coordinates(String name, int coordinateId) {
+    private Coordinates(final String name, final int coordinateId) {
         this.name = name;
         this.coordinateId = coordinateId;
     }
