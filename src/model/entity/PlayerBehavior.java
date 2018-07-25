@@ -11,8 +11,8 @@ import model.room.Room;
 public final class PlayerBehavior implements Behavior {
 
     private Entity e;
-    // private Room currentRoom;
-    // private EntityFactory eFactory;
+    private Room currentRoom;
+    private final EntityFactory eFactory;
     private Direction currentDirection;
     private long t;
     private final ImageCalculator imgCalc;
@@ -22,31 +22,32 @@ public final class PlayerBehavior implements Behavior {
      * @param imgCalc
      *            calculator player image
      */
-    public PlayerBehavior(final ImageCalculator imgCalc, final CollisionSupervisor cs) {
-        // this.currentRoom = currentRoom;
-        // this.eFactory = eFactory;
+    public PlayerBehavior(final ImageCalculator imgCalc, final CollisionSupervisor cs, final Room currentRoom,
+            final EntityFactory eFactory) {
+        this.currentRoom = currentRoom;
+        this.eFactory = eFactory;
         this.currentDirection = Direction.NOTHING;
         this.imgCalc = imgCalc;
         this.t = System.currentTimeMillis();
         this.cs = cs;
     }
 
-    // public Room getCurrentRoom() {
-    // return currentRoom;
-    // }
-    //
-    // public void setCurrentRoom(Room currentRoom) {
-    // this.currentRoom = currentRoom;
-    // }
 
-    // public EntityFactory geteFactory() {
-    // return eFactory;
-    // }
-    //
-    // public void seteFactory(EntityFactory eFactory) {
-    // this.eFactory = eFactory;
-    // }
-    //
+    /**
+     * @return the current room where is set the player
+     */
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
+
+    /**
+     * @param currentRoom
+     *            the new current room to set
+     */
+    public void setCurrentRoom(final Room currentRoom) {
+        this.currentRoom = currentRoom;
+    }
+
     @Override
     public void setEntity(final Entity e) {
         this.e = e;
@@ -75,10 +76,10 @@ public final class PlayerBehavior implements Behavior {
      *            shoot's direction
      */
     public void shoot(final Direction d) {
-        if (System.currentTimeMillis() - this.t <= (long) this.e.getObjectProperty("Shoot Frequency")) {
+        if (System.currentTimeMillis() - this.t <= (Long) this.e.getObjectProperty("Shoot Frequency")) {
             // da aggingere alla lista delle entità della
-            // roomthis.eFactory.createBullet(this.e.getLocation().getX(),
-            // this.e.getLocation().getY(), this.currentRoom, d);
+            this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
+                    currentRoom, d, EntityType.PLAYER_BULLET, e.getIntegerProperty("Shooting Damage"), e.getDoubleProperty("Bullet Speed")));
         }
         t = System.currentTimeMillis();
     }
@@ -98,10 +99,12 @@ public final class PlayerBehavior implements Behavior {
         // check per verificare che ci siano tutte le proprietà necessarie per
         // l'utilizzo del player
         e.getDoubleProperty("Speed");
-        e.getDoubleProperty("Max Life");
-        e.getDoubleProperty("Current Life");
+        e.getIntegerProperty("Max Life");
+        e.getIntegerProperty("Current Life");
         e.getObjectProperty("Shoot Frequency");
         e.getIntegerProperty("Shooting Damage");
+        e.getIntegerProperty("Shooting Damage");
+        e.getDoubleProperty("Bullet Speed");
     }
 
 }

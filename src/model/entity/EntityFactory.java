@@ -19,9 +19,10 @@ public interface EntityFactory {
      *            the starting room where player is placed
      * @return the player
      */
-    Entity createPalyer(Pair<Double, Double> pos, Room currentRoom, Player who); // ricorda questo oggetto deve creare nuovi oggetti
-                                                                     // quindi nel suo behavior ci dovrà essere un campo
-                                                                     // eFactory
+    Entity createPalyer(Pair<Double, Double> pos, Room currentRoom, Player who); // ricorda questo oggetto deve creare
+                                                                                 // nuovi oggetti
+    // quindi nel suo behavior ci dovrà essere un campo
+    // eFactory
 
     /**
      * Create enemy that stalk the player.
@@ -49,9 +50,14 @@ public interface EntityFactory {
      *            room where the bullet is placed, needs to set the limit to move
      * @param direction
      *            direction where the bullet run
+     * @param damage
+     *            bullet damage
+     * @param speed
+     *            bullet speed
      * @return the bullet
      */
-    Entity createBullet(double x, double y, Room currentRoom, Direction direction);
+    Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType, int damage,
+            double speed);
     // forse sarà necessario aggiungergli un danno come parametro in modo da
     // differenziare i vari proiettili, il danno sarà preso dalle caratteristiche
     // dell'entità a cui è associato tramite il suo beahvior

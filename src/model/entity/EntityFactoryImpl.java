@@ -15,11 +15,16 @@ import model.Location;
 
 import model.room.Room;
 import utilities.Pair;
+
 /**
  * Implementation of EntityFactory.
  */
 public class EntityFactoryImpl implements EntityFactory {
     private static final Pair<Double, Double> STARTING_POSITION = new Pair<Double, Double>(0.50, 0.50);
+    private static final double DEFAULT_BULLET_WEIGHT = 0.1;
+    private static final double DEFAULT_BULLET_HEIGHT = 0.1;
+    private static final double DEFAULT_BULLET_SPEED = 0.3;
+
     private final CollisionSupervisor cs;
 
     /**
@@ -42,7 +47,7 @@ public class EntityFactoryImpl implements EntityFactory {
             pB = new PlayerBehavior(
                     new CompleteImageSetCalculator(Player.SIMO.images(Direction.N), Player.SIMO.images(Direction.S),
                             Player.SIMO.images(Direction.E), Player.SIMO.images(Direction.W), Player.SIMO.standImage()),
-                    cs);
+                    cs, currentRoom, this);
             pA = Player.SIMO.getArea();
             playerSpeed = Player.SIMO.getSpeed();
             shootFequency = Player.SIMO.startingPlayerShootFrequency();
@@ -52,7 +57,7 @@ public class EntityFactoryImpl implements EntityFactory {
             pB = new PlayerBehavior(
                     new CompleteImageSetCalculator(Player.ANIS.images(Direction.N), Player.ANIS.images(Direction.S),
                             Player.ANIS.images(Direction.E), Player.ANIS.images(Direction.W), Player.ANIS.standImage()),
-                    cs);
+                    cs, currentRoom, this);
             pA = Player.ANIS.getArea();
             playerSpeed = Player.ANIS.getSpeed();
             shootFequency = Player.ANIS.startingPlayerShootFrequency();
@@ -61,7 +66,7 @@ public class EntityFactoryImpl implements EntityFactory {
         } else if (who.equals(Player.TOMMI)) {
             pB = new PlayerBehavior(new CompleteImageSetCalculator(Player.TOMMI.images(Direction.N),
                     Player.TOMMI.images(Direction.S), Player.TOMMI.images(Direction.E),
-                    Player.TOMMI.images(Direction.W), Player.TOMMI.standImage()), cs);
+                    Player.TOMMI.images(Direction.W), Player.TOMMI.standImage()), cs, currentRoom, this);
             pA = Player.TOMMI.getArea();
             playerSpeed = Player.TOMMI.getSpeed();
             shootFequency = Player.TOMMI.startingPlayerShootFrequency();
@@ -71,7 +76,7 @@ public class EntityFactoryImpl implements EntityFactory {
             pB = new PlayerBehavior(
                     new CompleteImageSetCalculator(Player.KASO.images(Direction.N), Player.KASO.images(Direction.S),
                             Player.KASO.images(Direction.E), Player.KASO.images(Direction.W), Player.KASO.standImage()),
-                    cs);
+                    cs, currentRoom, this);
             pA = Player.KASO.getArea();
             playerSpeed = Player.KASO.getSpeed();
             shootFequency = Player.KASO.startingPlayerShootFrequency();
@@ -81,9 +86,10 @@ public class EntityFactoryImpl implements EntityFactory {
 
         return new EntityImpl.EntitiesBuilder()
                 .setLocation(new Location(STARTING_POSITION.getFirst(), STARTING_POSITION.getSecond(), pA))
-                .setImage("error").setBehaviour(pB).with("Speed", playerSpeed).with("Max Life", startMaxLife)
-                .with("Current Life", startMaxLife).with("Shoot Frequency", (long) shootFequency)
-                .with("Shooting Damage", shootDamage).build();
+                .setType(EntityType.PLAYER).setImage("error").setBehaviour(pB).with("Speed", playerSpeed)
+                .with("Max Life", startMaxLife).with("Current Life", startMaxLife)
+                .with("Shoot Frequency", Long.valueOf(shootFequency)).with("Shooting Damage", shootDamage)
+                .with("Bullet Speed", DEFAULT_BULLET_SPEED).build();
     }
 
     @Override
@@ -93,19 +99,20 @@ public class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public Entity createBullet(double x, double y, Room currentRoom, Direction direction) {
-        // TODO Auto-generated method stub
-        return null;
+    public Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType,
+            int damage, double speed) {
+        BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+        return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
+                .with("Speed", speed)
+                .setLocation(new Location(x, x, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
     }
 
     @Override
-    public final Entity createDoor(final double x, final double y, final Room currentRoom, final DoorStatus status, final Room nextRoom, final String image) {
-        return new EntityImpl.EntitiesBuilder()
-                                .setLocation(new Location(x, y, new Area(0.5, 0.5)))
-                                .with("currentRoom", currentRoom)
-                                .with("doorStatus", status)
-                                .with("nextRoom", nextRoom)
-                                .with("image", image).build();
+    public final Entity createDoor(final double x, final double y, final Room currentRoom, final DoorStatus status,
+            final Room nextRoom, final String image) {
+        return new EntityImpl.EntitiesBuilder().setLocation(new Location(x, y, new Area(0.5, 0.5)))
+                .with("currentRoom", currentRoom).with("doorStatus", status).with("nextRoom", nextRoom)
+                .with("image", image).build();
     }
 
 }

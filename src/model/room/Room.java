@@ -58,5 +58,5 @@ public interface Room {
    
     void deleteEntity(Entity entity);
 
-    Set<Entity> getEnemy();
+    Set<Entity> getEntity();
 }
