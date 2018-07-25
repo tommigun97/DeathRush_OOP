@@ -13,28 +13,53 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import model.entity.Door;
-import model.entity.EntitityImpl.EntitiesBuilder;
+import model.entity.EntityImpl.EntitiesBuilder;
 import model.entity.GameDoor.GameDoorBuilder;
 import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
 import utilities.Pair;
-import model.entity.Door.DoorStatus;
+import model.entity.DoorStatus;
 
-public class GameMap implements Map {
+public abstract class GameMap implements Map {
 
     private final static int MAXROOM = 15;
     private final static int MAXDOOR = 4;
+    private final static int X = 20;
+    private final static int Y = 20;
 
-    private HashMap<Room, Set<Pair<Door, Coordinates>>> map;
+    private Room[][] path;
+    private Set<Room> rooms;
     private Set<Door> doors;
     private Room firstRoom;
     private RoomBuilder rBuilder;
     private GameDoorBuilder dBuilder;
+    @Override
+    public Set<Door> getDoors() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public Optional<Room> getRoom(int x) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    @Override
+    public void addLink(Room x, Room y, Coordinates z, model.entity.DoorStatus statusLink) {
+        // TODO Auto-generated method stub
+        
+    }
+    @Override
+    public void addNewRoom(Room x) {
+        // TODO Auto-generated method stub
+        
+    }
+}
 
-    public GameMap() {
-        this.map = new HashMap<>();
+  /*  public GameMap() {
+        this.rooms = new HashSet<>();
         this.doors = new HashSet<>();
+        this.path = new Room[X][Y];
         this.firstRoom = rBuilder.setRoomID(0).setComplited(true).setTypes(RoomType.FIRTS).build();
         this.initMap(firstRoom);
     }
@@ -149,3 +174,4 @@ public class GameMap implements Map {
  * 
  * public String toString() { return "" + this.linked; }
  */
+    

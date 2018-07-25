@@ -199,8 +199,8 @@ public class GameScreen extends Scene {
      */
     private void resize() {
         this.infoBox.setMinWidth(inGameWidth);
-        this.infoBox.setMaxSize((280 * resConstantWidth), (1000 * resConstantHeight));
-        this.infoBox.setMinHeight((1000 * resConstantHeight));
+        this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
+        this.infoBox.setMinHeight((50 * resConstantHeight));
         this.infoBox.setSpacing(12 * resConstantWidth);
         this.score.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.hp.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
