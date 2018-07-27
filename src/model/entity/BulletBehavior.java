@@ -31,7 +31,7 @@ public class BulletBehavior implements Behavior {
     public void update() {
         d.changeLocation(b.getLocation(), b.getDoubleProperty("Speed"));
         cs.collisionWithBound(b, currentRoom);
-        //mancano le collisioni con gli ostacoli
+        cs.collisionWithObstacles(b, currentRoom);
     }
 
     private void checkProperty() {

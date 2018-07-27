@@ -88,7 +88,7 @@ public class GameLoop extends Thread {
     }
 
     private void checkEvents() {
-        if (this.model.getPalyerLife() <= 0) {
+        if (this.model.getPlayerLife() <= 0) {
             this.setState(Status.KILLED);
         }
     }

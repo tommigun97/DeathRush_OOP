@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.Test;
@@ -183,17 +183,17 @@ public class EntityTestV1 {
     }
 
     @Test
-    void testStalkerEnemyBehavior() {
+    void testStalkerEnemyBehaviorV1() {
         final PlayerBehavior pB = new PlayerBehavior(
                 new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, DEFAULT_ROOM, E_FACTORY);
         final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
                 .with("Speed", 0.2).with("Max Life", 10).with("Current Life", 10).with("Shoot Frequency", (long) 10)
                 .with("Shooting Damage", 10).with("Bullet Speed", 10.0).build();
         final StalkerEnemyBehavior sB = new StalkerEnemyBehavior(p,
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS);
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, DEFAULT_ROOM, E_FACTORY, false);
         final Entity stalker = new EntityImpl.EntitiesBuilder()
                 .setLocation(new Location(0.50, 0.70, new Area(0.2, 0.2))).setImage("error").setBehaviour(sB)
-                .with("Speed", 0.2).with("Max Life", 10.0).with("Current Life", 10.0).with("Shoot Frequency", (long) 10)
+                .with("Speed", 0.2).with("Max Life", 10).with("Current Life", 10).with("Shoot Frequency", (long) 10)
                 .with("Collision Damage", 1).with("Shoot Damage", 1).build();
         assertEquals(stalker.getImage(), STAND);
         // check if the NewDIrection is correct
@@ -262,13 +262,12 @@ public class EntityTestV1 {
 
     @Test
     void testShoot() {
-        Entity p = E_FACTORY.createPalyer(new Pair<Double, Double>(DEFAULT_LOC.getX(), DEFAULT_LOC.getY()),
+        Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(DEFAULT_LOC.getX(), DEFAULT_LOC.getY()),
                 DEFAULT_ROOM, Player.SIMO);
         ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.N);
-        System.out.println();
-        assertTrue(DEFAULT_ROOM.getEntity().size() == 1);
-        IntStream.range(0, 60).forEach(i -> DEFAULT_ROOM.getEntity().forEach(e -> e.getBehaviour().get().update()));
-        assertFalse(DEFAULT_ROOM.getEntity().size() == 1);
+        assertTrue(DEFAULT_ROOM.getEntities().size() == 1);
+        IntStream.range(0, 60).forEach(i -> DEFAULT_ROOM.getEntities().forEach(e -> e.getBehaviour().get().update()));
+        assertFalse(DEFAULT_ROOM.getEntities().size() == 1);
 
     }
 
@@ -279,8 +278,52 @@ public class EntityTestV1 {
         b.getBehaviour().get().update();
         assertTrue(b.getLocation().getX() == 0.50 && b.getLocation().getY() == 0.40);
         IntStream.range(0, 60).forEach(i -> ((BulletBehavior) b.getBehaviour().get()).update());
-        assertFalse(DEFAULT_ROOM.getEntity().contains(b));
+        assertFalse(DEFAULT_ROOM.getEntities().contains(b));
 
+    }
+
+    @Test
+    void obstacleCollisionTest() {
+        System.out.println("Collision Test");
+        final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>());
+        Entity o = E_FACTORY.createObstacle(0.70, DEFAULT_LOC.getY());
+        Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), r, Player.TOMMI);
+        r.addEntity(p);
+        r.addEntity(o);
+        ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.E);
+        IntStream.range(0, 20).forEach(i -> {
+            r.getEntities().forEach(e -> {
+                if (e.getBehaviour().isPresent()) {
+                    e.getBehaviour().get().update();
+                }
+
+                final double var1 = Math.abs(e.getLocation().getX() - o.getLocation().getX());
+                final double var2 = Math.abs(e.getLocation().getY() - o.getLocation().getY());
+                if (e.getLocation().equals(o.getLocation())) {
+                    System.out.println(e.getType().toString() + true);
+                } else
+
+                if (var1 < (o.getLocation().getArea().getWidth() + e.getLocation().getArea().getWidth()) / 2
+                        && var2 < (o.getLocation().getArea().getHeight() + e.getLocation().getArea().getHeight()) / 2) {
+                    System.out.println(e.getType().toString() + true);
+                } else
+
+                    System.out.println(e.getType().toString() + false);
+                if (e.getType() == EntityType.PLAYER_BULLET)
+                    System.out.print(" " + e.getLocation());
+            });
+
+        });
+        System.out.println("Collision Test");
+        System.out.println(r.getEntities().size());
+        assertTrue(r.getEntities().size() <= 2);
+        IntStream.range(0, 20).forEach(i -> {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.E);
+            ((PlayerBehavior) p.getBehaviour().get()).update();
+//             System.out.println(i + " " + p.getLocation().getX() + " " +
+//             p.getLocation().getY());
+        });
+        assertTrue(p.getLocation().getX() <= 0.40);
     }
 
 }

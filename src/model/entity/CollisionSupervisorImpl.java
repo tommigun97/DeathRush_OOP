@@ -1,6 +1,5 @@
 package model.entity;
 
-import java.util.List;
 import java.util.Set;
 
 import model.Location;
@@ -24,9 +23,12 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
     }
 
     @Override
-    public void collisionWithObstacles(final Entity e, Set<Entity> allEntities) {
-        // TODO Auto-generated method stub
-        
+    public void collisionWithObstacles(final Entity e, final Set<Entity> allEntities, final Location prev) {
+        allEntities.stream().filter(o -> o.getType().equals(EntityType.OBSTACLE)).forEach(o -> {
+            if (this.collision(e, o)) {
+                e.setLocation(prev);
+            }
+        });
     }
 
     @Override
@@ -36,10 +38,62 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                 || e.getLocation().getX() <= e.getLocation().getArea().getWidth() / 2
                 || e.getLocation().getX() >= 1 - e.getLocation().getArea().getWidth() / 2) {
             currentRoom.deleteEntity(e);
-            // remove from the room //aggiungi come parametro la stanza
         }
 
     }
-    
+
+    @Override
+    public void collisionWithObstacles(final Entity e, final Room currentRoom) {
+        currentRoom.getEntities().stream().filter(o -> o.getType().equals(EntityType.OBSTACLE)).forEach(o -> {
+            if (this.collision(e, o)) {
+                currentRoom.deleteEntity(e);
+                System.out.println("Done");
+            }
+        });
+
+    }
+
+    @Override
+    public void collisionBetweenEntities(final Entity e, final Set<Entity> others) {
+        if (e.getType() == EntityType.ENEMY_BULLET || e.getType() == EntityType.PLAYER_BULLET
+                || e.getType() == EntityType.OBSTACLE) {
+            return;
+        } else if (e.getType() == EntityType.PLAYER) {
+            others.forEach(o -> {
+                if (o.getType() == EntityType.ENEMY && collision(e, o)) {
+                    // succede quello che deve succedere
+                }
+
+                if (o.getType() == EntityType.ENEMY_BULLET && collision(e, o)) {
+                    // succede quello che deve succedere
+                }
+            });
+        } else if (e.getType() == EntityType.ENEMY) {
+            others.forEach(o -> {
+                if (o.getType() == EntityType.PLAYER_BULLET && collision(e, o)) {
+                    // succede quello che deve succedere
+                }
+            });
+
+        }
+
+    }
+
+    private boolean collision(final Entity entity, final Entity otherEntity) {
+        if (otherEntity.getLocation().equals(entity.getLocation())) {
+            return true;
+        }
+
+        final double var1 = Math.abs(otherEntity.getLocation().getX() - entity.getLocation().getX());
+        final double var2 = Math.abs(otherEntity.getLocation().getY() - entity.getLocation().getY());
+
+        if (var1 < (otherEntity.getLocation().getArea().getWidth() + entity.getLocation().getArea().getWidth()) / 2
+                && var2 < (otherEntity.getLocation().getArea().getHeight() + entity.getLocation().getArea().getHeight())
+                        / 2) {
+            return true;
+        }
+
+        return false;
+    }
 
 }

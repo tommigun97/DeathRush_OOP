@@ -108,9 +108,10 @@ public class RoomImpl implements Room {
     @Override
     public final void deleteEntity(final Entity entity) {
         this.entitiesRoom.remove(entity);
+        System.out.println("oggetto eliminato");
     }
     @Override
-    public Set<Entity> getEntity() {
+    public Set<Entity> getEntities() {
        return this.entitiesRoom;
     }
 

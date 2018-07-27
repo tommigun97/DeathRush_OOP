@@ -8,6 +8,7 @@ import utilities.Pair;
 import model.entity.DoorStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import model.Area;
 import model.Direction;
@@ -23,7 +24,21 @@ public class EntityFactoryImpl implements EntityFactory {
     private static final Pair<Double, Double> STARTING_POSITION = new Pair<Double, Double>(0.50, 0.50);
     private static final double DEFAULT_BULLET_WEIGHT = 0.1;
     private static final double DEFAULT_BULLET_HEIGHT = 0.1;
-    private static final double DEFAULT_BULLET_SPEED = 0.3;
+    private static final double DEFAULT_BULLET_SPEED = 0.1;
+    private static final double DEFAULT_OBSTACLE_WEIGHT = 0.1;
+    private static final double DEFAULT_OBSTACLE_HEIGHT = 0.1;
+    private static final String DEFAULT_OBSTACLE_IMAGE = "OBSTACLE";
+    private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(Arrays.asList(" ", " ", " "));
+    private static final List<String> DEFAULT_STALKER_ENEMY_N = new ArrayList<>(Arrays.asList(" ", " ", " "));
+    private static final List<String> DEFAULT_STALKER_ENEMY_E = new ArrayList<>(Arrays.asList(" ", " ", " "));
+    private static final List<String> DEFAULT_STALKER_ENEMY_W = new ArrayList<>(Arrays.asList(" ", " ", " "));
+    private static final String DEFAULT_STALKER_ENEMY_STAND = "OBSTACLE";
+    private static final double DEFAULT_STALKER_ENEMY_SPEED = 0.1;
+    private static final int DEFAULT_STALKER_ENEMY_MAX_LIFE = 3;
+    private static final Long DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY = Long.valueOf(500);
+    private static final int DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE = 3;
+    private static final int DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE = 1;
+    private static final Area DEFAULT_STALKER_ENEMY_AREA = new Area(0.30, 0.30);
 
     private final CollisionSupervisor cs;
 
@@ -31,12 +46,12 @@ public class EntityFactoryImpl implements EntityFactory {
      * @param cs
      *            collision supervisor used by some entities
      */
-    public EntityFactoryImpl(CollisionSupervisor cs) {
+    public EntityFactoryImpl(final CollisionSupervisor cs) {
         this.cs = cs;
     }
 
     @Override
-    public Entity createPalyer(final Pair<Double, Double> pos, final Room currentRoom, final Player who) {
+    public Entity createPlayer(final Pair<Double, Double> pos, final Room currentRoom, final Player who) {
         PlayerBehavior pB = null;
         Area pA = null;
         double playerSpeed = 0;
@@ -84,8 +99,7 @@ public class EntityFactoryImpl implements EntityFactory {
             startMaxLife = Player.KASO.getStartingMaxLife();
         }
 
-        return new EntityImpl.EntitiesBuilder()
-                .setLocation(new Location(STARTING_POSITION.getFirst(), STARTING_POSITION.getSecond(), pA))
+        return new EntityImpl.EntitiesBuilder().setLocation(new Location(pos.getFirst(), pos.getSecond(), pA))
                 .setType(EntityType.PLAYER).setImage("error").setBehaviour(pB).with("Speed", playerSpeed)
                 .with("Max Life", startMaxLife).with("Current Life", startMaxLife)
                 .with("Shoot Frequency", Long.valueOf(shootFequency)).with("Shooting Damage", shootDamage)
@@ -93,18 +107,28 @@ public class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public Entity createStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom) {
-        // TODO Auto-generated method stub
-        return null;
+    public Entity isaacStalkerEnemy(final double x, final double y, final Entity eToStalk, final Room currentRoom) {
+        StalkerEnemyBehavior sb = new StalkerEnemyBehavior(eToStalk,
+                new CompleteImageSetCalculator(DEFAULT_STALKER_ENEMY_N, DEFAULT_STALKER_ENEMY_S,
+                        DEFAULT_STALKER_ENEMY_E, DEFAULT_STALKER_ENEMY_W, DEFAULT_STALKER_ENEMY_STAND),
+                this.cs, currentRoom, this, true);
+        return new EntityImpl.EntitiesBuilder().setType(EntityType.ENEMY).setBehaviour(sb)
+                .setLocation(new Location(x, y, DEFAULT_STALKER_ENEMY_AREA)).setImage(" ")
+                .with("Speed", DEFAULT_STALKER_ENEMY_SPEED).with("Max Life", DEFAULT_STALKER_ENEMY_MAX_LIFE)
+                .with("Current Life", DEFAULT_STALKER_ENEMY_MAX_LIFE)
+                .with("Shoot Frequency", DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY)
+                .with("Collision Damage", DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE)
+                .with("Bullet Speed", DEFAULT_BULLET_SPEED)
+                .with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE).build();
     }
 
     @Override
-    public Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType,
-            int damage, double speed) {
+    public Entity createBullet(final double x, final double y, final Room currentRoom, final Direction direction,
+            final EntityType bulletType, final int damage, final double speed) {
         BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
         return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
                 .with("Speed", speed)
-                .setLocation(new Location(x, x, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
+                .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
     }
 
     @Override
@@ -113,6 +137,13 @@ public class EntityFactoryImpl implements EntityFactory {
         return new EntityImpl.EntitiesBuilder().setLocation(new Location(x, y, new Area(0.5, 0.5)))
                 .with("currentRoom", currentRoom).with("doorStatus", status).with("nextRoom", nextRoom)
                 .with("image", image).build();
+    }
+
+    @Override
+    public Entity createObstacle(final double x, final double y) {
+        return new EntityImpl.EntitiesBuilder().setType(EntityType.OBSTACLE)
+                .setLocation(new Location(x, y, new Area(DEFAULT_OBSTACLE_WEIGHT, DEFAULT_OBSTACLE_HEIGHT)))
+                .setImage(DEFAULT_OBSTACLE_IMAGE).build();
     }
 
 }

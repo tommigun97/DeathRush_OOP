@@ -32,17 +32,38 @@ public interface CollisionSupervisor {
      * @param currentRoom
      *            room where Entity is set
      */
-    void collisionWithBound(Entity e, Room currentRoom); 
+    void collisionWithBound(Entity e, Room currentRoom);
 
     /**
      * the methods check if entity collide with some obstacles in the list of other
-     * entities and act accordingly.
+     * entities and reset entity previous position.
      * 
      * @param e
      *            entity that could collide with something
      * @param allEntities
      *            the other entities
+     * @param prev
+     *            Entity position before the movement
      */
-    void collisionWithObstacles(Entity e, Set<Entity> allEntities);
+    void collisionWithObstacles(Entity e, Set<Entity> allEntities, Location prev);
+
+    /**
+     * the methods check if entity collide with some obstacles in the list of other
+     * entities and delete the entity from room in case of collision.
+     * 
+     * @param e
+     *            entity that could collide with something
+     * @param currentRoom
+     *            the room where entity is setted
+     */
+    void collisionWithObstacles(Entity e, Room currentRoom);
+
+    /**
+     * @param e
+     *            entity to check if it collide with something
+     * @param others
+     *            other entities
+     */
+    void collisionBetweenEntities(Entity e, Set<Entity> others);
 
 }

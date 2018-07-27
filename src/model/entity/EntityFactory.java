@@ -19,7 +19,7 @@ public interface EntityFactory {
      *            the starting room where player is placed
      * @return the player
      */
-    Entity createPalyer(Pair<Double, Double> pos, Room currentRoom, Player who); // ricorda questo oggetto deve creare
+    Entity createPlayer(Pair<Double, Double> pos, Room currentRoom, Player who); // ricorda questo oggetto deve creare
                                                                                  // nuovi oggetti
     // quindi nel suo behavior ci dovrà essere un campo
     // eFactory
@@ -39,7 +39,7 @@ public interface EntityFactory {
      *            room where the bullet is placed, needs to set the limit to move
      * @return the enemy
      */
-    Entity createStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom);
+    Entity isaacStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom);
 
     /**
      * @param x
@@ -75,5 +75,14 @@ public interface EntityFactory {
      * @return the door
      */
     Entity createDoor(double x, double y, Room currentRoom, DoorStatus status, Room nextRoom, String image);
+
+    /**
+     * @param x
+     *            door x-axis position
+     * @param y
+     *            door y-axis position
+     * @return the obstacle
+     */
+    Entity createObstacle(double x, double y);
 
 }

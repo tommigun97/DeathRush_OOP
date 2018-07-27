@@ -19,7 +19,7 @@ public interface Model {
     /**
      * @return path of entities image and the relative location
      */
-    List<Pair<String, Location>> getEntityToDrow();
+    List<Pair<String, Location>> getEntitiesToDrow();
 
     /**
      * @return map configuration
@@ -27,7 +27,7 @@ public interface Model {
     List<Pair<String, Pair<Integer, Integer>>> getMap();
 
     /**
-     * @param directions
+     * @param direction
      *            direction where the player have to move.
      * @param shoot
      *            number of shot that player should shoot.
@@ -47,7 +47,7 @@ public interface Model {
     /**
      * @return the player life
      */
-    int getPalyerLife();
+    int getPlayerLife();
 
     /**
      * @return the player money
@@ -69,5 +69,5 @@ public interface Model {
     /**
      * @return a list of the player ability
      */
-    List<Integer> getPalyerInfo();
+    List<Integer> getPlayerInfo();
 }
