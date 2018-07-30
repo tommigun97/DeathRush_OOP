@@ -48,7 +48,7 @@ public class StalkerEnemyBehavior implements Behavior {
     @Override
     public void update() {
         currentDirection = checkNewDirection();
-        Location prev = new Location(e.getLocation());
+        final Location prev = new Location(e.getLocation());
         if (canShoot) {
             if (System.currentTimeMillis() - this.t <= (Long) this.e.getObjectProperty("Shoot Frequency")) {
                 this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),

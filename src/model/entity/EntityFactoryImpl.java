@@ -21,7 +21,7 @@ import utilities.Pair;
 /**
  * Implementation of EntityFactory.
  */
-public class EntityFactoryImpl implements EntityFactory {
+public final class EntityFactoryImpl implements EntityFactory {
     private static final Pair<Double, Double> STARTING_POSITION = new Pair<Double, Double>(0.50, 0.50);
     private static final double DEFAULT_BULLET_WEIGHT = 0.1;
     private static final double DEFAULT_BULLET_HEIGHT = 0.1;
@@ -37,9 +37,10 @@ public class EntityFactoryImpl implements EntityFactory {
     private static final double DEFAULT_STALKER_ENEMY_SPEED = 0.1;
     private static final int DEFAULT_STALKER_ENEMY_MAX_LIFE = 3;
     private static final Long DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY = Long.valueOf(500);
-    private static final int DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE = 3;
+    private static final int DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE = 1;
     private static final int DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE = 1;
     private static final Area DEFAULT_STALKER_ENEMY_AREA = new Area(0.30, 0.30);
+    private static final int DEFAULT_STALKER_ENEMY_REWARD = 50;
 
     private final CollisionSupervisor cs;
 
@@ -104,15 +105,16 @@ public class EntityFactoryImpl implements EntityFactory {
                 .setType(EntityType.PLAYER).setImage("error").setBehaviour(pB).with("Speed", playerSpeed)
                 .with("Max Life", startMaxLife).with("Current Life", startMaxLife)
                 .with("Shoot Frequency", Long.valueOf(shootFequency)).with("Shooting Damage", shootDamage)
-                .with("Bullet Speed", DEFAULT_BULLET_SPEED).build();
+                .with("Bullet Speed", DEFAULT_BULLET_SPEED)
+                .with("Money", 0).build();
     }
 
     @Override
-    public Entity isaacStalkerEnemy(final double x, final double y, final Entity eToStalk, final Room currentRoom) {
+    public Entity isaacStalkerEnemy(final double x, final double y, final Entity eToStalk, final Room currentRoom, final boolean canShoot) {
         StalkerEnemyBehavior sb = new StalkerEnemyBehavior(eToStalk,
                 new CompleteImageSetCalculator(DEFAULT_STALKER_ENEMY_N, DEFAULT_STALKER_ENEMY_S,
                         DEFAULT_STALKER_ENEMY_E, DEFAULT_STALKER_ENEMY_W, DEFAULT_STALKER_ENEMY_STAND),
-                this.cs, currentRoom, this, true);
+                this.cs, currentRoom, this, canShoot);
         return new EntityImpl.EntitiesBuilder().setType(EntityType.ENEMY).setBehaviour(sb)
                 .setLocation(new Location(x, y, DEFAULT_STALKER_ENEMY_AREA)).setImage(" ")
                 .with("Speed", DEFAULT_STALKER_ENEMY_SPEED).with("Max Life", DEFAULT_STALKER_ENEMY_MAX_LIFE)
@@ -120,7 +122,7 @@ public class EntityFactoryImpl implements EntityFactory {
                 .with("Shoot Frequency", DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY)
                 .with("Collision Damage", DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE)
                 .with("Bullet Speed", DEFAULT_BULLET_SPEED)
-                .with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE).build();
+                .with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE).with("Reward", DEFAULT_STALKER_ENEMY_REWARD ).build();
     }
 
     @Override

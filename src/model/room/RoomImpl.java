@@ -3,7 +3,7 @@ package model.room;
 import java.util.List;
 import java.util.Set;
 import model.entity.Entity;
-
+import model.entity.EntityType;
 
 /**
  * 
@@ -48,7 +48,8 @@ public class RoomImpl implements Room {
      * @return true if room is complited false else
      */
     public boolean isComplited() {
-        return complited;
+        return (entitiesRoom.stream().filter(e -> e.getType() == EntityType.ENEMY).count() == 0);
+
     }
 
     /**
@@ -90,6 +91,7 @@ public class RoomImpl implements Room {
     /**
      * 
      */
+    @Override
     public void openDoors() {
         this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.OPEN));
     }
@@ -100,6 +102,7 @@ public class RoomImpl implements Room {
     public void closeDoors() {
         this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.CLOSE));
     }
+
     @Override
     public final void addEntity(final Entity entity) {
         this.entitiesRoom.add(entity);
@@ -110,9 +113,10 @@ public class RoomImpl implements Room {
         this.entitiesRoom.remove(entity);
         System.out.println("oggetto eliminato");
     }
+
     @Override
-    public Set<Entity> getEntities() {
-       return this.entitiesRoom;
+    public final Set<Entity> getEntities() {
+        return this.entitiesRoom;
     }
  
 
@@ -206,6 +210,5 @@ public class RoomImpl implements Room {
         }
     }
     
-
 
 }

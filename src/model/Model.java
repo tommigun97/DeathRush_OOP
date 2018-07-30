@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import controller.Time;
+import model.entity.Player;
 import utilities.Pair;
 
 /**
@@ -36,8 +37,11 @@ public interface Model {
 
     /**
      * Initialize the game world.
+     * 
+     * @param who
+     *            the Player selected
      */
-    void start();
+    void start(Player who);
 
     /**
      * stop the time.

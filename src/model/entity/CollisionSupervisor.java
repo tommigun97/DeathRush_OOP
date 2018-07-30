@@ -66,4 +66,15 @@ public interface CollisionSupervisor {
      */
     void collisionBetweenEntities(Entity e, Set<Entity> others);
 
+    /**
+     * if the player collide with a door when it killed every enemy it could change
+     * room.
+     * 
+     * @param p
+     *            player
+     * @param doors
+     *            room doors
+     */
+    void collisionWithDoors(Entity p, Set<Entity> doors);
+
 }

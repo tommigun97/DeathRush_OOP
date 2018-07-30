@@ -11,6 +11,8 @@ import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
+import model.entity.EntityType;
+import model.entity.Player;
 import model.entity.PlayerBehavior;
 import model.room.Room;
 import utilities.Pair;
@@ -26,16 +28,15 @@ public final class ModelImpl implements Model {
     private GameStatus gameStatus;
     private CollisionSupervisor cs;
     private EntityFactory eFactory;
+    
+    
 
-    // questo qui è un costruttore che non verrà effettivamente utilizzato
-    // nell'applicazione ma mi è utile solo a fini di debug
-    public ModelImpl(final Room currentRoom, final Entity player, final GameStatus gameStatus) {
+    public ModelImpl(Room currentRoom, Entity player, CollisionSupervisor cs, EntityFactory eFactory) {
         super();
-        // this.currentRoom = currentRoom;
+        this.currentRoom = currentRoom;
         this.player = player;
-        this.gameStatus = gameStatus;
-        this.cs = new CollisionSupervisorImpl();
-        this.eFactory = new EntityFactoryImpl(cs);
+        this.cs = cs;
+        this.eFactory = eFactory;
     }
 
     @Override
@@ -50,6 +51,8 @@ public final class ModelImpl implements Model {
         currentRoom.getEntities().forEach(e -> {
             l.add(new Pair<String, Location>(e.getImage(), e.getLocation()));
         });
+
+        l.add(new Pair<String, Location>(this.player.getImage(), this.player.getLocation()));
         return l;
     }
 
@@ -61,21 +64,46 @@ public final class ModelImpl implements Model {
 
     @Override
     public void update(final Direction direction, final List<Direction> shoot) {
+        // il giocatore si muove
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentDirection(direction);
         player.getBehaviour().get().update();
+        // il giocatore spara
         shoot.forEach(d -> ((PlayerBehavior) player.getBehaviour().get()).shoot(d));
+        // vengono aggiornate tutte le altre entità della stanza
         currentRoom.getEntities().forEach(e -> {
             if (e.getBehaviour().isPresent()) {
                 e.getBehaviour().get().update();
             }
         });
-        //manca tutto il controllo delle collisioni e il da farsi quando il Player muore oppure quando il Player collide con una porta in cui la stanza è completata
+        // collisioni tra entità
+        this.cs.collisionBetweenEntities(this.player, this.currentRoom.getEntities());
+        this.currentRoom.getEntities().forEach(e -> cs.collisionBetweenEntities(e, this.currentRoom.getEntities()));
+        // eliminazione di entità morte e acquisto della ricompensa
+        this.currentRoom.getEntities().forEach(e -> {
+            if (e.getType() == EntityType.ENEMY && e.getIntegerProperty("Current Life") == 0) {
+                this.currentRoom.deleteEntity(e);
+                this.player.changeIntProperty("Money",
+                        player.getIntegerProperty("Money") + e.getIntegerProperty("Reward"));
+            }
+        });
+        // collisioni con le porte
+        if (this.currentRoom.isComplited()) {
+            this.currentRoom.openDoors();
+            this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
+        }
+        if (this.player.getIntegerProperty("Current Life") == 0) {
+            this.gameStatus = GameStatus.Over;
+        } //manca l'if per dire quando il gioco è definitivamente completato
 
     }
 
     @Override
-    public void start() {
-        // TODO Auto-generated method stub
+    public void start(final Player who) {
+        this.gameStatus = GameStatus.Running;
+        this.cs = new CollisionSupervisorImpl();
+        this.eFactory = new EntityFactoryImpl(this.cs);
+        // manca da inizializzare la mappa e da creare il giocatore in base a cosa è
+        // inserito dall'utente
 
     }
 
@@ -87,14 +115,12 @@ public final class ModelImpl implements Model {
 
     @Override
     public int getPlayerLife() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.player.getIntegerProperty("Current Life");
     }
 
     @Override
     public int getMoney() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.player.getIntegerProperty("Money");
     }
 
     @Override
@@ -105,8 +131,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public GameStatus getGameStatus() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.gameStatus;
     }
 
     @Override
