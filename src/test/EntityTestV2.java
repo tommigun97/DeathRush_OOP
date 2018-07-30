@@ -13,7 +13,10 @@ import org.junit.jupiter.api.Test;
 
 import model.Area;
 import model.Direction;
+import model.GameStatus;
 import model.Location;
+import model.Model;
+import model.ModelImpl;
 import model.entity.BulletBehavior;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
@@ -63,6 +66,8 @@ public class EntityTestV2 {
         final Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), r, Player.SIMO);
         final Entity e = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, p, r, true);
         final Entity e2 = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, p, r, false);
+        r.addEntity(e);
+        r.addEntity(e2);
         // collision between an enemy and a bullet
         ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.E);
         IntStream.range(0, 70).forEach(i -> {
@@ -85,17 +90,36 @@ public class EntityTestV2 {
                 CS.collisionBetweenEntities(p, r.getEntities());
             });
         });
+        assertTrue(p.getIntegerProperty("Current Life") == p.getIntegerProperty("Max Life")
+                - e.getIntegerProperty("Shoot Damage"));
         // collision between a player and an enemy
         r.getEntities().remove(e);
-        while (p.getIntegerProperty("Current Life") == p.getIntegerProperty("Max Life")) {
+        int life = p.getIntegerProperty("Current Life");
+        while (p.getIntegerProperty("Current Life") == life) {
             e2.getBehaviour().get().update();
+            CS.collisionBetweenEntities(p, r.getEntities());
         }
-        assertTrue(p.getIntegerProperty("Current Life") == p.getIntegerProperty("Max Life")
-                - e2.getIntegerProperty("Collision Damage"));
+        assertTrue(p.getIntegerProperty("Current Life") == life - e2.getIntegerProperty("Collision Damage"));
     }
-    
+
     @Test
     void modelTest() {
-        
+        List<Direction> shoots = new ArrayList<>();
+        ModelImpl m = new ModelImpl();
+        m.start(Player.KASO);
+        final Entity nemico = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, m.getPlayer(), m.getCurrentRoom(), true);
+        m.getCurrentRoom().addEntity(nemico);
+        shoots.add(Direction.E);
+        m.update(Direction.NOTHING, shoots);
+        assertTrue(nemico.getLocation().getX() == 0.60);
+        assertTrue(m.getCurrentRoom().getEntities().stream().count() == 2);
+        shoots.clear();
+        IntStream.range(0, 40).forEach(i -> m.update(Direction.W, shoots));
+        System.out.println(m.getPlayerLife());
+        assertTrue(m.getPlayerLife() <= 0);
+        assertTrue(m.getGameStatus() == GameStatus.Over);
+        assertTrue(m.getPlayer().getLocation().getX() >= 0.05);
+        assertTrue(m.getPlayer().getIntegerProperty("Current Life") < m.getPlayer().getIntegerProperty("Max Life"));
     }
+
 }

@@ -22,10 +22,9 @@ import utilities.Pair;
  * Implementation of EntityFactory.
  */
 public final class EntityFactoryImpl implements EntityFactory {
-    private static final Pair<Double, Double> STARTING_POSITION = new Pair<Double, Double>(0.50, 0.50);
     private static final double DEFAULT_BULLET_WEIGHT = 0.1;
     private static final double DEFAULT_BULLET_HEIGHT = 0.1;
-    private static final double DEFAULT_BULLET_SPEED = 0.1;
+    private static final double DEFAULT_BULLET_SPEED = 0.2;
     private static final double DEFAULT_OBSTACLE_WEIGHT = 0.1;
     private static final double DEFAULT_OBSTACLE_HEIGHT = 0.1;
     private static final String DEFAULT_OBSTACLE_IMAGE = "OBSTACLE";

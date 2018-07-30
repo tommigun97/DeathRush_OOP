@@ -60,4 +60,6 @@ public interface Room {
     Set<Entity> getEntities();
     
     void openDoors();
+    
+    String getImage();
 }

@@ -11,4 +11,6 @@ public interface Map {
     Set<Entity> getDoors();
 
     Optional<Room> getRoom(int x);
+    
+    Set<Room> getRooms();
 }

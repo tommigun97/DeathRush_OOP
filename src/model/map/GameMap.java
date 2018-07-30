@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
+
 import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
@@ -40,7 +42,7 @@ public class GameMap implements Map {
     }
 
     private void initMap() {
-        Room a = this.rBuilder.setComplited(true).setRoomID(1).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
+        Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>() ).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
                 .build();
         this.path[MIDDLEX][MIDDLEY] = a;
         Room b = this.rBuilder.setComplited(false).setRoomID(2).setDoors(new HashSet<>())
@@ -147,5 +149,10 @@ public class GameMap implements Map {
             System.out.println("\n");
 
         }
+    }
+
+    @Override
+    public Set<Room> getRooms() {
+        return this.rooms;
     }
 }
