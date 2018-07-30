@@ -1,6 +1,9 @@
 package controller;
 
 import view.ViewImpl;
+import model.entity.EntityFactory;
+import model.entity.EntityFactoryImpl;
+import model.map.GameMap;
 import view.View;
 
 /**
@@ -16,11 +19,14 @@ public final class Application {
      * 
      */
 
-    public static void main(final String[] args) {
-        final ControllerInterface c = new Controller();
+   public static void main(final String[] args) {
+        /*final ControllerInterface c = new Controller();
         final View v = new ViewImpl(c);
         c.setView(v);
-        v.startView();
+        v.startView();*/
+       EntityFactory ef = new EntityFactoryImpl();
+       GameMap map = new GameMap(ef);
+       map.printmappa();
     }
 
     private Application() {

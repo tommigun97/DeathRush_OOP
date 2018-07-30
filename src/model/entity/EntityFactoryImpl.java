@@ -12,6 +12,7 @@ import java.util.List;
 import model.Area;
 import model.Direction;
 import model.Location;
+import model.map.Coordinates;
 
 import model.room.Room;
 import utilities.Pair;
@@ -99,13 +100,14 @@ public class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public final Entity createDoor(final double x, final double y, final Room currentRoom, final DoorStatus status, final Room nextRoom, final String image) {
+    public final Entity createDoor(final double x, final double y, final DoorStatus status, final Room nextRoom, final String image
+                                    , final Coordinates coor) {
         return new EntityImpl.EntitiesBuilder()
                                 .setLocation(new Location(x, y, new Area(0.5, 0.5)))
-                                .with("currentRoom", currentRoom)
                                 .with("doorStatus", status)
                                 .with("nextRoom", nextRoom)
-                                .with("image", image).build();
+                                .with("image", image)
+                                .with("coordinate", coor).build();
     }
 
 }
