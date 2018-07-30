@@ -39,7 +39,7 @@ public interface EntityFactory {
      *            room where the bullet is placed, needs to set the limit to move
      * @return the enemy
      */
-    Entity isaacStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom);
+    Entity isaacStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom, boolean canShoot);
 
     /**
      * @param x

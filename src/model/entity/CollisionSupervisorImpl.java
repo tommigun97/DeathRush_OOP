@@ -61,21 +61,36 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         } else if (e.getType() == EntityType.PLAYER) {
             others.forEach(o -> {
                 if (o.getType() == EntityType.ENEMY && collision(e, o)) {
-                    // succede quello che deve succedere
+                    e.changeIntProperty("Current Life",
+                            e.getIntegerProperty("Current Life") - o.getIntegerProperty("Collision Damage"));
                 }
 
                 if (o.getType() == EntityType.ENEMY_BULLET && collision(e, o)) {
-                    // succede quello che deve succedere
+                    e.changeIntProperty("Current Life",
+                            e.getIntegerProperty("Current Life") - o.getIntegerProperty("Shoot Damage"));
+                    others.remove(o);
                 }
             });
         } else if (e.getType() == EntityType.ENEMY) {
             others.forEach(o -> {
                 if (o.getType() == EntityType.PLAYER_BULLET && collision(e, o)) {
-                    // succede quello che deve succedere
+                    e.changeIntProperty("Current Life",
+                            e.getIntegerProperty("Current Life") - o.getIntegerProperty("Shoot Damage"));
+                    others.remove(o);
                 }
             });
 
         }
+
+    }
+//da testare
+    @Override
+    public void collisionWithDoors(final Entity p, final Set<Entity> doors) {
+        doors.forEach(d -> {
+            if (collision(p, d) && d.getObjectProperty("doorStatus") == DoorStatus.OPEN) {
+                ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
+            }
+        });
 
     }
 

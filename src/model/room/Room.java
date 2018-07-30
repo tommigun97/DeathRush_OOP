@@ -59,4 +59,6 @@ public interface Room {
     void deleteEntity(Entity entity);
 
     Set<Entity> getEntities();
+    
+    void openDoors();
 }

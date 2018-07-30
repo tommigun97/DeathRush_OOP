@@ -79,7 +79,6 @@ public final class PlayerBehavior implements Behavior {
         if (System.currentTimeMillis() - this.t <= (Long) this.e.getObjectProperty("Shoot Frequency")) {
             this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                     currentRoom, d, EntityType.PLAYER_BULLET, e.getIntegerProperty("Shooting Damage"), e.getDoubleProperty("Bullet Speed")));
-            System.out.println("sparo");
         }
         t = System.currentTimeMillis();
     }
