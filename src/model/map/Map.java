@@ -2,7 +2,6 @@ package model.map;
 
 import java.util.Optional;
 import java.util.Set;
-import model.entity.Door;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.room.Room;

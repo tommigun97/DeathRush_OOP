@@ -2,7 +2,6 @@ package model.room;
 
 import java.util.List;
 import java.util.Set;
-import model.entity.Door;
 import model.entity.Entity;
 
 /**
