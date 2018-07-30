@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.Direction;
+import model.map.Coordinates;
 import model.room.Room;
 import utilities.Pair;
 
@@ -74,7 +75,7 @@ public interface EntityFactory {
      *            the room where the door leads
      * @return the door
      */
-    Entity createDoor(double x, double y, Room currentRoom, DoorStatus status, Room nextRoom, String image);
+    Entity createDoor(double x, double y, DoorStatus status, Room nextRoom, String image, Coordinates coor);
 
     /**
      * @param x

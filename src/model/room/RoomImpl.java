@@ -64,7 +64,7 @@ public class RoomImpl implements Room {
      * @param door
      *            add door to the room
      */
-    public void addDoor(final Entity door) {
+    public void addDoor( Entity door) {
         this.doorsRoom.add(door);
     }
 
@@ -114,6 +114,7 @@ public class RoomImpl implements Room {
     public Set<Entity> getEntities() {
        return this.entitiesRoom;
     }
+ 
 
     /**
      * 
@@ -194,6 +195,7 @@ public class RoomImpl implements Room {
             this.doorsRoom = doorsRoom;
             return this;
         }
+       
 
         /**
          * 
@@ -203,6 +205,7 @@ public class RoomImpl implements Room {
             return new RoomImpl(image, roomID, complited, type, entitiesRoom, doorsRoom);
         }
     }
+    
 
 
 }

@@ -2,6 +2,8 @@ package model.map;
 
 import java.util.Random;
 
+import utilities.Pair;
+
 /**
  * 
  *
@@ -40,6 +42,13 @@ public enum Coordinates {
     public static Coordinates getRandomCoordinate() {
         int r = new Random().nextInt(4);
         return r == 0 ? NORTH : r == 1 ? SOUTH : r == 2 ? WEST : EAST;
+    }
+    
+    public static Pair<Integer, Integer> getMovementFromCoordinates(Coordinates c) {
+        return c.equals(NORTH) ? new Pair<Integer, Integer>(0, 1) :
+               c.equals(SOUTH) ? new Pair<Integer, Integer>(0, -1) :
+               c.equals(WEST) ? new Pair<Integer, Integer>(-1, 0) :
+               new Pair<Integer, Integer>(1, 0);
     }
 /**
  * 
