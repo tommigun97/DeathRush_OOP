@@ -1,6 +1,8 @@
 package controller;
 
 import view.ViewImpl;
+import model.entity.CollisionSupervisor;
+import model.entity.CollisionSupervisorImpl;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
 import model.map.GameMap;
@@ -24,7 +26,8 @@ public final class Application {
         final View v = new ViewImpl(c);
         c.setView(v);
         v.startView();*/
-       EntityFactory ef = new EntityFactoryImpl();
+       CollisionSupervisor cs = new CollisionSupervisorImpl();
+       EntityFactory ef = new EntityFactoryImpl(cs);
        GameMap map = new GameMap(ef);
        map.printmappa();
     }
