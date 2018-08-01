@@ -86,7 +86,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         }
 
     }
-//da testare
+//da testare con Anis
     @Override
     public void collisionWithDoors(final Entity p, final Set<Entity> doors) {
         doors.forEach(d -> {
@@ -94,7 +94,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                 ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
             }
         });
-        //manca dove il giocatore si deve posizionare nella stanza successiva
     }
 
     private boolean collision(final Entity entity, final Entity otherEntity) {

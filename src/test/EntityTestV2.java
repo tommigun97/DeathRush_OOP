@@ -134,13 +134,16 @@ public class EntityTestV2 {
         assertTrue(m2.getCurrentRoom().isComplited());
         Room prec = m2.getCurrentRoom();
         shoots.clear();
-        //si muove verso la porta e cambia stanza
+        // si muove verso la porta e cambia stanza
         IntStream.range(0, 50).forEach(i -> {
             m2.update(Direction.E, shoots);
             System.out.println(i + " player " + m2.getPlayer().getLocation());
         });
         assertTrue(prec != m2.getCurrentRoom());
-        m2.getCurrentRoom().getDoor().forEach(d -> System.out.println("porta 1 "+d.getLocation())); //errore nelle porte sono in mezzo alla stanza
+        m2.getCurrentRoom().getDoor().forEach(d -> System.out.println("porta 1 " + d.getLocation())); // errore nelle
+                                                                                                      // porte sono in
+                                                                                                      // mezzo alla
+                                                                                                      // stanza
 
     }
 
