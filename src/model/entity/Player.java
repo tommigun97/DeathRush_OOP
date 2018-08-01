@@ -36,7 +36,7 @@ public enum Player {
 
         @Override
         public double getSpeed() {
-            return 0.2;
+            return 0.04;
         }
 
         @Override

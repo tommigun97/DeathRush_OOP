@@ -87,6 +87,7 @@ public final class PlayerBehavior implements Behavior {
     public void update() {
         Location prev = new Location(e.getLocation());
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
+        System.out.println(e.getDoubleProperty("Speed"));
         cs.collisionWithBound(prev, e);
         cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));

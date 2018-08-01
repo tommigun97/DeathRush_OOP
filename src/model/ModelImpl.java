@@ -85,7 +85,7 @@ public final class ModelImpl implements Model {
         if (this.currentRoom.isComplited()) {
             this.currentRoom.openDoors();
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
-            // manca il cambio della stanza
+            this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
         }
         if (this.player.getIntegerProperty("Current Life") == 0) {
             this.gameStatus = GameStatus.Over;
