@@ -14,6 +14,8 @@ import utilities.Pair;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.entity.EntityFactory;
+import model.map.ReadEntity;
+import model.map.ReadEntityImpl;
 
 public class GameMap implements Map {
 
@@ -41,8 +43,18 @@ public class GameMap implements Map {
         this.initMap();
     }
 
+    @Override
+    public Set<Room> getRooms() {
+        return this.rooms;
+    }
+
+    @Override
+    public Room[][] getPath() {
+        return this.path;
+    }
+    
     private void initMap() {
-        Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>() ).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
+        Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new HashSet<>()).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
                 .build();
         this.path[MIDDLEX][MIDDLEY] = a;
         Room b = this.rBuilder.setComplited(false).setRoomID(2).setDoors(new HashSet<>())
@@ -120,8 +132,8 @@ public class GameMap implements Map {
 
     private void addLink(Room x, Room y, Coordinates z, DoorStatus statusLink) {
         if (this.rooms.contains(x) && this.rooms.contains(y)) {
-            Entity a = this.entityF.createDoor(0.5, 0.5, statusLink, y, "", z);
-            Entity b = this.entityF.createDoor(0.5, 0.5, statusLink, x, "", Coordinates.reversCoordinate(z));
+            Entity a = this.entityF.createDoor(z.getHeight(), z.getWeight(), statusLink, y, "", z);
+            Entity b = this.entityF.createDoor(Coordinates.reversCoordinate(z).getHeight(), Coordinates.reversCoordinate(z).getWeight(), statusLink, x, "", Coordinates.reversCoordinate(z));
             this.doors.add(a);
             this.doors.add(b);
             x.addDoor(a);
@@ -151,8 +163,5 @@ public class GameMap implements Map {
         }
     }
 
-    @Override
-    public Set<Room> getRooms() {
-        return this.rooms;
-    }
+   
 }

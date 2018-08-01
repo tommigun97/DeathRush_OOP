@@ -13,4 +13,7 @@ public interface Map {
     Optional<Room> getRoom(int x);
     
     Set<Room> getRooms();
+     
+    
+    Room[][] getPath();
 }
