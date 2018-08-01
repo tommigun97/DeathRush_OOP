@@ -13,6 +13,10 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
+        System.out.println("sbatte a su d" + (e.getLocation().getY()) + (1 - e.getLocation().getArea().getHeight() / 2));
+        System.out.println("sbatte a nord " + (e.getLocation().getY()) + (e.getLocation().getArea().getHeight() / 2));
+        System.out.println("sbatte a est " + (e.getLocation().getX()) + (e.getLocation().getArea().getWidth() / 2));
+        System.out.println("sbatte a ovest " + (e.getLocation().getX()) + (1 - e.getLocation().getArea().getWidth() / 2));
         if (e.getLocation().getY() <= e.getLocation().getArea().getHeight() / 2
                 || e.getLocation().getY() >= 1 - e.getLocation().getArea().getHeight() / 2
                 || e.getLocation().getX() <= e.getLocation().getArea().getWidth() / 2
@@ -47,7 +51,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         currentRoom.getEntities().stream().filter(o -> o.getType().equals(EntityType.OBSTACLE)).forEach(o -> {
             if (this.collision(e, o)) {
                 currentRoom.deleteEntity(e);
-                System.out.println("Done");
             }
         });
 
@@ -83,7 +86,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         }
 
     }
-//da testare
+//da testare con Anis
     @Override
     public void collisionWithDoors(final Entity p, final Set<Entity> doors) {
         doors.forEach(d -> {
@@ -91,7 +94,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                 ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
             }
         });
-
     }
 
     private boolean collision(final Entity entity, final Entity otherEntity) {

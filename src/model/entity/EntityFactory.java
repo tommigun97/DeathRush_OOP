@@ -1,5 +1,7 @@
 package model.entity;
 
+import java.util.Optional;
+
 import model.Direction;
 import model.map.Coordinates;
 import model.room.Room;
@@ -20,18 +22,30 @@ public interface EntityFactory {
      *            the starting room where player is placed
      * @return the player
      */
-    Entity createPlayer(Pair<Double, Double> pos, Room currentRoom, Player who); // ricorda questo oggetto deve creare
-                                                                                 // nuovi oggetti
-    // quindi nel suo behavior ci dovrà essere un campo
-    // eFactory
+    Entity createPlayer(Pair<Double, Double> pos, Room currentRoom, Player who);
+
+    /**
+     * Create a boss.
+     * 
+     * @param x
+     *            x-axis position
+     * @param y
+     *            y-axis position
+     * @param currentRoom
+     *            room where the boss is placed
+     * @param who
+     *            how boss do you want create
+     * @return the boss
+     */
+    Entity createBoss(double x, double y, Room currentRoom,Optional<Entity> eToStalk, Boss who);
 
     /**
      * Create enemy that stalk the player.
      * 
      * @param x
-     *            door x-axis position
+     *            x-axis position
      * @param y
-     *            door y-axis position
+     *            y-axis position
      * 
      *            starting player position in the space
      * @param eToStalk
@@ -59,9 +73,6 @@ public interface EntityFactory {
      */
     Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType, int damage,
             double speed);
-    // forse sarà necessario aggiungergli un danno come parametro in modo da
-    // differenziare i vari proiettili, il danno sarà preso dalle caratteristiche
-    // dell'entità a cui è associato tramite il suo beahvior
 
     /**
      * @param x
@@ -85,5 +96,14 @@ public interface EntityFactory {
      * @return the obstacle
      */
     Entity createObstacle(double x, double y);
+
+    /**
+     * @param x
+     *            x-axis position
+     * @param y
+     *            y-axis position
+     * @return create an enemy looks like mosquito that follow the player
+     */
+    Entity createMoscow(double x, double y, Entity eToStalk, Room currentRoom);
 
 }

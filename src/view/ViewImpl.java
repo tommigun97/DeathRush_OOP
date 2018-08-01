@@ -46,8 +46,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public final void draw(final List<Pair<Pair<String, Double>, Location>> listEntities) {
-        Platform.runLater(() -> ViewImpl.gameScreen.drawOnScreen(listEntities));
+    public final void draw(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
+        Platform.runLater(() -> ViewImpl.gameScreen.drawOnScreen(listEntities, backgroundPath));
     }
 
     @Override

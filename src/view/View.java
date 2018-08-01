@@ -21,8 +21,10 @@ public interface View {
      * 
      * @param listEntities
      *            a list of the Entities that will be printed on screen
+     * @param backgroundPath
+     *            path of background to print
      */
-    void draw(List<Pair<Pair<String, Double>, Location>> listEntities);
+    void draw(List<Pair<String, Location>> listEntities, String backgroundPath);
 
     /**
      * It updates the view with the most recent information about the player.
@@ -34,7 +36,7 @@ public interface View {
      * @param score
      *            current score of the player
      */
-    void updateInfo(int hp, int shields, int score);
+    void updateInfo(int hp, int shields, int score); //non va bene qui ci sono solo i soldi e le vite
 
     /**
      * It returns a list with the inputs(movement) detected during a game.

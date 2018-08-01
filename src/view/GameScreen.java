@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -18,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Area;
 import model.Location;
 import utilities.Pair;
 
@@ -43,6 +45,7 @@ public class GameScreen extends Scene {
     private static double inGameHeight = BASIC_RES_HEIGHT;
     private final Group root = new Group();
     private final Pane backgroundLayer = new Pane();
+    private final ImagesMaker iMaker = new ImagesMaker();
     // private final DrawEntities drawEntities = new DrawEntities(inGameWidth,
     // inGameHeight);
     // private final PlayerInfo playerInfo = new PlayerInfo();
@@ -134,8 +137,19 @@ public class GameScreen extends Scene {
      * @param listEntities
      *            List of the active entities.
      */
-    void drawOnScreen(final List<Pair<Pair<String, Double>, Location>> listEntities) {
-        // this.drawEntities.draw(this.backgroundLayer, listEntities);
+    void drawOnScreen(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
+        this.backgroundLayer.getChildren().clear();
+        printImage(backgroundLayer, backgroundPath, new Location(0.50, 0.50, new Area(1, 1)));
+        listEntities.forEach(e -> printImage(this.backgroundLayer, e.getFirst(), e.getSecond()));
+    }
+
+    private void printImage(final Pane l, final String path, final Location loc) {
+        final ImageView image = new ImageView(this.iMaker.getImageFromPath(path));
+        image.setPreserveRatio(true);
+        image.setFitHeight(GameScreen.inGameHeight);
+        l.getChildren().add(image);
+        image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameScreen.inGameHeight);
+        image.setY((loc.getY() - loc.getArea().getWidth() / 2) * GameScreen.inGameHeight);
     }
 
     /**

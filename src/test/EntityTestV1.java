@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.stream.IntStream;
 
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import model.Area;
 import model.Direction;
 import model.Location;
+import model.entity.Boss;
 import model.entity.BulletBehavior;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;

@@ -52,10 +52,10 @@ public class StalkerEnemyBehavior implements Behavior {
         if (canShoot) {
             if (System.currentTimeMillis() - this.t <= (Long) this.e.getObjectProperty("Shoot Frequency")) {
                 this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
-                        currentRoom, currentDirection, EntityType.ENEMY_BULLET,
-                        e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
+                        currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
+                        e.getDoubleProperty("Bullet Speed")));
+                t = System.currentTimeMillis();
             }
-            t = System.currentTimeMillis();
         }
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
         cs.collisionWithBound(prev, e);
@@ -81,9 +81,11 @@ public class StalkerEnemyBehavior implements Behavior {
         e.getDoubleProperty("Speed");
         e.getIntegerProperty("Max Life");
         e.getIntegerProperty("Current Life");
-        e.getObjectProperty("Shoot Frequency");
         e.getIntegerProperty("Collision Damage");
-        e.getIntegerProperty("Shoot Damage");
+        if (canShoot) {
+            e.getObjectProperty("Shoot Frequency");
+            e.getIntegerProperty("Shoot Damage");
+        }
     }
 
     private Direction checkNewDirection() {

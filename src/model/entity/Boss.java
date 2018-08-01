@@ -7,8 +7,8 @@ import java.util.List;
 import model.Area;
 import model.Direction;
 
-public enum Player {
-    SIMO {
+public enum Boss {
+    THOR {
 
         @Override
         public List<String> images(final Direction d) {
@@ -40,7 +40,7 @@ public enum Player {
         }
 
         @Override
-        public long startingPlayerShootFrequency() {
+        public long startingBossShootFrequency() {
             return 10;
         }
 
@@ -48,8 +48,18 @@ public enum Player {
         public int shootingDamage() {
             return 1;
         }
+
+        @Override
+        public int collisionDamage() {
+            return 2;
+        }
+
+        @Override
+        public int reward() {
+            return 50;
+        }
     },
-    ANIS {
+    CIATTO {
 
         @Override
         public List<String> images(final Direction d) {
@@ -80,7 +90,7 @@ public enum Player {
         }
 
         @Override
-        public long startingPlayerShootFrequency() {
+        public long startingBossShootFrequency() {
             return 10;
         }
 
@@ -88,9 +98,19 @@ public enum Player {
         public int shootingDamage() {
             return 1;
         }
+
+        @Override
+        public int collisionDamage() {
+            return 2;
+        }
+
+        @Override
+        public int reward() {
+            return 50;
+        }
     },
 
-    KASO {
+    CROATTI {
         @Override
         public List<String> images(final Direction d) {
             return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
@@ -120,7 +140,7 @@ public enum Player {
         }
 
         @Override
-        public long startingPlayerShootFrequency() {
+        public long startingBossShootFrequency() {
             return 10;
         }
 
@@ -128,45 +148,15 @@ public enum Player {
         public int shootingDamage() {
             return 1;
         }
-    },
 
-    TOMMI {
         @Override
-        public List<String> images(final Direction d) {
-            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
-                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("s_sx", "s_dx"))
-                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("e_sx", "e_dx"))
-                                    : new ArrayList<>(Arrays.asList("w_sx", "w_dx"));
+        public int collisionDamage() {
+            return 2;
         }
 
         @Override
-        public String standImage() {
-            return "stand";
-        }
-
-        @Override
-        public Area getArea() {
-            return new Area(0.1, 0.1);
-        }
-
-        @Override
-        public int getStartingMaxLife() {
-            return 10;
-        }
-
-        @Override
-        public double getSpeed() {
-            return 0.2;
-        }
-
-        @Override
-        public long startingPlayerShootFrequency() {
-            return 10;
-        }
-
-        @Override
-        public int shootingDamage() {
-            return 1;
+        public int reward() {
+            return 50;
         }
     };
 
@@ -201,10 +191,21 @@ public enum Player {
     /**
      * @return shoot frequency
      */
-    public abstract long startingPlayerShootFrequency();
+    public abstract long startingBossShootFrequency();
 
     /**
      * @return shooting damage
      */
     public abstract int shootingDamage();
+
+    /**
+     * @return collision damage.
+     */
+    public abstract int collisionDamage();
+
+    /**
+     * @return reward.
+     */
+    public abstract int reward();
+
 }

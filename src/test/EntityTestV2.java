@@ -104,22 +104,47 @@ public class EntityTestV2 {
 
     @Test
     void modelTest() {
+        // player dead
         List<Direction> shoots = new ArrayList<>();
         ModelImpl m = new ModelImpl();
         m.start(Player.KASO);
-        final Entity nemico = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, m.getPlayer(), m.getCurrentRoom(), true);
-        m.getCurrentRoom().addEntity(nemico);
+        final Entity e = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, m.getPlayer(), m.getCurrentRoom(), true);
+        m.getCurrentRoom().addEntity(e);
         shoots.add(Direction.E);
         m.update(Direction.NOTHING, shoots);
-        assertTrue(nemico.getLocation().getX() == 0.60);
+        assertTrue(e.getLocation().getX() == 0.60);
         assertTrue(m.getCurrentRoom().getEntities().stream().count() == 2);
         shoots.clear();
         IntStream.range(0, 40).forEach(i -> m.update(Direction.W, shoots));
-        System.out.println(m.getPlayerLife());
         assertTrue(m.getPlayerLife() <= 0);
         assertTrue(m.getGameStatus() == GameStatus.Over);
         assertTrue(m.getPlayer().getLocation().getX() >= 0.05);
         assertTrue(m.getPlayer().getIntegerProperty("Current Life") < m.getPlayer().getIntegerProperty("Max Life"));
+
+        // player win and change room
+        ModelImpl m2 = new ModelImpl();
+        m2.start(Player.SIMO);
+        final Entity e2 = E_FACTORY.isaacStalkerEnemy(0.80, 0.50, m.getPlayer(), m.getCurrentRoom(), false);
+        m2.getCurrentRoom().addEntity(e2);
+        shoots.clear();
+        IntStream.range(0, 20).forEach(i -> {
+            shoots.add(Direction.E);
+            m2.update(Direction.W, shoots);
+        });
+        assertTrue(m2.getCurrentRoom().isComplited());
+        Room prec = m2.getCurrentRoom();
+        shoots.clear();
+        // si muove verso la porta e cambia stanza
+        IntStream.range(0, 50).forEach(i -> {
+            m2.update(Direction.E, shoots);
+            System.out.println(i + " player " + m2.getPlayer().getLocation());
+        });
+        assertTrue(prec != m2.getCurrentRoom());
+        m2.getCurrentRoom().getDoor().forEach(d -> System.out.println("porta 1 " + d.getLocation())); // errore nelle
+                                                                                                      // porte sono in
+                                                                                                      // mezzo alla
+                                                                                                      // stanza
+
     }
 
 }

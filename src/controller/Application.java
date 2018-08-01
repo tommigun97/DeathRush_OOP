@@ -22,18 +22,17 @@ public final class Application {
      */
 
    public static void main(final String[] args) {
-        /*final ControllerInterface c = new Controller();
+        final ControllerInterface c = new Controller();
         final View v = new ViewImpl(c);
         c.setView(v);
-        v.startView();*/
-       CollisionSupervisor cs = new CollisionSupervisorImpl();
+        v.startView();
+       /*CollisionSupervisor cs = new CollisionSupervisorImpl();
        EntityFactory ef = new EntityFactoryImpl(cs);
        GameMap map = new GameMap(ef);
-       map.printmappa();
+       map.printmappa();*/
     }
 
     private Application() {
     }
 
-   
 }

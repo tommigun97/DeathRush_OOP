@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 /**
  * The Enumeration for the direction that are used for entities movement:
  * North(N) South(S) West(W) East(E) There are also the combinations of two
@@ -103,5 +105,13 @@ public enum Direction {
      *            Entity movement speed of the entity
      */
     public abstract void changeLocation(Location loc, double speed);
+
+    /**
+     * @return a random direction
+     */
+    public static Direction randomDirection() {
+        final int i = new Random().nextInt(4);
+        return i == 0 ? N : i == 1 ? S : i == 2 ? E : W;
+    }
 
 }
