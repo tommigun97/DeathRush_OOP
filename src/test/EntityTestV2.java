@@ -126,6 +126,7 @@ public class EntityTestV2 {
         m2.start(Player.SIMO);
         final Entity e2 = E_FACTORY.isaacStalkerEnemy(0.80, 0.50, m.getPlayer(), m.getCurrentRoom(), false);
         m2.getCurrentRoom().addEntity(e2);
+        m2.getCurrentRoom().getDoor().forEach(d -> System.out.println(d.getLocation()));
         shoots.clear();
         IntStream.range(0, 20).forEach(i -> {
             shoots.add(Direction.E);
