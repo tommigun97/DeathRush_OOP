@@ -37,7 +37,7 @@ public final class ModelImpl implements Model {
 
     @Override
     public String getRoomBackGround() {
-        return this.currentRoom.getImage();
+        return "room/background.png";
     }
 
     @Override

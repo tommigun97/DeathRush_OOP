@@ -72,10 +72,10 @@ public class GameLoop extends Thread {
      *            .
      */
     public void updateGame() {
-    	/*this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
-         this.view.updateInfoToDraw(this.model.getPalyerLife(), this.model.getMoney(),
-         this.model.getTime().transformSecondInTime(), ); 
-         checkEvents();*/
+    	this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
+        /* this.view.updateInfoToDraw(this.model.getPalyerLife(), this.model.getMoney(),
+         this.model.getTime().transformSecondInTime(), ); */
+         checkEvents();
     }
 
     private void checkEvents() {
