@@ -11,12 +11,15 @@ import model.room.Room;
  */
 public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
+    private static double CORRECTOR_X = 0.03;
+    private static double CORRECTOR_Y = 0.07;
+
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
-        if (e.getLocation().getY() <= e.getLocation().getArea().getHeight() / 2
-                || e.getLocation().getY() >= 1 - e.getLocation().getArea().getHeight() / 2
-                || e.getLocation().getX() <= e.getLocation().getArea().getWidth() / 2
-                || e.getLocation().getX() >= 1 - e.getLocation().getArea().getWidth() / 2) {
+        if (e.getLocation().getY() - CORRECTOR_Y <= e.getLocation().getArea().getHeight() / 2
+                || e.getLocation().getY() + CORRECTOR_Y >= 1 - e.getLocation().getArea().getHeight() / 2
+                || e.getLocation().getX() - CORRECTOR_X <= e.getLocation().getArea().getWidth() / 2
+                || e.getLocation().getX() + CORRECTOR_X >= 1 - e.getLocation().getArea().getWidth() / 2) {
             e.setLocation(prev);
         }
 
@@ -33,10 +36,10 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionWithBound(final Entity e, final Room currentRoom) {
-        if (e.getLocation().getY() <= e.getLocation().getArea().getHeight() / 2
-                || e.getLocation().getY() >= 1 - e.getLocation().getArea().getHeight() / 2
-                || e.getLocation().getX() <= e.getLocation().getArea().getWidth() / 2
-                || e.getLocation().getX() >= 1 - e.getLocation().getArea().getWidth() / 2) {
+        if (e.getLocation().getY() - CORRECTOR_Y <= e.getLocation().getArea().getHeight() / 2
+                || e.getLocation().getY() + CORRECTOR_Y >= 1 - e.getLocation().getArea().getHeight() / 2
+                || e.getLocation().getX() - CORRECTOR_X <= e.getLocation().getArea().getWidth() / 2
+                || e.getLocation().getX() + CORRECTOR_X >= 1 - e.getLocation().getArea().getWidth() / 2) {
             currentRoom.deleteEntity(e);
         }
 
@@ -82,7 +85,8 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         }
 
     }
-//da testare con Anis
+
+    // da testare con Anis
     @Override
     public void collisionWithDoors(final Entity p, final Set<Entity> doors) {
         doors.forEach(d -> {

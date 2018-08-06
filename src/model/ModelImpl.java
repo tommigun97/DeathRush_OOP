@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.platform.commons.util.CollectionUtils;
 
@@ -89,7 +90,6 @@ public final class ModelImpl implements Model {
         }
         if (this.player.getIntegerProperty("Current Life") == 0) {
         	this.time.pause();
-        	
             this.gameStatus = GameStatus.Over;
         } // manca l'if per dire quando il gioco è definitivamente completato
 
@@ -105,14 +105,12 @@ public final class ModelImpl implements Model {
         this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
         this.time = new Time();
         time.start();
-        // manca da inizializzare la mappa e da creare il giocatore in base a cosa è
-        // inserito dall'utente
-
+   
     }
 
     @Override
     public void stopTime() {
-       time.pause();
+       this.time.pause();
     }
 
     @Override
@@ -162,6 +160,19 @@ public final class ModelImpl implements Model {
 	@Override
 	public void resumeTime() {
 		this.time.resume();
+	}
+
+	@Override
+	public int getScore() {
+		return this.time.getTotalSecond();
+	}
+
+	@Override
+	public boolean isComplited() {
+		/*if(this.map.getRooms().stream().anyMatch(x -> x.isComplited() == false)) {
+			return false;
+		}*/
+		return true;
 	}
 
 }

@@ -76,7 +76,7 @@ public final class PlayerBehavior implements Behavior {
      *            shoot's direction
      */
     public void shoot(final Direction d) {
-        if (System.currentTimeMillis() - this.t <= (Long) this.e.getObjectProperty("Shoot Frequency")) {
+        if (System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
             this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                     currentRoom, d, EntityType.PLAYER_BULLET, e.getIntegerProperty("Shooting Damage"), e.getDoubleProperty("Bullet Speed")));
             t = System.currentTimeMillis();
@@ -87,7 +87,6 @@ public final class PlayerBehavior implements Behavior {
     public void update() {
         Location prev = new Location(e.getLocation());
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
-        System.out.println(e.getDoubleProperty("Speed"));
         cs.collisionWithBound(prev, e);
         cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));

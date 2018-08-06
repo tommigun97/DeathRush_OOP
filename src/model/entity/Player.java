@@ -8,204 +8,207 @@ import model.Area;
 import model.Direction;
 
 public enum Player {
-	SIMO {
+    SIMO {
 
-		@Override
-		public List<String> images(final Direction d) {
+        @Override
+        public List<String> images(final Direction d) {
 
-			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
-					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
-							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"))
-									: new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"));
+			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
+					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
+							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"))
+									: new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"));
 		}
 
 		@Override
 		public String standImage() {
-			return "anis/1.png";
+			return "simo/1.png";
 		}
 
-		@Override
-		public Area getArea() {
-			return new Area(0.1, 0.1);
-		}
+        @Override
+        public Area getArea() {
+            return new Area(0.02, 0.07);
+        }
 
-		@Override
-		public int getStartingMaxLife() {
-			return 10;
-		}
+        @Override
+        public int getStartingMaxLife() {
+            return 10;
+        }
 
-		@Override
-		public double getSpeed() {
-			return 0.04;
-		}
+        @Override
+        public double getSpeed() {
+            return 0.008;
+        }
 
-		@Override
-		public long startingPlayerShootFrequency() {
-			return 10;
-		}
+        @Override
+        public long startingPlayerShootFrequency() {
+            return 500;
+        }
 
-		@Override
-		public int shootingDamage() {
-			return 1;
-		}
-	},
-	ANIS {
+        @Override
+        public int shootingDamage() {
+            return 1;
+        }
 
-		@Override
-		public List<String> images(final Direction d) {
+    },
+    ANIS {
 
-			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
-					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
-							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"))
-									: new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"));
-		}
+        @Override
+        public List<String> images(final Direction d) {
 
-		@Override
-		public String standImage() {
-			return "anis/1.png";
-		}
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"))
+                                    : new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"));
+        }
 
-		@Override
-		public Area getArea() {
-			return new Area(0.03, 0.05);
-		}
+        @Override
+        public String standImage() {
+            return "anis/1.png";
+        }
 
-		@Override
-		public int getStartingMaxLife() {
-			return 10;
-		}
+        @Override
+        public Area getArea() {
+            return new Area(0.02, 0.07);
+        }
 
-		@Override
-		public double getSpeed() {
-			return 0.008;
-		}
+        @Override
+        public int getStartingMaxLife() {
+            return 10;
+        }
 
-		@Override
-		public long startingPlayerShootFrequency() {
-			return 10;
-		}
+        @Override
+        public double getSpeed() {
+            return 0.008;
+        }
 
-		@Override
-		public int shootingDamage() {
-			return 1;
-		}
-	},
+        @Override
+        public long startingPlayerShootFrequency() {
+            return 500;
+        }
 
-	KASO {
-		@Override
-		public List<String> images(final Direction d) {
-			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
-					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("s_sx", "s_dx"))
-							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("e_sx", "e_dx"))
-									: new ArrayList<>(Arrays.asList("w_sx", "w_dx"));
-		}
+        @Override
+        public int shootingDamage() {
+            return 1;
+        }
+    },
 
-		@Override
-		public String standImage() {
-			return "stand";
-		}
+    KASO {
+        @Override
+        public List<String> images(final Direction d) {
 
-		@Override
-		public Area getArea() {
-			return new Area(0.1, 0.1);
-		}
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("kaso/2.png", "kaso/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("kaso/2.png", "kaso/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("kaso/4.png", "kaso/5.png"))
+                                    : new ArrayList<>(Arrays.asList("kaso/4.png", "kaso/5.png"));
+        }
 
-		@Override
-		public int getStartingMaxLife() {
-			return 10;
-		}
+        @Override
+        public String standImage() {
+            return "kaso/1.png";
+        }
 
-		@Override
-		public double getSpeed() {
-			return 0.2;
-		}
+        @Override
+        public Area getArea() {
+            return new Area(0.02, 0.05);
+        }
 
-		@Override
-		public long startingPlayerShootFrequency() {
-			return 10;
-		}
+        @Override
+        public int getStartingMaxLife() {
+            return 10;
+        }
 
-		@Override
-		public int shootingDamage() {
-			return 1;
-		}
-	},
+        @Override
+        public double getSpeed() {
+            return 0.008;
+        }
 
-	TOMMI {
-		@Override
-		public List<String> images(final Direction d) {
-			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
-					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("s_sx", "s_dx"))
-							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("e_sx", "e_dx"))
-									: new ArrayList<>(Arrays.asList("w_sx", "w_dx"));
-		}
+        @Override
+        public long startingPlayerShootFrequency() {
+            return 500;
+        }
 
-		@Override
-		public String standImage() {
-			return "stand";
-		}
+        @Override
+        public int shootingDamage() {
+            return 1;
+        }
+    },
 
-		@Override
-		public Area getArea() {
-			return new Area(0.1, 0.1);
-		}
+    TOMMI {
+        @Override
+        public List<String> images(final Direction d) {
 
-		@Override
-		public int getStartingMaxLife() {
-			return 10;
-		}
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("tommi/2.png", "tommi/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("tommi/2.png", "tommi/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("tommi/4.png", "tommi/5.png"))
+                                    : new ArrayList<>(Arrays.asList("tommi/4.png", "tommi/5.png"));
+        }
 
-		@Override
-		public double getSpeed() {
-			return 0.2;
-		}
+        @Override
+        public String standImage() {
+            return "tommi/1.png";
+        }
 
-		@Override
-		public long startingPlayerShootFrequency() {
-			return 10;
-		}
+        @Override
+        public Area getArea() {
+            return new Area(0.02, 0.07);
+        }
 
-		@Override
-		public int shootingDamage() {
-			return 1;
-		}
-	};
+        @Override
+        public int getStartingMaxLife() {
+            return 10;
+        }
 
-	/**
-	 * 
-	 * @param d
-	 *            direction required
-	 * @return images for specific direction
-	 */
-	public abstract List<String> images(Direction d);
+        @Override
+        public double getSpeed() {
+            return 0.008;
+        }
 
-	/**
-	 * @return path for stand image
-	 */
-	public abstract String standImage();
+        @Override
+        public long startingPlayerShootFrequency() {
+            return 500;
+        }
 
-	/**
-	 * @return the player area
-	 */
-	public abstract Area getArea();
+        @Override
+        public int shootingDamage() {
+            return 1;
+        }
+    };
 
-	/**
-	 * @return starting max Life
-	 */
-	public abstract int getStartingMaxLife();
+    /**
+     * 
+     * @param d
+     *            direction required
+     * @return images for specific direction
+     */
+    public abstract List<String> images(Direction d);
 
-	/**
-	 * @return movement speed
-	 */
-	public abstract double getSpeed();
+    /**
+     * @return path for stand image
+     */
+    public abstract String standImage();
 
-	/**
-	 * @return shoot frequency
-	 */
-	public abstract long startingPlayerShootFrequency();
+    /**
+     * @return the player area
+     */
+    public abstract Area getArea();
 
-	/**
-	 * @return shooting damage
-	 */
-	public abstract int shootingDamage();
+    /**
+     * @return starting max Life
+     */
+    public abstract int getStartingMaxLife();
+
+    /**
+     * @return movement speed
+     */
+    public abstract double getSpeed();
+
+    /**
+     * @return shoot frequency
+     */
+    public abstract long startingPlayerShootFrequency();
+
+    /**
+     * @return shooting damage
+     */
+    public abstract int shootingDamage();
 }

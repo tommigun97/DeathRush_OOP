@@ -10,6 +10,7 @@ import model.Direction;
 import model.Model;
 import model.ModelImpl;
 import model.Time;
+import model.entity.Player;
 import utilities.Input;
 import utilities.Pair;
 import view.InputHandler;
@@ -31,6 +32,8 @@ public class Controller implements ControllerInterface {
     private Model model;
     private Time gameTime;
     private Score sc ;
+    Player pg;
+    private String playerName;
 
     /**
      * The constructor of the Class.
@@ -148,32 +151,26 @@ public class Controller implements ControllerInterface {
                 this.model.update(Direction.E, shotDirectionList);
             } else if (this.input.getMovementList().contains(Input.S)) {
                 this.model.update(Direction.S, shotDirectionList);
+            } else {
+                this.model.update(Direction.NOTHING, shotDirectionList);
             }
         }
     }
 
     @Override
-    public final List<Pair<String, Integer>> getCurrentHighScores() {
-
-        /*Pair<String, Integer> a = new Pair<>("tommi", 130);
-        Pair<String, Integer> b = new Pair<>("Anis", 100);
-        Pair<String, Integer> c = new Pair<>("kaso", 90);
-        Pair<String, Integer> d = new Pair<>("simo", 80);
-
-        this.sc.addScore(a);
-        this.sc.addScore(b);
-        this.sc.addScore(c);
-        this.sc.addScore(d);
-
-        System.out.println(this.sc.getScoreList());
-
-        try {
-            this.sc.saveOnFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-
-        return this.sc.getScoreList();
+    public List<Pair<String, Integer>> getCurrentHighScores() {
+    	return this.sc.getScoreList();
+    }
+    
+    @Override
+    public boolean saveScoreGame() {
+    	this.sc.addScore(new Pair<>(this.playerName, this.model.getScore()));
+    	 try {
+             this.sc.saveOnFile();
+         } catch (IllegalStateException | IOException e) {
+             return false;
+         }
+         return true;
     }
 
     @Override
@@ -186,5 +183,20 @@ public class Controller implements ControllerInterface {
         }
         return true;
     }
+
+	@Override
+	public void selectPlayer(Player pg) {
+		this.pg = pg;
+	}
+	
+	@Override
+	public Player getPlayer() {
+		return this.pg;
+	}
+
+	@Override
+	public void setPlayerName(String name) {
+		this.playerName = name;
+	}
 
 }

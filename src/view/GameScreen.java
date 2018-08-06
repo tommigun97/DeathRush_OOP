@@ -143,22 +143,26 @@ public class GameScreen extends Scene {
         this.backgroundLayer.getChildren().clear();
         printImage(backgroundLayer, backgroundPath, new Location(0.50, 0.50, new Area(1, 1)));
         listEntities.forEach(e -> {
-        	System.out.println("ciao");
-        printImage(this.backgroundLayer, e.getFirst(), e.getSecond());});
-        	
-       /* printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
-        printImage(backgroundLayer, "room/door_open_N.png", new Location(0.50, 0.03, new Area(0.10, 0.10)));
-        printImage(backgroundLayer, "room/door_open_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
-        printImage(backgroundLayer, "room/door_open_E.png", new Location(0.99, 0.50, new Area(0.07, 0.15)));
-        printImage(backgroundLayer, "room/door_open_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));
-        printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
-        printImage(backgroundLayer, "room/door_closed_N.png", new Location(0.50, 0.03, new Area(0.10, 0.10)));
-        printImage(backgroundLayer, "room/door_closed_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
-        printImage(backgroundLayer, "room/door_closed_E.png", new Location(0.99, 0.50, new Area(0.07, 0.15)));
-        printImage(backgroundLayer, "room/door_closed_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));*/
+            printImage(this.backgroundLayer, e.getFirst(), e.getSecond());
+        });
 
- 
-        
+        /*
+         * printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50,
+         * new Area(1, 1))); printImage(backgroundLayer, "room/door_open_N.png", new
+         * Location(0.50, 0.03, new Area(0.10, 0.10))); printImage(backgroundLayer,
+         * "room/door_open_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
+         * printImage(backgroundLayer, "room/door_open_E.png", new Location(0.99, 0.50,
+         * new Area(0.07, 0.15))); printImage(backgroundLayer, "room/door_open_W.png",
+         * new Location(0.01, 0.50, new Area(0.07, 0.15))); printImage(backgroundLayer,
+         * "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
+         * printImage(backgroundLayer, "room/door_closed_N.png", new Location(0.50,
+         * 0.03, new Area(0.10, 0.10))); printImage(backgroundLayer,
+         * "room/door_closed_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
+         * printImage(backgroundLayer, "room/door_closed_E.png", new Location(0.99,
+         * 0.50, new Area(0.07, 0.15))); printImage(backgroundLayer,
+         * "room/door_closed_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));
+         */
+
     }
 
     private void printImage(final Pane l, final String path, final Location loc) {
@@ -167,10 +171,6 @@ public class GameScreen extends Scene {
         image.setFitHeight(loc.getArea().getHeight() * GameScreen.inGameHeight);
         image.setFitWidth(loc.getArea().getWidth() * GameScreen.inGameWidth);
         l.getChildren().add(image);
-        System.out.println(loc.getArea().getHeight() * GameScreen.inGameHeight);
-        System.out.println(loc.getArea().getWidth() * GameScreen.inGameWidth);
-        System.out.println(image.getFitWidth());
-        System.out.println(image.getFitHeight());
         image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameScreen.inGameWidth);
         image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameScreen.inGameHeight);
     }

@@ -3,6 +3,7 @@ package controller;
 import model.GameStatus;
 import model.Model;
 import model.entity.Player;
+import utilities.Pair;
 import view.View;
 
 /**
@@ -45,24 +46,29 @@ public class GameLoop extends Thread {
     public void run() {
         this.setState(Status.RUNNING);
         //this.model.start(View.getPlayer);
-        this.model.start(Player.ANIS);
+        this.model.start(Player.KASO);
         while (!this.isInState(Status.KILLED)) {
-        	long time = System.currentTimeMillis();
-            if (this.model.getGameStatus().equals(GameStatus.Running)) {
-                controller.processInput();
-                updateGame();
-            } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
-                this.setState(Status.KILLED);
-            }
-            long wait = time - System.currentTimeMillis();
-            if (wait < period) {
-                try {
-                    Thread.sleep(period - wait);
-                } catch (Exception ex) {
-                }
-            }
+        	if(this.isInState(Status.RUNNING)) {	
+	        	long time = System.currentTimeMillis();
+	            if (this.model.getGameStatus().equals(GameStatus.Running)) {
+	                controller.processInput();
+	                updateGame();
+	            } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
+	                this.setState(Status.KILLED);
+	            }
+	            long wait = time - System.currentTimeMillis();
+	            if (wait < period) {
+	                try {
+	                    Thread.sleep(period - wait);
+	                } catch (Exception ex) {
+	                }
+	            }
+	        }
         }
         this.controller.abortGameLoop();
+        if(this.model.isComplited()) {
+        	this.controller.saveScoreGame();
+        }
         //Gioco completato? dammi tempo
     }
     

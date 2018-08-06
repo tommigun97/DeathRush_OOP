@@ -47,7 +47,6 @@ public class ViewImpl implements View {
 
     @Override
     public final void draw(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
-    	System.out.println(ViewImpl.gameScreen);
         Platform.runLater(() -> ViewImpl.gameScreen.drawOnScreen(listEntities, backgroundPath));
     }
 

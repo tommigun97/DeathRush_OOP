@@ -3,6 +3,7 @@ package controller;
 import java.util.List;
 
 import model.Time;
+import model.entity.Player;
 import utilities.Pair;
 import view.View;
 
@@ -20,6 +21,9 @@ public interface ControllerInterface {
      */
     void startGameLoop() throws IllegalStateException;
 
+    void selectPlayer(Player pg);
+    
+    Player getPlayer();
     /**
      * Set the GUI of the game.
      * 
@@ -76,5 +80,9 @@ public interface ControllerInterface {
      * @return true when the list is clear.
      */
     boolean emptyScores();
+    
+    boolean saveScoreGame();
+    
+    void setPlayerName(String name);
 
 }

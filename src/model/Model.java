@@ -75,4 +75,8 @@ public interface Model {
      * @return a list of the player ability
      */
     List<Integer> getPlayerInfo();
+    
+    int getScore();
+    
+    boolean isComplited();
 }

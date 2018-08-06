@@ -36,7 +36,7 @@ public interface View {
      * @param score
      *            current score of the player
      */
-    void updateInfo(int hp, int shields, int score); //non va bene qui ci sono solo i soldi e le vite
+    void updateInfo(int hp, int shields, int score); // non va bene qui ci sono solo i soldi e le vite
 
     /**
      * It returns a list with the inputs(movement) detected during a game.
@@ -67,5 +67,5 @@ public interface View {
      *            a String with the name of the power-up.
      */
     void showText(String powerUp);
-    
+
 }
