@@ -13,20 +13,20 @@ public enum Player {
         @Override
         public List<String> images(final Direction d) {
 
-			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
-					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
-							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"))
-									: new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"));
-		}
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"))
+                                    : new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"));
+        }
 
-		@Override
-		public String standImage() {
-			return "simo/1.png";
-		}
+        @Override
+        public String standImage() {
+            return "simo/1.png";
+        }
 
         @Override
         public Area getArea() {
-            return new Area(0.02, 0.07);
+            return new Area(0.04, 0.15);
         }
 
         @Override
@@ -68,7 +68,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.02, 0.07);
+            return new Area(0.04, 0.15);
         }
 
         @Override
@@ -109,7 +109,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.02, 0.05);
+            return new Area(0.04, 0.13);
         }
 
         @Override
@@ -150,7 +150,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.02, 0.07);
+            return new Area(0.04, 0.15);
         }
 
         @Override

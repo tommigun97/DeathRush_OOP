@@ -11,8 +11,11 @@ import model.room.Room;
  */
 public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
-    private static double CORRECTOR_X = 0.03;
-    private static double CORRECTOR_Y = 0.07;
+    private static final double CORRECTOR_X = 0.03;
+    private static final double CORRECTOR_Y = 0.07;
+    private static final double TIME_TO_ACCEPT_COLLISION = 1000;// ms
+
+    private long t = 0;
 
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
@@ -57,21 +60,26 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionBetweenEntities(final Entity e, final Set<Entity> others) {
+        // System.out.println("collisione " + System.currentTimeMillis() - t);
         if (e.getType() == EntityType.ENEMY_BULLET || e.getType() == EntityType.PLAYER_BULLET
                 || e.getType() == EntityType.OBSTACLE) {
             return;
-        } else if (e.getType() == EntityType.PLAYER) {
+        } else if (e.getType() == EntityType.PLAYER && System.currentTimeMillis() - t >= TIME_TO_ACCEPT_COLLISION) {
             others.forEach(o -> {
                 if (o.getType() == EntityType.ENEMY && collision(e, o)) {
                     e.changeIntProperty("Current Life",
                             e.getIntegerProperty("Current Life") - o.getIntegerProperty("Collision Damage"));
+                    t = System.currentTimeMillis();
                 }
 
                 if (o.getType() == EntityType.ENEMY_BULLET && collision(e, o)) {
                     e.changeIntProperty("Current Life",
                             e.getIntegerProperty("Current Life") - o.getIntegerProperty("Shoot Damage"));
                     others.remove(o);
+                    t = System.currentTimeMillis();
                 }
+                System.out.println(e.getIntegerProperty("Current Life"));
+
             });
         } else if (e.getType() == EntityType.ENEMY) {
             others.forEach(o -> {
