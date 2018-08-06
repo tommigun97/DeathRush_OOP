@@ -37,7 +37,7 @@ public class Controller implements ControllerInterface {
     public Controller() {
         this.sc = new Score(FILENAME);
         this.input = InputHandler.getInputHandler();
-        this.gameTime = getTimer();
+        this.gameTime = new Time();
         this.model = new ModelImpl();
     }
 
@@ -56,15 +56,10 @@ public class Controller implements ControllerInterface {
     public void setView(final View view) {
         this.view = view;
     }
-
-    @Override
-    public final Time getTimer() {
-        return new Time();
-    }
-
+    
     @Override
     public final void pauseGameLoop() {
-    	if(this.gameLoop.isPresent()) {    
+    	if(this.gameLoop.isPresent()) {  
     		this.gameLoop.get().pause();
     	}
     }
