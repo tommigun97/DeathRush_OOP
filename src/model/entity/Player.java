@@ -13,15 +13,15 @@ public enum Player {
 		@Override
 		public List<String> images(final Direction d) {
 
-			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
-					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("anis/2.png", "anis/3.png"))
-							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"))
-									: new ArrayList<>(Arrays.asList("anis/4.png", "anis/5.png"));
+			return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
+					: d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("simo/2.png", "simo/3.png"))
+							: d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"))
+									: new ArrayList<>(Arrays.asList("simo/4.png", "simo/5.png"));
 		}
 
 		@Override
 		public String standImage() {
-			return "anis/1.png";
+			return "simo/1.png";
 		}
 
 		@Override
