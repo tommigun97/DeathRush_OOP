@@ -4,18 +4,28 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 
+import model.entity.Entity;
+import model.entity.EntityFactory;
+import model.entity.EntityFactoryImpl;
 import model.room.Room;
 
 public class ReadEntityImpl implements ReadEntity {
 
     private final static double HEIGHT = 1;
     private final static double WEIGHT = 1;
+    private final static char NOSCAN = '0';
 
     private String file;
     private Room currentRoom;
+    private Set<Entity> entitiesRead;
+    private EntityFactory ef;
 
-    public ReadEntityImpl(String fileName, Room room) {
+    public ReadEntityImpl(String fileName, Room room, EntityFactory ef) {
+    	this.ef = ef;
+    	this.entitiesRead = new HashSet<>();
         this.file = fileName;
         this.currentRoom = room;
     }
@@ -34,7 +44,7 @@ public class ReadEntityImpl implements ReadEntity {
             	line = bf.readLine();
             	for(int j = 0; j<column; j++) {
             		currentChar = line.charAt(j);
-            		if(currentChar != 0) {
+            		if(currentChar  != NOSCAN) {
             			this.scanFind(currentChar, i*rowProportion, j*columnProportion);
             		}
             	}
@@ -69,6 +79,8 @@ public class ReadEntityImpl implements ReadEntity {
         this.currentRoom = currentRoom;
     }
     private void scanFind(char type, double x, double y ) {
-    	
+    	/*if(type == '1') {
+    		this.entitiesRead.add(this.ef.isaacStalkerEnemy(x, y, eToStalk, currentRoom, canShoot))
+    	}*/
     }
 }
