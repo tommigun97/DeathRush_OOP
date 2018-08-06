@@ -24,17 +24,29 @@ public class ReadEntityImpl implements ReadEntity {
         try {
             BufferedReader bf = new BufferedReader(new FileReader(file));
             int column = bf.readLine().length();
-            int row = calculateColums(file);
-            double columnPropotion = WEIGHT / column;
-            double rowPropotion = HEIGHT / row;
+            int row = calculateRow(file);
+            double columnProportion = WEIGHT / column;
+            double rowProportion = HEIGHT / row;
             bf.reset();
+            String line;
+            char currentChar;
+            for (int i = 0; i<row; i++ ) {
+            	line = bf.readLine();
+            	for(int j = 0; j<column; j++) {
+            		currentChar = line.charAt(j);
+            		if(currentChar != 0) {
+            			this.scanFind(currentChar, i*rowProportion, j*columnProportion);
+            		}
+            	}
+            }
+
         } catch (Exception e) {
             // TODO: handle exception
         }
-
+    
     }
 
-    private int calculateColums(String filename) throws IOException {
+    private int calculateRow(String filename) throws IOException {
         int rowCount = 0;
         try {
             BufferedReader bf = new BufferedReader(new FileReader(filename));
@@ -55,5 +67,8 @@ public class ReadEntityImpl implements ReadEntity {
 
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
+    }
+    private void scanFind(char type, double x, double y ) {
+    	
     }
 }
