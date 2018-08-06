@@ -22,7 +22,7 @@ public class GameLoop extends Thread {
     private static final long PERIOD = 20;
 
     private long period = PERIOD;
-    private volatile Status state;
+    private volatile Status state = Status.READY;
     private final View view;
     private final ControllerInterface controller;
     private Model model;
