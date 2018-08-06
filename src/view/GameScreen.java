@@ -91,7 +91,6 @@ public class GameScreen extends Scene {
         this.getInput();
         this.resize();
         this.setRoot(this.root);
-        drawOnScreen(null, null);
     }
 
     /**
@@ -141,10 +140,13 @@ public class GameScreen extends Scene {
      *            List of the active entities.
      */
     void drawOnScreen(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
-       /* this.backgroundLayer.getChildren().clear();
+        this.backgroundLayer.getChildren().clear();
         printImage(backgroundLayer, backgroundPath, new Location(0.50, 0.50, new Area(1, 1)));
-        listEntities.forEach(e -> printImage(this.backgroundLayer, e.getFirst(), e.getSecond()));*/
-        printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
+        listEntities.forEach(e -> {
+        	System.out.println("ciao");
+        printImage(this.backgroundLayer, e.getFirst(), e.getSecond());});
+        	
+       /* printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
         printImage(backgroundLayer, "room/door_open_N.png", new Location(0.50, 0.03, new Area(0.10, 0.10)));
         printImage(backgroundLayer, "room/door_open_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
         printImage(backgroundLayer, "room/door_open_E.png", new Location(0.99, 0.50, new Area(0.07, 0.15)));
@@ -153,7 +155,7 @@ public class GameScreen extends Scene {
         printImage(backgroundLayer, "room/door_closed_N.png", new Location(0.50, 0.03, new Area(0.10, 0.10)));
         printImage(backgroundLayer, "room/door_closed_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
         printImage(backgroundLayer, "room/door_closed_E.png", new Location(0.99, 0.50, new Area(0.07, 0.15)));
-        printImage(backgroundLayer, "room/door_closed_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));
+        printImage(backgroundLayer, "room/door_closed_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));*/
 
  
         

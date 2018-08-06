@@ -61,6 +61,7 @@ public final class CompleteImageSetCalculator implements ImageCalculator {
                     ? this.southImages.get(c)
                     : i;
             i = d.equals(Direction.E) ? this.eastImages.get(c) : i;
+            i = d.equals(Direction.W) ? this.weastImages.get(c) : i;
             c = c == 0 ? 1 : 0;
             this.prevDir = d;
         }
