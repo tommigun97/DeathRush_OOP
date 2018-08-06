@@ -13,10 +13,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
-        System.out.println("sbatte a su d" + (e.getLocation().getY()) + (1 - e.getLocation().getArea().getHeight() / 2));
-        System.out.println("sbatte a nord " + (e.getLocation().getY()) + (e.getLocation().getArea().getHeight() / 2));
-        System.out.println("sbatte a est " + (e.getLocation().getX()) + (e.getLocation().getArea().getWidth() / 2));
-        System.out.println("sbatte a ovest " + (e.getLocation().getX()) + (1 - e.getLocation().getArea().getWidth() / 2));
         if (e.getLocation().getY() <= e.getLocation().getArea().getHeight() / 2
                 || e.getLocation().getY() >= 1 - e.getLocation().getArea().getHeight() / 2
                 || e.getLocation().getX() <= e.getLocation().getArea().getWidth() / 2

@@ -54,7 +54,7 @@ public class GameMap implements Map {
     }
     
     private void initMap() {
-        Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new HashSet<>()).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
+        Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
                 .build();
         this.path[MIDDLEX][MIDDLEY] = a;
         Room b = this.rBuilder.setComplited(false).setRoomID(2).setDoors(new HashSet<>())
