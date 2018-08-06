@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -89,7 +89,10 @@ public class Time {
         return this.totalSec;
     }
 
-    public int getSec() {
+    public String getCurrentTime() {
+    	 return ( hourPassed + " : " + minutePassed + " : " + secondPassed);
+    }
+   /* public int getSec() {
         return this.secondPassed;
     }
 
@@ -107,6 +110,6 @@ public class Time {
         list.add(getMin());
         list.add(getSec());
         return list;
-    }
+    }*/
 
 }

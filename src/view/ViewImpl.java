@@ -102,5 +102,4 @@ public class ViewImpl implements View {
     public final List<Input> getShotInput() {
         return this.inputHandler.getShotList();
     }
-
 }

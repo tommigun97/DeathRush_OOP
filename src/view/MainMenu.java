@@ -45,7 +45,7 @@ public final class MainMenu extends Scene {
         this.newGame.setId("menu-buttons");
         this.newGame.setOnAction(e -> {
             InputHandler.getInputHandler().emptyList();
-            // View.getController().startGameLoop();
+            ViewImpl.getController().startGameLoop();
             final GameScreen gameScreen = new GameScreen();
             ViewImpl.setGameScreen(gameScreen);
             mainStage.setScene(gameScreen.get(mainStage));
