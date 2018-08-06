@@ -2,6 +2,7 @@ package model.map;
 
 import java.util.Random;
 
+import model.Area;
 import utilities.Pair;
 
 /**
@@ -12,27 +13,36 @@ public enum Coordinates {
     /**
      * 
      */
-    NORTH("North", 0, 0.5, 0), SOUTH("South", 1, 0.5, 1), WEST("West", 0, 0, 0.5), EAST("East", 3, 1, 0.5);
+    NORTH("room/door_open_N.png", "room/door_closed_N.png", 0, 0.03, 0.5, new Area(0.10, 0.10)), 
+    SOUTH("room/door_open_S.png", "room/door_closed_S.png", 1, 0.97, 0.5, new Area(0.10, 0.10)), 
+    WEST("room/door_open_W.png", "room/door_closed_W.png", 0, 0.5, 0.99, new Area(0.07, 0.15)), 
+    EAST("room/door_open_E.png", "room/door_closed_E.png", 3, 0.5, 0.01, new Area(0.07, 0.15));
 
-    private final String name;
+    public Area getArea() {
+		return area;
+	}
+
+	private final String open;
+    private final String close;
     private final int coordinateId;
     private final double height;
     private final double weight;
+    private final Area area;
 
-    private Coordinates(final String name, final int coordinateId, final double height, final double weight) {
-        this.name = name;
+    private Coordinates(final String openImage, final String closedImage, final int coordinateId, final double height, final double weight, final Area area) {
+        this.open = openImage;
+        this.close = closedImage;
         this.coordinateId = coordinateId;
         this.height = height;
         this.weight = weight;
+        this.area = area;
     }
 
     /**
      * 
      * @return .
      */
-    public String getName() {
-        return this.name;
-    }
+    
 
     /**
      * 
@@ -42,7 +52,15 @@ public enum Coordinates {
         return this.coordinateId;
     }
 
-    public double getHeight() {
+    public String getOpen() {
+		return open;
+	}
+
+	public String getClose() {
+		return close;
+	}
+
+	public double getHeight() {
         return height;
     }
 

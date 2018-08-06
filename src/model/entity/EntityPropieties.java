@@ -11,8 +11,11 @@ public enum EntityPropieties {
     VENDOR(7); 
      
     private final int entityID; 
+    
      
     private EntityPropieties(final int entityID) { 
         this.entityID = entityID; 
     } 
+    
+    
 }

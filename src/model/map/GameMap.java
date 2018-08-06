@@ -34,7 +34,6 @@ public class GameMap implements Map {
     private int stanzeTotali;
 
     public GameMap(EntityFactory entityFactory) {
-        this.path = new Room[X][Y];
         this.rooms = new HashSet<>();
         this.doors = new HashSet<>();
         this.rBuilder = new RoomBuilder();
@@ -54,6 +53,7 @@ public class GameMap implements Map {
     }
     
     private void initMap() {
+    	this.path = new Room[X][Y];
         Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
                 .build();
         this.path[MIDDLEX][MIDDLEY] = a;
@@ -92,6 +92,15 @@ public class GameMap implements Map {
         return this.path[x][y] == null;
     }
 
+    private boolean checkLoop(int x, int y) {
+    	if(this.path[x + 1][y] != null &&
+    	    this.path[x][y + 1] != null &&
+    	    this.path[x-1][y] != null &&
+    	    this.path[x][y - 1] != null ) {
+    		return true;
+    	}
+    	return false;
+    }
     private void completePath(int x, int y, int r) {
         Coordinates c;
         Room current;
@@ -101,21 +110,26 @@ public class GameMap implements Map {
             c = Coordinates.getRandomCoordinate();
             current = this.path[x][y];
             movement = Coordinates.getMovementFromCoordinates(c);
-            if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
-                RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
-                this.stanzeTotali++;
-                
-                next = this.rBuilder.setComplited(false).setRoomID(this.stanzeTotali).setDoors(new HashSet<>())
-                        .setTypes(t).build();
-                System.out.println(this.stanzeTotali + "" + next);
-                this.path[x + movement.getFirst()][y + movement.getSecond()] = next;
-                this.addNewRoom(next);
-                this.addLink(current, next, c, DoorStatus.CLOSE);
-                x = x + movement.getFirst();
-                y = y + movement.getSecond();
-                r--;
-                current = next;
-                next = null;
+            if(!this.checkLoop(x, y)) {	           
+            	if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
+            
+	                RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
+	                this.stanzeTotali++;
+	                
+	                next = this.rBuilder.setComplited(false).setRoomID(this.stanzeTotali).setDoors(new HashSet<>())
+	                        .setTypes(t).build();
+	                System.out.println(this.stanzeTotali + "" + next);
+	                this.path[x + movement.getFirst()][y + movement.getSecond()] = next;
+	                this.addNewRoom(next);
+	                this.addLink(current, next, c, DoorStatus.CLOSE);
+	                x = x + movement.getFirst();
+	                y = y + movement.getSecond();
+	                r--;
+	                current = next;
+	                next = null;
+	            }
+            }else {
+            	this.initMap();
             }
         }
     }
@@ -132,8 +146,9 @@ public class GameMap implements Map {
 
     private void addLink(Room x, Room y, Coordinates z, DoorStatus statusLink) {
         if (this.rooms.contains(x) && this.rooms.contains(y)) {
-            Entity a = this.entityF.createDoor(z.getHeight(), z.getWeight(), statusLink, y, "", z);
-            Entity b = this.entityF.createDoor(Coordinates.reversCoordinate(z).getHeight(), Coordinates.reversCoordinate(z).getWeight(), statusLink, x, "", Coordinates.reversCoordinate(z));
+            Entity a = this.entityF.createDoor(z.getHeight(), z.getWeight(), statusLink, y, "", z, z.getArea());
+            Entity b = this.entityF.createDoor(Coordinates.reversCoordinate(z).getHeight(), 
+            		Coordinates.reversCoordinate(z).getWeight(), statusLink, x, "", Coordinates.reversCoordinate(z),Coordinates.reversCoordinate(z).getArea());
             this.doors.add(a);
             this.doors.add(b);
             x.addDoor(a);

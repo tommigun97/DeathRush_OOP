@@ -145,8 +145,8 @@ public final class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public final Entity createDoor(final double x, final double y, final DoorStatus status, final Room nextRoom,
-            final String image, final Coordinates coor) {
-        return new EntityImpl.EntitiesBuilder().setLocation(new Location(x, y, new Area(0.5, 0.5)))
+            final String image, final Coordinates coor, final Area area ) {
+        return new EntityImpl.EntitiesBuilder().setLocation(new Location(x, y, new Area(coor.getArea().getWidth(), coor.getArea().getHeight())))
                 .with("doorStatus", status).with("nextRoom", nextRoom).with("image", image).with("coordinate", coor)
                 .build();
     }
