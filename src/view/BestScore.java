@@ -22,6 +22,9 @@ import utilities.Pair;
  *
  */
 public class BestScore extends Scene {
+    private static final double WIDTH = 800;
+
+    private static final double HEIGHT = 600;
 
     private static final BestScore MAINSCENE = new BestScore();
 
@@ -39,7 +42,7 @@ public class BestScore extends Scene {
      * Constructor for the scene.
      */
     public BestScore() {
-        super(new StackPane());
+        super(new StackPane(), WIDTH, HEIGHT);
 
         Text mainTitle = new Text("Scores");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));

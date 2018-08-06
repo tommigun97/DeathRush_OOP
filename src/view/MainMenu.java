@@ -44,7 +44,7 @@ public final class MainMenu extends Scene {
         this.newGame.setMinWidth(vbox.getPrefWidth());
         this.newGame.setId("menu-buttons");
         this.newGame.setOnAction(e -> {
-        	final GameScreen gameScreen = new GameScreen();
+            final GameScreen gameScreen = new GameScreen();
             InputHandler.getInputHandler().emptyList();
             ViewImpl.getController().startGameLoop();
             ViewImpl.setGameScreen(gameScreen);
