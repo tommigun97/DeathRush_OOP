@@ -138,6 +138,7 @@ public final class EntityFactoryImpl implements EntityFactory {
             final EntityType bulletType, final int damage, final double speed) {
         BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
         return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
+                .setImage("bullet/bullet.png")
                 .with("Speed", speed)
                 .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
     }
