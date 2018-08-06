@@ -150,7 +150,7 @@ public class GameScreen extends Scene {
          * printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50,
          * new Area(1, 1))); printImage(backgroundLayer, "room/door_open_N.png", new
          * Location(0.50, 0.03, new Area(0.10, 0.10))); printImage(backgroundLayer,
-         * "room/door_open_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
+         * "room/door_open_S.png   ", new Location(0.50, 0.97, new Area(0.10, 0.10)));
          * printImage(backgroundLayer, "room/door_open_E.png", new Location(0.99, 0.50,
          * new Area(0.07, 0.15))); printImage(backgroundLayer, "room/door_open_W.png",
          * new Location(0.01, 0.50, new Area(0.07, 0.15))); printImage(backgroundLayer,

@@ -77,6 +77,7 @@ public class BestScore extends Scene {
         mainLayout.getChildren().addAll(layout, bottomLayout);
         mainLayout.setId("mainPane");
         this.setRoot(mainLayout);
+
         this.getStylesheets().add("style.css");
         back.setOnAction(e -> {
             listScores.getChildren().clear();
