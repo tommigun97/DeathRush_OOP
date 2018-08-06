@@ -71,11 +71,6 @@ public interface ControllerInterface {
     void processInput();
 
     /**
-     * 
-     * @return the model time
-     */
-    Time getTimer();
-    /**
      * This method clear the score list.
      * 
      * @return true when the list is clear.

@@ -63,6 +63,7 @@ public class GameLoop extends Thread {
             }
         }
         this.controller.abortGameLoop();
+        //Gioco completato? dammi tempo
     }
     
     /**
@@ -103,6 +104,7 @@ public class GameLoop extends Thread {
      */
     public void pause() {
         if (this.isInState(Status.RUNNING)) {
+        	this.model.stopTime();
             this.setState(Status.PAUSED);
         }
     }
@@ -112,6 +114,7 @@ public class GameLoop extends Thread {
      */
     public void resumeGame() {
         if (this.isInState(Status.PAUSED)) {
+        	this.model.resumeTime();
             this.setState(Status.RUNNING);
         }
     }
