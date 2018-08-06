@@ -90,7 +90,7 @@ public class Time {
     }
 
     public String getCurrentTime() {
-    	 return ( hourPassed + " : " + minutePassed + " : " + secondPassed);
+         return ( hourPassed + " : " + minutePassed + " : " + secondPassed);
     }
    /* public int getSec() {
         return this.secondPassed;
@@ -111,5 +111,4 @@ public class Time {
         list.add(getSec());
         return list;
     }*/
-
 }
