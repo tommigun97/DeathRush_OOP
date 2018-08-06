@@ -25,7 +25,7 @@ public class Controller implements ControllerInterface {
     private static final int N_SCORE = 10;
 
     private View view;
-    private GameLoop gameLoop;
+    private Optional<GameLoop> gameLoop = Optional.empty();
     private final InputHandler input;
     private Model model;
     private Time gameTime;
@@ -43,8 +43,8 @@ public class Controller implements ControllerInterface {
 
     @Override
     public final void startGameLoop() throws IllegalStateException {
-        this.gameLoop = new GameLoop(this, this.view, this.model);
-        this.gameLoop.start();
+        this.gameLoop = Optional.of(new GameLoop(this, this.view, this.model));
+        this.gameLoop.get().start();
     }
 
     /**
@@ -64,29 +64,40 @@ public class Controller implements ControllerInterface {
 
     @Override
     public final void pauseGameLoop() {
-       this.gameLoop.pause();
+    	if(this.gameLoop.isPresent()) {    
+    		this.gameLoop.get().pause();
+    	}
     }
 
     @Override
     public final void abortGameLoop() {
-            this.gameLoop.abort();
+    	if(this.gameLoop.isPresent()) {
+    		this.gameLoop.get().abort();
+    		this.gameLoop = Optional.empty();
+    	}
     }
 
     @Override
     public final void resumeGameLoop() {
-      
-            this.gameLoop.resumeGame();
-        
+    	if(this.gameLoop.isPresent()) {
+    		this.gameLoop.get().resumeGame();
+    	}
     }
 
     @Override
-    public final boolean isGameLoopRunning() {        
-        return this.gameLoop.isRunning();
+    public final boolean isGameLoopRunning() {
+    	if(!this.gameLoop.isPresent()) {
+    		return false;
+    	}
+        return this.gameLoop.get().isRunning();
     }
 
     @Override
     public final boolean isGameLoopPaused() {
-        return this.gameLoop.isPaused();
+    	if(!this.gameLoop.isPresent()) {
+    		return false;
+    	}
+        return this.gameLoop.get().isPaused();
     }
 
     private Direction translateShot(final Input e) {
