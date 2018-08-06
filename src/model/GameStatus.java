@@ -5,8 +5,7 @@ package model;
  */
 public enum GameStatus {
     /**
-     * Player win if maximum enemy spanws is reached and there are no more living
-     * enemy.
+     * Player win if every room is completed.
      */
     Won,
     /**

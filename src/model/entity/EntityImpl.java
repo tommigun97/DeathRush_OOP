@@ -1,21 +1,20 @@
 package model.entity;
 
 import java.util.Optional;
-
 import model.Location;
 
 /**
  * Implementation of entity interface.
  *
  */
-public final class EntitityImpl implements Entity {
+public final class EntityImpl implements Entity {
     private String image;
     private Location loc;
     private final Optional<Behavior> behavior;
     private final EntityType type;
     private final PropertyMap properties;
 
-    private EntitityImpl(final String image, final Location loc, final Behavior behavior, final EntityType type,
+    private EntityImpl(final String image, final Location loc, final Behavior behavior, final EntityType type,
             final PropertyMap properties) {
         super();
         this.image = image;
@@ -26,6 +25,12 @@ public final class EntitityImpl implements Entity {
         if (this.behavior.isPresent()) {
             behavior.setEntity(this);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "EntitityImpl [image=" + image + ", loc=" + loc + ", behavior=" + behavior + ", type=" + type
+                + ", properties=" + properties + "]";
     }
 
     @Override
@@ -200,8 +205,8 @@ public final class EntitityImpl implements Entity {
         /**
          * @return the entity builded
          */
-        public EntitityImpl build() {
-            return new EntitityImpl(image, loc, behavior, type, properties);
+        public EntityImpl build() {
+            return new EntityImpl(image, loc, behavior, type, properties);
         }
     }
 }

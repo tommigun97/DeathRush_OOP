@@ -3,7 +3,7 @@ package controller;
 import java.util.List;
 
 import utilities.Pair;
-import view.ViewInterface;
+import view.View;
 
 /**
  * 
@@ -25,7 +25,7 @@ public interface ControllerInterface {
      * @param view
      *            .
      */
-    void setView(ViewInterface view);
+    void setView(View view);
 
     /**
      * Set Game loop in pause.

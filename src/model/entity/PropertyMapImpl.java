@@ -10,14 +10,14 @@ import java.util.Map;
 public final class PropertyMapImpl implements PropertyMap {
 
     private final Map<String, Object> m = new HashMap<>();
-    private static final String NOT_PROPERTY = "The Property requested doesn't exist";
+    private static final String NOT_PROPERTY = "Requested inexistent property: ";
 
     @Override
     public int getIntegerProperty(final String property) {
         if (m.containsKey(property)) {
             return (int) m.get(property);
         } else {
-            throw new IllegalArgumentException(NOT_PROPERTY);
+            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property+ "]");
         }
 
     }
@@ -27,7 +27,7 @@ public final class PropertyMapImpl implements PropertyMap {
         if (m.containsKey(property)) {
             return (double) m.get(property);
         } else {
-            throw new IllegalArgumentException(NOT_PROPERTY);
+            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property+ "]");
         }
     }
 
@@ -36,7 +36,7 @@ public final class PropertyMapImpl implements PropertyMap {
         if (m.containsKey(property)) {
             return (boolean) m.get(property);
         } else {
-            throw new IllegalArgumentException(NOT_PROPERTY);
+            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property+ "]");
         }
     }
 

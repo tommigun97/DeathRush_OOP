@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import view.ViewImpl;
 import view.View;
-import view.ViewInterface;
 
 /**
  * 

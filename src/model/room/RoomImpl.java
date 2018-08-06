@@ -1,13 +1,9 @@
 package model.room;
 
 import java.util.List;
-
 import java.util.Set;
-
-import model.entity.Door;
 import model.entity.Entity;
-
-import model.entity.Door.DoorStatus;
+import model.entity.EntityType;
 
 /**
  * 
@@ -20,8 +16,8 @@ public class RoomImpl implements Room {
     private final int roomID;
     private boolean complited;
     private final RoomType type;
-    private List<Entity> entitiesRoom;
-    private Set<Door> doorsRoom;
+    private Set<Entity> entitiesRoom;
+    private Set<Entity> doorsRoom;
 
     /**
      * 
@@ -39,7 +35,7 @@ public class RoomImpl implements Room {
      *            .
      */
     public RoomImpl(final String image, final int roomID, final boolean complited, final RoomType type,
-            final List<Entity> entitiesRoom, final Set<Door> doorsRoom) {
+            final Set<Entity> entitiesRoom, final Set<Entity> doorsRoom) {
         this.image = image;
         this.roomID = roomID;
         this.complited = complited;
@@ -52,7 +48,8 @@ public class RoomImpl implements Room {
      * @return true if room is complited false else
      */
     public boolean isComplited() {
-        return complited;
+        return (entitiesRoom.stream().filter(e -> e.getType() == EntityType.ENEMY).count() == 0);
+
     }
 
     /**
@@ -68,14 +65,14 @@ public class RoomImpl implements Room {
      * @param door
      *            add door to the room
      */
-    public void addDoor(final Door door) {
+    public void addDoor(Entity door) {
         this.doorsRoom.add(door);
     }
 
     /**
-     * @return Set<Door> return Room's door
+     * @return Set<Entity> return Room's door
      */
-    public Set<Door> getDoor() {
+    public Set<Entity> getDoor() {
         return this.doorsRoom;
     }
 
@@ -94,15 +91,31 @@ public class RoomImpl implements Room {
     /**
      * 
      */
+    @Override
     public void openDoors() {
-        this.doorsRoom.forEach(x -> x.setDoorStatus(DoorStatus.OPEN));
+        this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.OPEN));
     }
 
     /**
      * 
      */
     public void closeDoors() {
-        this.doorsRoom.forEach(x -> x.setDoorStatus(DoorStatus.CLOSE));
+        this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.CLOSE));
+    }
+
+    @Override
+    public final void addEntity(final Entity entity) {
+        this.entitiesRoom.add(entity);
+    }
+
+    @Override
+    public final void deleteEntity(final Entity entity) {
+        this.entitiesRoom.remove(entity);
+    }
+
+    @Override
+    public final Set<Entity> getEntities() {
+        return this.entitiesRoom;
     }
 
     /**
@@ -116,8 +129,8 @@ public class RoomImpl implements Room {
         private int roomID;
         private boolean complited;
         private RoomType type;
-        private List<Entity> entitiesRoom;
-        private Set<Door> doorsRoom;
+        private Set<Entity> entitiesRoom;
+        private Set<Entity> doorsRoom;
 
         /**
          * 
@@ -169,7 +182,7 @@ public class RoomImpl implements Room {
          *            .
          * @return .
          */
-        public RoomBuilder setEnemies(final List<Entity> entitiesRoom) {
+        public RoomBuilder setEntities(final Set<Entity> entitiesRoom) {
             this.entitiesRoom = entitiesRoom;
             return this;
         }
@@ -180,7 +193,7 @@ public class RoomImpl implements Room {
          *            .
          * @return .
          */
-        public RoomBuilder setDoors(final Set<Door> doorsRoom) {
+        public RoomBuilder setDoors(final Set<Entity> doorsRoom) {
             this.doorsRoom = doorsRoom;
             return this;
         }
@@ -192,6 +205,11 @@ public class RoomImpl implements Room {
         public RoomImpl build() {
             return new RoomImpl(image, roomID, complited, type, entitiesRoom, doorsRoom);
         }
+    }
+
+    @Override
+    public String getImage() {
+        return this.image;
     }
 
 }

@@ -93,7 +93,7 @@ public class BestScore extends Scene {
      */
     private static void showScores() {
 
-        final List<Pair<String, Integer>> scoreList = View.getController().getCurrentHighScores();
+        final List<Pair<String, Integer>> scoreList = ViewImpl.getController().getCurrentHighScores();
         if (scoreList.isEmpty()) {
             listScores.getChildren().add(new Label("No Best Score Present ,yet"));
             listScores.getChildren().get(0).setId("score-list");
@@ -105,7 +105,7 @@ public class BestScore extends Scene {
                 listScores.getChildren().add(player);
             }
         }
-        View.getController().getCurrentHighScores();
+        ViewImpl.getController().getCurrentHighScores();
     }
 
     /**
@@ -129,7 +129,7 @@ public class BestScore extends Scene {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to reset the Score Board?");
 
         if (answer) {
-            if (View.getController().emptyScores()) {
+            if (ViewImpl.getController().emptyScores()) {
                 BestScore.listScores.getChildren().clear();
             } else {
                 GenericBox.display("Error", "An error occurred while emptying the scores", "Continue");

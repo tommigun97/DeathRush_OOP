@@ -2,7 +2,7 @@ package controller;
 
 import model.GameStatus;
 import model.Model;
-import view.ViewInterface;
+import view.View;
 
 /**
  * This is the heart of the game. It will refresh game's frame every second. The
@@ -22,7 +22,7 @@ public class GameLoop extends Thread {
 
     private long period = PERIOD;
     private volatile Status state;
-    private final ViewInterface view;
+    private final View view;
     private final ControllerInterface controller;
     private Model model;
 
@@ -32,7 +32,7 @@ public class GameLoop extends Thread {
      * @param view
      *            .
      */
-    public GameLoop(final ControllerInterface controller, final ViewInterface view) {
+    public GameLoop(final ControllerInterface controller, final View view) {
         this.controller = controller;
         this.view = view;
     }
@@ -88,7 +88,7 @@ public class GameLoop extends Thread {
     }
 
     private void checkEvents() {
-        if (this.model.getPalyerLife() <= 0) {
+        if (this.model.getPlayerLife() <= 0) {
             this.setState(Status.KILLED);
         }
     }

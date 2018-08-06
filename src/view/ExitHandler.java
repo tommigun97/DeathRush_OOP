@@ -32,13 +32,13 @@ public final class ExitHandler {
      */
     static void closeGame(final Stage mainWindow) {
         final Boolean answer = MessageBox.display("ATTENTION !", "Do you want to leave the game?");
-        if (View.getController().isGameLoopPaused()) {
+        if (ViewImpl.getController().isGameLoopPaused()) {
             if (answer) {
-                View.getController().abortGameLoop();
+                ViewImpl.getController().abortGameLoop();
                 System.exit(0);
                 mainWindow.close();
             } else {
-                View.getController().resumeGameLoop();
+                ViewImpl.getController().resumeGameLoop();
             }
         }
         if (answer) {

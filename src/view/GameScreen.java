@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
@@ -18,6 +20,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import model.Area;
 import model.Location;
 import utilities.Pair;
 
@@ -32,9 +35,10 @@ public class GameScreen extends Scene {
     private static final double BASIC_BUTTON_WIDTH = 110;
     private static final double BASIC_BUTTON_HEIGHT = 25;
     private static final double BASIC_RES_WIDTH = 1280;
-    private static final double BASIC_RES_HEIGHT = 768;
+    private static final double BASIC_RES_HEIGHT = 720;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
+    private static final int DEFAULT_CORRECTION = 35;
 
     private Stage mainStage;
     private static double resConstantWidth = 1;
@@ -43,6 +47,7 @@ public class GameScreen extends Scene {
     private static double inGameHeight = BASIC_RES_HEIGHT;
     private final Group root = new Group();
     private final Pane backgroundLayer = new Pane();
+    private final ImagesMaker iMaker = new ImagesMaker();
     // private final DrawEntities drawEntities = new DrawEntities(inGameWidth,
     // inGameHeight);
     // private final PlayerInfo playerInfo = new PlayerInfo();
@@ -86,6 +91,7 @@ public class GameScreen extends Scene {
         this.getInput();
         this.resize();
         this.setRoot(this.root);
+        drawOnScreen(null, null);
     }
 
     /**
@@ -96,12 +102,12 @@ public class GameScreen extends Scene {
         inputHandler.emptyList();
         this.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.BACK_SPACE) {
-                View.getController().pauseGameLoop();
+                ViewImpl.getController().pauseGameLoop();
                 this.backMenu();
             } else if (event.getCode() == KeyCode.P) {
                 this.pause();
             } else if (event.getCode() == KeyCode.ESCAPE) {
-                View.getController().pauseGameLoop();
+                ViewImpl.getController().pauseGameLoop();
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
             }
@@ -117,12 +123,12 @@ public class GameScreen extends Scene {
      * 
      */
     private void pause() {
-        if (View.getController().isGameLoopPaused()) {
+        if (ViewImpl.getController().isGameLoopPaused()) {
             InputHandler.getInputHandler().emptyList();
-            View.getController().resumeGameLoop();
+            ViewImpl.getController().resumeGameLoop();
             this.pauseButton.setText(PAUSE);
         } else {
-            View.getController().pauseGameLoop();
+            ViewImpl.getController().pauseGameLoop();
             this.pauseButton.setText(RESUME);
         }
 
@@ -134,8 +140,37 @@ public class GameScreen extends Scene {
      * @param listEntities
      *            List of the active entities.
      */
-    void drawOnScreen(final List<Pair<Pair<String, Double>, Location>> listEntities) {
-        // this.drawEntities.draw(this.backgroundLayer, listEntities);
+    void drawOnScreen(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
+       /* this.backgroundLayer.getChildren().clear();
+        printImage(backgroundLayer, backgroundPath, new Location(0.50, 0.50, new Area(1, 1)));
+        listEntities.forEach(e -> printImage(this.backgroundLayer, e.getFirst(), e.getSecond()));*/
+        printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
+        printImage(backgroundLayer, "room/door_open_N.png", new Location(0.50, 0.03, new Area(0.10, 0.10)));
+        printImage(backgroundLayer, "room/door_open_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
+        printImage(backgroundLayer, "room/door_open_E.png", new Location(0.99, 0.50, new Area(0.07, 0.15)));
+        printImage(backgroundLayer, "room/door_open_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));
+        printImage(backgroundLayer, "room/background.png", new Location(0.50, 0.50, new Area(1, 1)));
+        printImage(backgroundLayer, "room/door_closed_N.png", new Location(0.50, 0.03, new Area(0.10, 0.10)));
+        printImage(backgroundLayer, "room/door_closed_S.png", new Location(0.50, 0.97, new Area(0.10, 0.10)));
+        printImage(backgroundLayer, "room/door_closed_E.png", new Location(0.99, 0.50, new Area(0.07, 0.15)));
+        printImage(backgroundLayer, "room/door_closed_W.png", new Location(0.01, 0.50, new Area(0.07, 0.15)));
+
+ 
+        
+    }
+
+    private void printImage(final Pane l, final String path, final Location loc) {
+        final ImageView image = new ImageView(this.iMaker.getImageFromPath(path));
+        image.setPreserveRatio(false);
+        image.setFitHeight(loc.getArea().getHeight() * GameScreen.inGameHeight);
+        image.setFitWidth(loc.getArea().getWidth() * GameScreen.inGameWidth);
+        l.getChildren().add(image);
+        System.out.println(loc.getArea().getHeight() * GameScreen.inGameHeight);
+        System.out.println(loc.getArea().getWidth() * GameScreen.inGameWidth);
+        System.out.println(image.getFitWidth());
+        System.out.println(image.getFitHeight());
+        image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameScreen.inGameWidth);
+        image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameScreen.inGameHeight);
     }
 
     /**
@@ -199,8 +234,8 @@ public class GameScreen extends Scene {
      */
     private void resize() {
         this.infoBox.setMinWidth(inGameWidth);
-        this.infoBox.setMaxSize((280 * resConstantWidth), (500 * resConstantHeight));
-        this.infoBox.setMinHeight((500 * resConstantHeight));
+        this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
+        this.infoBox.setMinHeight((50 * resConstantHeight));
         this.infoBox.setSpacing(12 * resConstantWidth);
         this.score.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.hp.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
@@ -231,12 +266,12 @@ public class GameScreen extends Scene {
     private void backMenu() {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to go back to the menu?");
         if (answer) {
-            View.getController().abortGameLoop();
+            ViewImpl.getController().abortGameLoop();
             InputHandler.getInputHandler().emptyList();
             this.mainStage.setScene(MainMenu.get(this.mainStage));
         } else {
             InputHandler.getInputHandler().emptyList();
-            View.getController().resumeGameLoop();
+            ViewImpl.getController().resumeGameLoop();
         }
     }
 

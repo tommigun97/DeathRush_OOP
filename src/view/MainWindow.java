@@ -32,8 +32,8 @@ public class MainWindow extends Application {
 
         this.mainWindow.setOnCloseRequest(e -> {
             e.consume();
-            if (View.getController().isGameLoopRunning()) {
-                View.getController().pauseGameLoop();
+            if (ViewImpl.getController().isGameLoopRunning()) {
+                ViewImpl.getController().pauseGameLoop();
             }
             ExitHandler.closeGame(this.mainWindow);
         });
