@@ -46,6 +46,8 @@ public interface Model {
      * stop the time.
      */
     void stopTime();
+    
+    void resumeTime();
 
     /**
      * @return the player life
@@ -61,7 +63,7 @@ public interface Model {
      * 
      * @return .
      */
-    Time getTime();
+    String getTime();
 
     /**
      * 
