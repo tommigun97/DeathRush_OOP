@@ -7,6 +7,8 @@ import java.util.Optional;
 
 import model.Direction;
 import model.Model;
+import model.ModelImpl;
+import model.Time;
 import utilities.Input;
 import utilities.Pair;
 import view.InputHandler;
@@ -23,7 +25,7 @@ public class Controller implements ControllerInterface {
     private static final int N_SCORE = 10;
 
     private View view;
-    private Optional<GameLoop> game;
+    private GameLoop gameLoop;
     private final InputHandler input;
     private Model model;
     private Time gameTime;
@@ -34,19 +36,15 @@ public class Controller implements ControllerInterface {
      */
     public Controller() {
         this.sc = new Score(FILENAME);
-        this.game = Optional.empty();
         this.input = InputHandler.getInputHandler();
         this.gameTime = getTimer();
+        this.model = new ModelImpl();
     }
 
     @Override
     public final void startGameLoop() throws IllegalStateException {
-        if (!this.game.isPresent()) {
-            throw new IllegalStateException();
-        }
-        final GameLoop gl = new GameLoop(this, this.view);
-        this.game = Optional.of(gl);
-        gl.start();
+        this.gameLoop = new GameLoop(this, this.view, this.model);
+        this.gameLoop.start();
     }
 
     /**
@@ -61,46 +59,34 @@ public class Controller implements ControllerInterface {
 
     @Override
     public final Time getTimer() {
-        // return this.model.getTime();
         return new Time();
     }
 
     @Override
     public final void pauseGameLoop() {
-        if (this.game.isPresent()) {
-            this.game.get().pause();
-        }
+       this.gameLoop.pause();
     }
 
     @Override
     public final void abortGameLoop() {
-        if (this.game.isPresent()) {
-            this.game.get().abort();
-            this.game = Optional.empty();
-        }
+            this.gameLoop.abort();
     }
 
     @Override
     public final void resumeGameLoop() {
-        if (this.game.isPresent()) {
-            this.game.get().resumeGame();
-        }
+      
+            this.gameLoop.resumeGame();
+        
     }
 
     @Override
-    public final boolean isGameLoopRunning() {
-        if (!this.game.isPresent()) {
-            return false;
-        }
-        return this.game.get().isRunning();
+    public final boolean isGameLoopRunning() {        
+        return this.gameLoop.isRunning();
     }
 
     @Override
     public final boolean isGameLoopPaused() {
-        if (!this.game.isPresent()) {
-            return false;
-        }
-        return this.game.get().isPaused();
+        return this.gameLoop.isPaused();
     }
 
     private Direction translateShot(final Input e) {
@@ -142,6 +128,9 @@ public class Controller implements ControllerInterface {
             } else if (this.input.getMovementList().contains(Input.S)
                     && this.input.getMovementList().contains(Input.A)) {
                 this.model.update(Direction.SW, shotDirectionList);
+            } else if (this.input.getMovementList().contains(Input.A)
+                    && this.input.getMovementList().contains(Input.D)) {
+                this.model.update(Direction.NOTHING, shotDirectionList);
             }
         } else if (this.input.getMovementList().size() < 2) {
             if (this.input.getMovementList().contains(Input.W)) {

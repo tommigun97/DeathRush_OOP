@@ -2,6 +2,7 @@ package controller;
 
 import model.GameStatus;
 import model.Model;
+import model.entity.Player;
 import view.View;
 
 /**
@@ -32,59 +33,48 @@ public class GameLoop extends Thread {
      * @param view
      *            .
      */
-    public GameLoop(final ControllerInterface controller, final View view) {
+    public GameLoop(final ControllerInterface controller, final View view, final Model model) {
         this.controller = controller;
         this.view = view;
+        this.model = model;
     }
 
     /**
      * Missing JavaDoc.
      */
     public void run() {
-        long previous = System.currentTimeMillis();
         this.setState(Status.RUNNING);
+        //this.model.start(View.getPlayer);
+        this.model.start(Player.ANIS);
         while (!this.isInState(Status.KILLED)) {
+        	long time = System.currentTimeMillis();
             if (this.model.getGameStatus().equals(GameStatus.Running)) {
-                long current = System.currentTimeMillis();
-                int elapsed = (int) (current - previous);
                 controller.processInput();
-                updateGame(elapsed);
-                waitForNextFrame(current);
-                previous = current;
+                updateGame();
             } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
                 this.setState(Status.KILLED);
+            }
+            long wait = time - System.currentTimeMillis();
+            if (wait < period) {
+                try {
+                    Thread.sleep(period - wait);
+                } catch (Exception ex) {
+                }
             }
         }
         this.controller.abortGameLoop();
     }
-
-    /**
-     * 
-     * @param current
-     *            .
-     */
-    protected void waitForNextFrame(final long current) {
-        long dt = System.currentTimeMillis() - current;
-        if (dt < period) {
-            try {
-                Thread.sleep(period - dt);
-            } catch (Exception ex) {
-            }
-        }
-    }
-
+    
     /**
      * 
      * @param elapsed
      *            .
      */
-    public void updateGame(final int elapsed) {
-        /*
-         * this.model.start(); this.view.drawRoom(this.model.getRoomBackGround());
-         * this.view.drawEntities(this.model.getEntityToDrow());
-         * this.view.updateInfoToDraw(this.model.getPalyerInfo(), this.model.getMoney(),
-         * this.model.getTime().transformSecondInTime()); checkEvents();
-         */
+    public void updateGame() {
+    	/*this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
+         this.view.updateInfoToDraw(this.model.getPalyerLife(), this.model.getMoney(),
+         this.model.getTime().transformSecondInTime(), ); 
+         checkEvents();*/
     }
 
     private void checkEvents() {

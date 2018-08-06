@@ -67,4 +67,5 @@ public interface View {
      *            a String with the name of the power-up.
      */
     void showText(String powerUp);
+    
 }

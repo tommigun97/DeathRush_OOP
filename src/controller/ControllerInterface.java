@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import model.Time;
 import utilities.Pair;
 import view.View;
 

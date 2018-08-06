@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.junit.platform.commons.util.CollectionUtils;
 
-import controller.Time;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
@@ -34,6 +33,7 @@ public final class ModelImpl implements Model {
     private CollisionSupervisor cs;
     private EntityFactory eFactory;
     private Map map;
+    private Time time;
 
     @Override
     public String getRoomBackGround() {
@@ -101,6 +101,8 @@ public final class ModelImpl implements Model {
         this.map = new GameMap(eFactory);
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
         this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
+        this.time = new Time();
+        time.start();
         // manca da inizializzare la mappa e da creare il giocatore in base a cosa è
         // inserito dall'utente
 
