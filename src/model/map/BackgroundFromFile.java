@@ -6,7 +6,7 @@ import model.room.RoomType;
 public enum BackgroundFromFile {
 
 	FIRST("roomsFile/1.txt", RoomType.INTERMEDIATE, 1), SECOND("roomsFile/2.txt", RoomType.INTERMEDIATE, 2),
-	THIRD("roomsFile3/txt", RoomType.INTERMEDIATE, 3), FOURTH("roomsFile/4.txt", RoomType.INTERMEDIATE, 4),
+	THIRD("roomsFile3/3.txt", RoomType.INTERMEDIATE, 3), FOURTH("roomsFile/4.txt", RoomType.INTERMEDIATE, 4),
 	FIVTH("roomsFile/5.txt", RoomType.INTERMEDIATE, 5), SIXTH("roomsFile/6.txt", RoomType.BOSS, 6),
 	SEVENTH("roomsFile/7.txt", RoomType.BOSS, 7), EIGHTH("roomsFile/8.txt", RoomType.BOSS, 8);
 
@@ -21,16 +21,19 @@ public enum BackgroundFromFile {
 	}
 
 	public  static String getRandomPath(RoomType type) {
-		int seq  = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(5) + 1 : 
-					type.equals(RoomType.BOSS) ? new Random().nextInt(3) +5 : 0;
+		int seq  = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(4) + 1 : 
+					type.equals(RoomType.BOSS) ? new Random().nextInt(3) + 5 : 0;
 		return getPath(seq);
 	}
 
 	private static String getPath(int seqNumber) {
-		return seqNumber == 1 ? "roomsFile/1.txt" : seqNumber == 2 ? "roomsFile/2.txt" : seqNumber == 3 ? "roomsFile/3.txt" : 
-					seqNumber == 4 ? "roomsFile/4.txt" : seqNumber == 5 ? "roomsFile/5.txt" : seqNumber == 6  ? "roomsFile/6.txt" : 
-						seqNumber == 7 ? "roomsFile/7.txt" : "roomsFile/8.txt";
+		return seqNumber == 1 ? FIRST.getPath() : seqNumber == 2 ? SECOND.getPath() : seqNumber == 3 ? THIRD.getPath() : 
+					seqNumber == 4 ? FOURTH.getPath() : seqNumber == 5 ? FIVTH.getPath() : seqNumber == 6  ? SIXTH.getPath() : 
+						seqNumber == 7 ? SEVENTH.getPath() : seqNumber == 8 ? EIGHTH.getPath() : "";
 						
 	}
 
+	public String getPath() {
+		return this.path;
+	}
 }
