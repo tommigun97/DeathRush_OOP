@@ -19,12 +19,6 @@ public class GameLoop extends Thread {
 	private enum Status {
 		RUNNING, PAUSED, KILLED, READY;
 	}
-    /**
-     * Enum to describe the possible states of the GameLoop.
-     */
-    private enum Status {
-    RUNNING, PAUSED, KILLED, READY;
-    }
 
 	private static final long PERIOD = 20;
 
@@ -51,8 +45,8 @@ public class GameLoop extends Thread {
      */
     public void run() {
         this.setState(Status.RUNNING);
-        //this.model.start(controller.getPlayer());
-        this.model.start(Player.ANIS);
+        this.model.start(controller.getPlayer());
+        //this.model.start(Player.ANIS);
         while (!this.isInState(Status.KILLED)) {
         	if(this.isInState(Status.RUNNING)) {	
 	        	long time = System.currentTimeMillis();
@@ -78,18 +72,6 @@ public class GameLoop extends Thread {
         //Gioco completato? dammi tempo
     }
     
-    /**
-     * 
-     * @param elapsed
-     *            .
-     */
-    public void updateGame() {
-    	this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
-        /* this.view.updateInfoToDraw(this.model.getPalyerLife(), this.model.getMoney(),
-         this.model.getTime().transformSecondInTime(), ); */
-         checkEvents();
-    }
-
 	/**
 	 * 
 	 * @param elapsed
@@ -115,6 +97,10 @@ public class GameLoop extends Thread {
 	private synchronized void setState(final Status state) {
 		this.state = state;
 	}
+	
+	public void abort() {
+		this.setState(Status.KILLED);
+	}
 
     /**
      * 
@@ -123,16 +109,6 @@ public class GameLoop extends Thread {
         if (this.isInState(Status.RUNNING)) {
         	this.model.stopTime();
             this.setState(Status.PAUSED);
-        }
-    }
-
-    /**
-     * 
-     */
-    public void resumeGame() {
-        if (this.isInState(Status.PAUSED)) {
-        	this.model.resumeTime();
-            this.setState(Status.RUNNING);
         }
     }
 
