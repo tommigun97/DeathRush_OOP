@@ -1,6 +1,8 @@
 package model.map;
 
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import model.entity.Entity;
 import model.entity.EntityFactory;
 import model.room.Room;
 import model.room.RoomType;
+import utilities.Pair;
 
 public class ReadEntityImpl implements ReadEntity {
 
@@ -36,7 +39,7 @@ public class ReadEntityImpl implements ReadEntity {
 
     public void populateRooms() {
     	this.rooms.forEach(x -> {
-            try {
+           /* try {
             	RoomType roomT = x.getType();
             	this.file = BackgroundFromFile.getRandomPath(roomT);
             	System.out.println(file);
@@ -64,8 +67,15 @@ public class ReadEntityImpl implements ReadEntity {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-            }
-    	});
+            }*/
+    		RoomType roomT = x.getType();
+        	this.file = BackgroundFromFile.getRandomPath(roomT);
+    		try (DataInputStream in = new DataInputStream(new FileInputStream(this.file))) {
+    			
+    		} catch (final Exception ex) {
+    		}
+    		
+    		});
 
     
     }

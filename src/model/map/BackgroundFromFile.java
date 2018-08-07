@@ -5,10 +5,10 @@ import model.room.RoomType;
 
 public enum BackgroundFromFile {
 
-	FIRST("roomsFile/1.txt", RoomType.INTERMEDIATE, 1), SECOND("roomsFile/2.txt", RoomType.INTERMEDIATE, 2),
-	THIRD("roomsFile3/3.txt", RoomType.INTERMEDIATE, 3), FOURTH("roomsFile/4.txt", RoomType.INTERMEDIATE, 4),
-	FIVTH("roomsFile/5.txt", RoomType.INTERMEDIATE, 5), SIXTH("roomsFile/6.txt", RoomType.BOSS, 6),
-	SEVENTH("roomsFile/7.txt", RoomType.BOSS, 7), EIGHTH("roomsFile/8.txt", RoomType.BOSS, 8);
+	FIRST("/rooms/1", RoomType.INTERMEDIATE, 1), SECOND("/rooms/1", RoomType.INTERMEDIATE, 2),
+	THIRD("/rooms/1", RoomType.INTERMEDIATE, 3), FOURTH("/rooms/1.txt", RoomType.INTERMEDIATE, 4),
+	FIVTH("/rooms/1", RoomType.INTERMEDIATE, 5), SIXTH("/rooms/1.txt", RoomType.BOSS, 6),
+	SEVENTH("/rooms/1", RoomType.BOSS, 7), EIGHTH("/rooms/1.txt", RoomType.BOSS, 8);
 
 	private final String path;
 	private final RoomType type;
