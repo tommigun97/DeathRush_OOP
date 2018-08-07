@@ -36,7 +36,7 @@ public interface View {
      * @param score
      *            current score of the player
      */
-    void updateInfo(int hp, int shields, int score); // non va bene qui ci sono solo i soldi e le vite
+    void updateInfo(final int hp, final int money, final String time, final int damage, final int attSpeed, final int mvSpeed);
 
     /**
      * It returns a list with the inputs(movement) detected during a game.
