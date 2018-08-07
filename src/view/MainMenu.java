@@ -55,13 +55,13 @@ public final class MainMenu extends Scene {
         this.bestScores.setMinWidth(vbox.getPrefWidth());
         this.bestScores.setId("menu-buttons");
         this.bestScores.setOnAction(e -> {
-            mainStage.setScene(BestScore.get(MainMenu.mainStage));
+            //mainStage.setScene(BestScore.get(MainMenu.mainStage));
+            mainStage.setScene(GameOver.get(MainMenu.mainStage));
         });
         this.settings.setMinWidth(vbox.getPrefWidth());
         this.settings.setId("menu-buttons");
         this.settings.setOnAction(e -> {
             mainStage.setScene(SettingsWindow.get(MainMenu.mainStage));
-            // SettingsWindow.update();
         });
         this.credits.setMinWidth(vbox.getPrefWidth());
         this.credits.setId("menu-buttons");

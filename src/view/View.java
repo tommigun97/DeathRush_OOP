@@ -68,4 +68,9 @@ public interface View {
      */
     void showText(String powerUp);
 
+    /**
+     * This method call the Game Over screen.
+     */
+    void gameOver();
+
 }

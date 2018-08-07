@@ -277,4 +277,11 @@ public class GameScreen extends Scene {
         }
     }
 
+    /**
+     * Call the GameOver screen.
+     */
+    public void gameOver() {
+        this.mainStage.setScene(GameOver.get(this.mainStage));
+    }
+
 }
