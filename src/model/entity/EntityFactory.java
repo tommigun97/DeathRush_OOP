@@ -19,11 +19,9 @@ public interface EntityFactory {
      * 
      * @param pos
      *            starting player position in the space
-     * @param currentRoom
-     *            the starting room where player is placed
      * @return the player
      */
-    Entity createPlayer(Pair<Double, Double> pos, Room currentRoom, Player who);
+    Entity createPlayer(Pair<Double, Double> pos, Player who);
 
     /**
      * Create a boss.

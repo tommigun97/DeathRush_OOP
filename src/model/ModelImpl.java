@@ -2,10 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.platform.commons.util.CollectionUtils;
 
+import model.entity.Boss;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
@@ -100,14 +102,17 @@ public final class ModelImpl implements Model {
         this.gameStatus = GameStatus.Running;
         this.cs = new CollisionSupervisorImpl();
         this.eFactory = new EntityFactoryImpl(this.cs);
-        this.map = new GameMap(eFactory);
-        this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
-        this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
+        this.player = eFactory.createPlayer(STARTING_POSITION, who);
+        this.map = new GameMap(eFactory, player);
         this.time = new Time();
+        this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
+        ((PlayerBehavior)player.getBehaviour().get()).setCurrentRoom(currentRoom);
         time.start();
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-                .addEntity(eFactory.createMoscow(0.3, 0.3, this.player, currentRoom));
-
+        //prove
+       ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
+//       ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+//       .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
     }
 
     @Override
@@ -119,7 +124,22 @@ public final class ModelImpl implements Model {
     public int getPlayerLife() {
         return this.player.getIntegerProperty("Current Life");
     }
-
+    
+    @Override
+    public int getPlayerDamage() {
+        return this.player.getIntegerProperty("Shooting Damage");
+    }
+    
+    @Override
+    public int getPlayerAttSpeed() {
+        return this.player.getIntegerProperty("Shoot Frequency");
+    }
+    
+    @Override
+    public int getPlayerMvSpeed() {
+        return this.player.getIntegerProperty("Speed");
+    }
+    
     @Override
     public int getMoney() {
         return this.player.getIntegerProperty("Money");
@@ -127,20 +147,14 @@ public final class ModelImpl implements Model {
 
     @Override
     public String getTime() {
-        return null;
+        return this.time.getCurrentTime();
     }
 
     @Override
     public GameStatus getGameStatus() {
         return this.gameStatus;
     }
-
-    @Override
-    public List<Integer> getPlayerInfo() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+   
     /**
      * Getter for the player it is used only for debug.
      * 

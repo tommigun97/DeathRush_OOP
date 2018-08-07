@@ -30,6 +30,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionWithObstacles(final Entity e, final Set<Entity> allEntities, final Location prev) {
+        System.out.println(allEntities);
         allEntities.stream().filter(o -> o.getType().equals(EntityType.OBSTACLE)).forEach(o -> {
             if (this.collision(e, o)) {
                 e.setLocation(prev);

@@ -48,7 +48,8 @@ public class EntityTestV2 {
     @Test
     void testStalkerEnemyBehaviorV2() {
         final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>());
-        final Entity p = E_FACTORY.createPlayer(new Pair<>(0.30, 0.50), r, Player.ANIS);
+        final Entity p = E_FACTORY.createPlayer(new Pair<>(0.30, 0.50),  Player.ANIS);
+        ((PlayerBehavior)p.getBehaviour().get()).setCurrentRoom(r);
         final Entity se = E_FACTORY.isaacStalkerEnemy(DEFAULT_LOC.getX(), DEFAULT_LOC.getY(), p, r, true);
         r.addEntity(se);
         r.addEntity(p);
@@ -63,7 +64,8 @@ public class EntityTestV2 {
     @Test
     void testCollisionBetweenEntities() {
         Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>());
-        final Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), r, Player.SIMO);
+        final Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), Player.SIMO);
+        ((PlayerBehavior)p.getBehaviour().get()).setCurrentRoom(r);
         final Entity e = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, p, r, true);
         final Entity e2 = E_FACTORY.isaacStalkerEnemy(0.70, 0.50, p, r, false);
         r.addEntity(e);

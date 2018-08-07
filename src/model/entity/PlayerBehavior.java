@@ -22,9 +22,8 @@ public final class PlayerBehavior implements Behavior {
      * @param imgCalc
      *            calculator player image
      */
-    public PlayerBehavior(final ImageCalculator imgCalc, final CollisionSupervisor cs, final Room currentRoom,
+    public PlayerBehavior(final ImageCalculator imgCalc, final CollisionSupervisor cs,
             final EntityFactory eFactory) {
-        this.currentRoom = currentRoom;
         this.eFactory = eFactory;
         this.currentDirection = Direction.NOTHING;
         this.imgCalc = imgCalc;
