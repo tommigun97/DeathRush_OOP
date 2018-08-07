@@ -187,9 +187,9 @@ public class GameScreen extends Scene {
      * @param scoreValue
      *            Current score.
      */
-    void updateInfo(final int hp, final int money, final String time, final int damage, final int attSpeed, final int mvSpeed) {
+    void updateInfo(final int hpValue, final int shieldsValue, final int scoreValue) {
         /*
-         * if (hp <= 0) {
+         * if (hpValue <= 0) {
          * this.mainStage.setScene(GameOverScreen.get(this.mainStage)); } else {
          * this.playerInfo.update(this.hp, this.shields, this.score, hpValue,
          * shieldsValue, scoreValue); }

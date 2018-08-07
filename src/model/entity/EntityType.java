@@ -8,6 +8,6 @@ public enum EntityType {
     /**
      * 
      */
-    PLAYER, ENEMY, PLAYER_BULLET, ENEMY_BULLET, OBSTACLE, POWER_UP;
+    PLAYER, ENEMY, PLAYER_BULLET, ENEMY_BULLET, OBSTACLE;
 
 }

@@ -49,10 +49,6 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final int DEFAULT_MOSCOW_ENEMY_COLLISION_DAMAGE = 1;
     private static final Area DEFAULT_MOSCOW_ENEMY_AREA = new Area(0.03, 0.03);
     private static final int DEFAULT_MOSCOW_ENEMY_REWARD = 25;
-    private static final double GUITAR_UPGRADE = 0.1;
-    private static final double SUGAR_UPGRADE = 0.1;
-    private static final double GUN_UPGRADE = 0.1;
-    private static final double CIGARETTE_UPGRADE = 0.1;
 
     private final CollisionSupervisor cs;
 
@@ -215,25 +211,5 @@ public final class EntityFactoryImpl implements EntityFactory {
                     .with("Shoot Damage", Boss.CROATTI.shootingDamage()).with("Reward", Boss.CROATTI.reward()).build();
         }
     }
-
-	public Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who) {
-		if (who == PowerUp.CHITARRA) {
-			return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
-					.setLocation(new Location(x, y, PowerUp.CHITARRA.getArea()))
-					.with("Increse Attack Speed", GUITAR_UPGRADE).setImage("pw1/chitarra.png").build();
-		} else if (who == PowerUp.SIGARETTA) {
-			return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
-					.setLocation(new Location(x, y, PowerUp.SIGARETTA.getArea())).with("Increase Hp", CIGARETTE_UPGRADE)
-					.setImage("pw1/sigaretta.png").build();
-		} else if (who == PowerUp.ZUCCHERO) {
-			return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
-					.setLocation(new Location(x, y, PowerUp.ZUCCHERO.getArea()))
-					.with("Increase Movement Speed", SUGAR_UPGRADE).setImage("pw1/stecca.png").build();
-		} else {
-			return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
-					.setLocation(new Location(x, y, PowerUp.PISTOLA.getArea())).with("Increase Damage", GUN_UPGRADE)
-					.setImage("pw1/pistola%20d'oro.png").build();
-		}
-	}
 
 }
