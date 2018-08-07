@@ -18,9 +18,7 @@ public enum Coordinates {
     WEST("room/door_open_W.png", "room/door_closed_W.png", 0, 0.5, 0.99, new Area(0.07, 0.15)), 
     EAST("room/door_open_E.png", "room/door_closed_E.png", 3, 0.5, 0.01, new Area(0.07, 0.15));
 
-    public Area getArea() {
-		return area;
-	}
+  
 
 	private final String open;
     private final String close;
@@ -67,6 +65,9 @@ public enum Coordinates {
     public double getWeight() {
         return weight;
     }
+    public Area getArea() {
+  		return area;
+  	}
 
     /**
      * 

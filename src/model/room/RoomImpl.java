@@ -212,4 +212,9 @@ public class RoomImpl implements Room {
         return this.image;
     }
 
+	@Override
+	public RoomType getType() {
+		return this.getType();
+	}
+
 }

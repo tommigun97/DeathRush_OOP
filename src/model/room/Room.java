@@ -62,4 +62,6 @@ public interface Room {
     void openDoors();
     
     String getImage();
+    
+    RoomType getType();
 }
