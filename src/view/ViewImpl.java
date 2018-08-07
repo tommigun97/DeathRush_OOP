@@ -51,8 +51,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public final void updateInfo(final int hp, final int shields, final int score) {
-        Platform.runLater(() -> ViewImpl.gameScreen.updateInfo(hp, shields, score));
+    public final void updateInfoToDraw(final int hp, final int money, final String time, final String damage, final String attackSpeed, final String mvSpeed) {
+        Platform.runLater(() -> ViewImpl.gameScreen.updateInfo(hp, money, time, damage, attackSpeed, mvSpeed));
     }
 
     @Override
@@ -107,6 +107,11 @@ public class ViewImpl implements View {
      * Call the Game Over Screen from the GameScreen.
      */
     public final void gameOver() {
-        ViewImpl.gameScreen.gameOver();
+        Platform.runLater(() -> ViewImpl.gameScreen.gameOver());
+    }
+
+    @Override
+    public void updateInfo() {
+        
     }
 }

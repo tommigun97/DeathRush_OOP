@@ -75,9 +75,9 @@ public interface Model {
     
     boolean isComplited();
 
-	int getPlayerDamage();
+	String getPlayerDamage();
 
-	int getPlayerAttSpeed();
+	String getPlayerAttSpeed();
 
-	int getPlayerMvSpeed();
+	String getPlayerMvSpeed();
 }

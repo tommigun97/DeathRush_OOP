@@ -12,6 +12,7 @@ import view.View;
  *
  */
 public interface ControllerInterface {
+    
 
     /**
      * Make the Game Loop start to work.
@@ -84,5 +85,7 @@ public interface ControllerInterface {
     boolean saveScoreGame();
     
     void setPlayerName(String name);
+    
+    String getPlaterName();
 
 }
