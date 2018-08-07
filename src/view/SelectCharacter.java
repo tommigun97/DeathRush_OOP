@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import model.entity.Player;
 
 /**
  * This class is responsible for showing to the user the Select Character
@@ -76,16 +77,16 @@ public class SelectCharacter extends Scene {
         vboxButton.setPadding(new Insets(BUTTON_PADDING));
         vboxButton.getChildren().forEach(e -> e.setId("menu-buttons"));
         pgSimo.setOnAction(e -> {
-            System.out.println("Personaggio Simo");
+            initGame(Player.SIMO);
         });
         pgCaso.setOnAction(e -> {
-            System.out.println("Personaggio Caso");
+            initGame(Player.KASO);
         });
         pgTommi.setOnAction(e -> {
-            System.out.println("Personaggio Tommi");
+            initGame(Player.TOMMI);
         });
         pgAnis.setOnAction(e -> {
-            System.out.println("Personaggio Anis");
+            initGame(Player.ANIS);
         });
 
         final VBox layout = new VBox(10);
@@ -114,6 +115,19 @@ public class SelectCharacter extends Scene {
         back.setOnAction(e -> {
             mainStage.setScene(MainMenu.get(mainStage));
         });
+    }
+
+    /**
+     * 
+     */
+    private void initGame(final Player pg) {
+        final GameScreen gameScreen = new GameScreen();
+        InputHandler.getInputHandler().emptyList();
+        ViewImpl.getController().selectPlayer(pg);
+        ViewImpl.getController().startGameLoop();
+        ViewImpl.setGameScreen(gameScreen);
+        mainStage.setScene(gameScreen.get(mainStage));
+        mainStage.setFullScreen(gameScreen.isFullScreen());
     }
 
     /**
