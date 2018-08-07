@@ -102,4 +102,11 @@ public class ViewImpl implements View {
     public final List<Input> getShotInput() {
         return this.inputHandler.getShotList();
     }
+
+    /**
+     * Call the Game Over Screen from the GameScreen.
+     */
+    public final void gameOver() {
+        ViewImpl.gameScreen.gameOver();
+    }
 }

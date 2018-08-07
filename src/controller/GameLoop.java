@@ -65,9 +65,11 @@ public class GameLoop extends Thread {
             }
         }
         this.controller.abortGameLoop();
-        if (this.model.isComplited()) {
+       /* if (this.model.isComplited()) {
             this.controller.saveScoreGame();
-        }
+        }*/
+        
+        this.controller.saveScoreGame();
         // Gioco completato? dammi tempo
     }
 
