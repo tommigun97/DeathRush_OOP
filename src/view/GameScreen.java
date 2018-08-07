@@ -1,14 +1,12 @@
 package view;
 
 import java.util.List;
-import java.util.Timer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -38,8 +36,6 @@ public class GameScreen extends Scene {
     private static final double BASIC_RES_HEIGHT = 720;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
-    private static final int DEFAULT_CORRECTION = 35;
-
     private Stage mainStage;
     private static double resConstantWidth = 1;
     private static double resConstantHeight = 1;
@@ -48,15 +44,15 @@ public class GameScreen extends Scene {
     private final Group root = new Group();
     private final Pane backgroundLayer = new Pane();
     private final ImagesMaker iMaker = new ImagesMaker();
-    // private final DrawEntities drawEntities = new DrawEntities(inGameWidth,
-    // inGameHeight);
-    // private final PlayerInfo playerInfo = new PlayerInfo();
     private final HBox infoBox = new HBox();
     private final Button pauseButton = new Button(PAUSE);
     private final Button infoButton = new Button("Info");
     private final Label hp = new Label();
-    private final Label shields = new Label();
-    private final Label score = new Label();
+    private final Label coin = new Label();
+    private final Label damage = new Label();
+    private final Label mvspeed = new Label();
+    private final Label attspeed = new Label();
+    private final Label timePlayed = new Label();
 
     /**
      * Constructor for GameScreen. It sets up the scene.
@@ -73,8 +69,18 @@ public class GameScreen extends Scene {
         });
         infoButton.setId("menu-buttons");
         infoButton.setFocusTraversable(false);
-        // infoButton.setOnAction(e -> InGameInfo.display());
-        buttonGame.getChildren().addAll(pauseButton, infoButton);
+        infoButton.setOnAction(e -> GameHelp.display());
+        timePlayed.setId("status-bar");
+        Image imageHeart = new Image(getClass().getResourceAsStream("/status/heart.gif"), 20, 20, true, true);
+        hp.setGraphic(new ImageView(imageHeart));
+        hp.setId("status-bar");
+        Image imageCoin = new Image(getClass().getResourceAsStream("/status/coin.gif"), 20, 20, true, true);
+        coin.setGraphic(new ImageView(imageCoin));
+        coin.setId("status-bar");
+        damage.setId("status-bar");
+        attspeed.setId("status-bar");
+        mvspeed.setId("status-bar");
+        buttonGame.getChildren().addAll(pauseButton, infoButton, timePlayed, hp, coin,damage,attspeed,mvspeed);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);
         buttonGame.setPadding(new Insets(10, inGameWidth, 0, 0));
@@ -187,13 +193,15 @@ public class GameScreen extends Scene {
      * @param scoreValue
      *            Current score.
      */
-    void updateInfo(final int hpValue, final int shieldsValue, final int scoreValue) {
-        /*
-         * if (hpValue <= 0) {
-         * this.mainStage.setScene(GameOverScreen.get(this.mainStage)); } else {
-         * this.playerInfo.update(this.hp, this.shields, this.score, hpValue,
-         * shieldsValue, scoreValue); }
-         */
+    void updateInfo(final int hp, final int money, final String time, final String damage, final String attackSpeed,
+            final String mvSpeed) {
+
+        this.timePlayed.setText(time);
+        this.hp.setText(String.valueOf(hp));
+        this.coin.setText(String.valueOf(money));
+        this.damage.setText("Damage:" + damage);
+        this.attspeed.setText("Attack Speed:" + attackSpeed);
+        this.mvspeed.setText("Movement Speed:" + mvSpeed);
     }
 
     /**
@@ -239,9 +247,7 @@ public class GameScreen extends Scene {
         this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
         this.infoBox.setMinHeight((50 * resConstantHeight));
         this.infoBox.setSpacing(12 * resConstantWidth);
-        this.score.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.hp.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
-        this.shields.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
         this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
         this.pauseButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);

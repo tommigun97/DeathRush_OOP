@@ -71,7 +71,7 @@ public interface EntityFactory {
      * @return the bullet
      */
     Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType, int damage,
-            double speed);
+            double speed, final EntityType who);
 
     /**
      * @param x

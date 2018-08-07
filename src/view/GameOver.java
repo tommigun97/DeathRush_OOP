@@ -62,8 +62,10 @@ public class GameOver extends Scene {
         vboxButton.setPadding(new Insets(BUTTON_PADDING));
         vboxButton.getChildren().forEach(e -> e.setId("menu-buttons"));
         saveName.setOnAction(e -> {
+            System.out.println(insertName.getText());
             ViewImpl.getController().setPlayerName(insertName.getText());
-            GenericBox.display("Success", "Name ", "Ok");
+            ViewImpl.getController().saveScoreGame();
+            GenericBox.display("Success", "Name and Score saved ! ", "Ok");
             mainStage.setScene(MainMenu.get(mainStage));
         });
 

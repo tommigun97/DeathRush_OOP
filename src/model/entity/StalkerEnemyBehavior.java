@@ -53,7 +53,7 @@ public class StalkerEnemyBehavior implements Behavior {
             if (System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
                 this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                         currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
-                        e.getDoubleProperty("Bullet Speed")));
+                        e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
                 t = System.currentTimeMillis();
             }
         }

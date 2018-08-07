@@ -2,7 +2,9 @@ package model.entity;
 
 import java.util.Set;
 
+import model.Area;
 import model.Location;
+import model.map.Coordinates;
 import model.room.Room;
 
 /**
@@ -101,6 +103,10 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         doors.forEach(d -> {
             if (collision(p, d) && d.getObjectProperty("doorStatus") == DoorStatus.OPEN) {
                 ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
+                System.out.println(d.getObjectProperty("nextRoom"));
+                Double x = Coordinates.reverseAfterCollisionDoor(d).getFirst();
+                Double y = Coordinates.reverseAfterCollisionDoor(d).getSecond();
+                p.setLocation(new Location(x, y,new Area(p.getLocation().getArea().getWidth(), p.getLocation().getArea().getHeight())));
             }
         });
     }

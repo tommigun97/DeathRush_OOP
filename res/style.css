@@ -9,6 +9,12 @@
     -fx-font-size: 15.0pt;
     
 }
+#helpPane {
+	-fx-background-color: black;
+	-fx-background-size: cover;
+    -fx-font-size: 15.0pt;
+    
+}
 #menu-buttons {
 	-fx-font-family:'Arcade Interlaced';
     -fx-background-color: white;
@@ -62,5 +68,10 @@
 	-fx-font-family:'Arcade Interlaced';
 	-fx-fill: white !important;
 	-fx-font-size: 25.0pt;
+}
+#status-bar{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-text-fill: white !important;
+	-fx-font-size: 10.0pt;
 }
 

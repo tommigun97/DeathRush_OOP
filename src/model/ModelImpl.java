@@ -45,10 +45,11 @@ public final class ModelImpl implements Model {
 
     @Override
     public List<Pair<String, Location>> getEntitiesToDrow() {
-        List<Pair<String, Location>> l = new ArrayList<>();
+        final List<Pair<String, Location>> l = new ArrayList<>();
         currentRoom.getEntities().forEach(e -> {
             l.add(new Pair<String, Location>(e.getImage(), e.getLocation()));
         });
+        currentRoom.getDoor().forEach(d -> l.add(new Pair<String, Location>(d.getImage(), d.getLocation())));
 
         l.add(new Pair<String, Location>(this.player.getImage(), this.player.getLocation()));
         return l;
@@ -65,6 +66,7 @@ public final class ModelImpl implements Model {
         // il giocatore si muove
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentDirection(direction);
         player.getBehaviour().get().update();
+        System.out.println(player.getLocation());
         // il giocatore spara
         shoot.forEach(d -> ((PlayerBehavior) player.getBehaviour().get()).shoot(d));
         // vengono aggiornate tutte le altre entità della stanza
@@ -90,7 +92,7 @@ public final class ModelImpl implements Model {
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
         }
-        if (this.player.getIntegerProperty("Current Life") == 0) {
+        if (this.player.getIntegerProperty("Current Life") <= 0) {
             this.time.pause();
             this.gameStatus = GameStatus.Over;
         } // manca l'if per dire quando il gioco è definitivamente completato
@@ -106,13 +108,8 @@ public final class ModelImpl implements Model {
         this.map = new GameMap(eFactory, player);
         this.time = new Time();
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
-        ((PlayerBehavior)player.getBehaviour().get()).setCurrentRoom(currentRoom);
+        ((PlayerBehavior) player.getBehaviour().get()).setCurrentRoom(currentRoom);
         time.start();
-        //prove
-       ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
-//       ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-//       .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
     }
 
     @Override
@@ -124,22 +121,22 @@ public final class ModelImpl implements Model {
     public int getPlayerLife() {
         return this.player.getIntegerProperty("Current Life");
     }
-    
+
     @Override
-    public int getPlayerDamage() {
-        return this.player.getIntegerProperty("Shooting Damage");
+    public String getPlayerDamage() {
+        return String.valueOf((this.player.getIntegerProperty("Shooting Damage")));
     }
-    
+
     @Override
-    public int getPlayerAttSpeed() {
-        return this.player.getIntegerProperty("Shoot Frequency");
+    public String getPlayerAttSpeed() {
+        return String.valueOf(this.player.getObjectProperty("Shoot Frequency"));
     }
-    
+
     @Override
-    public int getPlayerMvSpeed() {
-        return this.player.getIntegerProperty("Speed");
+    public String getPlayerMvSpeed() {
+        return String.valueOf(this.player.getDoubleProperty("Speed"));
     }
-    
+
     @Override
     public int getMoney() {
         return this.player.getIntegerProperty("Money");
@@ -154,7 +151,7 @@ public final class ModelImpl implements Model {
     public GameStatus getGameStatus() {
         return this.gameStatus;
     }
-   
+
     /**
      * Getter for the player it is used only for debug.
      * 

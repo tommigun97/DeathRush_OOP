@@ -48,8 +48,6 @@ public class Time {
                 }
                 secondPassed++;
                 totalSec++;
-                System.out.println(
-                        "hour passed: " + hourPassed + "min passed: " + minutePassed + " sec passed: " + secondPassed);
             }
         }
     };
@@ -90,7 +88,7 @@ public class Time {
     }
 
     public String getCurrentTime() {
-         return ( hourPassed + " : " + minutePassed + " : " + secondPassed);
+         return ( "Time "+hourPassed + ":" + minutePassed + ":" + secondPassed);
     }
     public int getSec() {
         return this.secondPassed;

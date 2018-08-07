@@ -198,5 +198,11 @@ public class Controller implements ControllerInterface {
 	public void setPlayerName(String name) {
 		this.playerName = name;
 	}
+	
+    @Override
+    public String getPlaterName() {
+        // TODO Auto-generated method stub
+        return this.playerName;
+    }
 
 }

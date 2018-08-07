@@ -65,32 +65,32 @@ public class GameMap implements Map {
                 .build();
         
         this.path[MIDDLEX][MIDDLEY] = a;
-        Room b = this.rBuilder.setComplited(false).setRoomID(2).setDoors(new HashSet<>())
+        Room b = this.rBuilder.setComplited(false).setEntities(new CopyOnWriteArraySet<>()).setRoomID(2).setDoors(new HashSet<>())
                 .setTypes(RoomType.INTERMEDIATE).build();
         this.path[MIDDLEX + 1][MIDDLEY] = b;
         this.addNewRoom(a);
         this.addNewRoom(b);
-        this.addLink(a, b, Coordinates.EAST, DoorStatus.OPEN);
-        b = this.rBuilder.setComplited(false).setRoomID(3).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
-                .build();
-        this.addNewRoom(b);
-        this.addLink(a, b, Coordinates.WEST, DoorStatus.OPEN);
-        this.path[MIDDLEX - 1][MIDDLEY] = b;
-        b = this.rBuilder.setComplited(false).setRoomID(4).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
+        this.addLink(a, b, Coordinates.SOUTH, DoorStatus.OPEN);
+        b = this.rBuilder.setComplited(false).setRoomID(3).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
                 .build();
         this.addNewRoom(b);
         this.addLink(a, b, Coordinates.NORTH, DoorStatus.OPEN);
-        this.path[MIDDLEX][MIDDLEY + 1] = b;
-        b = this.rBuilder.setComplited(false).setRoomID(0).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
+        this.path[MIDDLEX - 1][MIDDLEY] = b;
+        b = this.rBuilder.setComplited(false).setRoomID(4).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
                 .build();
         this.addNewRoom(b);
-        this.addLink(a, b, Coordinates.SOUTH, DoorStatus.OPEN);
+        this.addLink(a, b, Coordinates.EAST, DoorStatus.OPEN);
+        this.path[MIDDLEX][MIDDLEY + 1] = b;
+        b = this.rBuilder.setComplited(false).setRoomID(0).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
+                .build();
+        this.addNewRoom(b);
+        this.addLink(a, b, Coordinates.WEST, DoorStatus.OPEN);
         this.path[MIDDLEX][MIDDLEY - 1] = b;
         this.stanzeTotali = 4;
         this.completePath(MIDDLEX + 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX - 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
-        this.readE = new ReadEntityImpl(this.getRooms(), player);
+        this.readE = new ReadEntityImpl(this.getRooms(), player , this.entityF);
         this.readE.populateRooms();
     }
     //prima mi ha dato una null pointer exception
@@ -131,10 +131,9 @@ public class GameMap implements Map {
             	if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
             		RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
 	                this.stanzeTotali++;
-	                next = this.rBuilder.setComplited(false).setRoomID(this.stanzeTotali).setDoors(new HashSet<>())
+	                next = this.rBuilder.setComplited(false).setRoomID(this.stanzeTotali).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>())
 	                        .setTypes(t).build();
-	                System.out.println(this.stanzeTotali + "" + next);
-	                this.path[x + movement.getFirst()][y + movement.getSecond()] = next;
+	               this.path[x + movement.getFirst()][y + movement.getSecond()] = next;
 	                this.addNewRoom(next);
 	                this.addLink(current, next, c, DoorStatus.CLOSE);
 	                x = x + movement.getFirst();
@@ -161,9 +160,10 @@ public class GameMap implements Map {
 
     private void addLink(Room x, Room y, Coordinates z, DoorStatus statusLink) {
         if (this.rooms.contains(x) && this.rooms.contains(y)) {
-            Entity a = this.entityF.createDoor(z.getHeight(), z.getWeight(), statusLink, y, "", z, z.getArea());
-            Entity b = this.entityF.createDoor(Coordinates.reversCoordinate(z).getHeight(), 
-            		Coordinates.reversCoordinate(z).getWeight(), statusLink, x, "", Coordinates.reversCoordinate(z),Coordinates.reversCoordinate(z).getArea());
+            Entity a = this.entityF.createDoor(z.getX(), z.getY(), statusLink, y, z.getImage(statusLink), z, z.getArea());
+            Entity b = this.entityF.createDoor(Coordinates.reversCoordinate(z).getX(), 
+            		Coordinates.reversCoordinate(z).getY(), statusLink, x, Coordinates.reversCoordinate(z).getImage(statusLink), 
+            		Coordinates.reversCoordinate(z),Coordinates.reversCoordinate(z).getArea());
             this.doors.add(a);
             this.doors.add(b);
             x.addDoor(a);
@@ -183,7 +183,7 @@ public class GameMap implements Map {
 
                     System.out.print(" - ");
                 } else {
-                    System.out.print(" " + this.path[i][j].getRoomID() + " ");
+                    System.out.print(" " + this.path[i][j].getRoomID() );
 
                 }
 
