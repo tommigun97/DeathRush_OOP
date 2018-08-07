@@ -72,7 +72,7 @@ public final class EntityFactoryImpl implements EntityFactory {
             pB = new PlayerBehavior(
                     new CompleteImageSetCalculator(Player.SIMO.images(Direction.N), Player.SIMO.images(Direction.S),
                             Player.SIMO.images(Direction.E), Player.SIMO.images(Direction.W), Player.SIMO.standImage()),
-                    cs, currentRoom, this);
+                    cs, this);
             pA = Player.SIMO.getArea();
             playerSpeed = Player.SIMO.getSpeed();
             shootFequency = Player.SIMO.startingPlayerShootFrequency();
@@ -82,7 +82,7 @@ public final class EntityFactoryImpl implements EntityFactory {
             pB = new PlayerBehavior(
                     new CompleteImageSetCalculator(Player.ANIS.images(Direction.N), Player.ANIS.images(Direction.S),
                             Player.ANIS.images(Direction.E), Player.ANIS.images(Direction.W), Player.ANIS.standImage()),
-                    cs, currentRoom, this);
+                    cs, this);
             pA = Player.ANIS.getArea();
             playerSpeed = Player.ANIS.getSpeed();
             shootFequency = Player.ANIS.startingPlayerShootFrequency();
@@ -91,7 +91,7 @@ public final class EntityFactoryImpl implements EntityFactory {
         } else if (who.equals(Player.TOMMI)) {
             pB = new PlayerBehavior(new CompleteImageSetCalculator(Player.TOMMI.images(Direction.N),
                     Player.TOMMI.images(Direction.S), Player.TOMMI.images(Direction.E),
-                    Player.TOMMI.images(Direction.W), Player.TOMMI.standImage()), cs, currentRoom, this);
+                    Player.TOMMI.images(Direction.W), Player.TOMMI.standImage()), cs, this);
             pA = Player.TOMMI.getArea();
             playerSpeed = Player.TOMMI.getSpeed();
             shootFequency = Player.TOMMI.startingPlayerShootFrequency();
@@ -101,7 +101,7 @@ public final class EntityFactoryImpl implements EntityFactory {
             pB = new PlayerBehavior(
                     new CompleteImageSetCalculator(Player.KASO.images(Direction.N), Player.KASO.images(Direction.S),
                             Player.KASO.images(Direction.E), Player.KASO.images(Direction.W), Player.KASO.standImage()),
-                    cs, currentRoom, this);
+                    cs, this);
             pA = Player.KASO.getArea();
             playerSpeed = Player.KASO.getSpeed();
             shootFequency = Player.KASO.startingPlayerShootFrequency();

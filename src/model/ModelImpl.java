@@ -100,9 +100,9 @@ public final class ModelImpl implements Model {
         this.gameStatus = GameStatus.Running;
         this.cs = new CollisionSupervisorImpl();
         this.eFactory = new EntityFactoryImpl(this.cs);
+        this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
         this.map = new GameMap(eFactory);
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
-        this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
         this.time = new Time();
         time.start();
         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()

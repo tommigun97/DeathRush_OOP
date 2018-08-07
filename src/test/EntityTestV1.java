@@ -124,7 +124,8 @@ public class EntityTestV1 {
     @Test
     void testPlayerBehavior() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, DEFAULT_ROOM, E_FACTORY);
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, E_FACTORY);
+        pB.setCurrentRoom(DEFAULT_ROOM);
         // test for check if the behavior check the necessary properties of the player
         try {
             Entity player = new EntityImpl.EntitiesBuilder().with("Max Life", 10).with("Current Life", 10)
@@ -187,7 +188,8 @@ public class EntityTestV1 {
     @Test
     void testStalkerEnemyBehaviorV1() {
         final PlayerBehavior pB = new PlayerBehavior(
-                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, DEFAULT_ROOM, E_FACTORY);
+                new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND), CS, E_FACTORY);
+        pB.setCurrentRoom(DEFAULT_ROOM);
         final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
                 .with("Speed", 0.2).with("Max Life", 10).with("Current Life", 10).with("Shoot Frequency", (long) 10)
                 .with("Shooting Damage", 10).with("Bullet Speed", 10.0).build();
@@ -290,6 +292,7 @@ public class EntityTestV1 {
         final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>());
         Entity o = E_FACTORY.createObstacle(0.70, DEFAULT_LOC.getY());
         Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), r, Player.TOMMI);
+        ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom(DEFAULT_ROOM);
         r.addEntity(p);
         r.addEntity(o);
         ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.E);
