@@ -25,6 +25,7 @@ public class ReadEntityImpl implements ReadEntity {
     private Set<Entity> entitiesRead;
     private EntityFactory ef;
     private Entity entityToStolk;
+    private BufferedReader bf;
 
     public ReadEntityImpl(Set<Room> rooms, Entity entityToStolk) {
     	this.ef = ef;
@@ -33,17 +34,17 @@ public class ReadEntityImpl implements ReadEntity {
         this.entityToStolk = entityToStolk;
     }
 
-    public void populateRoom() {
+    public void populateRooms() {
     	this.rooms.forEach(x -> {
             try {
             	RoomType roomT = x.getType();
             	this.file = BackgroundFromFile.getRandomPath(roomT);
-                BufferedReader bf = new BufferedReader(new FileReader(file));
+            	System.out.println(file);
+                bf = new BufferedReader(new FileReader(file));
                 int column = bf.readLine().length();
                 int row = calculateRow(file);
                 double columnProportion = WEIGHT / column;
                 double rowProportion = HEIGHT / row;
-                bf.reset();
                 String line;
                 char currentChar;
                 for (int i = 0; i<row; i++ ) {
@@ -57,7 +58,12 @@ public class ReadEntityImpl implements ReadEntity {
                 }
 
             } catch (Exception e) {
-                // TODO: handle exception
+            	try {
+					throw e;
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
             }
     	});
 
@@ -67,8 +73,8 @@ public class ReadEntityImpl implements ReadEntity {
     private int calculateRow(String filename) throws IOException {
         int rowCount = 0;
         try {
-            BufferedReader bf = new BufferedReader(new FileReader(filename));
-            while (bf.readLine() != null) {
+            BufferedReader bs = new BufferedReader(new FileReader(filename));
+            while (bs.readLine() != null) {
                 rowCount++;
             }
         } catch (FileNotFoundException e) {
@@ -85,17 +91,17 @@ public class ReadEntityImpl implements ReadEntity {
 
     private void scanFind(char type, double x, double y, Room currentRoom) {
     	if(type == '1') {
-    		this.entitiesRead.add(this.ef.isaacStalkerEnemy(x, y, this.entityToStolk, currentRoom, true));
+    		currentRoom.addEntity(this.ef.isaacStalkerEnemy(x, y, this.entityToStolk, currentRoom, true));
     	}else if(type == '2') {
-    		this.entitiesRead.add(this.ef.createMoscow(x, y, this.entityToStolk,currentRoom));
+    		currentRoom.addEntity(this.ef.createMoscow(x, y, this.entityToStolk,currentRoom));
     	}else if( type == '3') {
-    		this.entitiesRead.add(this.ef.createObstacle(x, y));
+    		currentRoom.addEntity(this.ef.createObstacle(x, y));
     	}else if(type == '4') {
-    		this.entitiesRead.add(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CIATTO));
+    		currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CIATTO));
     	}else if(type == '5') {
-    		this.entitiesRead.add(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CROATTI));
+    		currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CROATTI));
     	}else if(type == '6') {
-    		this.entitiesRead.add(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.THOR));
+    		currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.THOR));
     	}
     }
 }
