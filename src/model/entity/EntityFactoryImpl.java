@@ -24,8 +24,8 @@ import utilities.Pair;
  * Implementation of EntityFactory.
  */
 public final class EntityFactoryImpl implements EntityFactory {
-    private static final double DEFAULT_BULLET_WEIGHT = 0.02;
-    private static final double DEFAULT_BULLET_HEIGHT = 0.02;
+    private static final double DEFAULT_BULLET_WEIGHT = 0.03;
+    private static final double DEFAULT_BULLET_HEIGHT = 0.03;
     private static final double DEFAULT_BULLET_SPEED = 0.01;
     private static final double DEFAULT_OBSTACLE_WEIGHT = 0.1;
     private static final double DEFAULT_OBSTACLE_HEIGHT = 0.1;
@@ -98,11 +98,20 @@ public final class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public Entity createBullet(final double x, final double y, final Room currentRoom, final Direction direction,
-            final EntityType bulletType, final int damage, final double speed) {
-        BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
-        return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
-                .setImage("bullet/bullet.png").with("Speed", speed)
-                .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
+            final EntityType bulletType, final int damage, final double speed, final EntityType who) {
+    	if(who == EntityType.PLAYER) {    		
+    		BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+    		return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
+    				.setImage("bullet/bullet1.png")
+    				.with("Speed", speed)
+    				.setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
+    	} else {
+    		BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+    		return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
+    				.setImage("bullet/bullet2.png")
+    				.with("Speed", speed)
+    				.setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
+    	}
     }
 
     @Override

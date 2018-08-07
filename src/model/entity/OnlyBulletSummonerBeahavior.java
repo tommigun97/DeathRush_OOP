@@ -70,8 +70,6 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
         }
         if (System.currentTimeMillis() - this.tShootFromCorner >= F_SHOOT_FROM_CORNER) {
             this.currentRoom
-                    .addEntity(this.eFactory.createBullet(0.2, 0.8, currentRoom, Direction.NE, EntityType.ENEMY_BULLET,
-                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
             this.currentRoom
                     .addEntity(this.eFactory.createBullet(0.8, 0.2, currentRoom, Direction.SW, EntityType.ENEMY_BULLET,
                             e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
