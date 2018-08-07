@@ -49,6 +49,7 @@ public final class ModelImpl implements Model {
         currentRoom.getEntities().forEach(e -> {
             l.add(new Pair<String, Location>(e.getImage(), e.getLocation()));
         });
+        currentRoom.getDoor().forEach(d -> l.add(new Pair<String, Location>(d.getImage(), d.getLocation())));
 
         l.add(new Pair<String, Location>(this.player.getImage(), this.player.getLocation()));
         return l;
@@ -65,6 +66,7 @@ public final class ModelImpl implements Model {
         // il giocatore si muove
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentDirection(direction);
         player.getBehaviour().get().update();
+        System.out.println(player.getLocation());
         // il giocatore spara
         shoot.forEach(d -> ((PlayerBehavior) player.getBehaviour().get()).shoot(d));
         // vengono aggiornate tutte le altre entità della stanza
@@ -108,12 +110,6 @@ public final class ModelImpl implements Model {
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentRoom(currentRoom);
         time.start();
-                ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
-         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        .addEntity(eFactory.createObstacle(0.3, 0.3));
     }
 
     @Override

@@ -5,10 +5,10 @@ import model.room.RoomType;
 
 public enum BackgroundFromFile {
 
-	FIRST("roomsFile/1.txt", RoomType.INTERMEDIATE, 1), SECOND("roomsFile/2.txt", RoomType.INTERMEDIATE, 2),
-	THIRD("roomsFile3/3.txt", RoomType.INTERMEDIATE, 3), FOURTH("roomsFile/4.txt", RoomType.INTERMEDIATE, 4),
-	FIVTH("roomsFile/5.txt", RoomType.INTERMEDIATE, 5), SIXTH("roomsFile/6.txt", RoomType.BOSS, 6),
-	SEVENTH("roomsFile/7.txt", RoomType.BOSS, 7), EIGHTH("roomsFile/8.txt", RoomType.BOSS, 8);
+	FIRST("1", RoomType.INTERMEDIATE, 1), SECOND("2", RoomType.INTERMEDIATE, 2),
+	THIRD("3", RoomType.INTERMEDIATE, 3), FOURTH("4", RoomType.INTERMEDIATE, 4),
+	FIVTH("5", RoomType.INTERMEDIATE, 5), SIXTH("6", RoomType.BOSS, 6),
+	SEVENTH("7", RoomType.BOSS, 7), EIGHTH("8", RoomType.BOSS, 8);
 
 	private final String path;
 	private final RoomType type;
@@ -29,7 +29,7 @@ public enum BackgroundFromFile {
 	private static String getPath(int seqNumber) {
 		return seqNumber == 1 ? FIRST.getPath() : seqNumber == 2 ? SECOND.getPath() : seqNumber == 3 ? THIRD.getPath() : 
 					seqNumber == 4 ? FOURTH.getPath() : seqNumber == 5 ? FIVTH.getPath() : seqNumber == 6  ? SIXTH.getPath() : 
-						seqNumber == 7 ? SEVENTH.getPath() : seqNumber == 8 ? EIGHTH.getPath() : "";
+						seqNumber == 7 ? SEVENTH.getPath() : seqNumber == 8 ? EIGHTH.getPath() : "0";
 						
 	}
 

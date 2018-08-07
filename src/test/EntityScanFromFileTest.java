@@ -35,7 +35,7 @@ public class EntityScanFromFileTest {
 	void roomEnemyBuild() {
 		this.rooms.add(rb.setRoomID(1).setComplited(false).setTypes(RoomType.INTERMEDIATE).build());
 		this.player = ef.createPlayer(new Pair<Double, Double>(0.5, 1.0), Player.ANIS);
-		this.backF = new ReadEntityImpl(this.rooms, this.player);
+		this.backF = new ReadEntityImpl(this.rooms, this.player, new EntityFactoryImpl(new CollisionSupervisorImpl()));
 		this.backF.populateRooms();
 		
 		
