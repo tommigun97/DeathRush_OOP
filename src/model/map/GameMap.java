@@ -29,6 +29,7 @@ public class GameMap implements Map {
     private Set<Room> rooms;
     private Set<Entity> doors;
     private Room firstRoom;
+    private ReadEntity readE;
     private RoomBuilder rBuilder;
     private EntityFactory entityF;
     private int stanzeTotali;
@@ -38,6 +39,7 @@ public class GameMap implements Map {
         this.doors = new HashSet<>();
         this.rBuilder = new RoomBuilder();
         this.entityF = entityFactory;
+        
 
         this.initMap();
     }
@@ -56,6 +58,7 @@ public class GameMap implements Map {
     	this.path = new Room[X][Y];
         Room a = this.rBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.FIRTS)
                 .build();
+        
         this.path[MIDDLEX][MIDDLEY] = a;
         Room b = this.rBuilder.setComplited(false).setRoomID(2).setDoors(new HashSet<>())
                 .setTypes(RoomType.INTERMEDIATE).build();
