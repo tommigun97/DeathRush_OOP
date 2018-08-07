@@ -26,17 +26,7 @@ public interface View {
      */
     void draw(List<Pair<String, Location>> listEntities, String backgroundPath);
 
-    /**
-     * It updates the view with the most recent information about the player.
-     * 
-     * @param hp
-     *            current hp (Health Points) of the player
-     * @param shields
-     *            current shields of the player
-     * @param score
-     *            current score of the player
-     */
-    void updateInfo(int hp, int shields, int score); // non va bene qui ci sono solo i soldi e le vite
+    void updateInfo();
 
     /**
      * It returns a list with the inputs(movement) detected during a game.
@@ -72,5 +62,7 @@ public interface View {
      * This method call the Game Over screen.
      */
     void gameOver();
+
+    void updateInfoToDraw(int playerLife, int money, String time, String playerDamage, String playerAttSpeed,String playerMvSpeed);
 
 }

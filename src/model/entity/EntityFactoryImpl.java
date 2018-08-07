@@ -27,20 +27,20 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final double DEFAULT_BULLET_WEIGHT = 0.03;
     private static final double DEFAULT_BULLET_HEIGHT = 0.03;
     private static final double DEFAULT_BULLET_SPEED = 0.01;
-    private static final double DEFAULT_OBSTACLE_WEIGHT = 0.1;
-    private static final double DEFAULT_OBSTACLE_HEIGHT = 0.1;
-    private static final String DEFAULT_OBSTACLE_IMAGE = "OBSTACLE";
-    private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(Arrays.asList(" ", " ", " "));
-    private static final List<String> DEFAULT_STALKER_ENEMY_N = new ArrayList<>(Arrays.asList(" ", " ", " "));
-    private static final List<String> DEFAULT_STALKER_ENEMY_E = new ArrayList<>(Arrays.asList(" ", " ", " "));
-    private static final List<String> DEFAULT_STALKER_ENEMY_W = new ArrayList<>(Arrays.asList(" ", " ", " "));
-    private static final String DEFAULT_STALKER_ENEMY_STAND = " ";
-    private static final double DEFAULT_STALKER_ENEMY_SPEED = 0.1;
+    private static final double DEFAULT_OBSTACLE_WEIGHT = 0.04;
+    private static final double DEFAULT_OBSTACLE_HEIGHT = 0.06;
+    private static final String DEFAULT_OBSTACLE_IMAGE = "room/rock.png";
+    private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(Arrays.asList("images/enemies/stalker_S.png", "images/enemies/stalker_S2.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_N = new ArrayList<>(Arrays.asList("images/enemies/stalker_N.png", "images/enemies/stalker_N.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_E = new ArrayList<>(Arrays.asList("images/enemies/stalker_E.png", "images/enemies/stalker_E2.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_W = new ArrayList<>(Arrays.asList("images/enemies/stalker_W.png", "images/enemies/stalker_W2.png"));
+    private static final String DEFAULT_STALKER_ENEMY_STAND = "images/enemies/stalker_N.png";
+    private static final double DEFAULT_STALKER_ENEMY_SPEED = 0.002;
     private static final int DEFAULT_STALKER_ENEMY_MAX_LIFE = 3;
-    private static final Long DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY = Long.valueOf(500);
+    private static final Long DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY = Long.valueOf(700);
     private static final int DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE = 1;
     private static final int DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE = 1;
-    private static final Area DEFAULT_STALKER_ENEMY_AREA = new Area(0.30, 0.30);
+    private static final Area DEFAULT_STALKER_ENEMY_AREA = new Area(0.04, 0.04);
     private static final int DEFAULT_STALKER_ENEMY_REWARD = 50;
     private static final String DEFAULT_MOSQUITO_IMAGE_1 = "images/enemies/moscow.png";
     private static final String DEFAULT_MOSQUITO_IMAGE_2 = "images/enemies/moscow2.png";
@@ -53,6 +53,8 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final double SUGAR_UPGRADE = 0.1;
     private static final double GUN_UPGRADE = 0.1;
     private static final double CIGARETTE_UPGRADE = 0.1;
+    private static final String PLAYER_BULLET = "bullet/bullet1.png";
+    private static final String ENEMY_BULLET = "bullet/bullet2.png";
 
     private final CollisionSupervisor cs;
 
@@ -102,13 +104,13 @@ public final class EntityFactoryImpl implements EntityFactory {
     	if(who == EntityType.PLAYER) {    		
     		BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
     		return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
-    				.setImage("bullet/bullet1.png")
+    				.setImage(PLAYER_BULLET)
     				.with("Speed", speed)
     				.setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
     	} else {
     		BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
     		return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
-    				.setImage("bullet/bullet2.png")
+    				.setImage(ENEMY_BULLET)
     				.with("Speed", speed)
     				.setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
     	}
