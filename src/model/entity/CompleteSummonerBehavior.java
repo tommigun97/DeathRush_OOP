@@ -4,7 +4,7 @@ import model.room.Room;
 
 public class CompleteSummonerBehavior extends OnlyBulletSummonerBeahavior implements Behavior {
 
-    private static final long F_ENTITY_EVOCATION = 4000; // millisec == 4 sec
+    private static final long F_ENTITY_EVOCATION = 8000; // millisec == 4 sec
     private long tEvocation;
     private Entity toKill;
 
@@ -19,9 +19,9 @@ public class CompleteSummonerBehavior extends OnlyBulletSummonerBeahavior implem
     public void update() {
         super.update();
         if (System.currentTimeMillis() - this.tEvocation >= F_ENTITY_EVOCATION) {
-            geteFactory().createMoscow(0, 0.5, toKill, getCurrentRoom());
-            geteFactory().createMoscow(0.5, 0, toKill, getCurrentRoom());
-            geteFactory().createMoscow(1, 0.5, toKill, getCurrentRoom());
+            getCurrentRoom().addEntity(geteFactory().createMoscow(0.2, 0.5, toKill, getCurrentRoom()));
+            getCurrentRoom().addEntity(geteFactory().createMoscow(0.5, 0.2, toKill, getCurrentRoom()));
+            getCurrentRoom().addEntity(geteFactory().createMoscow(0.8, 0.3, toKill, getCurrentRoom()));
             tEvocation = System.currentTimeMillis();
         }
     }

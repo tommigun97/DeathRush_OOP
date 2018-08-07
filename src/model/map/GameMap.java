@@ -93,7 +93,7 @@ public class GameMap implements Map {
         this.readE = new ReadEntityImpl(this.getRooms(), player);
         this.readE.populateRooms();
     }
-
+    //prima mi ha dato una null pointer exception
     private boolean checkDoor(final Room r, Coordinates x) {
     	boolean b = false;
     	try {

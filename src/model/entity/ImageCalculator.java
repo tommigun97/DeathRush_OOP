@@ -15,4 +15,17 @@ public interface ImageCalculator {
      */
     String getCurrentImage(Direction d);
 
+    /**
+     * return true when is time to refresh.
+
+     * @param lastTimeSaved
+     *            last time that this method is used
+     * @return true if is time to refresh
+     */
+    default boolean refresh(long lastTimeSaved) {
+        boolean b = System.currentTimeMillis() - lastTimeSaved >= 100;
+        System.out.println("lastTime saved " + lastTimeSaved);
+        return b;
+    }
+
 }
