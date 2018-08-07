@@ -70,13 +70,14 @@ public interface Model {
      * @return .
      */
     GameStatus getGameStatus();
-
-    /**
-     * @return a list of the player ability
-     */
-    List<Integer> getPlayerInfo();
     
     int getScore();
     
     boolean isComplited();
+
+	int getPlayerDamage();
+
+	int getPlayerAttSpeed();
+
+	int getPlayerMvSpeed();
 }
