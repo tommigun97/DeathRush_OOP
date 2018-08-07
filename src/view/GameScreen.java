@@ -1,15 +1,12 @@
 package view;
 
 import java.util.List;
-import java.util.Timer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -38,8 +35,6 @@ public class GameScreen extends Scene {
     private static final double BASIC_RES_HEIGHT = 720;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
-    private static final int DEFAULT_CORRECTION = 35;
-
     private Stage mainStage;
     private static double resConstantWidth = 1;
     private static double resConstantHeight = 1;
@@ -48,9 +43,6 @@ public class GameScreen extends Scene {
     private final Group root = new Group();
     private final Pane backgroundLayer = new Pane();
     private final ImagesMaker iMaker = new ImagesMaker();
-    // private final DrawEntities drawEntities = new DrawEntities(inGameWidth,
-    // inGameHeight);
-    // private final PlayerInfo playerInfo = new PlayerInfo();
     private final HBox infoBox = new HBox();
     private final Button pauseButton = new Button(PAUSE);
     private final Button infoButton = new Button("Info");
@@ -73,7 +65,7 @@ public class GameScreen extends Scene {
         });
         infoButton.setId("menu-buttons");
         infoButton.setFocusTraversable(false);
-        // infoButton.setOnAction(e -> InGameInfo.display());
+        infoButton.setOnAction(e -> GameHelp.display());
         buttonGame.getChildren().addAll(pauseButton, infoButton);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);
