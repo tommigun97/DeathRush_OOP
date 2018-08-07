@@ -118,7 +118,22 @@ public final class ModelImpl implements Model {
     public int getPlayerLife() {
         return this.player.getIntegerProperty("Current Life");
     }
-
+    
+    @Override
+    public int getPlayerDamage() {
+        return this.player.getIntegerProperty("Shooting Damage");
+    }
+    
+    @Override
+    public int getPlayerAttSpeed() {
+        return this.player.getIntegerProperty("Shoot Frequency");
+    }
+    
+    @Override
+    public int getPlayerMvSpeed() {
+        return this.player.getIntegerProperty("Speed");
+    }
+    
     @Override
     public int getMoney() {
         return this.player.getIntegerProperty("Money");
@@ -126,20 +141,14 @@ public final class ModelImpl implements Model {
 
     @Override
     public String getTime() {
-        return null;
+        return this.time.getCurrentTime();
     }
 
     @Override
     public GameStatus getGameStatus() {
         return this.gameStatus;
     }
-
-    @Override
-    public List<Integer> getPlayerInfo() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+   
     /**
      * Getter for the player it is used only for debug.
      * 

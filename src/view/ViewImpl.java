@@ -47,13 +47,12 @@ public class ViewImpl implements View {
 
     @Override
     public final void draw(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
-    	System.out.println(ViewImpl.gameScreen);
         Platform.runLater(() -> ViewImpl.gameScreen.drawOnScreen(listEntities, backgroundPath));
     }
 
     @Override
-    public final void updateInfo(final int hp, final int shields, final int score) {
-        Platform.runLater(() -> ViewImpl.gameScreen.updateInfo(hp, shields, score));
+    public final void updateInfo(final int hp, final int money, final String time, final int damage, final int attSpeed, final int mvSpeed) {
+        Platform.runLater(() -> ViewImpl.gameScreen.updateInfo(hp, money, time, damage, attSpeed, mvSpeed));
     }
 
     @Override
