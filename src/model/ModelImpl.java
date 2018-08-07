@@ -66,6 +66,7 @@ public final class ModelImpl implements Model {
         // il giocatore si muove
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentDirection(direction);
         player.getBehaviour().get().update();
+        System.out.println(player.getLocation());
         // il giocatore spara
         shoot.forEach(d -> ((PlayerBehavior) player.getBehaviour().get()).shoot(d));
         // vengono aggiornate tutte le altre entità della stanza

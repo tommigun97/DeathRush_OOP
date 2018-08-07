@@ -15,8 +15,8 @@ public enum Coordinates {
     /**
      * 
      */
-    EAST("room/door_open_E.png", "room/door_closed_E.png", 0, 0.03, 0.5, new Area(0.10, 0.10)), 
-    WEST("room/door_open_W.png", "room/door_closed_W.png", 1, 0.97, 0.5, new Area(0.10, 0.10)), 
+    WEST("room/door_open_W.png", "room/door_closed_W.png", 0, 0.03, 0.5, new Area(0.10, 0.10)), 
+    EAST("room/door_open_E.png", "room/door_closed_E.png", 1, 0.97, 0.5, new Area(0.10, 0.10)), 
    SOUTH("room/door_open_S.png", "room/door_closed_S.png", 0, 0.5, 0.97, new Area(0.07, 0.15)), 
     NORTH("room/door_open_N.png", "room/door_closed_N.png", 3, 0.5, 0.03, new Area(0.07, 0.15));
 
@@ -100,10 +100,10 @@ public enum Coordinates {
              return new Pair<>(EAST.getX() - CORRECTOR , WEST.getY());
          }
     	 if (door.getLocation().getX() == NORTH.getX() && door.getLocation().getY() == NORTH.getY()) {
-             return new Pair<>(SOUTH.getX() , SOUTH.getY() + CORRECTOR );
+             return new Pair<>(SOUTH.getX() , SOUTH.getY() - CORRECTOR );
          }
     	 if (door.getLocation().getX() == SOUTH.getX() && door.getLocation().getY() == SOUTH.getY()) {
-             return new Pair<>(NORTH.getX() , NORTH.getY() - CORRECTOR );
+             return new Pair<>(NORTH.getX() , NORTH.getY() + CORRECTOR );
          }
     	 return null;
     }
