@@ -44,12 +44,13 @@ public final class MainMenu extends Scene {
         this.newGame.setMinWidth(vbox.getPrefWidth());
         this.newGame.setId("menu-buttons");
         this.newGame.setOnAction(e -> {
-            final GameScreen gameScreen = new GameScreen();
+           /* final GameScreen gameScreen = new GameScreen();
             InputHandler.getInputHandler().emptyList();
             ViewImpl.getController().startGameLoop();
             ViewImpl.setGameScreen(gameScreen);
             mainStage.setScene(gameScreen.get(mainStage));
-            mainStage.setFullScreen(gameScreen.isFullScreen());
+            mainStage.setFullScreen(gameScreen.isFullScreen());*/
+            mainStage.setScene(SelectCharacter.get(MainMenu.mainStage));
         });
         this.bestScores.setMinWidth(vbox.getPrefWidth());
         this.bestScores.setId("menu-buttons");

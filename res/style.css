@@ -58,4 +58,9 @@
 	-fx-font-size: 10.0pt;
 
 }
+#title-character{
+	-fx-font-family:'Arcade Interlaced';
+	-fx-fill: white !important;
+	-fx-font-size: 25.0pt;
+}
 
