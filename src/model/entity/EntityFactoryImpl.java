@@ -24,8 +24,8 @@ import utilities.Pair;
  * Implementation of EntityFactory.
  */
 public final class EntityFactoryImpl implements EntityFactory {
-    private static final double DEFAULT_BULLET_WEIGHT = 0.01;
-    private static final double DEFAULT_BULLET_HEIGHT = 0.01;
+    private static final double DEFAULT_BULLET_WEIGHT = 0.02;
+    private static final double DEFAULT_BULLET_HEIGHT = 0.02;
     private static final double DEFAULT_BULLET_SPEED = 0.01;
     private static final double DEFAULT_OBSTACLE_WEIGHT = 0.1;
     private static final double DEFAULT_OBSTACLE_HEIGHT = 0.1;
@@ -42,12 +42,12 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final int DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE = 1;
     private static final Area DEFAULT_STALKER_ENEMY_AREA = new Area(0.30, 0.30);
     private static final int DEFAULT_STALKER_ENEMY_REWARD = 50;
-    private static final String DEFAULT_MOSQUITO_IMAGE_1 = " ";
-    private static final String DEFAULT_MOSQUITO_IMAGE_2 = " ";
-    private static final double DEFAULT_MOSCOW_ENEMY_SPEED = 0.1;
+    private static final String DEFAULT_MOSQUITO_IMAGE_1 = "images/enemies/moscow.png";
+    private static final String DEFAULT_MOSQUITO_IMAGE_2 = "images/enemies/moscow2.png";
+    private static final double DEFAULT_MOSCOW_ENEMY_SPEED = 0.002;
     private static final int DEFAULT_MOSCOW_ENEMY_MAX_LIFE = 3;
     private static final int DEFAULT_MOSCOW_ENEMY_COLLISION_DAMAGE = 1;
-    private static final Area DEFAULT_MOSCOW_ENEMY_AREA = new Area(0.30, 0.30);
+    private static final Area DEFAULT_MOSCOW_ENEMY_AREA = new Area(0.03, 0.03);
     private static final int DEFAULT_MOSCOW_ENEMY_REWARD = 25;
 
     private final CollisionSupervisor cs;

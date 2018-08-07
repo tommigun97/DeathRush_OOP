@@ -45,43 +45,45 @@ public class GameLoop extends Thread {
      */
     public void run() {
         this.setState(Status.RUNNING);
-        //this.model.start(View.getPlayer);
+        // this.model.start(View.getPlayer);
         this.model.start(Player.KASO);
         while (!this.isInState(Status.KILLED)) {
-        	if(this.isInState(Status.RUNNING)) {	
-	        	long time = System.currentTimeMillis();
-	            if (this.model.getGameStatus().equals(GameStatus.Running)) {
-	                controller.processInput();
-	                updateGame();
-	            } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
-	                this.setState(Status.KILLED);
-	            }
-	            long wait = time - System.currentTimeMillis();
-	            if (wait < period) {
-	                try {
-	                    Thread.sleep(period - wait);
-	                } catch (Exception ex) {
-	                }
-	            }
-	        }
+            if (this.isInState(Status.RUNNING)) {
+                long time = System.currentTimeMillis();
+                if (this.model.getGameStatus().equals(GameStatus.Running)) {
+                    controller.processInput();
+                    updateGame();
+                } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
+                    this.setState(Status.KILLED);
+                }
+                long wait = time - System.currentTimeMillis();
+                if (wait < period) {
+                    try {
+                        Thread.sleep(period - wait);
+                    } catch (Exception ex) {
+                    }
+                }
+            }
         }
         this.controller.abortGameLoop();
-        if(this.model.isComplited()) {
-        	this.controller.saveScoreGame();
+        if (this.model.isComplited()) {
+            this.controller.saveScoreGame();
         }
-        //Gioco completato? dammi tempo
+        // Gioco completato? dammi tempo
     }
-    
+
     /**
      * 
      * @param elapsed
      *            .
      */
     public void updateGame() {
-    	this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
-        /* this.view.updateInfoToDraw(this.model.getPalyerLife(), this.model.getMoney(),
-         this.model.getTime().transformSecondInTime(), ); */
-         checkEvents();
+        this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
+        /*
+         * this.view.updateInfoToDraw(this.model.getPalyerLife(), this.model.getMoney(),
+         * this.model.getTime().transformSecondInTime(), );
+         */
+        checkEvents();
     }
 
     private void checkEvents() {
@@ -110,7 +112,7 @@ public class GameLoop extends Thread {
      */
     public void pause() {
         if (this.isInState(Status.RUNNING)) {
-        	this.model.stopTime();
+            this.model.stopTime();
             this.setState(Status.PAUSED);
         }
     }
@@ -120,7 +122,7 @@ public class GameLoop extends Thread {
      */
     public void resumeGame() {
         if (this.isInState(Status.PAUSED)) {
-        	this.model.resumeTime();
+            this.model.resumeTime();
             this.setState(Status.RUNNING);
         }
     }

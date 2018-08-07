@@ -89,7 +89,7 @@ public final class ModelImpl implements Model {
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
         }
         if (this.player.getIntegerProperty("Current Life") == 0) {
-        	this.time.pause();
+            this.time.pause();
             this.gameStatus = GameStatus.Over;
         } // manca l'if per dire quando il gioco è definitivamente completato
 
@@ -105,12 +105,14 @@ public final class ModelImpl implements Model {
         this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
         this.time = new Time();
         time.start();
-   
+        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+                .addEntity(eFactory.createMoscow(0.3, 0.3, this.player, currentRoom));
+
     }
 
     @Override
     public void stopTime() {
-       this.time.pause();
+        this.time.pause();
     }
 
     @Override
@@ -157,22 +159,23 @@ public final class ModelImpl implements Model {
         return this.currentRoom;
     }
 
-	@Override
-	public void resumeTime() {
-		this.time.resume();
-	}
+    @Override
+    public void resumeTime() {
+        this.time.resume();
+    }
 
-	@Override
-	public int getScore() {
-		return this.time.getTotalSecond();
-	}
+    @Override
+    public int getScore() {
+        return this.time.getTotalSecond();
+    }
 
-	@Override
-	public boolean isComplited() {
-		/*if(this.map.getRooms().stream().anyMatch(x -> x.isComplited() == false)) {
-			return false;
-		}*/
-		return true;
-	}
+    @Override
+    public boolean isComplited() {
+        /*
+         * if(this.map.getRooms().stream().anyMatch(x -> x.isComplited() == false)) {
+         * return false; }
+         */
+        return true;
+    }
 
 }
