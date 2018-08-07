@@ -86,8 +86,10 @@ public class GameMap implements Map {
         this.completePath(MIDDLEX - 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
     }
-
+    //prima mi ha dato una null pointer exception
     private boolean checkDoor(final Room r, Coordinates x) {
+        r.getDoor().stream().forEach(y -> System.out.println(y.getObjectProperty("coordinate")));
+        System.out.println(x);
         return r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
     }
 

@@ -9,15 +9,14 @@ import model.Direction;
  *
  */
 public final class CompleteImageSetCalculator implements ImageCalculator {
-    // bisogna mettere a posto il fatto della posizione iniziale
-    private static final int STAND_POSITION = 2;
-    private Direction prevDir;
     private final List<String> northImages;
     private final List<String> southImages;
     private final List<String> eastImages;
     private final List<String> weastImages;
     private final String stand;
     private int c;
+    private String currentImage;
+    private long lastTimeSaved;
 
     /**
      * @param northImages
@@ -31,41 +30,38 @@ public final class CompleteImageSetCalculator implements ImageCalculator {
      */
     public CompleteImageSetCalculator(final List<String> northImages, final List<String> southImages,
             final List<String> eastImages, final List<String> weastImages, final String stand) {
-        this.prevDir = Direction.NOTHING;
         this.northImages = northImages;
         this.southImages = southImages;
         this.eastImages = eastImages;
         this.weastImages = weastImages;
         this.stand = stand;
         c = 0;
+        this.currentImage = stand;
+        lastTimeSaved = 0;
     }
 
     @Override
     public String getCurrentImage(final Direction d) {
-        String i = "";
-//        if (d.equals(Direction.NOTHING) && prevDir.equals(Direction.NOTHING)) {
-//            return this.stand;
-        if (d.equals(Direction.NOTHING)) {
-//            i = prevDir.equals(Direction.S) || prevDir.equals(Direction.SW)
-//                    || prevDir.equals(Direction.SE) ? this.southImages.get(STAND_POSITION) : i;
-//            i = prevDir.equals(Direction.N) || prevDir.equals(Direction.NW)
-//                    || prevDir.equals(Direction.NW) ? this.northImages.get(STAND_POSITION) : i;
-//            i = prevDir.equals(Direction.W) ? this.weastImages.get(STAND_POSITION) : i;
-//            i = prevDir.equals(Direction.E) ? this.eastImages.get(STAND_POSITION) : i;
-            i = this.stand;
+        if (refresh(lastTimeSaved)) {
+            currentImage = "";
+            if (d.equals(Direction.NOTHING)) {
+                currentImage = this.stand;
+            } else {
+                currentImage = d.equals(Direction.N) || d.equals(Direction.NW) || d.equals(Direction.NE)
+                        ? this.northImages.get(c)
+                        : currentImage;
+                currentImage = d.equals(Direction.S) || d.equals(Direction.SW) || d.equals(Direction.SE)
+                        ? this.southImages.get(c)
+                        : currentImage;
+                currentImage = d.equals(Direction.E) ? this.eastImages.get(c) : currentImage;
+                currentImage = d.equals(Direction.W) ? this.weastImages.get(c) : currentImage;
+                c = c == 0 ? 1 : 0;
+            }
+            lastTimeSaved = System.currentTimeMillis();
+            return currentImage;
         } else {
-            i = d.equals(Direction.N) || d.equals(Direction.NW) || d.equals(Direction.NE)
-                    ? this.northImages.get(c)
-                    : i;
-            i = d.equals(Direction.S) || d.equals(Direction.SW) || d.equals(Direction.SE)
-                    ? this.southImages.get(c)
-                    : i;
-            i = d.equals(Direction.E) ? this.eastImages.get(c) : i;
-            i = d.equals(Direction.W) ? this.weastImages.get(c) : i;
-            c = c == 0 ? 1 : 0;
-            this.prevDir = d;
+            return currentImage;
         }
-        return i;
     }
 
 }

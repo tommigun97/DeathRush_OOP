@@ -173,43 +173,73 @@ public final class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createBoss(final double x, final double y, final Room currentRoom, final Optional<Entity> eToStalk,
             final Boss who) {
-        if (who == Boss.THOR) {
-            CompleteSummonerBehavior b = new CompleteSummonerBehavior(
-                    new CompleteImageSetCalculator(Boss.THOR.images(Direction.N), Boss.THOR.images(Direction.S), Boss.THOR.images(Direction.E), Boss.THOR.images(Direction.W), Boss.THOR.standImage()), 
-                    cs, currentRoom, this, eToStalk.get());
+            Behavior b = null;
+            if (who == Boss.THOR) {
+             b = new CompleteSummonerBehavior(
+                      new CompleteImageSetCalculator(Boss.THOR.images(Direction.N), Boss.THOR.images(Direction.S), Boss.THOR.images(Direction.E), Boss.THOR.images(Direction.W), Boss.THOR.standImage()), 
+                      cs, currentRoom, this, eToStalk.get());
+            } else if (who == Boss.CIATTO) {
+                 b = new OnlyBulletSummonerBeahavior(
+                      new CompleteImageSetCalculator(Boss.CIATTO.images(Direction.N), Boss.CIATTO.images(Direction.S),
+                              Boss.CIATTO.images(Direction.E), Boss.CIATTO.images(Direction.W), Boss.CIATTO.standImage()),
+                      cs, currentRoom, this);
+            } else {
+               b = new StalkerEnemyBehavior(eToStalk.get(),
+                      new CompleteImageSetCalculator(Boss.CROATTI.images(Direction.N), Boss.CROATTI.images(Direction.S),
+                              Boss.CROATTI.images(Direction.E), Boss.CROATTI.images(Direction.W),
+                              Boss.CROATTI.standImage()),
+                      cs, currentRoom, this, true);
+            } 
+            
             return new EntityImpl.EntitiesBuilder().setBehaviour(b)
-                    .setLocation(new Location(x, y, Boss.THOR.getArea())).setImage(" ")
-                    .with("Speed", Boss.THOR.getSpeed()).with("Max Life", Boss.THOR.getStartingMaxLife())
-                    .with("Current Life", Boss.THOR.getStartingMaxLife())
-                    .with("Shoot Frequency", Boss.THOR.startingBossShootFrequency())
-                    .with("Collision Damage", Boss.THOR.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
-                    .with("Shoot Damage", Boss.THOR.shootingDamage()).with("Reward", Boss.THOR.reward()).build();
-        } else if (who == Boss.CIATTO) {
-            OnlyBulletSummonerBeahavior b = new OnlyBulletSummonerBeahavior(
-                    new CompleteImageSetCalculator(Boss.CIATTO.images(Direction.N), Boss.CIATTO.images(Direction.S),
-                            Boss.CIATTO.images(Direction.E), Boss.CIATTO.images(Direction.W), Boss.CIATTO.standImage()),
-                    cs, currentRoom, this);
-            return new EntityImpl.EntitiesBuilder().setBehaviour(b)
-                    .setLocation(new Location(x, y, Boss.CIATTO.getArea())).setImage(" ")
-                    .with("Speed", Boss.CIATTO.getSpeed()).with("Max Life", Boss.CIATTO.getStartingMaxLife())
-                    .with("Current Life", Boss.CIATTO.getStartingMaxLife())
-                    .with("Shoot Frequency", Boss.CIATTO.startingBossShootFrequency())
-                    .with("Collision Damage", Boss.CIATTO.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
-                    .with("Shoot Damage", Boss.CIATTO.shootingDamage()).with("Reward", Boss.CIATTO.reward()).build();
-        } else {
-            StalkerEnemyBehavior b = new StalkerEnemyBehavior(eToStalk.get(),
-                    new CompleteImageSetCalculator(Boss.CROATTI.images(Direction.N), Boss.CROATTI.images(Direction.S),
-                            Boss.CROATTI.images(Direction.E), Boss.CROATTI.images(Direction.W),
-                            Boss.CROATTI.standImage()),
-                    cs, currentRoom, this, true);
-            return new EntityImpl.EntitiesBuilder().setBehaviour(b)
-                    .setLocation(new Location(x, y, Boss.CROATTI.getArea())).setImage(" ")
-                    .with("Speed", Boss.CROATTI.getSpeed()).with("Max Life", Boss.CROATTI.getStartingMaxLife())
-                    .with("Current Life", Boss.CROATTI.getStartingMaxLife())
-                    .with("Shoot Frequency", Boss.CROATTI.startingBossShootFrequency())
-                    .with("Collision Damage", Boss.CROATTI.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
-                    .with("Shoot Damage", Boss.CROATTI.shootingDamage()).with("Reward", Boss.CROATTI.reward()).build();
-        }
+                  .setType(EntityType.ENEMY)
+                  .setLocation(new Location(x, y, who.getArea())).setImage(" ")
+                  .with("Speed", who.getSpeed()).with("Max Life", who.getStartingMaxLife())
+                  .with("Current Life", who.getStartingMaxLife())
+                  .with("Shoot Frequency",  Long.valueOf(who.startingBossShootFrequency()))
+                  .with("Collision Damage", who.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
+                  .with("Shoot Damage", who.shootingDamage()).with("Reward", who.reward()).build();
+            
+//        if (who == Boss.THOR) {
+//            CompleteSummonerBehavior b = new CompleteSummonerBehavior(
+//                    new CompleteImageSetCalculator(Boss.THOR.images(Direction.N), Boss.THOR.images(Direction.S), Boss.THOR.images(Direction.E), Boss.THOR.images(Direction.W), Boss.THOR.standImage()), 
+//                    cs, currentRoom, this, eToStalk.get());
+//            return new EntityImpl.EntitiesBuilder().setBehaviour(b)
+//                    .setType(EntityType.ENEMY)
+//                    .setLocation(new Location(x, y, Boss.THOR.getArea())).setImage(" ")
+//                    .with("Speed", Boss.THOR.getSpeed()).with("Max Life", Boss.THOR.getStartingMaxLife())
+//                    .with("Current Life", Boss.THOR.getStartingMaxLife())
+//                    .with("Shoot Frequency", Boss.THOR.startingBossShootFrequency())
+//                    .with("Collision Damage", Boss.THOR.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
+//                    .with("Shoot Damage", Boss.THOR.shootingDamage()).with("Reward", Boss.THOR.reward()).build();
+//        } else if (who == Boss.CIATTO) {
+//            OnlyBulletSummonerBeahavior b = new OnlyBulletSummonerBeahavior(
+//                    new CompleteImageSetCalculator(Boss.CIATTO.images(Direction.N), Boss.CIATTO.images(Direction.S),
+//                            Boss.CIATTO.images(Direction.E), Boss.CIATTO.images(Direction.W), Boss.CIATTO.standImage()),
+//                    cs, currentRoom, this);
+//            return new EntityImpl.EntitiesBuilder().setBehaviour(b)
+//                    .setType(EntityType.ENEMY)
+//                    .setLocation(new Location(x, y, Boss.CIATTO.getArea())).setImage(" ")
+//                    .with("Speed", Boss.CIATTO.getSpeed()).with("Max Life", Boss.CIATTO.getStartingMaxLife())
+//                    .with("Current Life", Boss.CIATTO.getStartingMaxLife())
+//                    .with("Shoot Frequency", Boss.CIATTO.startingBossShootFrequency())
+//                    .with("Collision Damage", Boss.CIATTO.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
+//                    .with("Shoot Damage", Boss.CIATTO.shootingDamage()).with("Reward", Boss.CIATTO.reward()).build();
+//        } else {
+//            StalkerEnemyBehavior b = new StalkerEnemyBehavior(eToStalk.get(),
+//                    new CompleteImageSetCalculator(Boss.CROATTI.images(Direction.N), Boss.CROATTI.images(Direction.S),
+//                            Boss.CROATTI.images(Direction.E), Boss.CROATTI.images(Direction.W),
+//                            Boss.CROATTI.standImage()),
+//                    cs, currentRoom, this, true);
+//            return new EntityImpl.EntitiesBuilder().setBehaviour(b)
+//                    .setType(EntityType.ENEMY)
+//                    .setLocation(new Location(x, y, Boss.CROATTI.getArea())).setImage(" ")
+//                    .with("Speed", Boss.CROATTI.getSpeed()).with("Max Life", Boss.CROATTI.getStartingMaxLife())
+//                    .with("Current Life", Boss.CROATTI.getStartingMaxLife())
+//                    .with("Shoot Frequency", Boss.CROATTI.startingBossShootFrequency())
+//                    .with("Collision Damage", Boss.CROATTI.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
+//                    .with("Shoot Damage", Boss.CROATTI.shootingDamage()).with("Reward", Boss.CROATTI.reward()).build();
+//        }
     }
 
 }

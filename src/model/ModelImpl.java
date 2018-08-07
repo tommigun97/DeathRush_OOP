@@ -2,10 +2,12 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.junit.platform.commons.util.CollectionUtils;
 
+import model.entity.Boss;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
@@ -105,9 +107,11 @@ public final class ModelImpl implements Model {
         this.player = eFactory.createPlayer(STARTING_POSITION, this.currentRoom, who);
         this.time = new Time();
         time.start();
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-                .addEntity(eFactory.createMoscow(0.3, 0.3, this.player, currentRoom));
-
+        //prove
+       ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
+//       ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+//       .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
     }
 
     @Override

@@ -24,7 +24,7 @@ public class StalkerEnemyBehavior implements Behavior {
             final Room currentRoom, final EntityFactory eFactory, final boolean canShoot) {
         this.toStalk = toStalk;
         this.imgCalc = imgCalc;
-        this.t = System.currentTimeMillis();
+        this.t = 0;
         this.currentDirection = Direction.NOTHING;
         this.cs = cs;
         this.currentRoom = currentRoom;
@@ -50,7 +50,7 @@ public class StalkerEnemyBehavior implements Behavior {
         currentDirection = checkNewDirection();
         final Location prev = new Location(e.getLocation());
         if (canShoot) {
-            if (System.currentTimeMillis() - this.t <= (Long) this.e.getObjectProperty("Shoot Frequency")) {
+            if (System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
                 this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                         currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
                         e.getDoubleProperty("Bullet Speed")));

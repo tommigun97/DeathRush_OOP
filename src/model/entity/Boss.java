@@ -13,20 +13,20 @@ public enum Boss {
         @Override
         public List<String> images(final Direction d) {
 
-            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
-                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("s_sx", "s_dx"))
-                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("e_sx", "e_dx"))
-                                    : new ArrayList<>(Arrays.asList("w_sx", "w_dx"));
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("boss1/2.png", "boss1/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("boss1/2.png", "boss1/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("boss1/4.png", "boss1/5.png"))
+                                    : new ArrayList<>(Arrays.asList("boss1/4.png", "boss1/5.png"));
         }
 
         @Override
         public String standImage() {
-            return "stand";
+            return "boss1/1.png";
         }
 
         @Override
         public Area getArea() {
-            return new Area(0.1, 0.1);
+            return new Area(0.1, 0.2);
         }
 
         @Override
@@ -36,12 +36,12 @@ public enum Boss {
 
         @Override
         public double getSpeed() {
-            return 0.04;
+            return 0.002;
         }
 
         @Override
         public long startingBossShootFrequency() {
-            return 10;
+            return 500;
         }
 
         @Override
@@ -63,20 +63,20 @@ public enum Boss {
 
         @Override
         public List<String> images(final Direction d) {
-            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
-                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("s_sx", "s_dx"))
-                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("e_sx", "e_dx"))
-                                    : new ArrayList<>(Arrays.asList("w_sx", "w_dx"));
-        }
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("boss2/2.png", "boss2/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("boss2/2.png", "boss2/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("boss2/4.png", "boss2/5.png"))
+                                    : new ArrayList<>(Arrays.asList("boss2/4.png", "boss2/5.png"));
 
+        }
         @Override
         public String standImage() {
-            return "stand";
+            return "boss2/1.png";
         }
 
         @Override
         public Area getArea() {
-            return new Area(0.1, 0.1);
+            return new Area(0.08, 0.2);
         }
 
         @Override
@@ -86,12 +86,12 @@ public enum Boss {
 
         @Override
         public double getSpeed() {
-            return 0.2;
+            return 0.004;
         }
 
         @Override
         public long startingBossShootFrequency() {
-            return 10;
+            return 500;
         }
 
         @Override
@@ -113,20 +113,20 @@ public enum Boss {
     CROATTI {
         @Override
         public List<String> images(final Direction d) {
-            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("n_sx", "n_dx"))
-                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("s_sx", "s_dx"))
-                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("e_sx", "e_dx"))
-                                    : new ArrayList<>(Arrays.asList("w_sx", "w_dx"));
+            return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("boss3/2.png", "boss3/3.png"))
+                    : d.equals(Direction.S) ? new ArrayList<>(Arrays.asList("boss3/2.png", "boss3/3.png"))
+                            : d.equals(Direction.E) ? new ArrayList<>(Arrays.asList("boss3/4.png", "boss3/5.png"))
+                                    : new ArrayList<>(Arrays.asList("boss3/4.png", "boss3/5.png"));
         }
 
         @Override
         public String standImage() {
-            return "stand";
+            return "boss3/1.png";
         }
 
         @Override
         public Area getArea() {
-            return new Area(0.1, 0.1);
+            return new Area(0.04, 0.15);
         }
 
         @Override
@@ -136,12 +136,12 @@ public enum Boss {
 
         @Override
         public double getSpeed() {
-            return 0.2;
+            return 0.004;
         }
 
         @Override
         public long startingBossShootFrequency() {
-            return 10;
+            return 500;
         }
 
         @Override
