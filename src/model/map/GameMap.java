@@ -14,6 +14,7 @@ import utilities.Pair;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.entity.EntityFactory;
+import model.entity.Player;
 import model.map.ReadEntity;
 import model.map.ReadEntityImpl;
 
@@ -29,9 +30,11 @@ public class GameMap implements Map {
     private Set<Room> rooms;
     private Set<Entity> doors;
     private Room firstRoom;
-    private ReadEntity readE;
+    private ReadEntityImpl readE;
     private RoomBuilder rBuilder;
     private EntityFactory entityF;
+    private Entity player;
+    
     private int stanzeTotali;
 
     public GameMap(EntityFactory entityFactory) {
@@ -39,6 +42,7 @@ public class GameMap implements Map {
         this.doors = new HashSet<>();
         this.rBuilder = new RoomBuilder();
         this.entityF = entityFactory;
+         
         
 
         this.initMap();
@@ -85,10 +89,20 @@ public class GameMap implements Map {
         this.completePath(MIDDLEX + 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX - 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
+        this.player = this.entityF.createPlayer(new Pair<Double, Double>(0.5, 0.5), this.firstRoom, Player.ANIS);
+        this.readE = new ReadEntityImpl(this.getRooms(), player);
+        this.readE.populateRooms();
     }
 
     private boolean checkDoor(final Room r, Coordinates x) {
-        return r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
+    	boolean b = false;
+    	try {
+            b = r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
+
+    	}catch(Exception e) {
+    		this.initMap();
+    	}
+    	return b;
     }
 
     private boolean checkNextRoom(int x, int y) {
@@ -115,10 +129,8 @@ public class GameMap implements Map {
             movement = Coordinates.getMovementFromCoordinates(c);
             if(!this.checkLoop(x, y)) {	           
             	if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
-            
-	                RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
+            		RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
 	                this.stanzeTotali++;
-	                
 	                next = this.rBuilder.setComplited(false).setRoomID(this.stanzeTotali).setDoors(new HashSet<>())
 	                        .setTypes(t).build();
 	                System.out.println(this.stanzeTotali + "" + next);

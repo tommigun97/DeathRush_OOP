@@ -214,7 +214,7 @@ public class RoomImpl implements Room {
 
 	@Override
 	public RoomType getType() {
-		return this.getType();
+		return this.type;
 	}
 
 }

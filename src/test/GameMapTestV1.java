@@ -20,5 +20,6 @@ public class GameMapTestV1 {
         EntityFactory ef = new EntityFactoryImpl(cs);
         GameMap map = new GameMap(ef);
         map.printmappa();
+        map.getRooms().forEach(x -> System.out.println(x.getEntities()));
     }
 }
