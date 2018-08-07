@@ -65,7 +65,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public Entity createPlayer(final Pair<Double, Double> pos, final Room currentRoom, final Player who) {
+    public Entity createPlayer(final Pair<Double, Double> pos, final Player who) {
         PlayerBehavior pB = null;
         Area pA = null;
         double playerSpeed = 0;

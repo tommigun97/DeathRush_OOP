@@ -37,11 +37,12 @@ public class GameMap implements Map {
     
     private int stanzeTotali;
 
-    public GameMap(EntityFactory entityFactory) {
+    public GameMap(EntityFactory entityFactory, Entity player) {
         this.rooms = new HashSet<>();
         this.doors = new HashSet<>();
         this.rBuilder = new RoomBuilder();
         this.entityF = entityFactory;
+        this.player = player;
          
         
 
@@ -89,7 +90,6 @@ public class GameMap implements Map {
         this.completePath(MIDDLEX + 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX - 1, MIDDLEY, new Random().nextInt(2) + 4);
         this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
-        this.player = this.entityF.createPlayer(new Pair<Double, Double>(0.5, 0.5), this.firstRoom, Player.ANIS);
         this.readE = new ReadEntityImpl(this.getRooms(), player);
         this.readE.populateRooms();
     }

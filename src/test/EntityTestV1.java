@@ -267,7 +267,8 @@ public class EntityTestV1 {
     @Test
     void testShoot() {
         Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(DEFAULT_LOC.getX(), DEFAULT_LOC.getY()),
-                DEFAULT_ROOM, Player.SIMO);
+                 Player.SIMO);
+        ((PlayerBehavior)p.getBehaviour().get()).setCurrentRoom(DEFAULT_ROOM);
         ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.N);
         assertTrue(DEFAULT_ROOM.getEntities().size() == 1);
         IntStream.range(0, 60).forEach(i -> DEFAULT_ROOM.getEntities().forEach(e -> e.getBehaviour().get().update()));
@@ -291,8 +292,8 @@ public class EntityTestV1 {
         System.out.println("Collision Test");
         final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>());
         Entity o = E_FACTORY.createObstacle(0.70, DEFAULT_LOC.getY());
-        Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), r, Player.TOMMI);
-        ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom(DEFAULT_ROOM);
+        Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), Player.TOMMI);
+        ((PlayerBehavior)p.getBehaviour().get()).setCurrentRoom(r);
         r.addEntity(p);
         r.addEntity(o);
         ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.E);
