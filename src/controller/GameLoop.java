@@ -17,7 +17,7 @@ public class GameLoop extends Thread {
      * Enum to describe the possible states of the GameLoop.
      */
     private enum Status {
-        RUNNING, PAUSED, KILLED, READY;
+    RUNNING, PAUSED, KILLED, READY;
     }
 
     private static final long PERIOD = 20;
@@ -45,8 +45,7 @@ public class GameLoop extends Thread {
      */
     public void run() {
         this.setState(Status.RUNNING);
-        // this.model.start(View.getPlayer);
-        this.model.start(Player.KASO);
+        this.model.start(controller.getPlayer());
         while (!this.isInState(Status.KILLED)) {
             if (this.isInState(Status.RUNNING)) {
                 long time = System.currentTimeMillis();
