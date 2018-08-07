@@ -16,6 +16,7 @@ import model.entity.EntityFactoryImpl;
 import model.entity.EntityType;
 import model.entity.Player;
 import model.entity.PlayerBehavior;
+import model.entity.PowerUp;
 import model.map.GameMap;
 import model.map.Map;
 import model.room.Room;
@@ -84,6 +85,8 @@ public final class ModelImpl implements Model {
                         player.getIntegerProperty("Money") + e.getIntegerProperty("Reward"));
             }
         });
+        //collisioni con i powerUp
+        this.cs.collisionWithPowerUp(player, currentRoom.getEntities(), currentRoom);
         // collisioni con le porte
         if (this.currentRoom.isComplited()) {
             this.currentRoom.openDoors();
@@ -111,10 +114,13 @@ public final class ModelImpl implements Model {
         // prove
 //        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
 //                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
-//        // ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        // .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
+         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+         .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
+//        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+//        .addEntity(eFactory.createObstacle(0.3, 0.3));
         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        .addEntity(eFactory.createObstacle(0.3, 0.3));
+      .addEntity(eFactory.createPowerUp(0.3, 0.3, currentRoom, PowerUp.PISTOLA));
+        
     }
 
     @Override

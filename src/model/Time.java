@@ -48,8 +48,6 @@ public class Time {
                 }
                 secondPassed++;
                 totalSec++;
-                System.out.println(
-                        "hour passed: " + hourPassed + "min passed: " + minutePassed + " sec passed: " + secondPassed);
             }
         }
     };

@@ -36,7 +36,7 @@ public interface EntityFactory {
      *            how boss do you want create
      * @return the boss
      */
-    Entity createBoss(double x, double y, Room currentRoom,Optional<Entity> eToStalk, Boss who);
+    Entity createBoss(double x, double y, Room currentRoom, Optional<Entity> eToStalk, Boss who);
 
     /**
      * Create enemy that stalk the player.
@@ -104,5 +104,14 @@ public interface EntityFactory {
      * @return create an enemy looks like mosquito that follow the player
      */
     Entity createMoscow(double x, double y, Entity eToStalk, Room currentRoom);
+
+    /**
+     * @param x
+     * @param y
+     * @param currentRoom
+     * @param who
+     * @return
+     */
+    Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who);
 
 }

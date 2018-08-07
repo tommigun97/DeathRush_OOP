@@ -30,7 +30,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionWithObstacles(final Entity e, final Set<Entity> allEntities, final Location prev) {
-        System.out.println(allEntities);
         allEntities.stream().filter(o -> o.getType().equals(EntityType.OBSTACLE)).forEach(o -> {
             if (this.collision(e, o)) {
                 e.setLocation(prev);
@@ -61,7 +60,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     @Override
     public void collisionBetweenEntities(final Entity e, final Set<Entity> others) {
-        // System.out.println("collisione " + System.currentTimeMillis() - t);
         if (e.getType() == EntityType.ENEMY_BULLET || e.getType() == EntityType.PLAYER_BULLET
                 || e.getType() == EntityType.OBSTACLE) {
             return;
@@ -79,8 +77,6 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                     others.remove(o);
                     t = System.currentTimeMillis();
                 }
-                System.out.println(e.getIntegerProperty("Current Life"));
-
             });
         } else if (e.getType() == EntityType.ENEMY) {
             others.forEach(o -> {
@@ -90,9 +86,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                     others.remove(o);
                 }
             });
-
         }
-
     }
 
     // da testare con Anis
@@ -103,6 +97,34 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                 ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
             }
         });
+    }
+
+    @Override
+    public void collisionWithPowerUp(final Entity p, final Set<Entity> other, final Room current) {
+        other.stream().filter(o -> o.getType() == EntityType.POWER_UP).forEach(o -> {
+            if (collision(p, o)) {
+                if (o.getObjectProperty("Type") == PowerUp.CHITARRA) {
+                    p.changeObjectProperty("Shoot Frequency", ((Long) p.getObjectProperty("Shoot Frequency"))
+                            - ((Long) o.getObjectProperty("Increse Attack Speed")));
+                } else if (o.getObjectProperty("Type") == PowerUp.SIGARETTA) {
+                    System.out.println("player current" + p.getIntegerProperty("Current Life"));
+                    System.out.println("Player max" + p.getIntegerProperty("Max Life"));
+                    System.out.println("oggetto " +  o.getIntegerProperty("Increase Hp"));
+                    int l = p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp") >= p
+                            .getIntegerProperty("Max Life") ? p.getIntegerProperty("Max Life")
+                                    : p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp");
+                    p.changeIntProperty("Current Life", l);
+                } else if (o.getObjectProperty("Type") == PowerUp.PISTOLA) {
+                    p.changeIntProperty("Shooting Damage",
+                            p.getIntegerProperty("Shooting Damage") + o.getIntegerProperty("Increase Damage"));
+                } else {
+                    p.changeDoubleProperty("Speed",
+                            p.getDoubleProperty("Speed") + o.getDoubleProperty("Increase Movement Speed"));
+                }
+                current.deleteEntity(o);
+            }
+        });
+
     }
 
     private boolean collision(final Entity entity, final Entity otherEntity) {

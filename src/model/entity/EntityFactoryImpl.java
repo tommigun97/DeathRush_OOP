@@ -30,10 +30,14 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final double DEFAULT_OBSTACLE_WEIGHT = 0.04;
     private static final double DEFAULT_OBSTACLE_HEIGHT = 0.06;
     private static final String DEFAULT_OBSTACLE_IMAGE = "room/rock.png";
-    private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(Arrays.asList("images/enemies/stalker_S.png", "images/enemies/stalker_S2.png"));
-    private static final List<String> DEFAULT_STALKER_ENEMY_N = new ArrayList<>(Arrays.asList("images/enemies/stalker_N.png", "images/enemies/stalker_N.png"));
-    private static final List<String> DEFAULT_STALKER_ENEMY_E = new ArrayList<>(Arrays.asList("images/enemies/stalker_E.png", "images/enemies/stalker_E2.png"));
-    private static final List<String> DEFAULT_STALKER_ENEMY_W = new ArrayList<>(Arrays.asList("images/enemies/stalker_W.png", "images/enemies/stalker_W2.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(
+            Arrays.asList("images/enemies/stalker_S.png", "images/enemies/stalker_S2.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_N = new ArrayList<>(
+            Arrays.asList("images/enemies/stalker_N.png", "images/enemies/stalker_N.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_E = new ArrayList<>(
+            Arrays.asList("images/enemies/stalker_E.png", "images/enemies/stalker_E2.png"));
+    private static final List<String> DEFAULT_STALKER_ENEMY_W = new ArrayList<>(
+            Arrays.asList("images/enemies/stalker_W.png", "images/enemies/stalker_W2.png"));
     private static final String DEFAULT_STALKER_ENEMY_STAND = "images/enemies/stalker_N.png";
     private static final double DEFAULT_STALKER_ENEMY_SPEED = 0.002;
     private static final int DEFAULT_STALKER_ENEMY_MAX_LIFE = 3;
@@ -49,10 +53,10 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final int DEFAULT_MOSCOW_ENEMY_COLLISION_DAMAGE = 1;
     private static final Area DEFAULT_MOSCOW_ENEMY_AREA = new Area(0.03, 0.03);
     private static final int DEFAULT_MOSCOW_ENEMY_REWARD = 25;
-    private static final double GUITAR_UPGRADE = 0.1;
-    private static final double SUGAR_UPGRADE = 0.1;
-    private static final double GUN_UPGRADE = 0.1;
-    private static final double CIGARETTE_UPGRADE = 0.1;
+    private static final Long GUITAR_UPGRADE = Long.valueOf(200);
+    private static final double SUGAR_UPGRADE = 0.002;
+    private static final int GUN_UPGRADE = 2;
+    private static final int CIGARETTE_UPGRADE = 4;
     private static final String PLAYER_BULLET = "bullet/bullet1.png";
     private static final String ENEMY_BULLET = "bullet/bullet2.png";
 
@@ -101,19 +105,17 @@ public final class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createBullet(final double x, final double y, final Room currentRoom, final Direction direction,
             final EntityType bulletType, final int damage, final double speed, final EntityType who) {
-    	if(who == EntityType.PLAYER) {    		
-    		BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
-    		return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
-    				.setImage(PLAYER_BULLET)
-    				.with("Speed", speed)
-    				.setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
-    	} else {
-    		BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
-    		return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
-    				.setImage(ENEMY_BULLET)
-    				.with("Speed", speed)
-    				.setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
-    	}
+        if (who == EntityType.PLAYER) {
+            BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+            return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
+                    .setImage(PLAYER_BULLET).with("Speed", speed)
+                    .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
+        } else {
+            BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+            return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
+                    .setImage(ENEMY_BULLET).with("Speed", speed)
+                    .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
+        }
     }
 
     @Override
@@ -176,21 +178,21 @@ public final class EntityFactoryImpl implements EntityFactory {
 
     public Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who) {
         if (who == PowerUp.CHITARRA) {
-            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
+            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.CHITARRA)
                     .setLocation(new Location(x, y, PowerUp.CHITARRA.getArea()))
-                    .with("Increse Attack Speed", GUITAR_UPGRADE).setImage("pw1/chitarra.png").build();
+                    .with("Increse Attack Frequency", GUITAR_UPGRADE).setImage("pw1/chitarra.png").build();
         } else if (who == PowerUp.SIGARETTA) {
-            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
+            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.SIGARETTA)
                     .setLocation(new Location(x, y, PowerUp.SIGARETTA.getArea())).with("Increase Hp", CIGARETTE_UPGRADE)
                     .setImage("pw1/sigaretta.png").build();
         } else if (who == PowerUp.ZUCCHERO) {
-            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
+            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.ZUCCHERO)
                     .setLocation(new Location(x, y, PowerUp.ZUCCHERO.getArea()))
                     .with("Increase Movement Speed", SUGAR_UPGRADE).setImage("pw1/stecca.png").build();
         } else {
-            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP)
+            return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.PISTOLA)
                     .setLocation(new Location(x, y, PowerUp.PISTOLA.getArea())).with("Increase Damage", GUN_UPGRADE)
-                    .setImage("pw1/pistola%20d'oro.png").build();
+                    .setImage("pw1/gun.png").build();
         }
     }
 
