@@ -150,7 +150,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.04, 0.15);
+            return new Area(0.06, 0.15);
         }
 
         @Override
