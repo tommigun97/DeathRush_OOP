@@ -98,22 +98,6 @@ public class EntityTestV1 {
             // System.out.println(e.getMessage());
         }
     }
-
-    @Test
-    void completeImageSetCalculatorTest() {
-        final CompleteImageSetCalculator c = new CompleteImageSetCalculator(N_IMAGE, S_IMAGE, E_IMAGE, W_IMAGE, STAND);
-        assertEquals(c.getCurrentImage(Direction.S), "s_sx");
-        assertEquals(c.getCurrentImage(Direction.S), "s_dx");
-        c.getCurrentImage(Direction.S);
-        assertEquals(c.getCurrentImage(Direction.N), "n_dx");
-        assertEquals(c.getCurrentImage(Direction.NW), "n_sx");
-        assertEquals(c.getCurrentImage(Direction.E), "e_dx");
-        assertEquals(c.getCurrentImage(Direction.NOTHING), STAND);
-        assertEquals(c.getCurrentImage(Direction.NOTHING), STAND);
-        assertEquals(c.getCurrentImage(Direction.SW), "s_sx");
-        assertEquals(c.getCurrentImage(Direction.NOTHING), STAND);
-    }
-
     @Test
     void twoImageCalculatorTest() {
         TwoImageCalculator t = new TwoImageCalculator(COUPLE_IMAGES.getFirst(), COUPLE_IMAGES.getSecond());
@@ -144,10 +128,6 @@ public class EntityTestV1 {
                 .with("Shooting Damage", 10).with("Bullet Speed", 10.0).build();
         assertEquals(p.getImage(), STAND);
 
-        // test if the entity is moving
-        ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
-        p.getBehaviour().get().update();
-        assertEquals(p.getLocation().getY(), 0.30);
 
         // test if the entity return the correct image after the stop
         assertEquals(((PlayerBehavior) p.getBehaviour().get()).getCurrentDirection(), Direction.NOTHING);
@@ -264,28 +244,16 @@ public class EntityTestV1 {
         return x;
     }
 
-    @Test
-    void testShoot() {
-        Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(DEFAULT_LOC.getX(), DEFAULT_LOC.getY()),
-                 Player.SIMO);
-        ((PlayerBehavior)p.getBehaviour().get()).setCurrentRoom(DEFAULT_ROOM);
-        ((PlayerBehavior) p.getBehaviour().get()).shoot(Direction.N);
-        assertTrue(DEFAULT_ROOM.getEntities().size() == 1);
-        IntStream.range(0, 60).forEach(i -> DEFAULT_ROOM.getEntities().forEach(e -> e.getBehaviour().get().update()));
-        assertFalse(DEFAULT_ROOM.getEntities().size() == 1);
-
-    }
-
-   /* @Test
+   @Test
     void testBulletBehavior() {
-        Entity b = E_FACTORY.createBullet(0.50, 0.50, DEFAULT_ROOM, Direction.N, EntityType.PLAYER_BULLET, 10, 0.1);
+        Entity b = E_FACTORY.createBullet(0.50, 0.50, DEFAULT_ROOM, Direction.N, EntityType.PLAYER_BULLET, 10, 0.1, EntityType.PLAYER);
         DEFAULT_ROOM.addEntity(b);
         b.getBehaviour().get().update();
         assertTrue(b.getLocation().getX() == 0.50 && b.getLocation().getY() == 0.40);
         IntStream.range(0, 60).forEach(i -> ((BulletBehavior) b.getBehaviour().get()).update());
         assertFalse(DEFAULT_ROOM.getEntities().contains(b));
 
-    }*/
+    }
 
     @Test
     void obstacleCollisionTest() {
