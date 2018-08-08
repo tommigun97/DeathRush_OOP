@@ -17,7 +17,7 @@ public class GameLoop extends Thread {
      * Enum to describe the possible states of the GameLoop.
      */
     private enum Status {
-    RUNNING, PAUSED, KILLED, READY;
+        RUNNING, PAUSED, KILLED, READY;
     }
 
     private static final long PERIOD = 20;
@@ -56,6 +56,10 @@ public class GameLoop extends Thread {
                     this.view.gameOver();
                     this.setState(Status.KILLED);
                 }
+                if (this.model.getGameStatus().equals(GameStatus.Won)) {
+                    this.view.youWin();
+                    this.setState(Status.KILLED);
+                }
                 long wait = time - System.currentTimeMillis();
                 if (wait < period) {
                     try {
@@ -65,26 +69,23 @@ public class GameLoop extends Thread {
                 }
             }
         }
-        /*if (this.model.isComplited()) {
-            this.controller.saveScoreGame();
-        }*/
+        /*
+         * if (this.model.isComplited()) { this.controller.saveScoreGame(); }
+         */
         System.out.println(this.controller.getPlaterName());
-       // this.controller.saveScoreGame();
-        //this.controller.abortGameLoop();
-       
-        
-        
+        // this.controller.saveScoreGame();
+        // this.controller.abortGameLoop();
+
     }
 
     /**
      * 
-     * @param elapsed
-     *            .
+     * @param elapsed.
      */
     public void updateGame() {
         this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
-        this.view.updateInfoToDraw(this.model.getPlayerLife(), this.model.getMoney(),this.model.getTime(), this.model.getPlayerDamage(), this.model.getPlayerAttSpeed(), this.model.getPlayerMvSpeed());
-        //System.out.println(this.model.getPlayerLife()+ this.model.getMoney()+this.model.getTime() + this.model.getPlayerDamage()+ this.model.getPlayerAttSpeed()+ this.model.getPlayerMvSpeed());
+        this.view.updateInfoToDraw(this.model.getPlayerLife(), this.model.getMoney(), this.model.getTime(),
+                this.model.getPlayerDamage(), this.model.getPlayerAttSpeed(), this.model.getPlayerMvSpeed());
     }
 
     private synchronized boolean isInState(final Status state) {

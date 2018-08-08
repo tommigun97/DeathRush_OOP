@@ -103,7 +103,10 @@ public final class ModelImpl implements Model {
         if (this.player.getIntegerProperty("Current Life") <= 0) {
             this.time.pause();
             this.gameStatus = GameStatus.Over;
-        } // manca l'if per dire quando il gioco è definitivamente completato
+        } else if (map.allRoomAreCompleted()) {
+            this.time.pause();
+            this.gameStatus = GameStatus.Won;
+        }
 
     }
 

@@ -194,5 +194,10 @@ public class GameMap implements Map {
         return "printOK";
     }
 
+    @Override
+    public boolean allRoomAreCompleted() {
+        return this.rooms.stream().allMatch(r -> r.isComplited());
+    }
+
    
 }
