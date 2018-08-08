@@ -27,7 +27,9 @@ public class GameMapTestV1 {
         CollisionSupervisor cs = new CollisionSupervisorImpl();
         EntityFactory ef = new EntityFactoryImpl(cs);
         GameMap map = new GameMap(ef, p);
+        
+       
         map.printmappa();
-        map.getRooms().forEach(x -> System.out.println(x.getEntities()));
+      
     }
 }

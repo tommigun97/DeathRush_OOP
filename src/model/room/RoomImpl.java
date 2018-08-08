@@ -93,6 +93,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void openDoors() {
+    	//cambiare immagini quando apri e chiudi le porte 
         this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.OPEN));
     }
 
