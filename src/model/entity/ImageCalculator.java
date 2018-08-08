@@ -24,7 +24,6 @@ public interface ImageCalculator {
      */
     default boolean refresh(long lastTimeSaved) {
         boolean b = System.currentTimeMillis() - lastTimeSaved >= 100;
-        System.out.println("lastTime saved " + lastTimeSaved);
         return b;
     }
 
