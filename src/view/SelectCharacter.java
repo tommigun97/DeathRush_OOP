@@ -23,17 +23,19 @@ public class SelectCharacter extends Scene {
 
     private static final SelectCharacter MAINSCENE = new SelectCharacter();
 
-    private static final double BOTTOM_BOX_SPACING = 20;
+    private static final int BOTTOM_BOX_SPACING = 20;
 
-    private static final double BUTTON_PADDING = 20;
+    private static final int BUTTON_PADDING = 20;
 
-    private static final double BUTTON_WIDTH = 250;
+    private static final int BUTTON_WIDTH = 250;
 
-    private static final double FONT_SIZE = 46;
+    private static final int FONT_SIZE = 46;
 
-    private static final double BUTTON_TRANS = 60;
+    private static final int BUTTON_TRANS = 60;
 
-    private static final double BOTTOM_LAYOUT_PADDING = 50;
+    private static final int BOTTOM_LAYOUT_PADDING = 50;
+
+    private static final int MENU_ICON_SIZE = 60;
 
     private static Stage mainStage;
 
@@ -58,16 +60,20 @@ public class SelectCharacter extends Scene {
         mainTitle.setText("Select your Character");
         mainTitle.setId("title-character");
 
-        Image imageSimo = new Image(getClass().getResourceAsStream("/simo/1.png"), 60, 60, true, true);
+        Image imageSimo = new Image(getClass().getResourceAsStream("/simo/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE, true,
+                true);
         pgSimo.setGraphic(new ImageView(imageSimo));
 
-        Image imageCaso = new Image(getClass().getResourceAsStream("/kaso/1.png"), 60, 60, true, true);
+        Image imageCaso = new Image(getClass().getResourceAsStream("/kaso/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE, true,
+                true);
         pgCaso.setGraphic(new ImageView(imageCaso));
 
-        Image imageTommi = new Image(getClass().getResourceAsStream("/tommi/1.png"), 60, 60, true, true);
+        Image imageTommi = new Image(getClass().getResourceAsStream("/tommi/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE,
+                true, true);
         pgTommi.setGraphic(new ImageView(imageTommi));
 
-        Image imageAnis = new Image(getClass().getResourceAsStream("/anis/1.png"), 60, 60, true, true);
+        Image imageAnis = new Image(getClass().getResourceAsStream("/anis/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE, true,
+                true);
         pgAnis.setGraphic(new ImageView(imageAnis));
 
         final VBox vboxButton = new VBox(pgSimo, pgCaso, pgTommi, pgAnis);
