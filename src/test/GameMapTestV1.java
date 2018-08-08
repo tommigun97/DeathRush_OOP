@@ -29,7 +29,7 @@ public class GameMapTestV1 {
         GameMap map = new GameMap(ef, p);
         
        
-        map.printmappa();
+        map.toString();
       
     }
 }

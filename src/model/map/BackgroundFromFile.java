@@ -22,7 +22,7 @@ public enum BackgroundFromFile {
 
 	public  static String getRandomPath(RoomType type) {
 		int seq  = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(4) + 1 : 
-					type.equals(RoomType.BOSS) ? new Random().nextInt(3) + 5 : 0;
+					type.equals(RoomType.BOSS) ? new Random().nextInt(3) + 6 : 0;
 		return getPath(seq);
 	}
 
