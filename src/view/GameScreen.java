@@ -53,6 +53,7 @@ public class GameScreen extends Scene {
     private final Label mvspeed = new Label();
     private final Label attspeed = new Label();
     private final Label timePlayed = new Label();
+    private int mapCheck = 0;
 
     /**
      * Constructor for GameScreen. It sets up the scene.
@@ -115,6 +116,8 @@ public class GameScreen extends Scene {
                 ViewImpl.getController().pauseGameLoop();
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
+            } else if (event.getCode() == KeyCode.M) {
+                this.showMap();
             }
             inputHandler.press(event.getCode());
         });
@@ -137,6 +140,15 @@ public class GameScreen extends Scene {
             this.pauseButton.setText(RESUME);
         }
 
+    }
+
+    /**
+     * Private method. It's called when the user wants to see the in game map.
+     * 
+     */
+    private void showMap() {
+       this.pause();
+       ShowMap.print();
     }
 
     /**
