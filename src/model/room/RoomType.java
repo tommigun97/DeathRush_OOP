@@ -8,5 +8,5 @@ public enum RoomType {
     /**
      * 
      */
-    FIRTS, INTERMEDIATE, BOSS;
+    FIRTS, INTERMEDIATE, BOSS, VENDOR;
 }

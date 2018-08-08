@@ -1,7 +1,10 @@
 package model.map;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -11,6 +14,7 @@ import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
 import utilities.Pair;
+import model.entity.Boss;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.entity.EntityFactory;
@@ -81,7 +85,7 @@ public class GameMap implements Map {
         this.addNewRoom(b);
         this.addLink(a, b, Coordinates.EAST, DoorStatus.OPEN);
         this.path[MIDDLEX][MIDDLEY + 1] = b;
-        b = this.rBuilder.setComplited(false).setRoomID(0).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE)
+        b = this.rBuilder.setComplited(false).setRoomID(0).setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setTypes(RoomType.VENDOR)
                 .build();
         this.addNewRoom(b);
         this.addLink(a, b, Coordinates.WEST, DoorStatus.OPEN);
@@ -92,6 +96,10 @@ public class GameMap implements Map {
         this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
         this.readE = new ReadEntityImpl(this.getRooms(), player , this.entityF);
         this.readE.populateRooms();
+		
+	
+		
+		
     }
     //prima mi ha dato una null pointer exception
     private boolean checkDoor(final Room r, Coordinates x) {
