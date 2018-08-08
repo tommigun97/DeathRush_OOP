@@ -116,9 +116,7 @@ public final class ModelImpl implements Model {
         // prove
 //        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
 //                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
-         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-         .addEntity(eFactory.createMoscow(0.8, 0.8, player, currentRoom));
-//        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+         //        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
 //        .addEntity(eFactory.createObstacle(0.3, 0.3));
         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
       .addEntity(eFactory.createPowerUp(0.6, 0.6, currentRoom, PowerUp.ZUCCHERO));

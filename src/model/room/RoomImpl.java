@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 import model.entity.Entity;
 import model.entity.EntityType;
+import model.map.Coordinates;
 
 /**
  * 
@@ -95,6 +96,7 @@ public class RoomImpl implements Room {
     public void openDoors() {
     	//cambiare immagini quando apri e chiudi le porte 
         this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.OPEN));
+        this.doorsRoom.forEach(x -> x.setImage(((Coordinates)x.getObjectProperty("coordinate")).getOpen()));
     }
 
     /**
@@ -102,6 +104,8 @@ public class RoomImpl implements Room {
      */
     public void closeDoors() {
         this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.CLOSE));
+        this.doorsRoom.forEach(x -> x.setImage(((Coordinates)x.getObjectProperty("coordinate")).getClose()));
+
     }
 
     @Override

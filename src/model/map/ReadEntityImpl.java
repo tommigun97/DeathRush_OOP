@@ -41,8 +41,8 @@ public class ReadEntityImpl implements ReadEntity {
 	}
 
 	public void populateRooms() {
-    	/*this.rooms.forEach(x -> this.vuildEntityInRoom(x));
-    	this.rooms.forEach(x -> System.out.println("IDRoom " + x.getRoomID() + "" + x.getEntities().size()));*/
+    	this.rooms.forEach(x -> this.vuildEntityInRoom(x));
+    	this.rooms.forEach(x -> System.out.println("IDRoom " + x.getRoomID() + "" + x.getEntities().size()));
     }
 	
 	private void vuildEntityInRoom(Room x) {
