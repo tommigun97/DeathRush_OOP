@@ -1,10 +1,15 @@
 package view;
 
+import java.util.Random;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -16,6 +21,7 @@ public final class ShowMap {
 
     private static final double INFO_WIDTH = 520;
     private static final double INFO_HEIGHT = 650;
+    private static final int SIZE = 10;
 
     private ShowMap() {
     };
@@ -37,11 +43,44 @@ public final class ShowMap {
 
         final VBox listInfo = new VBox(10);
 
+        
+        int length = SIZE;
+        int width = SIZE;
+
+        GridPane grid = new GridPane();
+
+        for (int y = 0; y < length; y++) {
+            for (int x = 0; x < width; x++) {
+
+                Random rand = new Random();
+                int rand1 = rand.nextInt(2);
+
+                // Create a new TextField in each Iteration
+                TextField tf = new TextField();
+                tf.setPrefHeight(50);
+                tf.setPrefWidth(50);
+                tf.setAlignment(Pos.CENTER);
+                tf.setEditable(false);
+                tf.setText(String.valueOf(rand1));
+
+                if (Integer.parseInt(tf.getText()) == 1) {
+                    tf.setStyle("-fx-background-color: white;");
+                } else if (Integer.parseInt(tf.getText()) == 0) {
+                    tf.setStyle("-fx-background-color: black;");
+                }
+
+                // Iterate the Index using the loops
+                GridPane.setRowIndex(tf, y);
+                GridPane.setColumnIndex(tf, x);
+                grid.getChildren().add(tf);
+            }
+        }
+
         listInfo.getStylesheets().add("style.css");
         listInfo.setAlignment(Pos.CENTER);
         listInfo.setId("whiteTextInfo");
         listInfo.setPadding(new Insets(10));
-        listInfo.getChildren().addAll(instructionTitle);
+        listInfo.getChildren().addAll(instructionTitle, grid);
 
         final VBox layout = new VBox(10);
         final StackPane mainLayout = new StackPane();
