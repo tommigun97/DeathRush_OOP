@@ -62,6 +62,11 @@ public interface View {
     void gameOver();
 
     /**
+     * This method call the You Win Screen.
+     */
+    void youWin();
+
+    /**
      * This method is used to build the status-bar into the GameScreen.
      * 
      * @param playerLife

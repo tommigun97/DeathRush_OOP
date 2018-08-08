@@ -53,7 +53,6 @@ public class GameLoop extends Thread {
                     controller.processInput();
                     updateGame();
                 } else if (this.model.getGameStatus().equals(GameStatus.Over)) {
-                   System.out.println("gioco finito!!!");
                     this.view.gameOver();
                     this.setState(Status.KILLED);
                 }

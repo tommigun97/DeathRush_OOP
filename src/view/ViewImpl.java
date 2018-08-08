@@ -111,4 +111,11 @@ public class ViewImpl implements View {
         Platform.runLater(() -> ViewImpl.gameScreen.gameOver());
     }
 
+    /**
+     * Call the You Win inside the GameScreen.
+     */
+    public void youWin() {
+        Platform.runLater(() -> ViewImpl.gameScreen.youWin());
+    }
+
 }
