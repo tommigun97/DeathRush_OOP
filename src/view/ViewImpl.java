@@ -51,7 +51,8 @@ public class ViewImpl implements View {
     }
 
     @Override
-    public final void updateInfoToDraw(final int hp, final int money, final String time, final String damage, final String attackSpeed, final String mvSpeed) {
+    public final void updateInfoToDraw(final int hp, final int money, final String time, final String damage,
+            final String attackSpeed, final String mvSpeed) {
         Platform.runLater(() -> ViewImpl.gameScreen.updateInfo(hp, money, time, damage, attackSpeed, mvSpeed));
     }
 
@@ -110,8 +111,4 @@ public class ViewImpl implements View {
         Platform.runLater(() -> ViewImpl.gameScreen.gameOver());
     }
 
-    @Override
-    public void updateInfo() {
-        
-    }
 }
