@@ -117,6 +117,7 @@ public class GameScreen extends Scene {
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
             } else if (event.getCode() == KeyCode.M) {
+            	
                 this.showMap();
             }
             inputHandler.press(event.getCode());
@@ -148,6 +149,7 @@ public class GameScreen extends Scene {
      */
     private void showMap() {
        this.pause();
+       ViewImpl.getController().mapUpdate();
        ShowMap.print();
     }
 

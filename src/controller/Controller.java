@@ -205,4 +205,26 @@ public class Controller implements ControllerInterface {
         return this.playerName;
     }
 
+	@Override
+	public int[][] getViewMap() {
+		return this.model.getMapToView();
+	}
+
+	@Override
+	public int getXmap() {
+		return this.model.getXmap();
+	}
+
+	@Override
+	public int getYmap() {
+		return this.model.getYmap();
+	}
+
+	@Override
+	public void mapUpdate() {
+		this.model.mapUpdate();
+		
+	}
+
+	
 }

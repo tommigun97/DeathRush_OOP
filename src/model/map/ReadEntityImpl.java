@@ -124,7 +124,12 @@ public class ReadEntityImpl implements ReadEntity {
 		List<Boss> bossSet = Arrays.asList(Boss.CIATTO, Boss.CROATTI, Boss.THOR);
 		Iterator<Boss> it = bossSet.iterator();
 		this.rooms.stream().filter(z -> z.getType().equals(RoomType.BOSS))
-				.forEach(e -> e.addEntity(ef.createBoss(0.5, 0.5, e, Optional.of(this.entityToStolk), it.next())));
+				.forEach(e -> {
+					if(it.hasNext()) {
+						e.addEntity(ef.createBoss(0.5, 0.5, e, Optional.of(this.entityToStolk), it.next()));
+
+					}
+				});
 	}
 
 }

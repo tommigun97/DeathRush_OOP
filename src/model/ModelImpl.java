@@ -56,11 +56,6 @@ public final class ModelImpl implements Model {
         return l;
     }
 
-    @Override
-    public List<Pair<String, Pair<Integer, Integer>>> getMap() {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public void update(final Direction direction, final List<Direction> shoot) {
@@ -192,4 +187,25 @@ public final class ModelImpl implements Model {
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
+
+	@Override
+	public int[][] getMapToView() {
+		return this.map.getPathtoview();
+	}
+
+	@Override
+	public int getXmap() {
+		return this.map.getXmap();
+	}
+
+	@Override
+	public int getYmap() {
+		return this.map.getYmap();
+	}
+
+	@Override
+	public void mapUpdate() {
+		this.map.mapUpdate();
+		
+	}
 }
