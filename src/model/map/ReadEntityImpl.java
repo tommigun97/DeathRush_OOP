@@ -1,4 +1,4 @@
-package model.map;
+ package model.map;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
