@@ -158,13 +158,13 @@ public class Controller implements ControllerInterface {
     }
 
     @Override
-    public List<Pair<String, Integer>> getCurrentHighScores() {
+    public List<Pair<Pair<String, Integer>,String>> getCurrentHighScores() {
     	return this.sc.getScoreList();
     }
     
     @Override
     public boolean saveScoreGame() {
-    	this.sc.addScore(new Pair<>(this.playerName, this.model.getScore()));
+    	this.sc.addScore(new Pair<Pair<String, Integer>, String>(new Pair(this.playerName, this.model.getScore()), this.model.getTime()));
     	 try {
              this.sc.saveOnFile();
          } catch (IllegalStateException | IOException e) {

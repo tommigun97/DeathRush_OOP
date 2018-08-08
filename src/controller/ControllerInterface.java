@@ -54,7 +54,7 @@ public interface ControllerInterface {
      *
      * @return A List of scores (Pair<String, Integer>, a player name and a score)
      */
-    List<Pair<String, Integer>> getCurrentHighScores();
+    List<Pair<Pair<String, Integer>, String>> getCurrentHighScores();
 
     /**
      * Checks if there is a running game (existing and not paused).
