@@ -14,6 +14,10 @@ public interface Map {
     
     Set<Room> getRooms();
      
-    
     Room[][] getPath();
+    
+    /**
+     * @return true if all room are completed
+     */
+    boolean allRoomAreCompleted();
 }

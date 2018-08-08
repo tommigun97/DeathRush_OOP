@@ -72,8 +72,6 @@ public interface Model {
     GameStatus getGameStatus();
     
     int getScore();
-    
-    boolean isComplited();
 
 	String getPlayerDamage();
 

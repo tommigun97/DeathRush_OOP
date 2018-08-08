@@ -80,13 +80,13 @@ public final class ModelImpl implements Model {
         this.currentRoom.getEntities().forEach(e -> cs.collisionBetweenEntities(e, this.currentRoom.getEntities()));
         // eliminazione di entità morte e acquisto della ricompensa
         this.currentRoom.getEntities().forEach(e -> {
-            if (e.getType() == EntityType.ENEMY && e.getIntegerProperty("Current Life") == 0) {
+            if (e.getType() == EntityType.ENEMY && e.getIntegerProperty("Current Life") <= 0) {
                 this.currentRoom.deleteEntity(e);
                 this.player.changeIntProperty("Money",
                         player.getIntegerProperty("Money") + e.getIntegerProperty("Reward"));
             }
         });
-        //collisioni con i powerUp
+        // collisioni con i powerUp
         this.cs.collisionWithPowerUp(player, currentRoom.getEntities(), currentRoom);
         // collisioni con le porte
         if (this.currentRoom.isComplited()) {
@@ -94,7 +94,7 @@ public final class ModelImpl implements Model {
             Room r = currentRoom;
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
-            if(!r.equals(currentRoom)) {
+            if (!r.equals(currentRoom)) {
                 System.out.println("[Modelimpl]" + " doorID " + this.currentRoom);
                 this.currentRoom.closeDoors();
 
@@ -103,7 +103,10 @@ public final class ModelImpl implements Model {
         if (this.player.getIntegerProperty("Current Life") <= 0) {
             this.time.pause();
             this.gameStatus = GameStatus.Over;
-        } // manca l'if per dire quando il gioco è definitivamente completato
+        } else if (map.allRoomAreCompleted()) {
+            this.time.pause();
+            this.gameStatus = GameStatus.Won;
+        }
 
     }
 
@@ -161,6 +164,16 @@ public final class ModelImpl implements Model {
         return this.gameStatus;
     }
 
+    @Override
+    public void resumeTime() {
+        this.time.resume();
+    }
+
+    @Override
+    public int getScore() {
+        return this.time.getTotalSecond();
+    }
+
     /**
      * Getter for the player it is used only for debug.
      * 
@@ -178,24 +191,4 @@ public final class ModelImpl implements Model {
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
-
-    @Override
-    public void resumeTime() {
-        this.time.resume();
-    }
-
-    @Override
-    public int getScore() {
-        return this.time.getTotalSecond();
-    }
-
-    @Override
-    public boolean isComplited() {
-        /*
-         * if(this.map.getRooms().stream().anyMatch(x -> x.isComplited() == false)) {
-         * return false; }
-         */
-        return true;
-    }
-
 }
