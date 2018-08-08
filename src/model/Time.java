@@ -88,8 +88,9 @@ public class Time {
     }
 
     public String getCurrentTime() {
-         return ( "Time "+hourPassed + ":" + minutePassed + ":" + secondPassed);
+        return ("Time " + hourPassed + ":" + minutePassed + ":" + secondPassed);
     }
+
     public int getSec() {
         return this.secondPassed;
     }

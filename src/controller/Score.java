@@ -23,7 +23,7 @@ public class Score implements ScoreInterface {
 
 	private static final Integer MAX_SCORE = 10;
 
-	private Optional<List<Pair<String, Integer>>> scoreList;
+	private Optional<List<Pair<Pair<String, Integer>,String>>> scoreList;
 	private final String fileName;
 	private boolean save;
 
@@ -42,11 +42,11 @@ public class Score implements ScoreInterface {
 	}
 
 	@Override
-	public void addScore(final Pair<String, Integer> p) {
+	public void addScore(final Pair<Pair<String, Integer>, String> p ) {
 		if (!this.scoreList.isPresent()) {
 			this.loadData();
 		}
-		final List<Pair<String, Integer>> list = this.scoreList.get();
+		final List<Pair<Pair<String, Integer>, String>> list = this.scoreList.get();
 		list.add(p);
 		this.sortList(list);
 		this.resizeList(list);
@@ -58,9 +58,10 @@ public class Score implements ScoreInterface {
 	public final void saveOnFile() throws IOException {
 		if (this.scoreList.isPresent() && this.save) {
 			try (DataOutputStream out = new DataOutputStream(new FileOutputStream(this.fileName))) {
-				for (final Pair<String, Integer> p : this.scoreList.get()) {
-					out.writeUTF(p.getFirst());
-					out.writeInt(p.getSecond().intValue());
+				for (final Pair<Pair<String, Integer>, String> p : this.scoreList.get()) {
+					out.writeUTF(p.getFirst().getFirst());
+					out.writeInt(p.getFirst().getSecond().intValue());
+					out.writeUTF(p.getSecond());
 				}
 				this.save = false;
 			} catch (final Exception e) {
@@ -70,12 +71,12 @@ public class Score implements ScoreInterface {
 
 	@Override
 	public final void deleteAllScore() {
-		this.scoreList = Optional.of(new LinkedList<Pair<String, Integer>>());
+		this.scoreList = Optional.of(new LinkedList<Pair<Pair<String, Integer>, String>>());
 		this.save = true;
 	}
 
 	@Override
-	public final List<Pair<String, Integer>> getScoreList() {
+	public final List<Pair<Pair<String, Integer>, String>> getScoreList() {
 		if (!this.scoreList.isPresent()) {
 			this.loadData();
 		}
@@ -91,12 +92,14 @@ public class Score implements ScoreInterface {
 	 * read the data from file.
 	 */
 	private void loadData() {
-		final List<Pair<String, Integer>> list = new LinkedList<>();
+		final List<Pair<Pair<String, Integer>, String>> list = new LinkedList<>();
 		try (DataInputStream in = new DataInputStream(new FileInputStream(this.fileName))) {
 			while (true) {
 				final String name = in.readUTF();
 				final Integer score = Integer.valueOf(in.readInt());
-				list.add(new Pair<String, Integer>(name, score));
+				final String time = in.readUTF();
+				System.out.println("[Score] " + time);
+				list.add(new Pair<Pair<String, Integer>,String>(new Pair<String, Integer>(name, score), time));
 			}
 		} catch (final Exception ex) {
 		}
@@ -114,7 +117,7 @@ public class Score implements ScoreInterface {
 	 *            The starting list
 	 * @return True if the list was modified, False otherwise
 	 */
-	private boolean resizeList(final List<Pair<String, Integer>> l) {
+	private boolean resizeList(final List<Pair<Pair<String, Integer>, String>> l) {
 		final boolean changed = l.size() > MAX_SCORE;
 		if (l.size() > MAX_SCORE) {
 			l.remove(l.size() - 1);
@@ -127,8 +130,8 @@ public class Score implements ScoreInterface {
 	 * 
 	 * @param scoreList2
 	 */
-	private void sortList(final List<Pair<String, Integer>> scoreList2) {
-		Collections.sort(scoreList2, (a, b) -> a.getSecond() - b.getSecond());
+	private void sortList(final List<Pair<Pair<String, Integer>, String>> scoreList2) {
+		Collections.sort(scoreList2, (a, b) -> a.getFirst().getSecond() - b.getFirst().getSecond());
 	}
 
 }

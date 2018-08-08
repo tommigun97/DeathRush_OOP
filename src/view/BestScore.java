@@ -94,7 +94,7 @@ public class BestScore extends Scene {
      */
     private static void showScores() {
 
-        final List<Pair<String, Integer>> scoreList = ViewImpl.getController().getCurrentHighScores();
+        final List<Pair<Pair<String, Integer>, String>> scoreList = ViewImpl.getController().getCurrentHighScores();
         if (scoreList.isEmpty()) {
             listScores.getChildren().add(new Label("No Best Score Present ,yet"));
             listScores.getChildren().get(0).setId("score-list");
@@ -102,7 +102,7 @@ public class BestScore extends Scene {
             for (int i = 0; i < scoreList.size(); i++) {
                 final Label player = new Label();
                 player.setId("score-list");
-                player.setText(scoreList.get(i).getFirst() + " - " + scoreList.get(i).getSecond());
+                player.setText(scoreList.get(i).getFirst().getFirst() + " - " + scoreList.get(i).getSecond());
                 listScores.getChildren().add(player);
             }
         }

@@ -16,7 +16,7 @@ public interface ScoreInterface {
 	 * @param p
 	 *            The new score (Pair<String, Integer>)
 	 */
-	public void addScore(final Pair<String, Integer> p);
+	public void addScore(final Pair<Pair<String, Integer> ,String> p );
 
 	/**
 	 * Save the score into the file
@@ -48,6 +48,6 @@ public interface ScoreInterface {
 	 *
 	 * @return The scoreList
 	 */
-	List<Pair<String, Integer>> getScoreList() throws IOException;
+	List<Pair<Pair<String, Integer>, String>> getScoreList() throws IOException;
 
 }
