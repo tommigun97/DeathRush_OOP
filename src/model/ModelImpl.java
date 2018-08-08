@@ -119,7 +119,13 @@ public final class ModelImpl implements Model {
 //        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
 //        .addEntity(eFactory.createObstacle(0.3, 0.3));
         ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-      .addEntity(eFactory.createPowerUp(0.3, 0.3, currentRoom, PowerUp.PISTOLA));
+      .addEntity(eFactory.createPowerUp(0.6, 0.6, currentRoom, PowerUp.ZUCCHERO));
+        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+        .addEntity(eFactory.createPowerUp(0.7, 0.7, currentRoom, PowerUp.CHITARRA));
+        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+        .addEntity(eFactory.createPowerUp(0.1, 0.9, currentRoom, PowerUp.SIGARETTA));
+        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
+        .addEntity(eFactory.createPowerUp(0.9, 0.1, currentRoom, PowerUp.PISTOLA));
         
     }
 

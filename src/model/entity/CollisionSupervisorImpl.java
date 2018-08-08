@@ -105,11 +105,8 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
             if (collision(p, o)) {
                 if (o.getObjectProperty("Type") == PowerUp.CHITARRA) {
                     p.changeObjectProperty("Shoot Frequency", ((Long) p.getObjectProperty("Shoot Frequency"))
-                            - ((Long) o.getObjectProperty("Increse Attack Speed")));
+                            - ((Long) o.getObjectProperty("Increse Attack Frequency")));
                 } else if (o.getObjectProperty("Type") == PowerUp.SIGARETTA) {
-                    System.out.println("player current" + p.getIntegerProperty("Current Life"));
-                    System.out.println("Player max" + p.getIntegerProperty("Max Life"));
-                    System.out.println("oggetto " +  o.getIntegerProperty("Increase Hp"));
                     int l = p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp") >= p
                             .getIntegerProperty("Max Life") ? p.getIntegerProperty("Max Life")
                                     : p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp");
