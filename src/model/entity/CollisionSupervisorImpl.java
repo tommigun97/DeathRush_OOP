@@ -100,7 +100,8 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                 System.out.println(d.getObjectProperty("nextRoom"));
                 Double x = Coordinates.reverseAfterCollisionDoor(d).getFirst();
                 Double y = Coordinates.reverseAfterCollisionDoor(d).getSecond();
-                p.setLocation(new Location(x, y,new Area(p.getLocation().getArea().getWidth(), p.getLocation().getArea().getHeight())));
+                p.setLocation(new Location(x, y,
+                        new Area(p.getLocation().getArea().getWidth(), p.getLocation().getArea().getHeight())));
             }
         });
     }
@@ -109,22 +110,24 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
     public void collisionWithPowerUp(final Entity p, final Set<Entity> other, final Room current) {
         other.stream().filter(o -> o.getType() == EntityType.POWER_UP).forEach(o -> {
             if (collision(p, o)) {
-                if (o.getObjectProperty("Type") == PowerUp.CHITARRA) {
-                    p.changeObjectProperty("Shoot Frequency", ((Long) p.getObjectProperty("Shoot Frequency"))
-                            - ((Long) o.getObjectProperty("Increse Attack Frequency")));
-                } else if (o.getObjectProperty("Type") == PowerUp.SIGARETTA) {
-                    int l = p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp") >= p
-                            .getIntegerProperty("Max Life") ? p.getIntegerProperty("Max Life")
-                                    : p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp");
-                    p.changeIntProperty("Current Life", l);
-                } else if (o.getObjectProperty("Type") == PowerUp.PISTOLA) {
-                    p.changeIntProperty("Shooting Damage",
-                            p.getIntegerProperty("Shooting Damage") + o.getIntegerProperty("Increase Damage"));
-                } else {
-                    p.changeDoubleProperty("Speed",
-                            p.getDoubleProperty("Speed") + o.getDoubleProperty("Increase Movement Speed"));
+                if (p.getIntegerProperty("Money") >= o.getIntegerProperty("Cost")) {
+                    if (o.getObjectProperty("Type") == PowerUp.CHITARRA) {
+                        p.changeObjectProperty("Shoot Frequency", ((Long) p.getObjectProperty("Shoot Frequency"))
+                                - ((Long) o.getObjectProperty("Increse Attack Frequency")));
+                    } else if (o.getObjectProperty("Type") == PowerUp.SIGARETTA) {
+                        int l = p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp") >= p
+                                .getIntegerProperty("Max Life") ? p.getIntegerProperty("Max Life")
+                                        : p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp");
+                        p.changeIntProperty("Current Life", l);
+                    } else if (o.getObjectProperty("Type") == PowerUp.PISTOLA) {
+                        p.changeIntProperty("Shooting Damage",
+                                p.getIntegerProperty("Shooting Damage") + o.getIntegerProperty("Increase Damage"));
+                    } else {
+                        p.changeDoubleProperty("Speed",
+                                p.getDoubleProperty("Speed") + o.getDoubleProperty("Increase Movement Speed"));
+                    }
+                    current.deleteEntity(o);
                 }
-                current.deleteEntity(o);
             }
         });
 

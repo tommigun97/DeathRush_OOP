@@ -121,8 +121,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     @Override
     public final Entity createDoor(final double x, final double y, final DoorStatus status, final Room nextRoom,
             final String image, final Coordinates coor, final Area area) {
-        return new EntityImpl.EntitiesBuilder()
-        		.setImage(image)
+        return new EntityImpl.EntitiesBuilder().setImage(image)
                 .setLocation(new Location(x, y, new Area(coor.getArea().getWidth(), coor.getArea().getHeight())))
                 .with("doorStatus", status).with("nextRoom", nextRoom).with("image", image).with("coordinate", coor)
                 .build();
@@ -180,20 +179,21 @@ public final class EntityFactoryImpl implements EntityFactory {
     public Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who) {
         if (who == PowerUp.CHITARRA) {
             return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.CHITARRA)
-                    .setLocation(new Location(x, y, PowerUp.CHITARRA.getArea()))
-                    .with("Increse Attack Frequency", GUITAR_UPGRADE).setImage("pw1/chitarra.png").build();
+                    .setLocation(new Location(x, y, PowerUp.CHITARRA.getArea())).with("Cost", who.getCost())
+                    .with("Increse Attack Frequency", GUITAR_UPGRADE).setImage(who.getImage()).build();
         } else if (who == PowerUp.SIGARETTA) {
             return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.SIGARETTA)
                     .setLocation(new Location(x, y, PowerUp.SIGARETTA.getArea())).with("Increase Hp", CIGARETTE_UPGRADE)
-                    .setImage("pw1/sigaretta.png").build();
+                    .with("Cost", who.getCost()).setImage(who.getImage()).build();
         } else if (who == PowerUp.ZUCCHERO) {
             return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.ZUCCHERO)
                     .setLocation(new Location(x, y, PowerUp.ZUCCHERO.getArea()))
-                    .with("Increase Movement Speed", SUGAR_UPGRADE).setImage("pw1/stecca.png").build();
+                    .with("Increase Movement Speed", SUGAR_UPGRADE).with("Cost", who.getCost()).setImage(who.getImage())
+                    .build();
         } else {
             return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.PISTOLA)
                     .setLocation(new Location(x, y, PowerUp.PISTOLA.getArea())).with("Increase Damage", GUN_UPGRADE)
-                    .setImage("pw1/gun.png").build();
+                    .with("Cost", who.getCost()).setImage(who.getImage()).build();
         }
     }
 
