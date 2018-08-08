@@ -1,7 +1,6 @@
 package view;
 
 import java.util.Random;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -9,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -21,7 +19,8 @@ public final class ShowMap {
 
     private static final double INFO_WIDTH = 520;
     private static final double INFO_HEIGHT = 650;
-    private static final int SIZE = 10;
+    private static final int SQUARE_SIZE = 50;
+    private static final int GRID_SIZE = 10;
 
     private ShowMap() {
     };
@@ -43,9 +42,8 @@ public final class ShowMap {
 
         final VBox listInfo = new VBox(10);
 
-        
-        int length = SIZE;
-        int width = SIZE;
+        int length = GRID_SIZE;
+        int width = GRID_SIZE;
 
         GridPane grid = new GridPane();
 
@@ -57,16 +55,18 @@ public final class ShowMap {
 
                 // Create a new TextField in each Iteration
                 TextField tf = new TextField();
-                tf.setPrefHeight(50);
-                tf.setPrefWidth(50);
+                tf.setPrefHeight(SQUARE_SIZE);
+                tf.setPrefWidth(SQUARE_SIZE);
                 tf.setAlignment(Pos.CENTER);
                 tf.setEditable(false);
                 tf.setText(String.valueOf(rand1));
 
                 if (Integer.parseInt(tf.getText()) == 1) {
                     tf.setStyle("-fx-background-color: white;");
+                    tf.setText(null);
                 } else if (Integer.parseInt(tf.getText()) == 0) {
                     tf.setStyle("-fx-background-color: black;");
+                    tf.setText(null);
                 }
 
                 // Iterate the Index using the loops
