@@ -77,4 +77,15 @@ public interface CollisionSupervisor {
      */
     void collisionWithDoors(Entity p, Set<Entity> doors);
 
+    /**
+     * the methods check if entity collide with some obstacles in the list of other
+     * entities and delete the entity from room in case of collision.
+     * 
+     * @param p
+     *            player
+     * @param other
+     *            entities
+     */
+    void collisionWithPowerUp(Entity p, Set<Entity> other, Room current);
+
 }
