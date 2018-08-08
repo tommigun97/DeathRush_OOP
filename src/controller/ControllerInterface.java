@@ -87,5 +87,14 @@ public interface ControllerInterface {
     void setPlayerName(String name);
     
     String getPlaterName();
+    
+    int[][] getViewMap();
+    
+    
+    int getXmap();
+    
+    int getYmap();
+    
+    void mapUpdate();
 
 }

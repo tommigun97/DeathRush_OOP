@@ -19,8 +19,9 @@ public final class ShowMap {
 
     private static final double INFO_WIDTH = 520;
     private static final double INFO_HEIGHT = 650;
-    private static final int SQUARE_SIZE = 50;
-    private static final int GRID_SIZE = 10;
+    private static final int SQUARE_SIZE = 40;
+    private static final int GRID_SIZE = 12;
+    
 
     private ShowMap() {
     };
@@ -29,6 +30,7 @@ public final class ShowMap {
      * It shows the box.
      */
     static void print() {
+    	int[][] map = ViewImpl.getController().getViewMap();
         final Stage window = new Stage();
         window.setResizable(false);
         window.centerOnScreen();
@@ -42,29 +44,33 @@ public final class ShowMap {
 
         final VBox listInfo = new VBox(10);
 
-        int length = GRID_SIZE;
-        int width = GRID_SIZE;
+        int length = ViewImpl.getController().getYmap();
+        int width = ViewImpl.getController().getXmap();
 
         GridPane grid = new GridPane();
 
         for (int y = 0; y < length; y++) {
             for (int x = 0; x < width; x++) {
 
-                Random rand = new Random();
-                int rand1 = rand.nextInt(2);
-
+            	
                 // Create a new TextField in each Iteration
                 TextField tf = new TextField();
                 tf.setPrefHeight(SQUARE_SIZE);
                 tf.setPrefWidth(SQUARE_SIZE);
                 tf.setAlignment(Pos.CENTER);
                 tf.setEditable(false);
-                tf.setText(String.valueOf(rand1));
+                tf.setText(String.valueOf(map[y][x]));
 
                 if (Integer.parseInt(tf.getText()) == 1) {
                     tf.setStyle("-fx-background-color: white;");
                     tf.setText(null);
-                } else if (Integer.parseInt(tf.getText()) == 0) {
+                } else if (Integer.parseInt(tf.getText()) == 3) {
+                    tf.setStyle("-fx-background-color: grey;");
+                    tf.setText(null);
+                }else if (Integer.parseInt(tf.getText()) == 2) {
+                    tf.setStyle("-fx-background-color: red;");
+                    tf.setText(null);
+                }else if (Integer.parseInt(tf.getText()) == 0) {
                     tf.setStyle("-fx-background-color: black;");
                     tf.setText(null);
                 }

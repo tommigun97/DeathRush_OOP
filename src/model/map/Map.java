@@ -15,7 +15,14 @@ public interface Map {
     Set<Room> getRooms();
      
     Room[][] getPath();
+
+    int[][] getPathtoview();
     
+    int getXmap();
+    
+    int getYmap();
+    
+    void mapUpdate();
     /**
      * @return true if all room are completed
      */

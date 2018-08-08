@@ -25,24 +25,26 @@ import model.map.ReadEntityImpl;
 public class GameMap implements Map {
 
     private final static int MAXROOM = 15;
-    private final static int X = 20;
-    private final static int Y = 20;
+    private final static int X = 12;
+    private final static int Y = 12;
     private final static int MIDDLEX = X / 2;
     private final static int MIDDLEY = Y / 2;
 
     private Room[][] path;
     private Set<Room> rooms;
     private Set<Entity> doors;
-    private Room firstRoom;
+    private MapToPass pass;
     private ReadEntityImpl readE;
     private RoomBuilder rBuilder;
     private EntityFactory entityF;
     private Entity player;
+  
     
     private int stanzeTotali;
 
     public GameMap(EntityFactory entityFactory, Entity player) {
         this.rooms = new HashSet<>();
+      
         this.doors = new HashSet<>();
         this.rBuilder = new RoomBuilder();
         this.entityF = entityFactory;
@@ -96,8 +98,9 @@ public class GameMap implements Map {
         this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
         this.readE = new ReadEntityImpl(this.getRooms(), player , this.entityF);
         this.readE.populateRooms();
-		
-	
+        this.pass = new MapToPass(this, this.Y, this.X, this.player);
+        this.pass.print();
+        
 		
 		
     }
@@ -206,6 +209,25 @@ public class GameMap implements Map {
     public boolean allRoomAreCompleted() {
         return this.rooms.stream().allMatch(r -> r.isComplited());
     }
+
+	@Override
+	public int[][] getPathtoview() {
+		return this.pass.getPathToView();
+	}
+
+	@Override
+	public int getXmap() {
+		return this.X;
+	}
+
+	@Override
+	public int getYmap() {
+		return this.Y;
+	}
+	
+	public void mapUpdate() {
+		this.pass.buildPath();
+	}
 
    
 }

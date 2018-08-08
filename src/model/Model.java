@@ -21,11 +21,7 @@ public interface Model {
      */
     List<Pair<String, Location>> getEntitiesToDrow();
 
-    /**
-     * @return map configuration
-     */
-    List<Pair<String, Pair<Integer, Integer>>> getMap();
-
+  
     /**
      * @param direction
      *            direction where the player have to move.
@@ -78,4 +74,13 @@ public interface Model {
 	String getPlayerAttSpeed();
 
 	String getPlayerMvSpeed();
+	
+	int[][] getMapToView();
+	
+    
+    int getXmap();
+    
+    int getYmap();
+    
+    void mapUpdate();
 }
