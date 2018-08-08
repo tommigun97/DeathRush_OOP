@@ -98,7 +98,8 @@ public class Score implements ScoreInterface {
 				final String name = in.readUTF();
 				final Integer score = Integer.valueOf(in.readInt());
 				final String time = in.readUTF();
-				list.add(new Pair<Pair<String, Integer>,String>(new Pair<String, Integer>(name, score),""));
+				System.out.println("[Score] " + time);
+				list.add(new Pair<Pair<String, Integer>,String>(new Pair<String, Integer>(name, score), time));
 			}
 		} catch (final Exception ex) {
 		}
