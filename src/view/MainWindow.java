@@ -28,7 +28,7 @@ public class MainWindow extends Application {
         this.mainWindow.setWidth(WIDTH);
         this.mainWindow.setTitle("Death Rush v0.1");
         this.mainWindow.centerOnScreen();
-        this.mainWindow.setResizable(false);
+        this.mainWindow.setResizable(true);
 
         this.mainWindow.setOnCloseRequest(e -> {
             e.consume();

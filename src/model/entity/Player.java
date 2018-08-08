@@ -26,7 +26,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.04, 0.15);
+            return new Area(0.03, 0.12);
         }
 
         @Override
@@ -68,7 +68,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.04, 0.15);
+            return new Area(0.03, 0.12);
         }
 
         @Override
@@ -109,7 +109,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.04, 0.13);
+            return new Area(0.04, 0.12);
         }
 
         @Override
@@ -150,7 +150,7 @@ public enum Player {
 
         @Override
         public Area getArea() {
-            return new Area(0.06, 0.15);
+            return new Area(0.05, 0.13);
         }
 
         @Override

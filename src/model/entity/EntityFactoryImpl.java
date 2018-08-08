@@ -27,8 +27,8 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final double DEFAULT_BULLET_WEIGHT = 0.03;
     private static final double DEFAULT_BULLET_HEIGHT = 0.03;
     private static final double DEFAULT_BULLET_SPEED = 0.01;
-    private static final double DEFAULT_OBSTACLE_WEIGHT = 0.04;
-    private static final double DEFAULT_OBSTACLE_HEIGHT = 0.06;
+    private static final double DEFAULT_OBSTACLE_WEIGHT = 0.03;
+    private static final double DEFAULT_OBSTACLE_HEIGHT = 0.04;
     private static final String DEFAULT_OBSTACLE_IMAGE = "room/rock.png";
     private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(
             Arrays.asList("images/enemies/stalker_S.png", "images/enemies/stalker_S2.png"));

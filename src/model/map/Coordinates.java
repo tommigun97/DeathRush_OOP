@@ -83,9 +83,9 @@ public enum Coordinates {
     }
 
     public static Pair<Integer, Integer> getMovementFromCoordinates(Coordinates c) {
-        return c.equals(NORTH) ? new Pair<Integer, Integer>(0, 1)
-                : c.equals(SOUTH) ? new Pair<Integer, Integer>(0, -1)
-                        : c.equals(WEST) ? new Pair<Integer, Integer>(-1, 0) : new Pair<Integer, Integer>(1, 0);
+        return c.equals(NORTH) ? new Pair<Integer, Integer>(-1, 0)
+                : c.equals(SOUTH) ? new Pair<Integer, Integer>(1, 0)
+                        : c.equals(WEST) ? new Pair<Integer, Integer>(0, -1) : new Pair<Integer, Integer>(0, 1);
     }
 
     public  String getImage(DoorStatus x) {

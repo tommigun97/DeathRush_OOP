@@ -41,11 +41,11 @@ public class ReadEntityImpl implements ReadEntity {
 	}
 
 	public void populateRooms() {
-    	this.rooms.forEach(x -> this.vuildEntityInRoom(x));
+    	this.rooms.forEach(x -> this.buildEntityInRoom(x));
     	this.rooms.forEach(x -> System.out.println("IDRoom " + x.getRoomID() + "" + x.getEntities().size()));
     }
 	
-	private void vuildEntityInRoom(Room x) {
+	private void buildEntityInRoom(Room x) {
 		try  {
 			RoomType roomT = x.getType();
 			this.file = BackgroundFromFile.getRandomPath(roomT);
@@ -66,7 +66,7 @@ public class ReadEntityImpl implements ReadEntity {
                 for(int j = 0; j<column; j++) {
                 	currentChar = line.charAt(j);
                  	if(currentChar != NOSCAN) {
-                 		this.scanFind(currentChar, i*rowProportion, j*columnProportion, x);
+                 		this.scanFind(currentChar, j*columnProportion,i*rowProportion , x);
                  	}
                  }
             }

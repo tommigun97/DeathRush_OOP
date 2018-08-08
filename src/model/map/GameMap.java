@@ -176,7 +176,7 @@ public class GameMap implements Map {
         this.rooms.add(x);
     }
 
-    public void printmappa() {
+    public String toString() {
         for (int i = 0; i < X; i++) {
             for (int j = 0; j < Y; j++) {
                 if (path[i][j] == null) {
@@ -191,6 +191,7 @@ public class GameMap implements Map {
             System.out.println("\n");
 
         }
+        return "printOK";
     }
 
    

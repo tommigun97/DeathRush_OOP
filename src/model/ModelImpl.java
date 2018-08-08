@@ -67,7 +67,6 @@ public final class ModelImpl implements Model {
         // il giocatore si muove
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentDirection(direction);
         player.getBehaviour().get().update();
-        System.out.println(player.getLocation());
         // il giocatore spara
         shoot.forEach(d -> ((PlayerBehavior) player.getBehaviour().get()).shoot(d));
         // vengono aggiornate tutte le altre entità della stanza
@@ -92,8 +91,14 @@ public final class ModelImpl implements Model {
         // collisioni con le porte
         if (this.currentRoom.isComplited()) {
             this.currentRoom.openDoors();
+            Room r = currentRoom;
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
+            if(!r.equals(currentRoom)) {
+                System.out.println("[Modelimpl]" + " doorID " + this.currentRoom);
+                this.currentRoom.closeDoors();
+
+            }
         }
         if (this.player.getIntegerProperty("Current Life") <= 0) {
             this.time.pause();
@@ -112,21 +117,8 @@ public final class ModelImpl implements Model {
         this.time = new Time();
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentRoom(currentRoom);
+        this.map.toString();
         time.start();
-        // prove
-//        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-//                .addEntity(eFactory.createBoss(0.3, 0.3, currentRoom, Optional.of(player), Boss.THOR));
-         //        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-//        .addEntity(eFactory.createObstacle(0.3, 0.3));
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-      .addEntity(eFactory.createPowerUp(0.6, 0.6, currentRoom, PowerUp.ZUCCHERO));
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        .addEntity(eFactory.createPowerUp(0.7, 0.7, currentRoom, PowerUp.CHITARRA));
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        .addEntity(eFactory.createPowerUp(0.1, 0.9, currentRoom, PowerUp.SIGARETTA));
-        ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom()
-        .addEntity(eFactory.createPowerUp(0.9, 0.1, currentRoom, PowerUp.PISTOLA));
-        
     }
 
     @Override
