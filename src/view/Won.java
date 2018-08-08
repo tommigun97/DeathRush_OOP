@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -15,9 +17,9 @@ import javafx.stage.Stage;
 /**
  * This class is responsible for showing to the user the Settings Window.
  */
-public class GameOver extends Scene {
+public class Won extends Scene {
 
-    private static final GameOver MAINSCENE = new GameOver();
+    private static final Won MAINSCENE = new Won();
 
     private static final double BOTTOM_BOX_SPACING = 20;
 
@@ -31,30 +33,39 @@ public class GameOver extends Scene {
 
     private static final double BOTTOM_LAYOUT_PADDING = 50;
 
-    private final Button goToMenu = new Button("MAIN MENU");
+    private final TextField insertName = new TextField();
+
+    private final Button saveName = new Button("Save Score !");
 
     private static Stage mainStage;
 
     /**
      * Constructor for the scene.
      */
-    public GameOver() {
+    public Won() {
         super(new StackPane());
 
         final StackPane mainLayout = new StackPane();
 
-        Text mainTitle = new Text("Settings");
+        Text mainTitle = new Text("won");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
-        mainTitle.setText("Game Over");
+        mainTitle.setText("You Win");
         mainTitle.setId("title");
 
-        final VBox vboxButton = new VBox(goToMenu);
+        final Label insertNameLabel = new Label("Insert your name:");
+        insertNameLabel.setId("insert-name");
+
+        final VBox vboxButton = new VBox(insertNameLabel, insertName, saveName);
         vboxButton.setPrefWidth(BUTTON_WIDTH);
         vboxButton.setAlignment(Pos.CENTER);
         vboxButton.setSpacing(10);
         vboxButton.setPadding(new Insets(BUTTON_PADDING));
         vboxButton.getChildren().forEach(e -> e.setId("menu-buttons"));
-        goToMenu.setOnAction(e -> {
+        saveName.setOnAction(e -> {
+            System.out.println(insertName.getText());
+            ViewImpl.getController().setPlayerName(insertName.getText());
+            ViewImpl.getController().saveScoreGame();
+            GenericBox.display("Success", "Name and Score saved ! ", "Ok");
             mainStage.setScene(MainMenu.get(mainStage));
         });
 
@@ -89,8 +100,9 @@ public class GameOver extends Scene {
      */
     static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
-        mainStage.setTitle("Death Rush - Game Over");
+        mainStage.setTitle("Death Rush - You Win");
         return MAINSCENE;
     }
 
 }
+

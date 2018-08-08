@@ -295,4 +295,11 @@ public class GameScreen extends Scene {
         this.mainStage.setScene(GameOver.get(this.mainStage));
     }
 
+    /**
+     * Call the You Win screen.
+     */
+    public void youWin() {
+        this.mainStage.setScene(Won.get(this.mainStage));
+    }
+
 }

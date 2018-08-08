@@ -26,8 +26,6 @@ public interface View {
      */
     void draw(List<Pair<String, Location>> listEntities, String backgroundPath);
 
-    void updateInfo();
-
     /**
      * It returns a list with the inputs(movement) detected during a game.
      * 
@@ -63,6 +61,28 @@ public interface View {
      */
     void gameOver();
 
-    void updateInfoToDraw(int playerLife, int money, String time, String playerDamage, String playerAttSpeed,String playerMvSpeed);
+    /**
+     * This method call the You Win Screen.
+     */
+    void youWin();
+
+    /**
+     * This method is used to build the status-bar into the GameScreen.
+     * 
+     * @param playerLife
+     *            player life.
+     * @param money
+     *            player money.
+     * @param time
+     *            time played.
+     * @param playerDamage
+     *            player damage power-up
+     * @param playerAttSpeed
+     *            player attack speed power-up
+     * @param playerMvSpeed
+     *            player movement speed power-up
+     */
+    void updateInfoToDraw(int playerLife, int money, String time, String playerDamage, String playerAttSpeed,
+            String playerMvSpeed);
 
 }
