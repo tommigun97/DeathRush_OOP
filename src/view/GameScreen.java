@@ -80,7 +80,7 @@ public class GameScreen extends Scene {
         damage.setId("status-bar");
         attspeed.setId("status-bar");
         mvspeed.setId("status-bar");
-        buttonGame.getChildren().addAll(pauseButton, infoButton, timePlayed, hp, coin,damage,attspeed,mvspeed);
+        buttonGame.getChildren().addAll(pauseButton, infoButton, timePlayed, hp, coin, damage, attspeed, mvspeed);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);
         buttonGame.setPadding(new Insets(10, inGameWidth, 0, 0));
@@ -247,7 +247,6 @@ public class GameScreen extends Scene {
         this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
         this.infoBox.setMinHeight((50 * resConstantHeight));
         this.infoBox.setSpacing(12 * resConstantWidth);
-        this.hp.setFont(Font.font(null, FontWeight.BOLD, BASIC_FONT * resConstantWidth));
         this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
         this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
         this.pauseButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
@@ -255,6 +254,12 @@ public class GameScreen extends Scene {
         this.infoButton.setOnMouseEntered(e -> this.infoButton.setFont(Font.font(15 * resConstantHeight)));
         this.pauseButton.setOnMouseEntered(e -> this.pauseButton.setFont(Font.font(15 * resConstantHeight)));
         this.pauseButton.setFont(Font.font(15 * resConstantHeight));
+        this.hp.setFont(Font.font(15 * resConstantHeight));
+        this.coin.setFont(Font.font(15 * resConstantHeight));
+        this.damage.setFont(Font.font(15 * resConstantHeight));
+        this.attspeed.setFont(Font.font(15 * resConstantHeight));
+        this.mvspeed.setFont(Font.font(15 * resConstantHeight));
+        this.timePlayed.setFont(Font.font(15 * resConstantHeight));
     }
 
     /**
