@@ -48,7 +48,6 @@ public class GameLoop extends Thread {
         this.model.start(controller.getPlayer());
         while (!this.isInState(Status.KILLED)) {
             if (this.isInState(Status.RUNNING)) {
-                System.out.println("stato model " + this.model.getGameStatus());
                 long time = System.currentTimeMillis();
                 if (this.model.getGameStatus().equals(GameStatus.Running)) {
                     controller.processInput();
