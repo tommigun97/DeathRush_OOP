@@ -17,9 +17,9 @@ import model.entity.EntityType;
 import model.entity.Player;
 import model.entity.PlayerBehavior;
 import model.entity.PowerUp;
-import model.map.GameWorldImpl;
-import model.map.GameWorld;
 import model.room.Room;
+import model.world.GameWorld;
+import model.world.GameWorldImpl;
 import utilities.Pair;
 
 /**

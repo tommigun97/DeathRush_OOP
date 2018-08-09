@@ -4,8 +4,8 @@ import java.util.Set;
 
 import model.Area;
 import model.Location;
-import model.map.Coordinates;
 import model.room.Room;
+import model.world.Coordinates;
 
 /**
  * CollisionSupervisor implementation.

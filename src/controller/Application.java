@@ -5,7 +5,7 @@ import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
-import model.map.GameWorldImpl;
+import model.world.GameWorldImpl;
 import view.View;
 
 /**

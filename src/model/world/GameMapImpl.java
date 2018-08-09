@@ -1,4 +1,4 @@
-package model.map;
+package model.world;
 
 import model.entity.Entity;
 import model.entity.PlayerBehavior;

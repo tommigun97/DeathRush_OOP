@@ -14,8 +14,8 @@ import model.entity.Entity;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
 import model.entity.Player;
-import model.map.GameWorldImpl;
 import model.room.Room;
+import model.world.GameWorldImpl;
 import utilities.Pair;
 
 

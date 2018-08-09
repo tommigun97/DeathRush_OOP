@@ -1,4 +1,4 @@
-package model.map;
+package model.world;
 
 public interface ScanEntity {
 

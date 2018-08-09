@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 import model.entity.Entity;
 import model.entity.EntityType;
-import model.map.Coordinates;
+import model.world.Coordinates;
 
 /**
  * 

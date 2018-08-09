@@ -4,8 +4,8 @@ import java.util.Optional;
 
 import model.Area;
 import model.Direction;
-import model.map.Coordinates;
 import model.room.Room;
+import model.world.Coordinates;
 import utilities.Pair;
 
 /**

@@ -1,4 +1,4 @@
-package model.map;
+package model.world;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,14 +13,14 @@ import java.util.concurrent.CopyOnWriteArraySet;
 import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
+import model.world.ScanEntity;
+import model.world.ScanEntityImpl;
 import utilities.Pair;
 import model.entity.Boss;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.entity.EntityFactory;
 import model.entity.Player;
-import model.map.ScanEntity;
-import model.map.ScanEntityImpl;
 
 public class GameWorldImpl implements GameWorld {
 

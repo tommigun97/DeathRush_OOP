@@ -4,6 +4,7 @@ import model.Area;
 import model.Direction;
 import model.Location;
 import model.room.Room;
+import model.world.Coordinates;
 import utilities.Pair;
 import model.entity.DoorStatus;
 import java.util.ArrayList;
@@ -15,8 +16,6 @@ import java.util.Optional;
 import model.Area;
 import model.Direction;
 import model.Location;
-import model.map.Coordinates;
-
 import model.room.Room;
 import utilities.Pair;
 

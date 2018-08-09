@@ -1,4 +1,4 @@
- package model.map;
+ package model.world;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -16,7 +16,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import model.map.BackgroundFromFile;
+
 import model.entity.Boss;
 import model.entity.Entity;
 import model.entity.EntityFactory;
@@ -24,6 +24,7 @@ import model.entity.EntityPropieties;
 import model.entity.PowerUp;
 import model.room.Room;
 import model.room.RoomType;
+import model.world.BackgroundFromFile;
 import utilities.Pair;
 
 public class ScanEntityImpl implements ScanEntity {
@@ -64,9 +65,6 @@ public class ScanEntityImpl implements ScanEntity {
 			this.bufferReader = new BufferedReader(new FileReader(this.file));
 			int column = this.bufferReader.readLine().length();
 			int row = calculateRow();
-			System.out.println("File " + this.fileName);
-			System.out.println("IDRoom" + x.getRoomID());
-			System.out.println("TypeRoom" + x.getType() + "\n");
 			double columnProportion = WEIGHT / column;
 			double rowProportion = HEIGHT / row;
 			String line;

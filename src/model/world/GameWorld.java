@@ -1,4 +1,4 @@
-package model.map;
+package model.world;
 
 import java.util.Optional;
 import java.util.Set;

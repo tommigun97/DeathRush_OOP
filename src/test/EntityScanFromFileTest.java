@@ -14,10 +14,10 @@ import model.entity.Entity;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
 import model.entity.Player;
-import model.map.BackgroundFromFile;
-import model.map.ScanEntityImpl;
 import model.room.Room;
 import model.room.RoomImpl.RoomBuilder;
+import model.world.BackgroundFromFile;
+import model.world.ScanEntityImpl;
 import model.room.RoomType;
 import utilities.Pair;
 
