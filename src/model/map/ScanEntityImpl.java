@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -30,7 +32,8 @@ public class ScanEntityImpl implements ScanEntity {
 	private final static double WEIGHT = 1;
 	private final static char NOSCAN = '0';
 
-	private String file;
+	private String fileName;
+	private File file;
 	private Set<Room> rooms;
 	private Set<Entity> entitiesRead;
 	private EntityFactory ef;
@@ -53,14 +56,15 @@ public class ScanEntityImpl implements ScanEntity {
 
 	private void buildEntityInRoom(Room x) {
 		try {
+			ClassLoader classLoader = getClass().getClassLoader();
 			if(!x.getType().equals(RoomType.BOSS)) {
 				this.setFile(BackgroundFromFile.getRandomPath(x.getType()));
 			}
+			this.file = new File(classLoader.getResource(this.fileName).getFile());
 			this.bufferReader = new BufferedReader(new FileReader(this.file));
 			int column = this.bufferReader.readLine().length();
 			int row = calculateRow();
-		
-			System.out.println("File " + this.file);
+			System.out.println("File " + this.fileName);
 			System.out.println("IDRoom" + x.getRoomID());
 			System.out.println("TypeRoom" + x.getType() + "\n");
 			double columnProportion = WEIGHT / column;
@@ -77,19 +81,16 @@ public class ScanEntityImpl implements ScanEntity {
 					}
 				}
 			}
+			this.bufferReader.close();
 		} catch (Exception e) {
-			try {
-				throw e;
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			e.printStackTrace();
 		}
 
 	}
 
 	private int calculateRow() throws IOException {
 		int rowCount = 0;
+
 		try {
 			this.bufferReader = new BufferedReader(new FileReader(this.file));
 			while (this.bufferReader.readLine() != null) {
@@ -99,12 +100,13 @@ public class ScanEntityImpl implements ScanEntity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.bufferReader.close();
 		return rowCount;
 
 	}
 
 	public void setFile(String file) {
-		this.file = file;
+		this.fileName = file;
 	}
 
 	private void scanFind(char type, double x, double y, Room currentRoom) {
@@ -133,14 +135,12 @@ public class ScanEntityImpl implements ScanEntity {
 	}
 
 	private void populateBoss() {
-		List<String> bossSet = Arrays.asList(BackgroundFromFile.SIXTH.getPath(), 
-									BackgroundFromFile.SEVENTH.getPath(), BackgroundFromFile.EIGHTH.getPath());
+		List<String> bossSet = BackgroundFromFile.getBossPath();
 		Iterator<String> it = bossSet.iterator();
-		ClassLoader classLoader = getClass().getClassLoader();
 		this.rooms.stream().filter(z -> z.getType().equals(RoomType.BOSS))
 				.forEach(e -> {
 					if(it.hasNext()) {
-						this.file = it.next();
+						this.fileName = it.next();
 						this.buildEntityInRoom(e);
 					}
 				});
