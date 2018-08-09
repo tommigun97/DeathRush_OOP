@@ -65,4 +65,7 @@ public interface Room {
     String getImage();
     
     RoomType getType();
+    
+    void setVisited(boolean x);
+    boolean isVisited();
 }

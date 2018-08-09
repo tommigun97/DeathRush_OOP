@@ -6,7 +6,7 @@ import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.room.Room;
 
-public interface Map {
+public interface GameWorld {
 
     Set<Entity> getDoors();
 
@@ -16,13 +16,13 @@ public interface Map {
      
     Room[][] getPath();
 
-    int[][] getPathtoview();
+    int[][] getMatrixView();
     
-    int getXmap();
+    int getColumnMatrix();
     
-    int getYmap();
+    int getRowMatrix();
     
-    void mapUpdate();
+    void matrixViewUpdate();
     /**
      * @return true if all room are completed
      */

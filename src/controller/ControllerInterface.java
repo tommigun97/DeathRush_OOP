@@ -96,5 +96,8 @@ public interface ControllerInterface {
     int getYmap();
     
     void mapUpdate();
+    
+    void playSong(String s);
+    
 
 }

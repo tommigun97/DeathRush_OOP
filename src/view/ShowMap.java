@@ -64,13 +64,13 @@ public final class ShowMap {
                 if (Integer.parseInt(tf.getText()) == 1) {
                     tf.setStyle("-fx-background-color: white;");
                     tf.setText(null);
-                } else if (Integer.parseInt(tf.getText()) == 3) {
-                    tf.setStyle("-fx-background-color: grey;");
+                } else if (Integer.parseInt(tf.getText()) == 0) {
+                    tf.setStyle("-fx-background-color: black;");
                     tf.setText(null);
                 }else if (Integer.parseInt(tf.getText()) == 2) {
                     tf.setStyle("-fx-background-color: red;");
                     tf.setText(null);
-                }else if (Integer.parseInt(tf.getText()) == 0) {
+                }else if (Integer.parseInt(tf.getText()) == 3) {
                     tf.setStyle("-fx-background-color: black;");
                     tf.setText(null);
                 }

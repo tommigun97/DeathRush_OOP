@@ -24,7 +24,7 @@ import model.room.Room;
 import model.room.RoomType;
 import utilities.Pair;
 
-public class ReadEntityImpl implements ReadEntity {
+public class ScanEntityImpl implements ScanEntity {
 
 	private final static double HEIGHT = 1;
 	private final static double WEIGHT = 1;
@@ -36,9 +36,8 @@ public class ReadEntityImpl implements ReadEntity {
 	private EntityFactory ef;
 	private Entity entityToStolk;
 	private BufferedReader bufferReader;
-	private File fileTo;
 
-	public ReadEntityImpl(Set<Room> rooms, Entity entityToStolk, EntityFactory ef) {
+	public ScanEntityImpl(Set<Room> rooms, Entity entityToStolk, EntityFactory ef) {
 		this.ef = ef;
 		this.entitiesRead = new HashSet<>();
 		this.rooms = rooms;
@@ -54,25 +53,21 @@ public class ReadEntityImpl implements ReadEntity {
 
 	private void buildEntityInRoom(Room x) {
 		try {
-			ClassLoader classLoader = getClass().getClassLoader();
-
 			if(!x.getType().equals(RoomType.BOSS)) {
 				this.setFile(BackgroundFromFile.getRandomPath(x.getType()));
-				this.fileTo = new File(classLoader.getResource(this.file).getFile());
 			}
-			this.bufferReader = new BufferedReader(new FileReader(this.fileTo));
+			this.bufferReader = new BufferedReader(new FileReader(this.file));
 			int column = this.bufferReader.readLine().length();
 			int row = calculateRow();
-			System.out.println("Colonna" + column);
-			System.out.println("riga" + row);
+		
 			System.out.println("File " + this.file);
-			System.out.println("IDRoom" + x.getRoomID() + "\n");
-			System.out.println("TypeRoom" + x.getType());
+			System.out.println("IDRoom" + x.getRoomID());
+			System.out.println("TypeRoom" + x.getType() + "\n");
 			double columnProportion = WEIGHT / column;
 			double rowProportion = HEIGHT / row;
 			String line;
 			char currentChar;
-			this.bufferReader = new BufferedReader(new FileReader(this.fileTo));
+			this.bufferReader = new BufferedReader(new FileReader(this.file));
 			for (int i = 0; i < row; i++) {
 				line = this.bufferReader.readLine();
 				for (int j = 0; j < column; j++) {
@@ -83,6 +78,12 @@ public class ReadEntityImpl implements ReadEntity {
 				}
 			}
 		} catch (Exception e) {
+			try {
+				throw e;
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 
 	}
@@ -90,7 +91,7 @@ public class ReadEntityImpl implements ReadEntity {
 	private int calculateRow() throws IOException {
 		int rowCount = 0;
 		try {
-			this.bufferReader = new BufferedReader(new FileReader(this.fileTo));
+			this.bufferReader = new BufferedReader(new FileReader(this.file));
 			while (this.bufferReader.readLine() != null) {
 				rowCount++;
 			}
@@ -140,9 +141,7 @@ public class ReadEntityImpl implements ReadEntity {
 				.forEach(e -> {
 					if(it.hasNext()) {
 						this.file = it.next();
-						this.fileTo = new File(classLoader.getResource(this.file).getFile());
 						this.buildEntityInRoom(e);
-						System.out.println("IDROom" + e.getRoomID() + "Type " + e.getType() + "Entities " + e.getEntities());
 					}
 				});
 	}

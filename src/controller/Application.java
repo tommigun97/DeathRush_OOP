@@ -5,7 +5,7 @@ import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
-import model.map.GameMap;
+import model.map.GameWorldImpl;
 import view.View;
 
 /**
@@ -26,6 +26,7 @@ public final class Application {
         final View v = new ViewImpl(c);
         c.setView(v);
         v.startView();
+        
        /*CollisionSupervisor cs = new CollisionSupervisorImpl();
        EntityFactory ef = new EntityFactoryImpl(cs);
        GameMap map = new GameMap(ef);

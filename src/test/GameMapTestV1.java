@@ -14,7 +14,7 @@ import model.entity.Entity;
 import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
 import model.entity.Player;
-import model.map.GameMap;
+import model.map.GameWorldImpl;
 import model.room.Room;
 import utilities.Pair;
 
@@ -26,7 +26,7 @@ public class GameMapTestV1 {
         Entity p = new EntityFactoryImpl(new CollisionSupervisorImpl()).createPlayer(new Pair<Double, Double>(0.5, 0.5), Player.ANIS);
         CollisionSupervisor cs = new CollisionSupervisorImpl();
         EntityFactory ef = new EntityFactoryImpl(cs);
-        GameMap map = new GameMap(ef, p);
+        GameWorldImpl map = new GameWorldImpl(ef, p);
         
        
         map.toString();

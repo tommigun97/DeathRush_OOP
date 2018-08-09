@@ -4,7 +4,7 @@ import model.entity.Entity;
 import model.entity.PlayerBehavior;
 import model.room.Room;
 
-public class MapToPass {
+public class GameMapImpl {
 
 	private static final int VISITED = 1;
 	private static final int CURRENT = 2;
@@ -16,7 +16,7 @@ public class MapToPass {
 	private final int column;
 	private final Entity player;
 
-	public MapToPass(final GameMap gm, int row, int column, Entity player) {
+	public GameMapImpl(final GameWorldImpl gm, int row, int column, Entity player) {
 		this.path = gm.getPath();
 		this.row = row;
 		this.column = column;
@@ -42,7 +42,7 @@ public class MapToPass {
 	}
 
 	private boolean checkVisited(Room room) {
-		return room.isComplited();
+		return room.isVisited();
 	}
 
 	private int checkCurrentRoom() {
@@ -54,19 +54,5 @@ public class MapToPass {
 		return pathToView;
 	}
 
-	public void print() {
-		for (int i = 0; i < row; i++) {
-			for (int j = 0; j < column; j++) {
-				if (this.pathToView[i][j] != 0) {
-					System.out.print(" " + this.pathToView[i][j]);
-				} else {
-					System.out.print("-");
-				}
-
-			}
-			System.out.println("\n");
-		}
-
-	}
 
 }

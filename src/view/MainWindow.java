@@ -40,6 +40,7 @@ public class MainWindow extends Application {
 
         this.mainWindow.setScene(MainMenu.get(this.mainWindow));
         this.mainWindow.show();
+        ViewImpl.getController().playSong(Sound.song.MENUSONG.getPathToSong());
     }
 
 }

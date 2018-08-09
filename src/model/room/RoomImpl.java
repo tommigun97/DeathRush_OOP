@@ -17,6 +17,7 @@ public class RoomImpl implements Room {
     private final int roomID;
     private boolean complited;
     private final RoomType type;
+    private boolean visited;
     private Set<Entity> entitiesRoom;
     private Set<Entity> doorsRoom;
 
@@ -45,7 +46,9 @@ public class RoomImpl implements Room {
         this.doorsRoom = doorsRoom;
     }
 
-    /**
+
+
+	/**
      * @return true if room is complited false else
      */
     public boolean isComplited() {
@@ -122,6 +125,25 @@ public class RoomImpl implements Room {
     public final Set<Entity> getEntities() {
         return this.entitiesRoom;
     }
+    
+    @Override
+    public String getImage() {
+        return this.image;
+    }
+
+	@Override
+	public RoomType getType() {
+		return this.type;
+	}
+
+	@Override
+	public void setVisited(boolean x) {
+		this.visited = x;
+	}
+
+    public boolean isVisited() {
+		return visited;
+	}
 
     /**
      * 
@@ -134,6 +156,7 @@ public class RoomImpl implements Room {
         private int roomID;
         private boolean complited;
         private RoomType type;
+        private boolean visited;
         private Set<Entity> entitiesRoom;
         private Set<Entity> doorsRoom;
 
@@ -202,6 +225,13 @@ public class RoomImpl implements Room {
             this.doorsRoom = doorsRoom;
             return this;
         }
+        
+    	public RoomBuilder setVisited(final boolean x) {
+    		this.visited = x;
+    		return this;
+    	}
+
+        
 
         /**
          * 
@@ -212,14 +242,6 @@ public class RoomImpl implements Room {
         }
     }
 
-    @Override
-    public String getImage() {
-        return this.image;
-    }
 
-	@Override
-	public RoomType getType() {
-		return this.type;
-	}
 
 }

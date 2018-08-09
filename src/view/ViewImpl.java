@@ -19,6 +19,7 @@ public class ViewImpl implements View {
     private static ControllerInterface controller;
     private final InputHandler inputHandler = InputHandler.getInputHandler();
     private static GameScreen gameScreen;
+    private Sound sound;
 
     /**
      * Constructor of the class. It saves the controller of the game.
@@ -43,6 +44,7 @@ public class ViewImpl implements View {
     @Override
     public final void startView() {
         Application.launch(MainWindow.class);
+        
     }
 
     @Override
@@ -117,5 +119,18 @@ public class ViewImpl implements View {
     public void youWin() {
         Platform.runLater(() -> ViewImpl.gameScreen.youWin());
     }
+    
+    public void play(String path) {
+    	this.sound = new SoundImpl(path);
+    	this.sound.play();
+    }
+
+	@Override
+	public void changeSong(String path) {
+		this.sound.changeSong(path);
+		
+	}
+
+    
 
 }

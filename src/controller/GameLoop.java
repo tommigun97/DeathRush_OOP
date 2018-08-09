@@ -4,6 +4,8 @@ import model.GameStatus;
 import model.Model;
 import model.entity.Player;
 import utilities.Pair;
+import view.Sound;
+import view.SoundImpl;
 import view.View;
 
 /**
@@ -44,10 +46,12 @@ public class GameLoop extends Thread {
      * Missing JavaDoc.
      */
     public void run() {
-        this.setState(Status.RUNNING);
+    	this.view.changeSong(Sound.song.GAMESONG.getPathToSong());
+    	this.setState(Status.RUNNING);
         this.model.start(controller.getPlayer());
         while (!this.isInState(Status.KILLED)) {
             if (this.isInState(Status.RUNNING)) {
+            	
                 long time = System.currentTimeMillis();
                 if (this.model.getGameStatus().equals(GameStatus.Running)) {
                     controller.processInput();

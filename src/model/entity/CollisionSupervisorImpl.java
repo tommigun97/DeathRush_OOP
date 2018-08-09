@@ -97,7 +97,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         doors.forEach(d -> {
             if (collision(p, d) && d.getObjectProperty("doorStatus") == DoorStatus.OPEN) {
                 ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
-                System.out.println(d.getObjectProperty("nextRoom"));
+                ((PlayerBehavior) p.getBehaviour().get()).getCurrentRoom().setVisited(true);
                 Double x = Coordinates.reverseAfterCollisionDoor(d).getFirst();
                 Double y = Coordinates.reverseAfterCollisionDoor(d).getSecond();
                 p.setLocation(new Location(x, y,

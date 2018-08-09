@@ -17,8 +17,8 @@ import model.entity.EntityType;
 import model.entity.Player;
 import model.entity.PlayerBehavior;
 import model.entity.PowerUp;
-import model.map.GameMap;
-import model.map.Map;
+import model.map.GameWorldImpl;
+import model.map.GameWorld;
 import model.room.Room;
 import utilities.Pair;
 
@@ -36,7 +36,7 @@ public final class ModelImpl implements Model {
     private GameStatus gameStatus;
     private CollisionSupervisor cs;
     private EntityFactory eFactory;
-    private Map map;
+    private GameWorld map;
     private Time time;
 
     @Override
@@ -90,8 +90,7 @@ public final class ModelImpl implements Model {
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
             if (!r.equals(currentRoom)) {
-                System.out.println("[Modelimpl]" + " doorID " + this.currentRoom);
-                this.currentRoom.closeDoors();
+            	this.currentRoom.closeDoors();
 
             }
         }
@@ -112,7 +111,7 @@ public final class ModelImpl implements Model {
         this.cs = new CollisionSupervisorImpl();
         this.eFactory = new EntityFactoryImpl(this.cs);
         this.player = eFactory.createPlayer(STARTING_POSITION, who);
-        this.map = new GameMap(eFactory, player);
+        this.map = new GameWorldImpl(eFactory, player);
         this.time = new Time();
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentRoom(currentRoom);
@@ -190,22 +189,22 @@ public final class ModelImpl implements Model {
 
 	@Override
 	public int[][] getMapToView() {
-		return this.map.getPathtoview();
+		return this.map.getMatrixView();
 	}
 
 	@Override
 	public int getXmap() {
-		return this.map.getXmap();
+		return this.map.getColumnMatrix();
 	}
 
 	@Override
 	public int getYmap() {
-		return this.map.getYmap();
+		return this.map.getRowMatrix();
 	}
 
 	@Override
 	public void mapUpdate() {
-		this.map.mapUpdate();
+		this.map.matrixViewUpdate();
 		
 	}
 }

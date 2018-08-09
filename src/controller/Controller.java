@@ -14,6 +14,7 @@ import model.entity.Player;
 import utilities.Input;
 import utilities.Pair;
 import view.InputHandler;
+import view.Sound;
 import view.View;
 
 /**
@@ -49,6 +50,8 @@ public class Controller implements ControllerInterface {
     public final void startGameLoop() throws IllegalStateException {
         this.gameLoop = Optional.of(new GameLoop(this, this.view, this.model));
         this.gameLoop.get().start();
+        
+        
     }
 
     /**
@@ -59,6 +62,7 @@ public class Controller implements ControllerInterface {
      */
     public void setView(final View view) {
         this.view = view;
+        
     }
     
     @Override
@@ -224,6 +228,14 @@ public class Controller implements ControllerInterface {
 	public void mapUpdate() {
 		this.model.mapUpdate();
 		
+	}
+	
+	public void changeSong(String s) {
+		this.view.changeSong(s);
+	}
+	
+	public void playSong(String path) {
+		this.view.play( path);
 	}
 
 	
