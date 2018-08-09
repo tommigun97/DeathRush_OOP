@@ -122,13 +122,12 @@ public class ViewImpl implements View {
     
     public void play(String path) {
     	this.sound = new SoundImpl(path);
-    	this.sound.play();
+    	this.sound.playSound();
     }
 
 	@Override
 	public void changeSong(String path) {
 		this.sound.changeSong(path);
-		
 	}
 
     

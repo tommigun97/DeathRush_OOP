@@ -230,13 +230,16 @@ public class Controller implements ControllerInterface {
 		
 	}
 	
+	public void playSong(String s) {
+		this.view.play(s);
+	}
+
+	@Override
 	public void changeSong(String s) {
 		this.view.changeSong(s);
 	}
 	
-	public void playSong(String path) {
-		this.view.play( path);
-	}
+
 
 	
 }

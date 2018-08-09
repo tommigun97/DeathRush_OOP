@@ -46,7 +46,8 @@ public class GameLoop extends Thread {
      * Missing JavaDoc.
      */
     public void run() {
-    	this.view.changeSong(Sound.song.GAMESONG.getPathToSong());
+    	this.controller.changeSong(Sound.song.GAMESONG.getPathToSong());
+    	System.out.println("play gamellopp");
     	this.setState(Status.RUNNING);
         this.model.start(controller.getPlayer());
         while (!this.isInState(Status.KILLED)) {
