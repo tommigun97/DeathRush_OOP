@@ -2,6 +2,7 @@
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -34,7 +35,8 @@ public class ReadEntityImpl implements ReadEntity {
 	private Set<Entity> entitiesRead;
 	private EntityFactory ef;
 	private Entity entityToStolk;
-	private DataInputStream in;
+	private BufferedReader bufferReader;
+	private File fileTo;
 
 	public ReadEntityImpl(Set<Room> rooms, Entity entityToStolk, EntityFactory ef) {
 		this.ef = ef;
@@ -46,18 +48,20 @@ public class ReadEntityImpl implements ReadEntity {
 
 	public void populateRooms() {
 		this.rooms.stream().filter(z -> !z.getType().equals(RoomType.BOSS)).forEach(x -> this.buildEntityInRoom(x));
-		this.rooms.forEach(x -> System.out.println("IDRoom " + x.getRoomID() + "" + x.getEntities().size()));
 		this.populateBoss();
+		
 	}
 
 	private void buildEntityInRoom(Room x) {
 		try {
-			RoomType roomT = x.getType();
-			if(!roomT.equals(RoomType.BOSS)) {
-				this.file = BackgroundFromFile.getRandomPath(roomT);
+			ClassLoader classLoader = getClass().getClassLoader();
+
+			if(!x.getType().equals(RoomType.BOSS)) {
+				this.setFile(BackgroundFromFile.getRandomPath(x.getType()));
+				this.fileTo = new File(classLoader.getResource(this.file).getFile());
 			}
-			in = new DataInputStream(new FileInputStream(this.file));
-			int column = in.readLine().length();
+			this.bufferReader = new BufferedReader(new FileReader(this.fileTo));
+			int column = this.bufferReader.readLine().length();
 			int row = calculateRow();
 			System.out.println("Colonna" + column);
 			System.out.println("riga" + row);
@@ -68,9 +72,9 @@ public class ReadEntityImpl implements ReadEntity {
 			double rowProportion = HEIGHT / row;
 			String line;
 			char currentChar;
-			in = new DataInputStream(new FileInputStream(this.file));
+			this.bufferReader = new BufferedReader(new FileReader(this.fileTo));
 			for (int i = 0; i < row; i++) {
-				line = in.readLine();
+				line = this.bufferReader.readLine();
 				for (int j = 0; j < column; j++) {
 					currentChar = line.charAt(j);
 					if (currentChar != NOSCAN) {
@@ -86,8 +90,8 @@ public class ReadEntityImpl implements ReadEntity {
 	private int calculateRow() throws IOException {
 		int rowCount = 0;
 		try {
-			DataInputStream in = new DataInputStream(new FileInputStream(this.file));
-			while (in.readLine() != null) {
+			this.bufferReader = new BufferedReader(new FileReader(this.fileTo));
+			while (this.bufferReader.readLine() != null) {
 				rowCount++;
 			}
 		} catch (FileNotFoundException e) {
@@ -131,11 +135,14 @@ public class ReadEntityImpl implements ReadEntity {
 		List<String> bossSet = Arrays.asList(BackgroundFromFile.SIXTH.getPath(), 
 									BackgroundFromFile.SEVENTH.getPath(), BackgroundFromFile.EIGHTH.getPath());
 		Iterator<String> it = bossSet.iterator();
+		ClassLoader classLoader = getClass().getClassLoader();
 		this.rooms.stream().filter(z -> z.getType().equals(RoomType.BOSS))
 				.forEach(e -> {
 					if(it.hasNext()) {
 						this.file = it.next();
+						this.fileTo = new File(classLoader.getResource(this.file).getFile());
 						this.buildEntityInRoom(e);
+						System.out.println("IDROom" + e.getRoomID() + "Type " + e.getType() + "Entities " + e.getEntities());
 					}
 				});
 	}
