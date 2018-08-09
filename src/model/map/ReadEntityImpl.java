@@ -45,7 +45,7 @@ public class ReadEntityImpl implements ReadEntity {
 	}
 
 	public void populateRooms() {
-		this.rooms.forEach(x -> this.buildEntityInRoom(x));
+		this.rooms.stream().filter(z -> !z.getType().equals(RoomType.BOSS)).forEach(x -> this.buildEntityInRoom(x));
 		this.rooms.forEach(x -> System.out.println("IDRoom " + x.getRoomID() + "" + x.getEntities().size()));
 		this.populateBoss();
 	}
@@ -53,7 +53,9 @@ public class ReadEntityImpl implements ReadEntity {
 	private void buildEntityInRoom(Room x) {
 		try {
 			RoomType roomT = x.getType();
-			this.file = BackgroundFromFile.getRandomPath(roomT);
+			if(!roomT.equals(RoomType.BOSS)) {
+				this.file = BackgroundFromFile.getRandomPath(roomT);
+			}
 			in = new DataInputStream(new FileInputStream(this.file));
 			int column = in.readLine().length();
 			int row = calculateRow();
@@ -115,19 +117,25 @@ public class ReadEntityImpl implements ReadEntity {
 			currentRoom.addEntity(this.ef.createPowerUp(x, y, currentRoom, PowerUp.PISTOLA));
 		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.SIGARETS))) {
 			currentRoom.addEntity(this.ef.createPowerUp(x, y, currentRoom, PowerUp.SIGARETTA));
-
+		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.BOSS1))) {
+			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CIATTO));
+		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.BOSS2))) {
+			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CROATTI));
+		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.BOSS3))) {
+			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.THOR));
 		}
 
 	}
 
 	private void populateBoss() {
-		List<Boss> bossSet = Arrays.asList(Boss.CIATTO, Boss.CROATTI, Boss.THOR);
-		Iterator<Boss> it = bossSet.iterator();
+		List<String> bossSet = Arrays.asList(BackgroundFromFile.SIXTH.getPath(), 
+									BackgroundFromFile.SEVENTH.getPath(), BackgroundFromFile.EIGHTH.getPath());
+		Iterator<String> it = bossSet.iterator();
 		this.rooms.stream().filter(z -> z.getType().equals(RoomType.BOSS))
 				.forEach(e -> {
 					if(it.hasNext()) {
-						e.addEntity(ef.createBoss(0.5, 0.5, e, Optional.of(this.entityToStolk), it.next()));
-
+						this.file = it.next();
+						this.buildEntityInRoom(e);
 					}
 				});
 	}
