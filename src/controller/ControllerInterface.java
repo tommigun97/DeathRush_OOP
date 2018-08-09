@@ -99,5 +99,6 @@ public interface ControllerInterface {
     
     void playSong(String s);
     
+    void changeSong(String s);
 
 }

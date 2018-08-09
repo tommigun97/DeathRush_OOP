@@ -18,6 +18,6 @@ public interface Sound extends Runnable {
 	}
 	
 	void changeSong(String path);
-	void play();
+	void playSound();
 	void setCurrentFileSoundPath(String currentFileSoundPath);
 }

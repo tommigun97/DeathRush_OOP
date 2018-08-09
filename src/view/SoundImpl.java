@@ -16,21 +16,25 @@ public class SoundImpl implements Sound{
 	private Media media;
 	private MediaPlayer player;
 	private boolean go;
-	
+	private ClassLoader cl;
 	public SoundImpl(String path) {
-		this.changeSong(path);
+		this.setCurrentFileSoundPath(path);
 	}
 	
 	public void setCurrentFileSoundPath(String currentFileSoundPath) {
 		this.currentFileSoundPath = currentFileSoundPath;
-	}
-
-	public void changeSong(String path) {
-		this.setGo(false);
-		this.currentFileSoundPath = path;
-		ClassLoader cl = getClass().getClassLoader();
+		cl = getClass().getClassLoader();
 		media = new Media(cl.getResource(this.currentFileSoundPath).toExternalForm());
 		this.player = new MediaPlayer(this.media);
+	} 
+
+	public void changeSong(String path) {
+		this.player.stop();
+		this.player.dispose();
+		this.currentFileSoundPath = path;
+		media = new Media(cl.getResource(this.currentFileSoundPath).toExternalForm());
+		this.player = new MediaPlayer(this.media);
+		this.playSound();		
 	}
 	
 	private void setGo(boolean x) {
@@ -49,9 +53,7 @@ public class SoundImpl implements Sound{
 		
 	}
 
-	private void playSound() {
-		
+	public void playSound() {
 		this.player.play();
-		System.out.println("play");
 	}
 }

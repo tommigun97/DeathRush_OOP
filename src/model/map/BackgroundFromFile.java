@@ -27,7 +27,7 @@ public enum BackgroundFromFile {
 	}
 
 	public  static String getRandomPath(RoomType type) {
-		int seq  = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(5) + 1 : 
+		int seq  = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(5) + 2 : type.equals(RoomType.FIRTS) ? 1 :
 						type.equals(RoomType.VENDOR) ? 9 : 0 ;
 		return getPathName(seq);
 	}
@@ -35,16 +35,17 @@ public enum BackgroundFromFile {
 
 	private static String getPathName(int seqNumber) {
 		return seqNumber == 1 ? FIRST.getPath() : seqNumber == 2 ? SECOND.getPath() : seqNumber == 3 ? THIRD.getPath() : 
-					seqNumber == 4 ? FOURTH.getPath() : seqNumber == 5 ? FIVTH.getPath() : seqNumber == 9 ? ZERO.getPath() : FIRST.getPath();
-	}
+					seqNumber == 4 ? FOURTH.getPath() : seqNumber == 5 ? FIVTH.getPath() : seqNumber == 6 ? SIXTH.getPath() :
+							seqNumber == 9 ? ZERO.getPath() : FIRST.getPath();
+	} 
 
 	public String getPath() {
 		return this.path;
 	}
 	
 	public static List<String> getBossPath(){
-		List<String> listCopy  = Arrays.asList(BackgroundFromFile.SIXTH.getPath(), 
-				BackgroundFromFile.SEVENTH.getPath(), BackgroundFromFile.EIGHTH.getPath());
+		List<String> listCopy  = Arrays.asList(BackgroundFromFile.SEVENTH.getPath(), 
+				BackgroundFromFile.NINETH.getPath(), BackgroundFromFile.EIGHTH.getPath());
 		return listCopy;
 	}
 }
