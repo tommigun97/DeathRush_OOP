@@ -62,7 +62,7 @@ public class ShowCredits extends Scene {
         final Label instructions = new Label();
         instructions.setTextAlignment(TextAlignment.CENTER);
         instructions.setText(
-                "W - Move up\nA - Move left\nS - Move down\nD - Move right\nUP/DONW/RIGHT/LEFT - Fire\nP - Pause\nBACK - Back to Menu\nESC - Exit");
+                "W - Move up\nA - Move left\nS - Move down\nD - Move right\nUP/DONW/RIGHT/LEFT - Fire\nM - Show Map\nP - Pause\nBACK - Back to Menu\nESC - Exit");
         instructions.setId("credits-text");
 
         listInfo.getStylesheets().add("style.css");

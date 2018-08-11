@@ -86,8 +86,7 @@ public interface View {
             String playerMvSpeed);
 
     void play(String path);
-    
+
     void changeSong(String path);
 
-    
 }

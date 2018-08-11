@@ -44,7 +44,7 @@ public class ViewImpl implements View {
     @Override
     public final void startView() {
         Application.launch(MainWindow.class);
-        
+
     }
 
     @Override
@@ -121,17 +121,14 @@ public class ViewImpl implements View {
         Platform.runLater(() -> ViewImpl.gameScreen.youWin());
         Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong()));
     }
-    
-    public void play(String path) {
-    	this.sound = new SoundImpl();
-    	this.sound.musicPlay(path);
-    }
-    
-    public void changeSong(String path) {
-    	this.sound.musicPlay(path);
-    }
-	
 
-    
+    public void play(String path) {
+        this.sound = new SoundImpl();
+        this.sound.musicPlay(path);
+    }
+
+    public void changeSong(String path) {
+        this.sound.musicPlay(path);
+    }
 
 }

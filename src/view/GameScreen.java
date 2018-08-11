@@ -16,7 +16,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import model.Area;
 import model.Location;
@@ -29,7 +28,6 @@ import utilities.Pair;
  */
 public class GameScreen extends Scene {
 
-    private static final double BASIC_FONT = 18;
     private static final double BASIC_BUTTON_WIDTH = 110;
     private static final double BASIC_BUTTON_HEIGHT = 25;
     private static final double BASIC_RES_WIDTH = 1280;
@@ -53,8 +51,6 @@ public class GameScreen extends Scene {
     private final Label mvspeed = new Label();
     private final Label attspeed = new Label();
     private final Label timePlayed = new Label();
-    private int mapCheck = 0;
-
     /**
      * Constructor for GameScreen. It sets up the scene.
      */
@@ -117,7 +113,7 @@ public class GameScreen extends Scene {
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
             } else if (event.getCode() == KeyCode.M) {
-            	
+
                 this.showMap();
             }
             inputHandler.press(event.getCode());
@@ -148,9 +144,9 @@ public class GameScreen extends Scene {
      * 
      */
     private void showMap() {
-       this.pause();
-       ViewImpl.getController().mapUpdate();
-       ShowMap.print();
+        this.pause();
+        ViewImpl.getController().mapUpdate();
+        ShowMap.print();
     }
 
     /**

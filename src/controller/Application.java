@@ -1,11 +1,6 @@
- package controller;
+package controller;
 
 import view.ViewImpl;
-import model.entity.CollisionSupervisor;
-import model.entity.CollisionSupervisorImpl;
-import model.entity.EntityFactory;
-import model.entity.EntityFactoryImpl;
-import model.world.GameWorldImpl;
 import view.View;
 
 /**
@@ -21,16 +16,16 @@ public final class Application {
      * 
      */
 
-   public static void main(final String[] args) {
+    public static void main(final String[] args) {
         final ControllerInterface c = new Controller();
         final View v = new ViewImpl(c);
         c.setView(v);
         v.startView();
-        
-       /*CollisionSupervisor cs = new CollisionSupervisorImpl();
-       EntityFactory ef = new EntityFactoryImpl(cs);
-       GameMap map = new GameMap(ef);
-       map.printmappa();*/
+
+        /*
+         * CollisionSupervisor cs = new CollisionSupervisorImpl(); EntityFactory ef =
+         * new EntityFactoryImpl(cs); GameMap map = new GameMap(ef); map.printmappa();
+         */
     }
 
     private Application() {

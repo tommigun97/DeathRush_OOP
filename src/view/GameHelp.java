@@ -42,7 +42,7 @@ public final class GameHelp {
         final Label instructions = new Label();
         instructions.setTextAlignment(TextAlignment.CENTER);
         instructions.setText(
-                "W - Move up\nA - Move left\nS - Move down\nD - Move right\nUP-DOWN-RIGHT-LEFT - Fire\nBACK SPACE - Go back to the menu\nP - Pause\nESC - Exit");
+                "W - Move up\nA - Move left\nS - Move down\nD - Move right\nUP/DONW/RIGHT/LEFT - Fire\nM - Show Map\nP - Pause\nBACK - Back to Menu\nESC - Exit");
         instructions.setId("credits-text");
 
         listInfo.getStylesheets().add("style.css");

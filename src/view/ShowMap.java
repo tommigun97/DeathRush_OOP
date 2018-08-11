@@ -1,6 +1,5 @@
 package view;
 
-import java.util.Random;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,9 +19,6 @@ public final class ShowMap {
     private static final double INFO_WIDTH = 520;
     private static final double INFO_HEIGHT = 650;
     private static final int SQUARE_SIZE = 40;
-    private static final int GRID_SIZE = 12;
-    
-
     private ShowMap() {
     };
 
@@ -30,7 +26,7 @@ public final class ShowMap {
      * It shows the box.
      */
     static void print() {
-    	int[][] map = ViewImpl.getController().getViewMap();
+        int[][] map = ViewImpl.getController().getViewMap();
         final Stage window = new Stage();
         window.setResizable(false);
         window.centerOnScreen();
@@ -52,7 +48,6 @@ public final class ShowMap {
         for (int y = 0; y < length; y++) {
             for (int x = 0; x < width; x++) {
 
-            	
                 // Create a new TextField in each Iteration
                 TextField tf = new TextField();
                 tf.setPrefHeight(SQUARE_SIZE);
@@ -67,10 +62,10 @@ public final class ShowMap {
                 } else if (Integer.parseInt(tf.getText()) == 0) {
                     tf.setStyle("-fx-background-color: black;");
                     tf.setText(null);
-                }else if (Integer.parseInt(tf.getText()) == 2) {
+                } else if (Integer.parseInt(tf.getText()) == 2) {
                     tf.setStyle("-fx-background-color: red;");
                     tf.setText(null);
-                }else if (Integer.parseInt(tf.getText()) == 3) {
+                } else if (Integer.parseInt(tf.getText()) == 3) {
                     tf.setStyle("-fx-background-color: black;");
                     tf.setText(null);
                 }
