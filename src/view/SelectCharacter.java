@@ -134,6 +134,8 @@ public class SelectCharacter extends Scene {
         ViewImpl.setGameScreen(gameScreen);
         mainStage.setScene(gameScreen.get(mainStage));
         mainStage.setFullScreen(gameScreen.isFullScreen());
+        ViewImpl.getController().changeSong(Sound.song.GAMESONG.getPathToSong());
+
     }
 
     /**

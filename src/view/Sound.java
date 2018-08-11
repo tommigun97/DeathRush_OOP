@@ -1,10 +1,10 @@
 package view;
 
-public interface Sound extends Runnable {
+public interface Sound {
 	 
 	public enum song{
-		MENUSONG("music/menu.mp3"),
-		GAMESONG("music/game.mp3");
+		MENUSONG("/music/menuOP.wav"),
+		GAMESONG("/music/gameOP.wav");
 		
 		private final String pathToSong;
 		
@@ -17,7 +17,6 @@ public interface Sound extends Runnable {
 		}
 	}
 	
-	void changeSong(String path);
-	void playSound();
-	void setCurrentFileSoundPath(String currentFileSoundPath);
+	void musicPlay(String pathToString);
+	void musicStop();
 }

@@ -85,8 +85,9 @@ public interface View {
     void updateInfoToDraw(int playerLife, int money, String time, String playerDamage, String playerAttSpeed,
             String playerMvSpeed);
 
-    void changeSong(String path);
     void play(String path);
+    
+    void changeSong(String path);
 
     
 }

@@ -46,8 +46,6 @@ public class GameLoop extends Thread {
      * Missing JavaDoc.
      */
     public void run() {
-    	//this.controller.changeSong(Sound.song.GAMESONG.getPathToSong());
-    	System.out.println("play gamellopp");
     	this.setState(Status.RUNNING);
         this.model.start(controller.getPlayer());
         while (!this.isInState(Status.KILLED)) {
@@ -63,6 +61,7 @@ public class GameLoop extends Thread {
                 }
                 if (this.model.getGameStatus().equals(GameStatus.Won)) {
                     this.view.youWin();
+                    this.controller.changeSong(Sound.song.MENUSONG.getPathToSong());
                     this.setState(Status.KILLED);
                 }
                 long wait = time - System.currentTimeMillis();
