@@ -24,7 +24,6 @@ import model.entity.Player;
 
 public class GameWorldImpl implements GameWorld {
 
-	private final static int MAXROOM = 15;
 	private final static int X = 12;
 	private final static int Y = 12;
 	private final static int MIDDLEX = X / 2;
@@ -101,14 +100,8 @@ public class GameWorldImpl implements GameWorld {
 	}
 
 	private boolean checkDoor(final Room r, Coordinates x) {
-		boolean b = false;
-		try {
-			b = r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
-
-		} catch (Exception e) {
-			throw e;
-		}
-		return b;
+			boolean b = r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
+			return b;
 	}
 
 	private boolean checkNextRoom(int x, int y) {
@@ -128,9 +121,9 @@ public class GameWorldImpl implements GameWorld {
 		Room current;
 		Room next;
 		Pair<Integer, Integer> movement;
+		current = this.matrixMap[x][y];
 		while (r > 0) {
 			c = Coordinates.getRandomCoordinate();
-			current = this.matrixMap[x][y];
 			movement = Coordinates.getMovementFromCoordinates(c);
 			if (!this.checkLoop(x, y)) {
 				if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {

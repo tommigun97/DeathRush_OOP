@@ -61,7 +61,6 @@ public class GameLoop extends Thread {
                 }
                 if (this.model.getGameStatus().equals(GameStatus.Won)) {
                     this.view.youWin();
-                    this.controller.changeSong(Sound.song.MENUSONG.getPathToSong());
                     this.setState(Status.KILLED);
                 }
                 long wait = time - System.currentTimeMillis();

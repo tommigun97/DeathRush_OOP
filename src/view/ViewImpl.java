@@ -111,6 +111,7 @@ public class ViewImpl implements View {
      */
     public final void gameOver() {
         Platform.runLater(() -> ViewImpl.gameScreen.gameOver());
+        Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong()));
     }
 
     /**
@@ -118,6 +119,7 @@ public class ViewImpl implements View {
      */
     public void youWin() {
         Platform.runLater(() -> ViewImpl.gameScreen.youWin());
+        Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong()));
     }
     
     public void play(String path) {
