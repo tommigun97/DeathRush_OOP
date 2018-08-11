@@ -50,37 +50,44 @@ public class ScanEntityImpl implements ScanEntity {
 	}
 
 	public void populateRooms() {
-		this.rooms.stream().filter(z -> !z.getType().equals(RoomType.BOSS)).forEach(x -> this.buildEntityInRoom(x));
+		this.rooms.stream().filter(z -> !z.getType().equals(RoomType.BOSS)).forEach(x -> this.loadEntity(x));
 		this.populateBoss();
 		
 	}
 
-	private void buildEntityInRoom(Room x) {
+	private void loadEntity(Room x) {	
 		try {
-			ClassLoader classLoader = getClass().getClassLoader();
+			
 			if(!x.getType().equals(RoomType.BOSS)) {
 				this.setFile(BackgroundFromFile.getRandomPath(x.getType()));
 			}
-			this.file = new File(classLoader.getResource(this.fileName).getFile());
-			this.bufferReader = new BufferedReader(new FileReader(this.file));
-			int column = this.bufferReader.readLine().length();
-			int row = calculateRow();
-			double columnProportion = WEIGHT / column;
-			double rowProportion = HEIGHT / row;
-			String line;
+			//this.file = new File(ScanEntityImpl.class.getResource(this.fileName).getFile());
+			InputStream in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
+			this.bufferReader = new BufferedReader(new InputStreamReader(in));
+			final int column = this.bufferReader.readLine().length();
+			final int row = calculateRow();
+			final double columnProportion = WEIGHT / column;
+			final double rowProportion = HEIGHT / row;
+			
 			char currentChar;
-			this.bufferReader = new BufferedReader(new FileReader(this.file));
+			in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
+			this.bufferReader = new BufferedReader(new InputStreamReader(in));
 			for (int i = 0; i < row; i++) {
-				line = this.bufferReader.readLine();
+				System.out.println(this.fileName);
+				final String line = this.bufferReader.readLine();
 				for (int j = 0; j < column; j++) {
-					currentChar = line.charAt(j);
-					if (currentChar != NOSCAN) {
-						this.scanFind(currentChar, j * columnProportion, i * rowProportion, x);
+					if(line != null) {
+						currentChar = line.charAt(j);
+						if (currentChar != NOSCAN) {
+							this.scanFind(currentChar, j * columnProportion, i * rowProportion, x);
+						}
 					}
+					
 				}
 			}
 			this.bufferReader.close();
 		} catch (Exception e) {
+			System.out.println("File non trovato");
 			e.printStackTrace();
 		}
 
@@ -90,7 +97,9 @@ public class ScanEntityImpl implements ScanEntity {
 		int rowCount = 0;
 
 		try {
-			this.bufferReader = new BufferedReader(new FileReader(this.file));
+			final InputStream in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
+			this.bufferReader = new BufferedReader(new InputStreamReader(in));
+			//this.bufferReader = new BufferedReader(new FileReader(this.file));
 			while (this.bufferReader.readLine() != null) {
 				rowCount++;
 			}
@@ -139,7 +148,7 @@ public class ScanEntityImpl implements ScanEntity {
 				.forEach(e -> {
 					if(it.hasNext()) {
 						this.fileName = it.next();
-						this.buildEntityInRoom(e);
+						this.loadEntity(e);
 					}
 				});
 	}
