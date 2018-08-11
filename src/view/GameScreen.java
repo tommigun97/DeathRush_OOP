@@ -296,6 +296,7 @@ public class GameScreen extends Scene {
             ViewImpl.getController().abortGameLoop();
             InputHandler.getInputHandler().emptyList();
             this.mainStage.setScene(MainMenu.get(this.mainStage));
+            ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong());
         } else {
             InputHandler.getInputHandler().emptyList();
             ViewImpl.getController().resumeGameLoop();
@@ -307,6 +308,7 @@ public class GameScreen extends Scene {
      */
     public void gameOver() {
         this.mainStage.setScene(GameOver.get(this.mainStage));
+        ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong());
     }
 
     /**
@@ -314,6 +316,7 @@ public class GameScreen extends Scene {
      */
     public void youWin() {
         this.mainStage.setScene(Won.get(this.mainStage));
+        ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong());
     }
 
 }

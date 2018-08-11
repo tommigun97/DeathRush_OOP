@@ -234,7 +234,7 @@ public class Controller implements ControllerInterface {
 		this.view.play(s);
 	}
 
-	@Override
+
 	public void changeSong(String s) {
 		this.view.changeSong(s);
 	}
