@@ -32,7 +32,7 @@ public class GameWorldImpl implements GameWorld {
 	private Room[][] matrixMap;
 	private Set<Room> roomSet;
 	private Set<Entity> doorSet;
-	private GameMapImpl mapForView;
+	private GameMap mapForView;
 	private ScanEntity scanE;
 	private RoomBuilder roomBuilder;
 	private EntityFactory entityFactory;
@@ -48,16 +48,6 @@ public class GameWorldImpl implements GameWorld {
 		this.buildWorldGame();
 	}
 
-	@Override
-	public Set<Room> getRooms() {
-		return this.roomSet;
-	}
-
-	@Override
-	public Room[][] getPath() {
-		return this.matrixMap;
-	}
-
 	private void buildWorldGame() {
 		this.initializeMapBuilding();
 		this.scanE = new ScanEntityImpl(this.getRooms(), player, this.entityFactory);
@@ -66,42 +56,9 @@ public class GameWorldImpl implements GameWorld {
 		this.printMatrixMap();
 	}
 
-	private void initializeMapBuilding() {
-		this.matrixMap = new Room[X][Y];
-		Room a = this.roomBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
-				.setDoors(new HashSet<>()).setTypes(RoomType.FIRTS).setVisited(true).build();
-		this.addNewRoom(a);
-		this.matrixMap[MIDDLEX][MIDDLEY] = a;
-		Room b = this.roomBuilder.setComplited(false).setEntities(new CopyOnWriteArraySet<>()).setRoomID(2)
-				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
-		this.matrixMap[MIDDLEX + 1][MIDDLEY] = b;
-		this.addNewRoom(b);
-		System.out.println(this.roomSet);
-		this.addLink(a, b, Coordinates.SOUTH, DoorStatus.OPEN);
-		b = this.roomBuilder.setComplited(false).setRoomID(3).setEntities(new CopyOnWriteArraySet<>())
-				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
-		this.addNewRoom(b);
-		this.addLink(a, b, Coordinates.NORTH, DoorStatus.OPEN);
-		this.matrixMap[MIDDLEX - 1][MIDDLEY] = b;
-		b = this.roomBuilder.setComplited(false).setRoomID(4).setEntities(new CopyOnWriteArraySet<>())
-				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
-		this.addNewRoom(b);
-		this.addLink(a, b, Coordinates.EAST, DoorStatus.OPEN);
-		this.matrixMap[MIDDLEX][MIDDLEY + 1] = b;
-		b = this.roomBuilder.setComplited(false).setRoomID(0).setEntities(new CopyOnWriteArraySet<>())
-				.setDoors(new HashSet<>()).setTypes(RoomType.VENDOR).setVisited(false).build();
-		this.addNewRoom(b);
-		this.addLink(a, b, Coordinates.WEST, DoorStatus.OPEN);
-		this.matrixMap[MIDDLEX][MIDDLEY - 1] = b;
-		this.roomCount = 4;
-		this.completePath(MIDDLEX + 1, MIDDLEY, new Random().nextInt(2) + 4);
-		this.completePath(MIDDLEX - 1, MIDDLEY, new Random().nextInt(2) + 4);
-		this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
-	}
-
 	private boolean checkDoor(final Room r, Coordinates x) {
-			boolean b = r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
-			return b;
+		boolean b = r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
+		return b;
 	}
 
 	private boolean checkNextRoom(int x, int y) {
@@ -114,46 +71,6 @@ public class GameWorldImpl implements GameWorld {
 			return true;
 		}
 		return false;
-	}
-
-	private void completePath(int x, int y, int r) {
-		Coordinates c;
-		Room current;
-		Room next;
-		Pair<Integer, Integer> movement;
-		current = this.matrixMap[x][y];
-		while (r > 0) {
-			c = Coordinates.getRandomCoordinate();
-			movement = Coordinates.getMovementFromCoordinates(c);
-			if (!this.checkLoop(x, y)) {
-				if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
-					RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
-					this.roomCount++;
-					next = this.roomBuilder.setComplited(false).setRoomID(this.roomCount)
-							.setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setVisited(false).setTypes(t).build();
-					this.matrixMap[x + movement.getFirst()][y + movement.getSecond()] = next;
-					this.addNewRoom(next);
-					this.addLink(current, next, c, DoorStatus.CLOSE);
-					x = x + movement.getFirst();
-					y = y + movement.getSecond();
-					r--;
-					current = next;
-					next = null;
-				}
-			} else {
-				this.initializeMapBuilding();
-			}
-		}
-	}
-
-	@Override
-	public Set<Entity> getDoors() {
-		return this.doorSet;
-	}
-
-	@Override
-	public Optional<Room> getRoom(int x) {
-		return this.roomSet.stream().filter(y -> y.getRoomID() == x).findFirst();
 	}
 
 	private void addLink(Room x, Room y, Coordinates z, DoorStatus statusLink) {
@@ -171,6 +88,91 @@ public class GameWorldImpl implements GameWorld {
 		}
 
 	}
+	private void initializeMapBuilding() {
+		this.matrixMap = new Room[X][Y];
+		Room roomA = this.roomBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
+				.setDoors(new HashSet<>()).setTypes(RoomType.FIRTS).setVisited(true).build();
+		this.addNewRoom(roomA);
+		this.matrixMap[MIDDLEX][MIDDLEY] = roomA;
+		Room roomB = this.roomBuilder.setComplited(false).setEntities(new CopyOnWriteArraySet<>()).setRoomID(2)
+				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
+		this.matrixMap[MIDDLEX + 1][MIDDLEY] = roomB;
+		this.addNewRoom(roomB);
+		System.out.println(this.roomSet);
+		this.addLink(roomA, roomB, Coordinates.SOUTH, DoorStatus.OPEN);
+		roomB = this.roomBuilder.setComplited(false).setRoomID(3).setEntities(new CopyOnWriteArraySet<>())
+				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
+		this.addNewRoom(roomB);
+		this.addLink(roomA, roomB, Coordinates.NORTH, DoorStatus.OPEN);
+		this.matrixMap[MIDDLEX - 1][MIDDLEY] = roomB;
+		roomB = this.roomBuilder.setComplited(false).setRoomID(4).setEntities(new CopyOnWriteArraySet<>())
+				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
+		this.addNewRoom(roomB);
+		this.addLink(roomA, roomB, Coordinates.EAST, DoorStatus.OPEN);
+		this.matrixMap[MIDDLEX][MIDDLEY + 1] = roomB;
+		roomB = this.roomBuilder.setComplited(false).setRoomID(0).setEntities(new CopyOnWriteArraySet<>())
+				.setDoors(new HashSet<>()).setTypes(RoomType.VENDOR).setVisited(false).build();
+		this.addNewRoom(roomB);
+		this.addLink(roomA, roomB, Coordinates.WEST, DoorStatus.OPEN);
+		this.matrixMap[MIDDLEX][MIDDLEY - 1] = roomB;
+		this.roomCount = 4;
+		this.completePath(MIDDLEX + 1, MIDDLEY, new Random().nextInt(2) + 4);
+		this.completePath(MIDDLEX - 1, MIDDLEY, new Random().nextInt(2) + 4);
+		this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
+	}
+
+	private void completePath(int x, int y, int r) {
+		Coordinates c;
+		Room current;
+		Room next;
+		Pair<Integer, Integer> movement;
+		current = this.matrixMap[x][y];
+		while (r > 0) {
+			c = Coordinates.getRandomCoordinate();
+			movement = Coordinates.getMovementFromCoordinates(c);
+			if (!this.checkLoop(x, y)) {
+				if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
+					RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
+					this.roomCount++;
+					next = this.roomBuilder.setComplited(false).setRoomID(this.roomCount)
+							.setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setVisited(false)
+							.setTypes(t).build();
+					this.matrixMap[x + movement.getFirst()][y + movement.getSecond()] = next;
+					this.addNewRoom(next);
+					this.addLink(current, next, c, DoorStatus.CLOSE);
+					x = x + movement.getFirst();
+					y = y + movement.getSecond();
+					r--;
+					current = next;
+					next = null;
+				}
+			} else {
+				this.initializeMapBuilding();
+			}
+		}
+	}
+	
+	@Override
+	public Set<Room> getRooms() {
+		return this.roomSet;
+	}
+
+	@Override
+	public Room[][] getPath() {
+		return this.matrixMap;
+	}
+
+	@Override
+	public Set<Entity> getDoors() {
+		return this.doorSet;
+	}
+
+	@Override
+	public Optional<Room> getRoom(int x) {
+		return this.roomSet.stream().filter(y -> y.getRoomID() == x).findFirst();
+	}
+
+	
 
 	private void addNewRoom(Room x) {
 		this.roomSet.add(x);
@@ -196,7 +198,7 @@ public class GameWorldImpl implements GameWorld {
 
 	@Override
 	public int[][] getMatrixView() {
-		return this.mapForView.getPathToView();
+		return this.mapForView.getMatrixMap();
 	}
 
 	@Override
@@ -210,7 +212,7 @@ public class GameWorldImpl implements GameWorld {
 	}
 
 	public void matrixViewUpdate() {
-		this.mapForView.buildPath();
+		this.mapForView.buildMatrixToView();
 	}
 
 }
