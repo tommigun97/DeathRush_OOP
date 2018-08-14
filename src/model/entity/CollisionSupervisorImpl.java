@@ -127,6 +127,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                                 p.getDoubleProperty("Speed") + o.getDoubleProperty("Increase Movement Speed"));
                     }
                     current.deleteEntity(o);
+                    p.changeIntProperty("Money", p.getIntegerProperty("Money") - o.getIntegerProperty("Cost"));
                 }
             }
         });
