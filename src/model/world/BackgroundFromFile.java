@@ -15,7 +15,7 @@ import model.room.RoomType;
  */
 public enum BackgroundFromFile {
 
-	 ZERO("/rooms/0.room", RoomType.VENDOR, 0), FIRST("/rooms/1.room", RoomType.INTERMEDIATE, 1), SECOND("/rooms/2.room", RoomType.INTERMEDIATE, 2),
+	ZERO("/rooms/0.room", RoomType.VENDOR, 0), FIRST("/rooms/1.room", RoomType.INTERMEDIATE, 1), SECOND("/rooms/2.room", RoomType.INTERMEDIATE, 2),
 	THIRD("/rooms/3.room", RoomType.INTERMEDIATE, 3), FOURTH("/rooms/4.room", RoomType.INTERMEDIATE, 4),
 	FIVTH("/rooms/5.room", RoomType.INTERMEDIATE, 5), SIXTH("/rooms/6.room", RoomType.INTERMEDIATE, 6),
 	SEVENTH("/rooms/7.room", RoomType.BOSS, 7), EIGHTH("/rooms/8.room", RoomType.BOSS, 8), NINETH("/rooms/9.room", RoomType.BOSS, 9);
@@ -37,7 +37,8 @@ public enum BackgroundFromFile {
 	}
 
 	/**
-	 * Returns a random path for the room's entities 
+	 * Returns a random path for the enities room. Example RoomType = INTERMEDIATE the method will return
+	 * a filename of Enumeration BackGroundFromFile that have seqnumber between 2 and 6 
 	 * 
 	 * @param type 
 	 * 		  type of room to populate with entities
@@ -51,7 +52,7 @@ public enum BackgroundFromFile {
 	}
 
 	/**
-	 * Private method returns the path of enumeration that have the selected seqNumber
+	 * Private method. Returns the filename of entities room that have the selected seqNumber
 	 * @param seqNumber
 	 * 			seqNumber of selected enumeration
 	 * @return

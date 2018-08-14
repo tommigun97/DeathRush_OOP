@@ -1,14 +1,11 @@
 package model.world;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import java.util.stream.Collectors;
 
 import model.room.Room;
 import model.room.RoomType;
@@ -16,16 +13,15 @@ import model.room.RoomImpl.RoomBuilder;
 import model.world.ScanEntity;
 import model.world.ScanEntityImpl;
 import utilities.Pair;
-import model.entity.Boss;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.entity.EntityFactory;
-import model.entity.Player;
 
 public class GameWorldImpl implements GameWorld {
 
-	private final static int X = 12;
-	private final static int Y = 12;
+	
+	private final static int X = 14;
+	private final static int Y = 14;
 	private final static int MIDDLEX = X / 2;
 	private final static int MIDDLEY = Y / 2;
 
@@ -40,20 +36,16 @@ public class GameWorldImpl implements GameWorld {
 	private int roomCount;
 
 	public GameWorldImpl(EntityFactory entityFactory, Entity player) {
-		this.roomSet = new HashSet<>();
-		this.doorSet = new HashSet<>();
 		this.roomBuilder = new RoomBuilder();
 		this.entityFactory = entityFactory;
 		this.player = player;
-		this.buildWorldGame();
+		this.scanE = new ScanEntityImpl(this.player, this.entityFactory);
 	}
-
-	private void buildWorldGame() {
-		this.initializeMapBuilding();
-		this.scanE = new ScanEntityImpl(this.getRooms(), player, this.entityFactory);
-		this.scanE.populateRooms();
-		this.mapForView = new GameMapImpl(this, this.Y, this.X, this.player);
-		this.printMatrixMap();
+	
+	private void resetGameWorld() {
+		this.matrixMap = new Room[X][Y];
+		this.roomSet = new HashSet<>();
+		this.doorSet = new HashSet<>();
 	}
 
 	private boolean checkDoor(final Room r, Coordinates x) {
@@ -89,7 +81,7 @@ public class GameWorldImpl implements GameWorld {
 
 	}
 	private void initializeMapBuilding() {
-		this.matrixMap = new Room[X][Y];
+		this.resetGameWorld();
 		Room roomA = this.roomBuilder.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
 				.setDoors(new HashSet<>()).setTypes(RoomType.FIRTS).setVisited(true).build();
 		this.addNewRoom(roomA);
@@ -121,20 +113,19 @@ public class GameWorldImpl implements GameWorld {
 		this.completePath(MIDDLEX, MIDDLEY + 1, new Random().nextInt(2) + 4);
 	}
 
-	private void completePath(int x, int y, int r) {
-		Coordinates c;
-		Room current;
-		Room next;
-		Pair<Integer, Integer> movement;
-		current = this.matrixMap[x][y];
-		while (r > 0) {
-			c = Coordinates.getRandomCoordinate();
-			movement = Coordinates.getMovementFromCoordinates(c);
+	private void completePath(int x, int y, int roomsSinglePath) {
+
+		boolean mapOK = true;
+		Room current = this.matrixMap[x][y];
+		while (roomsSinglePath > 0 && mapOK) {
+
+			final Coordinates c = Coordinates.getRandomCoordinate();
+			final Pair<Integer, Integer> movement = Coordinates.getMovementFromCoordinates(c);
 			if (!this.checkLoop(x, y)) {
 				if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
-					RoomType t = r == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
+					RoomType t = roomsSinglePath == 1 ? RoomType.BOSS : RoomType.INTERMEDIATE;
 					this.roomCount++;
-					next = this.roomBuilder.setComplited(false).setRoomID(this.roomCount)
+					final Room next = this.roomBuilder.setComplited(false).setRoomID(this.roomCount)
 							.setEntities(new CopyOnWriteArraySet<>()).setDoors(new HashSet<>()).setVisited(false)
 							.setTypes(t).build();
 					this.matrixMap[x + movement.getFirst()][y + movement.getSecond()] = next;
@@ -142,15 +133,26 @@ public class GameWorldImpl implements GameWorld {
 					this.addLink(current, next, c, DoorStatus.CLOSE);
 					x = x + movement.getFirst();
 					y = y + movement.getSecond();
-					r--;
+					roomsSinglePath--;
 					current = next;
-					next = null;
 				}
 			} else {
-				this.initializeMapBuilding();
+				mapOK = false;
 			}
 		}
+		if(!mapOK) {
+			this.initializeMapBuilding();
+		}
+		
 	}
+	
+	public void buildWorldGame() {
+		this.initializeMapBuilding();
+		this.populateNormalRoom();
+		this.populateBossRoom();
+		this.mapForView = new GameMapImpl(this, this.Y, this.X, this.player);
+	}
+
 	
 	@Override
 	public Set<Room> getRooms() {
@@ -178,19 +180,6 @@ public class GameWorldImpl implements GameWorld {
 		this.roomSet.add(x);
 	}
 
-	public void printMatrixMap() {
-		for (int i = 0; i < X; i++) {
-			for (int j = 0; j < Y; j++) {
-				if (matrixMap[i][j] == null) {
-					System.out.print(" - ");
-				} else {
-					System.out.print(" " + this.matrixMap[i][j].getRoomID());
-				}
-			}
-			System.out.println("\n");
-		}
-	}
-
 	@Override
 	public boolean allRoomAreCompleted() {
 		return this.roomSet.stream().allMatch(r -> r.isComplited());
@@ -214,5 +203,26 @@ public class GameWorldImpl implements GameWorld {
 	public void matrixViewUpdate() {
 		this.mapForView.buildMatrixToView();
 	}
+	
+	private void populateNormalRoom() {
+		this.roomSet.stream().filter(e -> !e.getType().equals(RoomType.BOSS)).forEach(x -> this.scanE.loadEntity(x));
+	}
+
+	private void populateBossRoom() {
+		this.roomSet.stream().filter(e -> e.getType().equals(RoomType.BOSS)).forEach(x -> this.scanE.loadBoss(x));
+	}
+	
+	public void printMatrixMap() {
+		for (int i = 0; i < X; i++) {
+			for (int j = 0; j < Y; j++) {
+				if (matrixMap[i][j] == null) {
+					System.out.print(" - ");
+				} else {
+					System.out.print(" " + this.matrixMap[i][j].getRoomID());
+				}
+			}
+			System.out.println("\n");
+		}
+	} 
 
 }
