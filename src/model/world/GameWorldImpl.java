@@ -76,7 +76,7 @@ public class GameWorldImpl implements GameWorld {
 				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
 		this.matrixMap[MIDDLEX + 1][MIDDLEY] = b;
 		this.addNewRoom(b);
-		System.out.println(this.roomSet);
+		//System.out.println(this.roomSet);
 		this.addLink(a, b, Coordinates.SOUTH, DoorStatus.OPEN);
 		b = this.roomBuilder.setComplited(false).setRoomID(3).setEntities(new CopyOnWriteArraySet<>())
 				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();

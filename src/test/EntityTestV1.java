@@ -57,7 +57,7 @@ public class EntityTestV1 {
     private static final Pair<String, String> COUPLE_IMAGES = new Pair<String, String>("first", "second");
     private static final CollisionSupervisor CS = new CollisionSupervisorImpl();
     private static final Room DEFAULT_ROOM = new RoomImpl(" ", 0, false, RoomType.INTERMEDIATE, new HashSet<Entity>(),
-            new HashSet<Entity>());
+            new HashSet<Entity>(), true);
     private static final EntityFactory E_FACTORY = new EntityFactoryImpl(CS);
 
     @Test
@@ -258,7 +258,7 @@ public class EntityTestV1 {
     @Test
     void obstacleCollisionTest() {
         System.out.println("Collision Test");
-        final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>());
+        final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(), true);
         Entity o = E_FACTORY.createObstacle(0.70, DEFAULT_LOC.getY());
         Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), Player.TOMMI);
         ((PlayerBehavior)p.getBehaviour().get()).setCurrentRoom(r);
