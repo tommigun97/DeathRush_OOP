@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.2" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="controller.Application" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/controller/Application.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="719" y="564"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="view.ViewImpl" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/view/ViewImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="236" y="456"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="view.View" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/view/View.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="224" y="35"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="4" language="java" name="controller.ControllerImpl" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/controller/ControllerImpl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="646" y="472"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="model.ModelImpl" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/model/ModelImpl.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1076" y="477"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="false" package="false" protected="false" private="false" static="true"/>      
+      <operations public="false" package="false" protected="false" private="false" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="6" language="java" name="model.Model" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/model/Model.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1119" y="49"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="7" language="java" name="controller.Controller" project="oop17-DeathRush-Lico-Casini-Ghini-DelGatto" 
+    file="/oop17-DeathRush-Lico-Casini-Ghini-DelGatto/src/controller/Controller.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="675" y="63"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <realization id="8">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="9">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <association id="10">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="11" name="controller"/>      
+      <multiplicity id="12" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="14" name="model"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="17" name="view">        
+        <position height="15" width="29" x="428" y="147"/>      
+      </attribute>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="13" width="23" x="403" y="139"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="19">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="false" package="false" protected="false" private="false" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
