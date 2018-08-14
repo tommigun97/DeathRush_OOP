@@ -17,7 +17,7 @@ public final class Application {
      */
 
     public static void main(final String[] args) {
-        final ControllerInterface c = new Controller();
+        final Controller c = new ControllerImpl();
         final View v = new ViewImpl(c);
         c.setView(v);
         v.startView();

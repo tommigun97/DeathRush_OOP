@@ -4,7 +4,7 @@ import java.util.List;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import controller.ControllerInterface;
+import controller.Controller;
 import model.Location;
 import utilities.Input;
 import utilities.Pair;
@@ -16,7 +16,7 @@ import utilities.Pair;
  */
 public class ViewImpl implements View {
 
-    private static ControllerInterface controller;
+    private static Controller controller;
     private final InputHandler inputHandler = InputHandler.getInputHandler();
     private static GameScreen gameScreen;
     private Sound sound;
@@ -27,7 +27,7 @@ public class ViewImpl implements View {
      * @param c
      *            The controller of the game.
      */
-    public ViewImpl(final ControllerInterface c) {
+    public ViewImpl(final Controller c) {
         this.setController(c);
     }
 
@@ -37,7 +37,7 @@ public class ViewImpl implements View {
      * @param c
      *            The controller of the game
      */
-    private synchronized void setController(final ControllerInterface c) {
+    private synchronized void setController(final Controller c) {
         ViewImpl.controller = c;
     }
 
@@ -84,7 +84,7 @@ public class ViewImpl implements View {
      * 
      * @return The controller of the game
      */
-    static ControllerInterface getController() {
+    static Controller getController() {
         return ViewImpl.controller;
     }
 

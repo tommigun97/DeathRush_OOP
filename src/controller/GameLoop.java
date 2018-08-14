@@ -27,7 +27,7 @@ public class GameLoop extends Thread {
     private long period = PERIOD;
     private volatile Status state = Status.READY;
     private final View view;
-    private final ControllerInterface controller;
+    private final Controller controller;
     private Model model;
 
     /**
@@ -36,7 +36,7 @@ public class GameLoop extends Thread {
      * @param view
      *            .
      */
-    public GameLoop(final ControllerInterface controller, final View view, final Model model) {
+    public GameLoop(final Controller controller, final View view, final Model model) {
         this.controller = controller;
         this.view = view;
         this.model = model;

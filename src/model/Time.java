@@ -1,113 +1,60 @@
 package model;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import view.ViewImpl;
-import view.View;
-
 /**
  * 
  *
  */
-public class Time {
+public interface Time {
 
-    private int totalSec;
-    private int secondPassed;
-    private int minutePassed;
-    private int hourPassed;
-    private Timer myTimer;
-    private boolean running;
+    /**
+     * start the clock.
+     */
+    void start();
+
+    /**
+     * set clock on pause.
+     */
+    void pause();
+
+    /**
+     * unPause the clock.
+     */
+    void resume();
+
+    /**
+     * delete sec min and hour, and be ready to start a new time.
+     */
+    void resetTime();
 
     /**
      * 
+     * @return All the time spent in second
      */
-    public Time() {
-        this.totalSec = 0;
-        this.hourPassed = 0;
-        this.minutePassed = 0;
-        this.secondPassed = 0;
-        this.myTimer = new Timer();
-        this.running = false;
-    }
-
-    TimerTask task = new TimerTask() {
-
-        @Override
-        public void run() {
-            if (running) {
-                if (secondPassed == 59) {
-                    minutePassed++;
-                    secondPassed = -1;
-                }
-                if (minutePassed == 60) {
-                    hourPassed++;
-                    minutePassed = 0;
-                }
-                secondPassed++;
-                totalSec++;
-            }
-        }
-    };
+    int getTotalSecond();
 
     /**
      * 
+     * @return the actual seconds
      */
-    public void start() {
-        this.running = true;
-        this.myTimer.scheduleAtFixedRate(task, 1000, 1000);
-    }
+    int getSec();
 
     /**
      * 
+     * @return the actual mins
      */
-    public void pause() {
-        if (this.running) {
-            this.running = false;
-        }
-    }
+    int getMin();
 
-    public void resume() {
-        if (!this.running) {
-            this.running = true;
-        }
-    }
+    /**
+     * 
+     * @return the actual hours
+     */
+    int getHour();
 
-    public void resetTime() {
-        this.pause();
-        this.hourPassed = 0;
-        this.minutePassed = 0;
-        this.secondPassed = 0;
-        this.totalSec = 0;
-    }
+    /**
+     * 
+     * @return a integer list with hour, minutes and seconds
+     */
+    List<Integer> transformSecondInTime();
 
-    public int getTotalSecond() {
-        return this.totalSec;
-    }
-
-    public String getCurrentTime() {
-        return ("Time " + hourPassed + ":" + minutePassed + ":" + secondPassed);
-    }
-
-    public int getSec() {
-        return this.secondPassed;
-    }
-
-    public int getMin() {
-        return this.minutePassed;
-    }
-
-    public int getHour() {
-        return this.hourPassed;
-    }
-
-    public List<Integer> transformSecondInTime() {
-        List<Integer> list = new LinkedList<>();
-        list.add(getHour());
-        list.add(getMin());
-        list.add(getSec());
-        return list;
-    }
 }
