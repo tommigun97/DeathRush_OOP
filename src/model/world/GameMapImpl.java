@@ -31,8 +31,10 @@ public class GameMapImpl {
 				if (this.path[i][j] != null) {
 					if(this.path[i][j].getRoomID() == this.checkCurrentRoom()) {
 						this.pathToView[i][j] = this.CURRENT;
+						System.out.println("[GameMapImpl] " + this.path[i][j] + " visited " + checkVisited(this.path[i][j]));
 					}else {
 						this.pathToView[i][j] = checkVisited(this.path[i][j]) ? this.VISITED : this.NOTVISITED;
+						System.out.println("[GameMapImpl] " + this.path[i][j] + " visited " + checkVisited(this.path[i][j]));
 
 					}
 

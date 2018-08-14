@@ -37,13 +37,14 @@ public class RoomImpl implements Room {
      *            .
      */
     public RoomImpl(final String image, final int roomID, final boolean complited, final RoomType type,
-            final Set<Entity> entitiesRoom, final Set<Entity> doorsRoom) {
+            final Set<Entity> entitiesRoom, final Set<Entity> doorsRoom, final boolean visited) {
         this.image = image;
         this.roomID = roomID;
         this.complited = complited;
         this.type = type;
         this.entitiesRoom = entitiesRoom;
         this.doorsRoom = doorsRoom;
+        this.visited = visited;
     }
 
 
@@ -238,7 +239,7 @@ public class RoomImpl implements Room {
          * @return .
          */
         public RoomImpl build() {
-            return new RoomImpl(image, roomID, complited, type, entitiesRoom, doorsRoom);
+            return new RoomImpl(image, roomID, complited, type, entitiesRoom, doorsRoom, visited);
         }
     }
 
