@@ -72,7 +72,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity createPlayer(final Pair<Double, Double> pos, final Player who) {
 
-        PlayerBehavior pB = new PlayerBehavior(new CompleteImageSetCalculator(who.images(Direction.N),
+        final PlayerBehavior pB = new PlayerBehavior(new CompleteImageSetCalculator(who.images(Direction.N),
                 who.images(Direction.S), who.images(Direction.E), who.images(Direction.W), who.standImage()), cs, this);
         return new EntityImpl.EntitiesBuilder()
                 .setLocation(new Location(pos.getFirst(), pos.getSecond(), who.getArea())).setType(EntityType.PLAYER)
@@ -87,7 +87,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     @Override
     public Entity isaacStalkerEnemy(final double x, final double y, final Entity eToStalk, final Room currentRoom,
             final boolean canShoot) {
-        StalkerEnemyBehavior sb = new StalkerEnemyBehavior(eToStalk,
+        final StalkerEnemyBehavior sb = new StalkerEnemyBehavior(eToStalk,
                 new CompleteImageSetCalculator(DEFAULT_STALKER_ENEMY_N, DEFAULT_STALKER_ENEMY_S,
                         DEFAULT_STALKER_ENEMY_E, DEFAULT_STALKER_ENEMY_W, DEFAULT_STALKER_ENEMY_STAND),
                 this.cs, currentRoom, this, canShoot);
@@ -105,12 +105,12 @@ public final class EntityFactoryImpl implements EntityFactory {
     public Entity createBullet(final double x, final double y, final Room currentRoom, final Direction direction,
             final EntityType bulletType, final int damage, final double speed, final EntityType who) {
         if (who == EntityType.PLAYER) {
-            BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+            final BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
             return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
                     .setImage(PLAYER_BULLET).with("Speed", speed)
                     .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
         } else {
-            BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
+            final BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
             return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
                     .setImage(ENEMY_BULLET).with("Speed", speed)
                     .setLocation(new Location(x, y, new Area(DEFAULT_BULLET_WEIGHT, DEFAULT_BULLET_HEIGHT))).build();
@@ -118,7 +118,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public final Entity createDoor(final double x, final double y, final DoorStatus status, final Room nextRoom,
+    public Entity createDoor(final double x, final double y, final DoorStatus status, final Room nextRoom,
             final String image, final Coordinates coor, final Area area) {
         return new EntityImpl.EntitiesBuilder().setImage(image)
                 .setLocation(new Location(x, y, new Area(coor.getArea().getWidth(), coor.getArea().getHeight())))
@@ -135,7 +135,7 @@ public final class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public Entity createMoscow(final double x, final double y, final Entity eToStalk, final Room currentRoom) {
-        StalkerEnemyBehavior b = new StalkerEnemyBehavior(eToStalk,
+        final StalkerEnemyBehavior b = new StalkerEnemyBehavior(eToStalk,
                 new TwoImageCalculator(DEFAULT_MOSQUITO_IMAGE_1, DEFAULT_MOSQUITO_IMAGE_2), cs, currentRoom, this,
                 false);
         return new EntityImpl.EntitiesBuilder().setType(EntityType.ENEMY)
@@ -174,7 +174,7 @@ public final class EntityFactoryImpl implements EntityFactory {
                 .with("Collision Damage", who.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
                 .with("Shoot Damage", who.shootingDamage()).with("Reward", who.reward()).build();
     }
-
+    @Override
     public Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who) {
         if (who == PowerUp.CHITARRA) {
             return new EntityImpl.EntitiesBuilder().setType(EntityType.POWER_UP).with("Type", PowerUp.CHITARRA)
