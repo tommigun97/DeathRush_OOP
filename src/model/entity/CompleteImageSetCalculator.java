@@ -27,6 +27,8 @@ public final class CompleteImageSetCalculator implements ImageCalculator {
      *            list image for east direction movement
      * @param weastImages
      *            list image for west direction movement
+     * @param stand
+     *            image for standing position
      */
     public CompleteImageSetCalculator(final List<String> northImages, final List<String> southImages,
             final List<String> eastImages, final List<String> weastImages, final String stand) {

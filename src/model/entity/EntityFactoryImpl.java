@@ -6,18 +6,10 @@ import model.Location;
 import model.room.Room;
 import model.world.Coordinates;
 import utilities.Pair;
-import model.entity.DoorStatus;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
-import model.Area;
-import model.Direction;
-import model.Location;
-import model.room.Room;
-import utilities.Pair;
 
 /**
  * Implementation of EntityFactory.
@@ -58,7 +50,6 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final int CIGARETTE_UPGRADE = 4;
     private static final String PLAYER_BULLET = "bullet/bullet1.png";
     private static final String ENEMY_BULLET = "bullet/bullet2.png";
-
     private final CollisionSupervisor cs;
 
     /**
@@ -149,21 +140,20 @@ public final class EntityFactoryImpl implements EntityFactory {
     public Entity createBoss(final double x, final double y, final Room currentRoom, final Optional<Entity> eToStalk,
             final Boss who) {
         Behavior b = null;
-        if (who == Boss.THOR) {
+        if (who == Boss.BOSS_1) {
             b = new CompleteSummonerBehavior(
-                    new CompleteImageSetCalculator(Boss.THOR.images(Direction.N), Boss.THOR.images(Direction.S),
-                            Boss.THOR.images(Direction.E), Boss.THOR.images(Direction.W), Boss.THOR.standImage()),
+                    new CompleteImageSetCalculator(Boss.BOSS_1.images(Direction.N), Boss.BOSS_1.images(Direction.S),
+                            Boss.BOSS_1.images(Direction.E), Boss.BOSS_1.images(Direction.W), Boss.BOSS_1.standImage()),
                     cs, currentRoom, this, eToStalk.get());
-        } else if (who == Boss.CIATTO) {
+        } else if (who == Boss.BOSS_2) {
             b = new OnlyBulletSummonerBeahavior(
-                    new CompleteImageSetCalculator(Boss.CIATTO.images(Direction.N), Boss.CIATTO.images(Direction.S),
-                            Boss.CIATTO.images(Direction.E), Boss.CIATTO.images(Direction.W), Boss.CIATTO.standImage()),
+                    new CompleteImageSetCalculator(Boss.BOSS_2.images(Direction.N), Boss.BOSS_2.images(Direction.S),
+                            Boss.BOSS_2.images(Direction.E), Boss.BOSS_2.images(Direction.W), Boss.BOSS_2.standImage()),
                     cs, currentRoom, this);
         } else {
             b = new StalkerEnemyBehavior(eToStalk.get(),
-                    new CompleteImageSetCalculator(Boss.CROATTI.images(Direction.N), Boss.CROATTI.images(Direction.S),
-                            Boss.CROATTI.images(Direction.E), Boss.CROATTI.images(Direction.W),
-                            Boss.CROATTI.standImage()),
+                    new CompleteImageSetCalculator(Boss.BOSS_3.images(Direction.N), Boss.BOSS_3.images(Direction.S),
+                            Boss.BOSS_3.images(Direction.E), Boss.BOSS_3.images(Direction.W), Boss.BOSS_3.standImage()),
                     cs, currentRoom, this, true);
         }
 
@@ -174,6 +164,7 @@ public final class EntityFactoryImpl implements EntityFactory {
                 .with("Collision Damage", who.collisionDamage()).with("Bullet Speed", DEFAULT_BULLET_SPEED)
                 .with("Shoot Damage", who.shootingDamage()).with("Reward", who.reward()).build();
     }
+
     @Override
     public Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who) {
         if (who == PowerUp.CHITARRA) {
@@ -195,5 +186,4 @@ public final class EntityFactoryImpl implements EntityFactory {
                     .with("Cost", who.getCost()).setImage(who.getImage()).build();
         }
     }
-
 }

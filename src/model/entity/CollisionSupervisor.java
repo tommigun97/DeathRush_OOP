@@ -85,6 +85,8 @@ public interface CollisionSupervisor {
      *            player
      * @param other
      *            entities
+     * @param current
+     *            current Room
      */
     void collisionWithPowerUp(Entity p, Set<Entity> other, Room current);
 

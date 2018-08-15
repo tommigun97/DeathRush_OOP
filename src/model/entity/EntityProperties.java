@@ -1,6 +1,6 @@
 package model.entity;
 
-public enum EntityPropieties {
+public enum EntityProperties {
 
     ENEMY1("1"), 
     ENEMY2("2"), 
@@ -15,17 +15,17 @@ public enum EntityPropieties {
 	
 	private final String id;
 	
-	private EntityPropieties(String id){
+	private EntityProperties(String id){
 		this.id = id;
 	}
 	
 	
-	public static EntityPropieties getPropieties(String id) {
-		return id.equals("1") ? EntityPropieties.ENEMY1 : id.equals("2") ? EntityPropieties.ENEMY2 :
-					id.equals("3") ? EntityPropieties.STOPPED : id.equals("4") ? EntityPropieties.BOSS1 :
-						id.equals("5") ? EntityPropieties.BOSS2 : id.equals("6") ? EntityPropieties.BOSS3 :
-							id.equals("7") ? EntityPropieties.GUN : id.equals("8") ? EntityPropieties.GUITAR :
-								id.equals("9") ? EntityPropieties.SUGAR : id.equals("a") ? EntityPropieties.SIGARETS : null;
+	public static EntityProperties getPropieties(String id) {
+		return id.equals("1") ? EntityProperties.ENEMY1 : id.equals("2") ? EntityProperties.ENEMY2 :
+					id.equals("3") ? EntityProperties.STOPPED : id.equals("4") ? EntityProperties.BOSS1 :
+						id.equals("5") ? EntityProperties.BOSS2 : id.equals("6") ? EntityProperties.BOSS3 :
+							id.equals("7") ? EntityProperties.GUN : id.equals("8") ? EntityProperties.GUITAR :
+								id.equals("9") ? EntityProperties.SUGAR : id.equals("a") ? EntityProperties.SIGARETS : null;
 	}
 	
 

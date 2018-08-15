@@ -33,10 +33,9 @@ public final class TwoImageCalculator implements ImageCalculator {
         if (refresh(lastTimeSaved)) {
             c = c == 0 ? 1 : 0;
             lastTimeSaved = System.currentTimeMillis();
-            return c == 0 ? images.getFirst() : images.getSecond();
-        } else {
-            return currentImage;
+            currentImage = c == 0 ? images.getFirst() : images.getSecond();
         }
+        return currentImage;
     }
 
 }

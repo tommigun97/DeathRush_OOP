@@ -7,7 +7,15 @@ import java.util.List;
 import model.Area;
 import model.Direction;
 
+/**
+ * Enum for player statistic.
+ *
+ */
 public enum Player {
+    /**
+     * Simo.
+     *
+     */
     SIMO {
 
         @Override
@@ -50,6 +58,10 @@ public enum Player {
         }
 
     },
+    /**
+     * Anis.
+     *
+     */
     ANIS {
 
         @Override
@@ -92,6 +104,10 @@ public enum Player {
         }
     },
 
+    /**
+     * Kaso.
+     *
+     */
     KASO {
         @Override
         public List<String> images(final Direction d) {
@@ -133,6 +149,10 @@ public enum Player {
         }
     },
 
+    /**
+     * Tommi.
+     *
+     */
     TOMMI {
         @Override
         public List<String> images(final Direction d) {

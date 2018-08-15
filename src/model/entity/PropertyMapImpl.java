@@ -17,7 +17,7 @@ public final class PropertyMapImpl implements PropertyMap {
         if (m.containsKey(property)) {
             return (int) m.get(property);
         } else {
-            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property+ "]");
+            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property + "]");
         }
 
     }
@@ -27,7 +27,7 @@ public final class PropertyMapImpl implements PropertyMap {
         if (m.containsKey(property)) {
             return (double) m.get(property);
         } else {
-            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property+ "]");
+            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property + "]");
         }
     }
 
@@ -36,7 +36,7 @@ public final class PropertyMapImpl implements PropertyMap {
         if (m.containsKey(property)) {
             return (boolean) m.get(property);
         } else {
-            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property+ "]");
+            throw new IllegalArgumentException(NOT_PROPERTY + " [" + property + "]");
         }
     }
 

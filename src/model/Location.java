@@ -4,7 +4,7 @@ package model;
  * Location Define the center point and the area of an entity. Center Point
  * defined as x and y values in a cartesian plane.
  */
-public class Location {
+public final class Location {
 
     private double x;
     private double y;
@@ -101,10 +101,9 @@ public class Location {
      * 
      * @param l
      *            location of other object
-     * @return .
+     * @return true if the location is the same
      */
     public boolean locationsCollide(final Location l) {
-        // verifica con una prova visuale perchè se no così non si capisce
         return this.x == l.x && this.y == l.y;
     }
 
