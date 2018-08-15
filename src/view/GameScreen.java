@@ -35,7 +35,7 @@ public class GameScreen extends Scene {
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
     private Stage mainStage;
-    private static int MAP_CONTROL = 0;
+    private static boolean mapActive;
 
     private static double resConstantWidth = 1;
     private static double resConstantHeight = 1;
@@ -45,7 +45,7 @@ public class GameScreen extends Scene {
     private final Pane backgroundLayer = new Pane();
     private final ImagesMaker iMaker = new ImagesMaker();
     private final HBox infoBox = new HBox();
-    private final static Button PAUSE_BUTTON = new Button(PAUSE);
+    private static final Button PAUSE_BUTTON = new Button(PAUSE);
     private final Button infoButton = new Button("Info");
     private final Label hp = new Label();
     private final Label coin = new Label();
@@ -98,12 +98,15 @@ public class GameScreen extends Scene {
         this.resize();
         this.setRoot(this.root);
     }
+
     /**
-     * setter for MAP_CONTROL
-     * @param i new MAP_CONTROL value
+     * setter for map active.
+     * 
+     * @param b
+     *            new mapActive value
      */
-    public static void setMAP_CONTROL(int i) {
-        MAP_CONTROL = i;
+    public static void setMapActive(final boolean b) {
+        mapActive = b;
     }
 
     /**
@@ -113,7 +116,7 @@ public class GameScreen extends Scene {
         final InputHandler inputHandler = InputHandler.getInputHandler();
         inputHandler.emptyList();
         this.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            System.out.println("[GAME SCREEN] MAP_CONTROL == " + MAP_CONTROL);
+            System.out.println("[GAME SCREEN] MAP_CONTROL == " + mapActive);
             if (event.getCode() == KeyCode.BACK_SPACE) {
                 ViewImpl.getController().pauseGameLoop();
                 this.backMenu();
@@ -123,8 +126,8 @@ public class GameScreen extends Scene {
                 ViewImpl.getController().pauseGameLoop();
                 ExitHandler.getExitHandler();
                 ExitHandler.closeGame(this.mainStage);
-            } else if (event.getCode() == KeyCode.M && MAP_CONTROL == 0) {
-                    this.showMap();
+            } else if (event.getCode() == KeyCode.M && !mapActive) {
+                this.showMap();
             }
             inputHandler.press(event.getCode());
         });
@@ -138,15 +141,16 @@ public class GameScreen extends Scene {
      * 
      */
     private void pause() {
-        if (ViewImpl.getController().isGameLoopPaused()) {
-            InputHandler.getInputHandler().emptyList();
-            ViewImpl.getController().resumeGameLoop();
-            this.PAUSE_BUTTON.setText(PAUSE);
-        } else {
-            ViewImpl.getController().pauseGameLoop();
-            this.PAUSE_BUTTON.setText(RESUME);
+        if (!mapActive) {
+            if (ViewImpl.getController().isGameLoopPaused()) {
+                InputHandler.getInputHandler().emptyList();
+                ViewImpl.getController().resumeGameLoop();
+                GameScreen.PAUSE_BUTTON.setText(PAUSE);
+            } else {
+                ViewImpl.getController().pauseGameLoop();
+                GameScreen.PAUSE_BUTTON.setText(RESUME);
+            }
         }
-
     }
 
     /**
@@ -155,7 +159,7 @@ public class GameScreen extends Scene {
      */
     private void showMap() {
         ViewImpl.getController().pauseGameLoop();
-        this.PAUSE_BUTTON.setText(RESUME);
+        GameScreen.PAUSE_BUTTON.setText(RESUME);
         ViewImpl.getController().mapUpdate();
         ShowMap.print();
     }
@@ -164,10 +168,10 @@ public class GameScreen extends Scene {
      * Method for do the correct operations when map is closing.
      */
     public static void onCloseMap() {
-            InputHandler.getInputHandler().emptyList();
-            ViewImpl.getController().resumeGameLoop();
-            PAUSE_BUTTON.setText(PAUSE);
-            MAP_CONTROL = 0;
+        InputHandler.getInputHandler().emptyList();
+        ViewImpl.getController().resumeGameLoop();
+        PAUSE_BUTTON.setText(PAUSE);
+        mapActive = false;
     }
 
     /**
@@ -175,7 +179,8 @@ public class GameScreen extends Scene {
      * 
      * @param listEntities
      *            List of the active entities.
-     * @param backgroundPath back ground path image
+     * @param backgroundPath
+     *            back ground path image
      */
     public void drawOnScreen(final List<Pair<String, Location>> listEntities, final String backgroundPath) {
         this.backgroundLayer.getChildren().clear();

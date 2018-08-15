@@ -100,7 +100,7 @@ public final class ShowMap {
         WINDOW.setOnCloseRequest(e -> {
             GameScreen.onCloseMap();
         });
-        GameScreen.setMAP_CONTROL(1);
+        GameScreen.setMapActive(true);
         WINDOW.showAndWait();
     }
 
