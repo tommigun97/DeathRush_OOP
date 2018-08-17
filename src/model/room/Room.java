@@ -1,71 +1,39 @@
 package model.room;
 
-import java.util.List;
 import java.util.Set;
 import model.entity.Entity;
-
 /**
+ * This class is used to create room.
  * 
  *
  */
 public interface Room {
-    /**
-     * 
-     * @param doorList
-     *            .
-     */
-    
+
     void addDoor(Entity doorList);
 
-    /**
-     * 
-     * @return .
-     */
     Set<Entity> getDoor();
 
-    /**
-     * 
-     * @return .
-     */
     int getRoomID();
 
-    /**
-     * 
-     * @return .
-     */
     boolean isComplited();
 
-    /**
-     * 
-     * @param complited
-     *            .
-     */
     void setComplited(boolean complited);
-    
-    /**
-     * 
-     * #@return
-     * 
-     */
+
     void addEntity(Entity entity);
-    /**
-     * 
-     * #@return
-     * 
-     */
-    
-   
+
     void deleteEntity(Entity entity);
 
     Set<Entity> getEntities();
-    
+
     void openDoors();
+
     void closeDoors();
-    
+
     String getImage();
-    
+
     RoomType getType();
-    
+
     void setVisited(boolean x);
+
     boolean isVisited();
 }
