@@ -185,7 +185,7 @@ public enum Player {
 
         @Override
         public long startingPlayerShootFrequency() {
-            return 300;
+            return 250;
         }
 
         @Override
