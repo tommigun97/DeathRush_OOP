@@ -2,12 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import org.junit.platform.commons.util.CollectionUtils;
-
-import model.entity.Boss;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
@@ -16,7 +10,6 @@ import model.entity.EntityFactoryImpl;
 import model.entity.EntityType;
 import model.entity.Player;
 import model.entity.PlayerBehavior;
-import model.entity.PowerUp;
 import model.room.Room;
 import model.world.GameWorld;
 import model.world.GameWorldImpl;
@@ -56,7 +49,6 @@ public final class ModelImpl implements Model {
         return l;
     }
 
-
     @Override
     public void update(final Direction direction, final List<Direction> shoot) {
         // il giocatore si muove
@@ -90,14 +82,15 @@ public final class ModelImpl implements Model {
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
             if (!r.equals(currentRoom)) {
-            	this.currentRoom.closeDoors();
+                this.currentRoom.closeDoors();
 
             }
         }
         if (this.player.getIntegerProperty("Current Life") <= 0) {
-           /* this.time.pause();
-            this.gameStatus = GameStatus.Over;*/
-        } 
+            /*
+             * this.time.pause(); this.gameStatus = GameStatus.Over;
+             */
+        }
         if (map.allRoomAreCompleted()) {
             this.time.pause();
             this.gameStatus = GameStatus.Won;
@@ -187,24 +180,24 @@ public final class ModelImpl implements Model {
         return this.currentRoom;
     }
 
-	@Override
-	public int[][] getMapToView() {
-		return this.map.getMatrixView();
-	}
+    @Override
+    public int[][] getMapToView() {
+        return this.map.getMatrixView();
+    }
 
-	@Override
-	public int getXmap() {
-		return this.map.getColumnMatrix();
-	}
+    @Override
+    public int getXmap() {
+        return this.map.getColumnMatrix();
+    }
 
-	@Override
-	public int getYmap() {
-		return this.map.getRowMatrix();
-	}
+    @Override
+    public int getYmap() {
+        return this.map.getRowMatrix();
+    }
 
-	@Override
-	public void mapUpdate() {
-		this.map.matrixViewUpdate();
-		
-	}
+    @Override
+    public void mapUpdate() {
+        this.map.matrixViewUpdate();
+
+    }
 }

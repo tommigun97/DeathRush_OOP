@@ -20,6 +20,20 @@ public class StalkerEnemyBehavior implements Behavior {
     private final EntityFactory eFactory;
     private final boolean canShoot;
 
+    /**
+     * @param toStalk
+     *            entity to stalk
+     * @param imgCalc
+     *            image calculator
+     * @param cs
+     *            collision supervisor for collision
+     * @param currentRoom
+     *            room where entity is placed
+     * @param eFactory
+     *            factory for create bullet
+     * @param canShoot
+     *            if entity can shoot or not
+     */
     public StalkerEnemyBehavior(final Entity toStalk, final ImageCalculator imgCalc, final CollisionSupervisor cs,
             final Room currentRoom, final EntityFactory eFactory, final boolean canShoot) {
         this.toStalk = toStalk;
@@ -49,14 +63,13 @@ public class StalkerEnemyBehavior implements Behavior {
     public void update() {
         currentDirection = checkNewDirection();
         final Location prev = new Location(e.getLocation());
-        if (canShoot) {
-            if (System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
+
+            if (canShoot && System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
                 this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                         currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
                         e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
                 t = System.currentTimeMillis();
             }
-        }
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
         cs.collisionWithBound(prev, e);
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));

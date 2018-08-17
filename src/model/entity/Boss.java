@@ -7,8 +7,16 @@ import java.util.List;
 import model.Area;
 import model.Direction;
 
+/**
+ * Enum for boss statistics.
+ *
+ */
 public enum Boss {
-    THOR {
+    /**
+     * First Boss.
+     *
+     */
+    BOSS_1 {
 
         @Override
         public List<String> images(final Direction d) {
@@ -59,7 +67,11 @@ public enum Boss {
             return 50;
         }
     },
-    CIATTO {
+    /**
+     * Second Boss.
+     *
+     */
+    BOSS_2 {
 
         @Override
         public List<String> images(final Direction d) {
@@ -69,6 +81,7 @@ public enum Boss {
                                     : new ArrayList<>(Arrays.asList("boss2/4.png", "boss2/5.png"));
 
         }
+
         @Override
         public String standImage() {
             return "boss2/1.png";
@@ -110,7 +123,11 @@ public enum Boss {
         }
     },
 
-    CROATTI {
+    /**
+     * Third boss.
+     *
+     */
+    BOSS_3 {
         @Override
         public List<String> images(final Direction d) {
             return d.equals(Direction.N) ? new ArrayList<>(Arrays.asList("boss3/2.png", "boss3/3.png"))

@@ -7,13 +7,21 @@ import model.room.Room;
  * Class that define the behavior of a bullet.
  *
  */
-public class BulletBehavior implements Behavior {
+public final class BulletBehavior implements Behavior {
 
     private final Direction d;
     private Entity b;
-    private CollisionSupervisor cs;
+    private final CollisionSupervisor cs;
     private final Room currentRoom;
 
+    /**
+     * @param d
+     *            direction where bullet is shoot
+     * @param cs
+     *            collision supervisor for check the movement
+     * @param currentRoom
+     *            room where bullet is placed
+     */
     public BulletBehavior(final Direction d, final CollisionSupervisor cs, final Room currentRoom) {
         this.d = d;
         this.cs = cs;
@@ -21,7 +29,7 @@ public class BulletBehavior implements Behavior {
     }
 
     @Override
-    public void setEntity(Entity e) {
+    public void setEntity(final Entity e) {
         this.b = e;
         checkProperty();
 
