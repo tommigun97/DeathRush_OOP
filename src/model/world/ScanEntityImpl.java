@@ -34,63 +34,17 @@ public class ScanEntityImpl implements ScanEntity {
 	private final static char NOSCAN = '0';
 
 	private String fileName;
-	private File file;
-	private Set<Room> rooms;
-	private Set<Entity> entitiesRead;
 	private EntityFactory ef;
 	private Entity entityToStolk;
 	private BufferedReader bufferReader;
+	private Iterator<String> bossIterator = BackgroundFromFile.getBossPath().iterator();
 
-	public ScanEntityImpl(Set<Room> rooms, Entity entityToStolk, EntityFactory ef) {
+	public ScanEntityImpl(Entity entityToStolk, EntityFactory ef) {
 		this.ef = ef;
-		this.entitiesRead = new HashSet<>();
-		this.rooms = rooms;
 		this.entityToStolk = entityToStolk;
-
 	}
 
-	public void populateRooms() {
-		this.rooms.stream().filter(z -> !z.getType().equals(RoomType.BOSS)).forEach(x -> this.loadEntity(x));
-		this.populateBoss();
-		
-	}
 
-	private void loadEntity(Room x) {	
-		try {
-			
-			if(!x.getType().equals(RoomType.BOSS)) {
-				this.setFile(BackgroundFromFile.getRandomPath(x.getType()));
-			}
-			//this.file = new File(ScanEntityImpl.class.getResource(this.fileName).getFile());
-			InputStream in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
-			this.bufferReader = new BufferedReader(new InputStreamReader(in));
-			final int column = this.bufferReader.readLine().length();
-			final int row = calculateRow();
-			final double columnProportion = WEIGHT / column;
-			final double rowProportion = HEIGHT / row;
-			
-			char currentChar;
-			in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
-			this.bufferReader = new BufferedReader(new InputStreamReader(in));
-			for (int i = 0; i < row; i++) {
-				final String line = this.bufferReader.readLine();
-				for (int j = 0; j < column; j++) {
-					if(line != null) {
-						currentChar = line.charAt(j);
-						if (currentChar != NOSCAN) {
-							this.scanFind(currentChar, j * columnProportion, i * rowProportion, x);
-						}
-					}
-					
-				}
-			}
-			this.bufferReader.close();
-		} catch (Exception e) {
-			System.out.println("File non trovato");
-			e.printStackTrace();
-		}
-
-	}
 
 	private int calculateRow() throws IOException {
 		int rowCount = 0;
@@ -140,16 +94,44 @@ public class ScanEntityImpl implements ScanEntity {
 
 	}
 
-	private void populateBoss() {
-		List<String> bossSet = BackgroundFromFile.getBossPath();
-		Iterator<String> it = bossSet.iterator();
-		this.rooms.stream().filter(z -> z.getType().equals(RoomType.BOSS))
-				.forEach(e -> {
-					if(it.hasNext()) {
-						this.fileName = it.next();
-						this.loadEntity(e);
+	public void loadEntity(Room x) {
+		try {
+
+			if (!x.getType().equals(RoomType.BOSS)) {
+				this.setFile(BackgroundFromFile.getRandomPath(x.getType()));
+			}
+			InputStream in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
+			this.bufferReader = new BufferedReader(new InputStreamReader(in));
+			final int column = this.bufferReader.readLine().length();
+			final int row = calculateRow();
+			final double columnProportion = WEIGHT / column;
+			final double rowProportion = HEIGHT / row;
+			in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
+			this.bufferReader = new BufferedReader(new InputStreamReader(in));
+			for (int i = 0; i < row; i++) {
+				final String line = this.bufferReader.readLine();
+				for (int j = 0; j < column; j++) {
+					if (line != null) {
+						final char currentChar = line.charAt(j);
+						if (currentChar != NOSCAN) {
+							this.scanFind(currentChar, j * columnProportion, i * rowProportion, x);
+						}
 					}
-				});
+
+				}
+			}
+			this.bufferReader.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void loadBoss(Room room) {
+		if (this.bossIterator.hasNext()) {
+			this.fileName = bossIterator.next();
+			this.loadEntity(room);
+		}
 	}
 
 }

@@ -4,7 +4,7 @@ import model.entity.Entity;
 import model.entity.PlayerBehavior;
 import model.room.Room;
 
-public class GameMapImpl {
+public class GameMapImpl implements GameMap{
 
 	private static final int VISITED = 1;
 	private static final int CURRENT = 2;

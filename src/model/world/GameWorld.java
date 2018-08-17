@@ -20,6 +20,8 @@ public interface GameWorld {
     
     int getColumnMatrix();
     
+    public void buildWorldGame();
+    
     int getRowMatrix();
     
     void matrixViewUpdate();
