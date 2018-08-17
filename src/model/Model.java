@@ -21,7 +21,6 @@ public interface Model {
      */
     List<Pair<String, Location>> getEntitiesToDrow();
 
-  
     /**
      * @param direction
      *            direction where the player have to move.
@@ -42,7 +41,10 @@ public interface Model {
      * stop the time.
      */
     void stopTime();
-    
+
+    /**
+     * time restart to run.
+     */
     void resumeTime();
 
     /**
@@ -66,21 +68,44 @@ public interface Model {
      * @return .
      */
     GameStatus getGameStatus();
-    
+
+    /**
+     * @return how many second the game still go
+     */
     int getScore();
 
-	String getPlayerDamage();
+    /**
+     * @return player damage
+     */
+    String getPlayerDamage();
 
-	String getPlayerAttSpeed();
+    /**
+     * @return player attack frequency
+     */
+    String getPlayerAttSpeed();
 
-	String getPlayerMvSpeed();
-	
-	int[][] getMapToView();
-	
-    
+    /**
+     * @return player movement speed
+     */
+    String getPlayerMvSpeed();
+
+    /**
+     * @return matrix that looks like the game map
+     */
+    int[][] getMapToView();
+
+    /**
+     * @return matrix columns
+     */
     int getXmap();
-    
+
+    /**
+     * @return matrix rows
+     */
     int getYmap();
-    
+
+    /**
+     * ask that the matrix that show the map is updated.
+     */
     void mapUpdate();
 }

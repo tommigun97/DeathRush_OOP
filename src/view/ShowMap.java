@@ -19,6 +19,8 @@ public final class ShowMap {
     private static final double INFO_WIDTH = 520;
     private static final double INFO_HEIGHT = 650;
     private static final int SQUARE_SIZE = 40;
+    private static final Stage WINDOW = new Stage();
+
     private ShowMap() {
     };
 
@@ -27,12 +29,11 @@ public final class ShowMap {
      */
     static void print() {
         int[][] map = ViewImpl.getController().getViewMap();
-        final Stage window = new Stage();
-        window.setResizable(false);
-        window.centerOnScreen();
-        window.setTitle("In Game Map");
-        window.setMinWidth(INFO_WIDTH);
-        window.setMinHeight(INFO_HEIGHT);
+        WINDOW.setResizable(false);
+        WINDOW.centerOnScreen();
+        WINDOW.setTitle("In Game Map");
+        WINDOW.setMinWidth(INFO_WIDTH);
+        WINDOW.setMinHeight(INFO_HEIGHT);
 
         final Text instructionTitle = new Text();
         instructionTitle.setText("In Game Map");
@@ -95,8 +96,12 @@ public final class ShowMap {
         mainLayout.setId("helpPane");
         final Scene scene = new Scene(mainLayout);
         scene.getStylesheets().add("style.css");
-        window.setScene(scene);
-        window.showAndWait();
+        WINDOW.setScene(scene);
+        WINDOW.setOnCloseRequest(e -> {
+            GameScreen.onCloseMap();
+        });
+        GameScreen.setMapActive(true);
+        WINDOW.showAndWait();
     }
 
 }
