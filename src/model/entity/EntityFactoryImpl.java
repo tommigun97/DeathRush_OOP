@@ -18,6 +18,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final double DEFAULT_BULLET_WEIGHT = 0.03;
     private static final double DEFAULT_BULLET_HEIGHT = 0.03;
     private static final double DEFAULT_BULLET_SPEED = 0.01;
+    private static final double DEFAULT_BULLET_SPEED_ENEMY = 0.0075;
     private static final double DEFAULT_OBSTACLE_WEIGHT = 0.03;
     private static final double DEFAULT_OBSTACLE_HEIGHT = 0.04;
     private static final String DEFAULT_OBSTACLE_IMAGE = "room/rock.png";
@@ -88,7 +89,7 @@ public final class EntityFactoryImpl implements EntityFactory {
                 .with("Current Life", DEFAULT_STALKER_ENEMY_MAX_LIFE)
                 .with("Shoot Frequency", DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY)
                 .with("Collision Damage", DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE)
-                .with("Bullet Speed", DEFAULT_BULLET_SPEED).with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE)
+                .with("Bullet Speed", DEFAULT_BULLET_SPEED_ENEMY).with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE)
                 .with("Reward", DEFAULT_STALKER_ENEMY_REWARD).build();
     }
 
