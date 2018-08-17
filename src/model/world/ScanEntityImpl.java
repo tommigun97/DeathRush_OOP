@@ -1,22 +1,12 @@
- package model.world;
+package model.world;
 
 import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-
 import model.entity.Boss;
 import model.entity.Entity;
 import model.entity.EntityFactory;
@@ -25,7 +15,6 @@ import model.entity.PowerUp;
 import model.room.Room;
 import model.room.RoomType;
 import model.world.BackgroundFromFile;
-import utilities.Pair;
 
 public class ScanEntityImpl implements ScanEntity {
 
@@ -44,20 +33,16 @@ public class ScanEntityImpl implements ScanEntity {
 		this.entityToStolk = entityToStolk;
 	}
 
-
-
 	private int calculateRow() throws IOException {
 		int rowCount = 0;
 
 		try {
 			final InputStream in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
 			this.bufferReader = new BufferedReader(new InputStreamReader(in));
-			//this.bufferReader = new BufferedReader(new FileReader(this.file));
 			while (this.bufferReader.readLine() != null) {
 				rowCount++;
 			}
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.bufferReader.close();

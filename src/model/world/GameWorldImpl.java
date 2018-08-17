@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.stream.Collectors;
-
 import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomImpl.RoomBuilder;
@@ -150,7 +148,7 @@ public class GameWorldImpl implements GameWorld {
 		this.initializeMapBuilding();
 		this.populateNormalRoom();
 		this.populateBossRoom();
-		this.mapForView = new GameMapImpl(this, this.Y, this.X, this.player);
+		this.mapForView = new GameMapImpl(this, GameWorldImpl.Y, GameWorldImpl.Y, this.player);
 	}
 
 	
@@ -192,12 +190,12 @@ public class GameWorldImpl implements GameWorld {
 
 	@Override
 	public int getColumnMatrix() {
-		return this.X;
+		return GameWorldImpl.X;
 	}
 
 	@Override
 	public int getRowMatrix() {
-		return this.Y;
+		return GameWorldImpl.Y;
 	}
 	
 	private void populateNormalRoom() {
