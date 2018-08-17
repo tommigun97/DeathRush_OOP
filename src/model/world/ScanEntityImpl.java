@@ -34,19 +34,14 @@ public class ScanEntityImpl implements ScanEntity {
 	private final static char NOSCAN = '0';
 
 	private String fileName;
-	private File file;
-	private Set<Room> rooms;
-	private Set<Entity> entitiesRead;
 	private EntityFactory ef;
 	private Entity entityToStolk;
 	private BufferedReader bufferReader;
+	private Iterator<String> bossIterator = BackgroundFromFile.getBossPath().iterator();
 
-	public ScanEntityImpl(Set<Room> rooms, Entity entityToStolk, EntityFactory ef) {
+	public ScanEntityImpl(Entity entityToStolk, EntityFactory ef) {
 		this.ef = ef;
-		this.entitiesRead = new HashSet<>();
-		this.rooms = rooms;
 		this.entityToStolk = entityToStolk;
-
 	}
 
 	public void populateRooms() {
