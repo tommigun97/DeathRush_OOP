@@ -44,10 +44,10 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final int DEFAULT_MOSCOW_ENEMY_COLLISION_DAMAGE = 1;
     private static final Area DEFAULT_MOSCOW_ENEMY_AREA = new Area(0.03, 0.03);
     private static final int DEFAULT_MOSCOW_ENEMY_REWARD = 5;
-    private static final Long GUITAR_UPGRADE = Long.valueOf(200);
+    private static final Long GUITAR_UPGRADE = Long.valueOf(150);
     private static final double SUGAR_UPGRADE = 0.003;
     private static final int GUN_UPGRADE = 20;
-    private static final int CIGARETTE_UPGRADE = 4;
+    private static final int CIGARETTE_UPGRADE = 5;
     private static final String PLAYER_BULLET = "bullet/bullet1.png";
     private static final String ENEMY_BULLET = "bullet/bullet2.png";
     private final CollisionSupervisor cs;
