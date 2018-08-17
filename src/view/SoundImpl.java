@@ -32,6 +32,7 @@ public class SoundImpl implements Sound {
             e1.printStackTrace();
         }
     }
+
     @Override
     public final void musicPlay(final String pathToSong) {
         if (this.isOn) {
@@ -42,6 +43,7 @@ public class SoundImpl implements Sound {
         this.songToPlay.start();
         this.songToPlay.loop(Clip.LOOP_CONTINUOUSLY);
     }
+
     @Override
     public final void musicStop() {
         if (this.isOn) {
