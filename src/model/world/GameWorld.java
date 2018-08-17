@@ -22,8 +22,6 @@ public interface GameWorld {
     
     int getRowMatrix();
     
-    void buildWorldGame();
-    
     void matrixViewUpdate();
     /**
      * @return true if all room are completed

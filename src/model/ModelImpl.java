@@ -105,8 +105,7 @@ public final class ModelImpl implements Model {
         this.eFactory = new EntityFactoryImpl(this.cs);
         this.player = eFactory.createPlayer(STARTING_POSITION, who);
         this.map = new GameWorldImpl(eFactory, player);
-        this.map.buildWorldGame();
-        this.time = new Time();
+        this.time = new TimeImpl();
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentRoom(currentRoom);
         this.map.toString();
