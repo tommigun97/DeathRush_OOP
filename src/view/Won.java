@@ -105,4 +105,3 @@ public class Won extends Scene {
     }
 
 }
-

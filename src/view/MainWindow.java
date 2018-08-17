@@ -3,7 +3,6 @@ package view;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
 /**
  * Class responsible for creating the main window (Stage) of the application.
  */
@@ -40,7 +39,7 @@ public class MainWindow extends Application {
 
         this.mainWindow.setScene(MainMenu.get(this.mainWindow));
         this.mainWindow.show();
-        ViewImpl.getController().playSong(Sound.song.MENUSONG.getPathToSong());
+        ViewImpl.getController().playSong(Sound.SONG.MENUSONG.getPathToSong());
     }
 
 }

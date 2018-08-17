@@ -1,6 +1,5 @@
 package model.room;
 
-import java.util.List;
 import java.util.Set;
 import model.entity.Entity;
 import model.entity.EntityType;

@@ -1,4 +1,5 @@
 package view;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
@@ -126,8 +127,7 @@ public class SettingsWindow extends Scene {
             GenericBox.display("Success", "Settings saved", "Ok");
             GameWorldView.setResolution(width, height, SettingsWindow.fullScreen);
         } else {
-            GenericBox.display("Error", "Your screen is too small for this resolution!",
-                    "Back to settings");
+            GenericBox.display("Error", "Your screen is too small for this resolution!", "Back to settings");
         }
 
     }

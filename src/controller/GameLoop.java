@@ -15,7 +15,7 @@ public class GameLoop extends Thread {
      * Enum to describe the possible states of the GameLoop.
      */
     private enum Status {
-        RUNNING, PAUSED, KILLED, READY;
+    RUNNING, PAUSED, KILLED, READY;
     }
 
     private static final long PERIOD = 20;
@@ -27,11 +27,14 @@ public class GameLoop extends Thread {
     private Model model;
 
     /**
-     * The constructor of the game loop will be able to run the game
+     * The constructor of the game loop will be able to run the game.
+     * 
      * @param controller
-     *            .
+     *            set controller.
      * @param view
-     *            .
+     *            set view.
+     * @param model
+     *            set model.
      */
     public GameLoop(final Controller controller, final View view, final Model model) {
         this.controller = controller;
@@ -40,15 +43,15 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * This method is the heart of the game, it's used to update every beat
-     * Missing JavaDoc.
+     * This method is the heart of the game, it's used to update every beat Missing
+     * JavaDoc.
      */
     public void run() {
-    	this.setState(Status.RUNNING);
+        this.setState(Status.RUNNING);
         this.model.start(controller.getPlayer());
         while (!this.isInState(Status.KILLED)) {
             if (this.isInState(Status.RUNNING)) {
-            	
+
                 long time = System.currentTimeMillis();
                 if (this.model.getGameStatus().equals(GameStatus.Running)) {
                     controller.processInput();
@@ -70,17 +73,11 @@ public class GameLoop extends Thread {
                 }
             }
         }
-        /*
-         * if (this.model.isComplited()) { this.controller.saveScoreGame(); }
-         */
-        // this.controller.saveScoreGame();
-        // this.controller.abortGameLoop();
 
     }
 
     /**
-     * This method is called from the run method to update the view by the model
-     * @param elapsed.
+     * This method is called from the run method to update the view by the model.
      */
     public void updateGame() {
         this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
@@ -89,16 +86,18 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * Ask if the Status state is the current state
+     * Ask if the Status state is the current state.
+     * 
      * @param state
-     * @return true if state is equal to the current
+     * @return true if the state is equal to the current.
      */
     private synchronized boolean isInState(final Status state) {
         return this.state.equals(state);
     }
 
     /**
-     * Method used to set the state of the game
+     * Method used to set the state of the game.
+     * 
      * @param state
      */
     private synchronized void setState(final Status state) {
@@ -106,14 +105,14 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * Kill the gameLoop
+     * Kill the gameLoop.
      */
     public void abort() {
         this.setState(Status.KILLED);
     }
 
     /**
-     * Set in pause the gameLoop
+     * Set in pause the gameLoop.
      */
     public void pause() {
         if (this.isInState(Status.RUNNING)) {
@@ -123,7 +122,7 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * Resume the gameLoop
+     * Resume the gameLoop.
      */
     public void resumeGame() {
         if (this.isInState(Status.PAUSED)) {
@@ -133,7 +132,8 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * Ask if the gameLoop status is equal to Paused
+     * Ask if the gameLoop status is equal to Paused.
+     * 
      * @return true if the game is in pause
      */
     public boolean isPaused() {
@@ -141,7 +141,8 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * Ask if the gameLoop status is equal to Running
+     * Ask if the gameLoop status is equal to Running.
+     * 
      * @return true if the game is Running
      */
     public boolean isRunning() {

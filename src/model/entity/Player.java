@@ -54,7 +54,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 1000;
+            return 130;
         }
 
     },
@@ -100,7 +100,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 90;
+            return 100;
         }
     },
 
@@ -145,7 +145,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 180;
+            return 200;
         }
     },
 
@@ -185,7 +185,7 @@ public enum Player {
 
         @Override
         public long startingPlayerShootFrequency() {
-            return 300;
+            return 250;
         }
 
         @Override

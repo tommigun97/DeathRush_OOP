@@ -23,16 +23,13 @@ import view.View;
  */
 public class ControllerImpl implements Controller {
 
-    private static final String FILENAME = ControllerImpl.class.getResource("/ScoreList").getPath();
-    private static final int N_SCORE = 10;
-
+    private static final String FILENAME = "ScoreList";
     private View view;
     private Optional<GameLoop> gameLoop = Optional.empty();
     private final InputHandler input;
     private Model model;
-    private TimeImpl gameTime;
     private ScoreImpl sc;
-    Player pg;
+    private Player pg;
     private String playerName;
 
     /**
@@ -41,7 +38,7 @@ public class ControllerImpl implements Controller {
     public ControllerImpl() {
         this.sc = new ScoreImpl(FILENAME);
         this.input = InputHandler.getInputHandler();
-        this.gameTime = new TimeImpl();
+        new TimeImpl();
         this.model = new ModelImpl();
     }
 
@@ -102,7 +99,8 @@ public class ControllerImpl implements Controller {
     }
 
     /**
-     * this method is used to translate the input relative to the shot of the player
+     * this method is used to translate the input relative to the shot of the
+     * player.
      * 
      * @param e
      * @return the direction of the shot
@@ -166,13 +164,13 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public List<Pair<Pair<String, Integer>, String>> getCurrentHighScores() {
+    public final List<Pair<Pair<String, Integer>, String>> getCurrentHighScores() {
         return this.sc.getScoreList();
     }
 
     @Override
-    public boolean saveScoreGame() {
-        this.sc.addScore(new Pair<Pair<String, Integer>, String>(new Pair(this.playerName, this.model.getScore()),
+    public final boolean saveScoreGame() {
+        this.sc.addScore(new Pair<Pair<String, Integer>, String>(new Pair<String, Integer>(this.playerName, this.model.getScore()),
                 this.model.getTime()));
         try {
             this.sc.saveOnFile();
@@ -194,51 +192,63 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public void selectPlayer(Player pg) {
+    public final void selectPlayer(final Player pg) {
         this.pg = pg;
     }
 
     @Override
-    public Player getPlayer() {
+    public final Player getPlayer() {
         return this.pg;
     }
 
     @Override
-    public void setPlayerName(String name) {
+    public final void setPlayerName(final String name) {
         this.playerName = name;
     }
 
     @Override
-    public String getPlaterName() {
+    public final String getPlaterName() {
         return this.playerName;
     }
 
     @Override
-    public int[][] getViewMap() {
+    public final int[][] getViewMap() {
         return this.model.getMapToView();
     }
 
     @Override
-    public int getXmap() {
+    public final int getXmap() {
         return this.model.getXmap();
     }
 
     @Override
-    public int getYmap() {
+    public final int getYmap() {
         return this.model.getYmap();
     }
 
     @Override
-    public void mapUpdate() {
+    public final void mapUpdate() {
         this.model.mapUpdate();
 
     }
 
-    public void playSong(String s) {
+    /**
+     * call the view playSong and pass the song name.
+     * 
+     * @param s
+     *            song name.
+     */
+    public void playSong(final String s) {
         this.view.play(s);
     }
 
-    public void changeSong(String s) {
+    /**
+     * call the view changeSong and pass the song name.
+     * 
+     * @param s
+     *            song name.
+     */
+    public void changeSong(final String s) {
         this.view.changeSong(s);
     }
 

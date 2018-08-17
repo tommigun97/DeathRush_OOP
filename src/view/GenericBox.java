@@ -10,7 +10,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-
 /**
  * This class create a MessageBox to interact with the user.
  *
