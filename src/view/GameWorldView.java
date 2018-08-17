@@ -125,7 +125,6 @@ public class GameWorldView extends Scene {
         final InputHandler inputHandler = InputHandler.getInputHandler();
         inputHandler.emptyList();
         this.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            System.out.println("[GAME SCREEN] MAP_CONTROL == " + mapActive);
             if (event.getCode() == KeyCode.BACK_SPACE) {
                 ViewImpl.getController().pauseGameLoop();
                 this.backMenu();

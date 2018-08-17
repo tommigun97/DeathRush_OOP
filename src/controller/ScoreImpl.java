@@ -98,7 +98,6 @@ public class ScoreImpl implements Score {
 				final String name = in.readUTF();
 				final Integer score = Integer.valueOf(in.readInt());
 				final String time = in.readUTF();
-				System.out.println("[Score] " + time);
 				list.add(new Pair<Pair<String, Integer>,String>(new Pair<String, Integer>(name, score), time));
 			}
 		} catch (final Exception ex) {
