@@ -100,7 +100,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 90;
+            return 110;
         }
     },
 
@@ -130,7 +130,7 @@ public enum Player {
 
         @Override
         public int getStartingMaxLife() {
-            return 18;
+            return 17;
         }
 
         @Override
@@ -145,7 +145,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 180;
+            return 200;
         }
     },
 
