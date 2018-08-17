@@ -54,7 +54,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 120;
+            return 1000;
         }
 
     },

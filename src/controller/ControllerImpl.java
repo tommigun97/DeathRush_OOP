@@ -23,7 +23,7 @@ import view.View;
  */
 public class ControllerImpl implements Controller {
 
-    private static final String FILENAME = "ScoreList";
+    private static final String FILENAME = ControllerImpl.class.getResource("/ScoreList").getPath();
     private static final int N_SCORE = 10;
 
     private View view;
@@ -31,7 +31,7 @@ public class ControllerImpl implements Controller {
     private final InputHandler input;
     private Model model;
     private TimeImpl gameTime;
-    private ScoreImpl sc ;
+    private ScoreImpl sc;
     Player pg;
     private String playerName;
 
@@ -49,8 +49,7 @@ public class ControllerImpl implements Controller {
     public final void startGameLoop() throws IllegalStateException {
         this.gameLoop = Optional.of(new GameLoop(this, this.view, this.model));
         this.gameLoop.get().start();
-        
-        
+
     }
 
     /**
@@ -61,49 +60,50 @@ public class ControllerImpl implements Controller {
      */
     public void setView(final View view) {
         this.view = view;
-        
+
     }
-    
+
     @Override
     public final void pauseGameLoop() {
-    	if(this.gameLoop.isPresent()) {  
-    		this.gameLoop.get().pause();
-    	}
+        if (this.gameLoop.isPresent()) {
+            this.gameLoop.get().pause();
+        }
     }
 
     @Override
     public final void abortGameLoop() {
-    	if(this.gameLoop.isPresent()) {
-    		this.gameLoop.get().abort();
-    		this.gameLoop = Optional.empty();
-    	}
+        if (this.gameLoop.isPresent()) {
+            this.gameLoop.get().abort();
+            this.gameLoop = Optional.empty();
+        }
     }
 
     @Override
     public final void resumeGameLoop() {
-    	if(this.gameLoop.isPresent()) {
-    		this.gameLoop.get().resumeGame();
-    	}
+        if (this.gameLoop.isPresent()) {
+            this.gameLoop.get().resumeGame();
+        }
     }
 
     @Override
     public final boolean isGameLoopRunning() {
-    	if(!this.gameLoop.isPresent()) {
-    		return false;
-    	}
+        if (!this.gameLoop.isPresent()) {
+            return false;
+        }
         return this.gameLoop.get().isRunning();
     }
 
     @Override
     public final boolean isGameLoopPaused() {
-    	if(!this.gameLoop.isPresent()) {
-    		return false;
-    	}
+        if (!this.gameLoop.isPresent()) {
+            return false;
+        }
         return this.gameLoop.get().isPaused();
     }
 
     /**
      * this method is used to translate the input relative to the shot of the player
+     * 
      * @param e
      * @return the direction of the shot
      */
@@ -166,19 +166,20 @@ public class ControllerImpl implements Controller {
     }
 
     @Override
-    public List<Pair<Pair<String, Integer>,String>> getCurrentHighScores() {
-    	return this.sc.getScoreList();
+    public List<Pair<Pair<String, Integer>, String>> getCurrentHighScores() {
+        return this.sc.getScoreList();
     }
-    
+
     @Override
     public boolean saveScoreGame() {
-    	this.sc.addScore(new Pair<Pair<String, Integer>, String>(new Pair(this.playerName, this.model.getScore()), this.model.getTime()));
-    	 try {
-             this.sc.saveOnFile();
-         } catch (IllegalStateException | IOException e) {
-             return false;
-         }
-         return true;
+        this.sc.addScore(new Pair<Pair<String, Integer>, String>(new Pair(this.playerName, this.model.getScore()),
+                this.model.getTime()));
+        try {
+            this.sc.saveOnFile();
+        } catch (IllegalStateException | IOException e) {
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -192,57 +193,53 @@ public class ControllerImpl implements Controller {
         return true;
     }
 
-	@Override
-	public void selectPlayer(Player pg) {
-		this.pg = pg;
-	}
-	
-	@Override
-	public Player getPlayer() {
-		return this.pg;
-	}
+    @Override
+    public void selectPlayer(Player pg) {
+        this.pg = pg;
+    }
 
-	@Override
-	public void setPlayerName(String name) {
-		this.playerName = name;
-	}
-	
+    @Override
+    public Player getPlayer() {
+        return this.pg;
+    }
+
+    @Override
+    public void setPlayerName(String name) {
+        this.playerName = name;
+    }
+
     @Override
     public String getPlaterName() {
         return this.playerName;
     }
 
-	@Override
-	public int[][] getViewMap() {
-		return this.model.getMapToView();
-	}
+    @Override
+    public int[][] getViewMap() {
+        return this.model.getMapToView();
+    }
 
-	@Override
-	public int getXmap() {
-		return this.model.getXmap();
-	}
+    @Override
+    public int getXmap() {
+        return this.model.getXmap();
+    }
 
-	@Override
-	public int getYmap() {
-		return this.model.getYmap();
-	}
+    @Override
+    public int getYmap() {
+        return this.model.getYmap();
+    }
 
-	@Override
-	public void mapUpdate() {
-		this.model.mapUpdate();
-		
-	}
-	
-	public void playSong(String s) {
-		this.view.play(s);
-	}
+    @Override
+    public void mapUpdate() {
+        this.model.mapUpdate();
 
+    }
 
-	public void changeSong(String s) {
-		this.view.changeSong(s);
-	}
-	
+    public void playSong(String s) {
+        this.view.play(s);
+    }
 
+    public void changeSong(String s) {
+        this.view.changeSong(s);
+    }
 
-	
 }
