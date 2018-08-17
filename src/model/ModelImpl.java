@@ -87,9 +87,9 @@ public final class ModelImpl implements Model {
             }
         }
         if (this.player.getIntegerProperty("Current Life") <= 0) {
-            /*
-             * this.time.pause(); this.gameStatus = GameStatus.Over;
-             */
+            
+             this.time.pause(); this.gameStatus = GameStatus.Over;
+             
         }
         if (map.allRoomAreCompleted()) {
             this.time.pause();
