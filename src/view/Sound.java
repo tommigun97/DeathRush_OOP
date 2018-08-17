@@ -1,13 +1,21 @@
 package view;
 
+/**
+ * 
+ * This interface provide basic method for music manipulation.
+ *
+ */
 public interface Sound {
-
-    public enum song {
-        MENUSONG("/music/menuOP.wav"), GAMESONG("/music/gameOP.wav");
+    /**
+     * This enumeration contain the path of the song.
+     *
+     */
+    enum SONG {
+    MENUSONG("/music/menuOP.wav"), GAMESONG("/music/gameOP.wav");
 
         private final String pathToSong;
 
-        private song(String path) {
+        SONG(final String path) {
             this.pathToSong = path;
         }
 
@@ -16,7 +24,16 @@ public interface Sound {
         }
     }
 
+    /**
+     * When called play the track selected.
+     * 
+     * @param pathToString
+     *            song path.
+     */
     void musicPlay(String pathToString);
 
+    /**
+     * When called stop the track selected.
+     */
     void musicStop();
 }

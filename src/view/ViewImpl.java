@@ -58,16 +58,6 @@ public class ViewImpl implements View {
         Platform.runLater(() -> ViewImpl.gameScreen.updateInfo(hp, money, time, damage, attackSpeed, mvSpeed));
     }
 
-    @Override
-    public void showText(final int nLevel) {
-        // Platform.runLater(() -> View.gameScreen.won(nLevel));
-    }
-
-    @Override
-    public void showText(final String powerUp) {
-        // Platform.runLater(() -> View.gameScreen.powerUp(powerUp));
-    }
-
     /**
      * Setter for the Game Screen. It is necessary to save it in order to call some
      * methods in it.
@@ -111,7 +101,7 @@ public class ViewImpl implements View {
      */
     public final void gameOver() {
         Platform.runLater(() -> ViewImpl.gameScreen.gameOver());
-        Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong()));
+        Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong()));
     }
 
     /**
@@ -119,15 +109,17 @@ public class ViewImpl implements View {
      */
     public void youWin() {
         Platform.runLater(() -> ViewImpl.gameScreen.youWin());
-        Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong()));
+        Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong()));
     }
 
-    public void play(String path) {
+    @Override
+    public final void play(final String path) {
         this.sound = new SoundImpl();
         this.sound.musicPlay(path);
     }
 
-    public void changeSong(String path) {
+    @Override
+    public final void changeSong(final String path) {
         this.sound.musicPlay(path);
     }
 
