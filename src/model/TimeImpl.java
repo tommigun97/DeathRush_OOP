@@ -5,14 +5,11 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import view.ViewImpl;
-import view.View;
-
 /**
- * 
+ * This class is used to take care of the time, we used it on the game cause we set the player score by the time the he used to finish the game
  *
  */
-public class TimeImpl {
+public class TimeImpl  implements Time {
 
     private int totalSec;
     private int secondPassed;
@@ -22,7 +19,7 @@ public class TimeImpl {
     private boolean running;
 
     /**
-     * 
+     *  The Constructor of the class TimeImpl
      */
     public TimeImpl() {
         this.totalSec = 0;
@@ -52,29 +49,27 @@ public class TimeImpl {
         }
     };
 
-    /**
-     * 
-     */
+    @Override
     public void start() {
         this.running = true;
         this.myTimer.scheduleAtFixedRate(task, 1000, 1000);
     }
 
-    /**
-     * 
-     */
+    @Override
     public void pause() {
         if (this.running) {
             this.running = false;
         }
     }
 
+    @Override
     public void resume() {
         if (!this.running) {
             this.running = true;
         }
     }
 
+    @Override
     public void resetTime() {
         this.pause();
         this.hourPassed = 0;
@@ -83,26 +78,32 @@ public class TimeImpl {
         this.totalSec = 0;
     }
 
+    @Override
     public int getTotalSecond() {
         return this.totalSec;
     }
 
+    @Override
     public String getCurrentTime() {
         return ("Time " + hourPassed + ":" + minutePassed + ":" + secondPassed);
     }
 
+    @Override
     public int getSec() {
         return this.secondPassed;
     }
 
+    @Override
     public int getMin() {
         return this.minutePassed;
     }
-
+    
+    @Override
     public int getHour() {
         return this.hourPassed;
     }
 
+    @Override
     public List<Integer> transformSecondInTime() {
         List<Integer> list = new LinkedList<>();
         list.add(getHour());

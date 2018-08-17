@@ -2,7 +2,6 @@ package controller;
 
 import java.util.List;
 
-import model.TimeImpl;
 import model.entity.Player;
 import utilities.Pair;
 import view.View;
@@ -22,9 +21,18 @@ public interface Controller {
      */
     void startGameLoop() throws IllegalStateException;
 
-    void selectPlayer(Player pg);
+    /**
+     * A method to choose the selected player
+     * @param pg
+     */
+	void selectPlayer(Player pg);
     
+	/**
+	 * 
+	 * @return the entity player in game
+	 */
     Player getPlayer();
+    
     /**
      * Set the GUI of the game.
      * 
@@ -82,23 +90,57 @@ public interface Controller {
      */
     boolean emptyScores();
     
+    /**
+     * A method to save the score on the Score manager
+     * @return true if there is no error in loading save
+     */
     boolean saveScoreGame();
     
+    /**
+     * Set the player name for the Score List
+     * @param name
+     */
     void setPlayerName(String name);
     
+    /**
+     * 
+     * @return The name of the player
+     */
     String getPlaterName();
     
+    /**
+     * 
+     * @return the map by a call from model
+     */
     int[][] getViewMap();
     
-    
+    /**
+     * 
+     * @return the column x of the map matrix
+     */
     int getXmap();
     
+    /**
+     * 
+     * @return the column y of the map matrix
+     */
     int getYmap();
     
+   /**
+    * Update the map 
+    */
     void mapUpdate();
     
+    /**
+     * Start the song s
+     * @param s
+     */
     void playSong(String s);
     
+    /**
+     * Method to change the song
+     * @param s
+     */
     void changeSong(String s);
 
 }

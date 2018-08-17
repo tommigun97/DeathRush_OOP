@@ -15,10 +15,10 @@ public enum Coordinates {
     /**
      * 
      */
-    WEST("room/door_open_W.png", "room/door_closed_W.png", 0, 0.03, 0.5, new Area(0.10, 0.10)), 
-    EAST("room/door_open_E.png", "room/door_closed_E.png", 1, 0.97, 0.5, new Area(0.10, 0.10)), 
-   SOUTH("room/door_open_S.png", "room/door_closed_S.png", 0, 0.5, 0.97, new Area(0.07, 0.15)), 
-    NORTH("room/door_open_N.png", "room/door_closed_N.png", 3, 0.5, 0.03, new Area(0.07, 0.15));
+    WEST("room/door_open_W.png", "room/door_closed_W.png", 0, 0.03, 0.5, new Area(0.08, 0.13)), 
+    EAST("room/door_open_E.png", "room/door_closed_E.png", 1, 0.97, 0.5, new Area(0.08, 0.13)), 
+   SOUTH("room/door_open_S.png", "room/door_closed_S.png", 0, 0.5, 0.97, new Area(0.08, 0.15)), 
+    NORTH("room/door_open_N.png", "room/door_closed_N.png", 3, 0.5, 0.03, new Area(0.08, 0.15));
 
   
 

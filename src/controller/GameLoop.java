@@ -2,10 +2,6 @@ package controller;
 
 import model.GameStatus;
 import model.Model;
-import model.entity.Player;
-import utilities.Pair;
-import view.Sound;
-import view.SoundImpl;
 import view.View;
 
 /**
@@ -31,6 +27,7 @@ public class GameLoop extends Thread {
     private Model model;
 
     /**
+     * The constructor of the game loop will be able to run the game
      * @param controller
      *            .
      * @param view
@@ -43,6 +40,7 @@ public class GameLoop extends Thread {
     }
 
     /**
+     * This method is the heart of the game, it's used to update every beat
      * Missing JavaDoc.
      */
     public void run() {
@@ -75,14 +73,13 @@ public class GameLoop extends Thread {
         /*
          * if (this.model.isComplited()) { this.controller.saveScoreGame(); }
          */
-        System.out.println(this.controller.getPlaterName());
         // this.controller.saveScoreGame();
         // this.controller.abortGameLoop();
 
     }
 
     /**
-     * 
+     * This method is called from the run method to update the view by the model
      * @param elapsed.
      */
     public void updateGame() {
@@ -91,23 +88,32 @@ public class GameLoop extends Thread {
                 this.model.getPlayerDamage(), this.model.getPlayerAttSpeed(), this.model.getPlayerMvSpeed());
     }
 
+    /**
+     * Ask if the Status state is the current state
+     * @param state
+     * @return true if state is equal to the current
+     */
     private synchronized boolean isInState(final Status state) {
         return this.state.equals(state);
     }
 
+    /**
+     * Method used to set the state of the game
+     * @param state
+     */
     private synchronized void setState(final Status state) {
         this.state = state;
     }
 
     /**
-     * 
+     * Kill the gameLoop
      */
     public void abort() {
         this.setState(Status.KILLED);
     }
 
     /**
-     * 
+     * Set in pause the gameLoop
      */
     public void pause() {
         if (this.isInState(Status.RUNNING)) {
@@ -117,7 +123,7 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * 
+     * Resume the gameLoop
      */
     public void resumeGame() {
         if (this.isInState(Status.PAUSED)) {
@@ -127,16 +133,16 @@ public class GameLoop extends Thread {
     }
 
     /**
-     * 
-     * @return .
+     * Ask if the gameLoop status is equal to Paused
+     * @return true if the game is in pause
      */
     public boolean isPaused() {
         return this.isInState(Status.PAUSED);
     }
 
     /**
-     * 
-     * @return .
+     * Ask if the gameLoop status is equal to Running
+     * @return true if the game is Running
      */
     public boolean isRunning() {
         return this.isInState(Status.RUNNING);

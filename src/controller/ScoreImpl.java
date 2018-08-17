@@ -28,7 +28,7 @@ public class ScoreImpl implements Score {
 	private boolean save;
 
 	/**
-	 * 
+	 * The Constructor of the class ScoreImple
 	 * @param fileName
 	 *            .
 	 */

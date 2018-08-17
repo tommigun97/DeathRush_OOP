@@ -39,7 +39,7 @@ public enum Player {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 20;
         }
 
         @Override
@@ -54,7 +54,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 100;
+            return 110;
         }
 
     },
@@ -85,22 +85,22 @@ public enum Player {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 15;
         }
 
         @Override
         public double getSpeed() {
-            return 0.008;
+            return 0.009;
         }
 
         @Override
         public long startingPlayerShootFrequency() {
-            return 500;
+            return 450;
         }
 
         @Override
         public int shootingDamage() {
-            return 1;
+            return 90;
         }
     },
 
@@ -130,7 +130,7 @@ public enum Player {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 15;
         }
 
         @Override
@@ -145,7 +145,7 @@ public enum Player {
 
         @Override
         public int shootingDamage() {
-            return 1;
+            return 170;
         }
     },
 
@@ -175,7 +175,7 @@ public enum Player {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 15;
         }
 
         @Override
@@ -185,12 +185,12 @@ public enum Player {
 
         @Override
         public long startingPlayerShootFrequency() {
-            return 500;
+            return 300;
         }
 
         @Override
         public int shootingDamage() {
-            return 1;
+            return 60;
         }
     };
 

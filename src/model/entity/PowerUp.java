@@ -25,7 +25,7 @@ public enum PowerUp {
 
         @Override
         public int getCost() {
-            return 70;
+            return 0;
         }
     },
 
@@ -46,7 +46,7 @@ public enum PowerUp {
 
         @Override
         public int getCost() {
-            return 0;
+            return 35;
         }
     },
 
@@ -67,7 +67,7 @@ public enum PowerUp {
 
         @Override
         public int getCost() {
-            return 65;
+            return 0;
         }
     },
 
@@ -88,7 +88,7 @@ public enum PowerUp {
 
         @Override
         public int getCost() {
-            return 120;
+            return 0;
         }
     };
 

@@ -32,6 +32,12 @@ public interface Time {
      * @return All the time spent in second
      */
     int getTotalSecond();
+    
+    /**
+     * 
+     * @return A string of the time passed
+     */
+    public String getCurrentTime();
 
     /**
      * 

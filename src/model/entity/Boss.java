@@ -39,12 +39,12 @@ public enum Boss {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 4000;
         }
 
         @Override
         public double getSpeed() {
-            return 0.002;
+            return 0.005;
         }
 
         @Override
@@ -59,7 +59,7 @@ public enum Boss {
 
         @Override
         public int collisionDamage() {
-            return 2;
+            return 1;
         }
 
         @Override
@@ -94,12 +94,12 @@ public enum Boss {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 3500;
         }
 
         @Override
         public double getSpeed() {
-            return 0.004;
+            return 0.005;
         }
 
         @Override
@@ -114,7 +114,7 @@ public enum Boss {
 
         @Override
         public int collisionDamage() {
-            return 2;
+            return 1;
         }
 
         @Override
@@ -148,17 +148,17 @@ public enum Boss {
 
         @Override
         public int getStartingMaxLife() {
-            return 10;
+            return 3000;
         }
 
         @Override
         public double getSpeed() {
-            return 0.004;
+            return 0.006;
         }
 
         @Override
         public long startingBossShootFrequency() {
-            return 500;
+            return 1000;
         }
 
         @Override
@@ -168,7 +168,7 @@ public enum Boss {
 
         @Override
         public int collisionDamage() {
-            return 2;
+            return 1;
         }
 
         @Override

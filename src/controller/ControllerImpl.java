@@ -14,7 +14,6 @@ import model.entity.Player;
 import utilities.Input;
 import utilities.Pair;
 import view.InputHandler;
-import view.Sound;
 import view.View;
 
 /**
@@ -103,6 +102,11 @@ public class ControllerImpl implements Controller {
         return this.gameLoop.get().isPaused();
     }
 
+    /**
+     * this method is used to translate the input relative to the shot of the player
+     * @param e
+     * @return the direction of the shot
+     */
     private Direction translateShot(final Input e) {
         Direction shot = Direction.NOTHING;
         if (e.equals(Input.SHOT_UP)) {
@@ -205,7 +209,6 @@ public class ControllerImpl implements Controller {
 	
     @Override
     public String getPlaterName() {
-        // TODO Auto-generated method stub
         return this.playerName;
     }
 
