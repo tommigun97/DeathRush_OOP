@@ -7,16 +7,16 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
+/**
+ * This class implements the Sound.
+ *
+ */
 public class SoundImpl implements Sound {
 
     private Clip songToPlay;
     private boolean isOn;
-    private boolean musicOn;
 
-    public SoundImpl() {
-    }
-
-    private void setSong(String pathToSong) {
+    private void setSong(final String pathToSong) {
         AudioInputStream song;
         try {
             song = AudioSystem.getAudioInputStream(this.getClass().getResource(pathToSong));
@@ -32,23 +32,21 @@ public class SoundImpl implements Sound {
             e1.printStackTrace();
         }
     }
-
-    public void musicPlay(String pathToSong) {
+    @Override
+    public final void musicPlay(final String pathToSong) {
         if (this.isOn) {
             this.musicStop();
         }
         this.setSong(pathToSong);
         this.isOn = true;
-        this.musicOn = true;
         this.songToPlay.start();
         this.songToPlay.loop(Clip.LOOP_CONTINUOUSLY);
     }
-
-    public void musicStop() {
+    @Override
+    public final void musicStop() {
         if (this.isOn) {
             this.songToPlay.stop();
             this.isOn = false;
-            this.musicOn = false;
         }
     }
 }

@@ -41,22 +41,6 @@ public interface View {
     List<Input> getShotInput();
 
     /**
-     * It displays a label with the most recent completed level.
-     * 
-     * @param nLevel
-     *            the number of the level just completed
-     */
-    void showText(int nLevel);
-
-    /**
-     * It displays a label with the current power up at the top of the screen.
-     * 
-     * @param powerUp
-     *            a String with the name of the power-up.
-     */
-    void showText(String powerUp);
-
-    /**
      * This method call the Game Over screen.
      */
     void gameOver();
@@ -85,8 +69,16 @@ public interface View {
     void updateInfoToDraw(int playerLife, int money, String time, String playerDamage, String playerAttSpeed,
             String playerMvSpeed);
 
+    /**
+     * This method play the selected song.
+     * 
+     * @param path song path.
+     */
     void play(String path);
-
+    /**
+     * 
+     * @param path song path
+     */
     void changeSong(String path);
 
 }

@@ -22,13 +22,17 @@ import model.Location;
 import utilities.Pair;
 
 /**
- * This class is responsible for handling the game world and everything in it.
- * It extends Scene.
+ * This class create the GameWorld and everything inside the GameWold , it
+ * extend the Scene class.
  *
  */
 public class GameWorldView extends Scene {
 
     // Constant for object dimension
+    private static final double FONT_SIZE = 15;
+    private static final double SPACING = 12;
+    private static final double MAX_BUTTON_WIDTH = 280;
+    private static final double MAX_BUTTON_HEIGHT = 50;
     private static final double BASIC_BUTTON_WIDTH = 110;
     private static final double BASIC_BUTTON_HEIGHT = 25;
     private static final double BASIC_RES_WIDTH = 1280;
@@ -43,7 +47,7 @@ public class GameWorldView extends Scene {
 
     // Screen Object
     private final Button infoButton = new Button("Info");
-    private static final Button PAUSE_BUTTON = new Button(PAUSE);
+    private static final Button PAUSEBUTTON = new Button(PAUSE);
     private final Label hp = new Label();
     private final Label coin = new Label();
     private final Label damage = new Label();
@@ -66,10 +70,10 @@ public class GameWorldView extends Scene {
         super(new StackPane());
 
         final HBox buttonGame = new HBox();
-        PAUSE_BUTTON.setId("menu-buttons");
-        PAUSE_BUTTON.setDefaultButton(false);
-        PAUSE_BUTTON.setFocusTraversable(false);
-        PAUSE_BUTTON.setOnAction(e -> {
+        PAUSEBUTTON.setId("menu-buttons");
+        PAUSEBUTTON.setDefaultButton(false);
+        PAUSEBUTTON.setFocusTraversable(false);
+        PAUSEBUTTON.setOnAction(e -> {
             this.pause();
         });
         infoButton.setId("menu-buttons");
@@ -85,7 +89,7 @@ public class GameWorldView extends Scene {
         damage.setId("status-bar");
         attspeed.setId("status-bar");
         mvspeed.setId("status-bar");
-        buttonGame.getChildren().addAll(PAUSE_BUTTON, infoButton, timePlayed, hp, coin, damage, attspeed, mvspeed);
+        buttonGame.getChildren().addAll(PAUSEBUTTON, infoButton, timePlayed, hp, coin, damage, attspeed, mvspeed);
         buttonGame.setSpacing(10);
         buttonGame.setAlignment(Pos.TOP_CENTER);
         buttonGame.setPadding(new Insets(10, inGameWidth, 0, 0));
@@ -115,7 +119,7 @@ public class GameWorldView extends Scene {
     }
 
     /**
-     * This method handling the user inputs.
+     * Private method. Manages the user inputs.
      */
     private void getInput() {
         final InputHandler inputHandler = InputHandler.getInputHandler();
@@ -142,29 +146,12 @@ public class GameWorldView extends Scene {
     }
 
     /**
-     * Private method. It's called when the user wants to pause or resume the game.
-     * 
-     */
-    private void pause() {
-        if (!mapActive) {
-            if (ViewImpl.getController().isGameLoopPaused()) {
-                InputHandler.getInputHandler().emptyList();
-                ViewImpl.getController().resumeGameLoop();
-                GameWorldView.PAUSE_BUTTON.setText(PAUSE);
-            } else {
-                ViewImpl.getController().pauseGameLoop();
-                GameWorldView.PAUSE_BUTTON.setText(RESUME);
-            }
-        }
-    }
-
-    /**
      * Private method. It's called when the user wants to see the in game map.
      * 
      */
     private void showMap() {
         ViewImpl.getController().pauseGameLoop();
-        GameWorldView.PAUSE_BUTTON.setText(RESUME);
+        PAUSEBUTTON.setText(RESUME);
         ViewImpl.getController().mapUpdate();
         ShowMap.print();
     }
@@ -175,7 +162,7 @@ public class GameWorldView extends Scene {
     public static void onCloseMap() {
         InputHandler.getInputHandler().emptyList();
         ViewImpl.getController().resumeGameLoop();
-        PAUSE_BUTTON.setText(PAUSE);
+        PAUSEBUTTON.setText(PAUSE);
         mapActive = false;
     }
 
@@ -195,37 +182,67 @@ public class GameWorldView extends Scene {
         });
     }
 
-    private void printImage(final Pane l, final String path, final Location loc) {
+    /**
+     * Private method. It print all images inside the GameWorld.
+     * 
+     * @param p
+     *            Pane to print.
+     * @param path
+     *            image path.
+     * @param loc
+     *            location of the image inside the pane.
+     */
+    private void printImage(final Pane p, final String path, final Location loc) {
         final ImageView image = new ImageView(this.iMaker.getImageFromPath(path));
         image.setPreserveRatio(false);
         image.setFitHeight(loc.getArea().getHeight() * GameWorldView.inGameHeight);
         image.setFitWidth(loc.getArea().getWidth() * GameWorldView.inGameWidth);
-        l.getChildren().add(image);
+        p.getChildren().add(image);
         image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameWorldView.inGameWidth);
         image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameWorldView.inGameHeight);
     }
 
     /**
-     * It updates the view with the current information about the player. If the
-     * game is over (hp <= 0) it displays the Game Over screen.
+     * This method update the players status bar info.
      * 
-     * 
-     * @param hpValue
-     *            Current hp of the player.
-     * @param shieldsValue
-     *            Current level status of the shields.
-     * @param scoreValue
-     *            Current score.
+     * @param hp
+     *            current player life.
+     * @param money
+     *            current player money value.
+     * @param time
+     *            current time passed from the start of the game.
+     * @param damage
+     *            current player attack damage.
+     * @param attackSpeed
+     *            current player attack speed value.
+     * @param mvSpeed
+     *            current player movement speed.
      */
     void updateInfo(final int hp, final int money, final String time, final String damage, final String attackSpeed,
             final String mvSpeed) {
-
         this.timePlayed.setText(time);
         this.hp.setText(String.valueOf(hp));
         this.coin.setText(String.valueOf(money));
         this.damage.setText("Damage:" + damage);
         this.attspeed.setText("Attack Speed:" + attackSpeed);
         this.mvspeed.setText("Movement Speed:" + mvSpeed);
+    }
+
+    /**
+     * Private method. When called from the user this stop/resume the GameLoop.
+     * 
+     */
+    private void pause() {
+        if (!mapActive) {
+            if (ViewImpl.getController().isGameLoopPaused()) {
+                InputHandler.getInputHandler().emptyList();
+                ViewImpl.getController().resumeGameLoop();
+                PAUSEBUTTON.setText(PAUSE);
+            } else {
+                ViewImpl.getController().pauseGameLoop();
+                PAUSEBUTTON.setText(RESUME);
+            }
+        }
     }
 
     /**
@@ -268,37 +285,38 @@ public class GameWorldView extends Scene {
      */
     private void resize() {
         this.infoBox.setMinWidth(inGameWidth);
-        this.infoBox.setMaxSize((280 * resConstantWidth), (50 * resConstantHeight));
-        this.infoBox.setMinHeight((50 * resConstantHeight));
-        this.infoBox.setSpacing(12 * resConstantWidth);
+        this.infoBox.setMaxSize((MAX_BUTTON_WIDTH * resConstantWidth), (MAX_BUTTON_HEIGHT * resConstantHeight));
+        this.infoBox.setMinHeight((MAX_BUTTON_HEIGHT * resConstantHeight));
+        this.infoBox.setSpacing(SPACING * resConstantWidth);
         this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
         this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
-        this.PAUSE_BUTTON.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
-        this.infoButton.setFont(Font.font(15 * resConstantHeight));
-        this.infoButton.setOnMouseEntered(e -> this.infoButton.setFont(Font.font(15 * resConstantHeight)));
-        this.PAUSE_BUTTON.setOnMouseEntered(e -> this.PAUSE_BUTTON.setFont(Font.font(15 * resConstantHeight)));
-        this.PAUSE_BUTTON.setFont(Font.font(15 * resConstantHeight));
-        this.hp.setFont(Font.font(15 * resConstantHeight));
-        this.coin.setFont(Font.font(15 * resConstantHeight));
-        this.damage.setFont(Font.font(15 * resConstantHeight));
-        this.attspeed.setFont(Font.font(15 * resConstantHeight));
-        this.mvspeed.setFont(Font.font(15 * resConstantHeight));
-        this.timePlayed.setFont(Font.font(15 * resConstantHeight));
+        PAUSEBUTTON.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
+        this.infoButton.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.infoButton.setOnMouseEntered(e -> this.infoButton.setFont(Font.font(FONT_SIZE * resConstantHeight)));
+        PAUSEBUTTON.setOnMouseEntered(e -> PAUSEBUTTON.setFont(Font.font(FONT_SIZE * resConstantHeight)));
+        PAUSEBUTTON.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.hp.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.coin.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.damage.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.attspeed.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.mvspeed.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.timePlayed.setFont(Font.font(FONT_SIZE * resConstantHeight));
     }
 
     /**
      * Getter of the status of the Stage.
      * 
-     * @return True if the current window (Stage) is in full screen mode
+     * @return True if the current window (Stage) is in full screen mode.
      */
     boolean isFullScreen() {
         return SettingsWindow.getIsFullScreen();
     }
 
     /**
-     * Private method. Called when the user wants to go back to the main menu while
-     * the game is running. It prompts a dialog box where the user can choose to go
-     * back to the menu or not.
+     * Private method. When called this method send a message to the user to inform
+     * about the current action if the user choose "yes" the GameLoop is stopped and
+     * the GameWorld destroyed and the user will redirect to the main MainMenu
+     * screen.
      */
     private void backMenu() {
         final Boolean answer = MessageBox.display("Alert", "Are you sure you want to go back to the menu?");
@@ -306,7 +324,7 @@ public class GameWorldView extends Scene {
             ViewImpl.getController().abortGameLoop();
             InputHandler.getInputHandler().emptyList();
             this.mainStage.setScene(MainMenu.get(this.mainStage));
-            ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong());
+            ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong());
         } else {
             InputHandler.getInputHandler().emptyList();
             ViewImpl.getController().resumeGameLoop();
@@ -318,15 +336,15 @@ public class GameWorldView extends Scene {
      */
     public void gameOver() {
         this.mainStage.setScene(GameOver.get(this.mainStage));
-        ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong());
+        ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong());
     }
 
     /**
-     * Call the You Win screen.
+     * Call the YouWin screen.
      */
     public void youWin() {
         this.mainStage.setScene(Won.get(this.mainStage));
-        ViewImpl.getController().changeSong(Sound.song.MENUSONG.getPathToSong());
+        ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong());
     }
 
 }
