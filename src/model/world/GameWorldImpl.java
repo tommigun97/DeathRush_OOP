@@ -187,7 +187,7 @@ public class GameWorldImpl implements GameWorld {
 
 	@Override
 	public int[][] getMatrixView() {
-		return this.mapForView.getMatrixMap();
+		return this.mapForView.getPathToView();
 	}
 
 	@Override
@@ -198,10 +198,6 @@ public class GameWorldImpl implements GameWorld {
 	@Override
 	public int getRowMatrix() {
 		return this.Y;
-	}
-
-	public void matrixViewUpdate() {
-		this.mapForView.buildMatrixToView();
 	}
 	
 	private void populateNormalRoom() {
