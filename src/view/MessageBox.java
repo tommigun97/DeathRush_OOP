@@ -11,7 +11,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * This class create a simple MessageBox and provide a yes/no option to the user.
+ * This class create a simple MessageBox and provide a yes/no option to the
+ * user.
  *
  */
 public final class MessageBox {

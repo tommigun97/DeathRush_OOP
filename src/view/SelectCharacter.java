@@ -124,7 +124,7 @@ public class SelectCharacter extends Scene {
     }
 
     /**
-     * 
+     * Private method. When called initiate the whole GameWorld.
      */
     private void initGame(final Player pg) {
         final GameWorldView gameScreen = new GameWorldView();

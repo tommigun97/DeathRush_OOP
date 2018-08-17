@@ -72,12 +72,15 @@ public interface View {
     /**
      * This method play the selected song.
      * 
-     * @param path song path.
+     * @param path
+     *            song path.
      */
     void play(String path);
+
     /**
      * 
-     * @param path song path
+     * @param path
+     *            song path
      */
     void changeSong(String path);
 
