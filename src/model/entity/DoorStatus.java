@@ -1,6 +1,17 @@
 package model.entity;
 
+/**
+ * Enum for door status.
+ *
+ */
 public enum DoorStatus {
-    OPEN,CLOSE;
+    /**
+     * door open.
+     */
+    OPEN,
+    /**
+     * door closed.
+     */
+    CLOSE;
 
 }

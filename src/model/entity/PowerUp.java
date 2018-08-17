@@ -2,7 +2,15 @@ package model.entity;
 
 import model.Area;
 
+/**
+ * Enum for power up
+ *
+ */
 public enum PowerUp {
+    /**
+     * chitarra.
+     *
+     */
     CHITARRA {
 
         @Override
@@ -21,6 +29,10 @@ public enum PowerUp {
         }
     },
 
+    /**
+     * sigaretta.
+     *
+     */
     SIGARETTA {
         @Override
         public Area getArea() {
@@ -38,6 +50,10 @@ public enum PowerUp {
         }
     },
 
+    /**
+     * zucchero sintattico.
+     *
+     */
     ZUCCHERO {
         @Override
         public Area getArea() {
@@ -55,6 +71,10 @@ public enum PowerUp {
         }
     },
 
+    /**
+     * pistola.
+     *
+     */
     PISTOLA {
         @Override
         public Area getArea() {

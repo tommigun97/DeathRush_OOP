@@ -15,9 +15,8 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
 
     private static final double CORRECTOR_X = 0.03;
     private static final double CORRECTOR_Y = 0.07;
-    private static final double TIME_TO_ACCEPT_COLLISION = 1000;// ms
-
-    private long t = 0;
+    private static final double TIME_TO_ACCEPT_COLLISION = 1000; // Ms
+    private long t;
 
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
@@ -91,15 +90,14 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         }
     }
 
-    // da testare con Anis
     @Override
     public void collisionWithDoors(final Entity p, final Set<Entity> doors) {
         doors.forEach(d -> {
             if (collision(p, d) && d.getObjectProperty("doorStatus") == DoorStatus.OPEN) {
                 ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom((Room) d.getObjectProperty("nextRoom"));
                 ((PlayerBehavior) p.getBehaviour().get()).getCurrentRoom().setVisited(true);
-                Double x = Coordinates.reverseAfterCollisionDoor(d).getFirst();
-                Double y = Coordinates.reverseAfterCollisionDoor(d).getSecond();
+                final Double x = Coordinates.reverseAfterCollisionDoor(d).getFirst();
+                final Double y = Coordinates.reverseAfterCollisionDoor(d).getSecond();
                 p.setLocation(new Location(x, y,
                         new Area(p.getLocation().getArea().getWidth(), p.getLocation().getArea().getHeight())));
             }
@@ -115,7 +113,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                         p.changeObjectProperty("Shoot Frequency", ((Long) p.getObjectProperty("Shoot Frequency"))
                                 - ((Long) o.getObjectProperty("Increse Attack Frequency")));
                     } else if (o.getObjectProperty("Type") == PowerUp.SIGARETTA) {
-                        int l = p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp") >= p
+                        final int l = p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp") >= p
                                 .getIntegerProperty("Max Life") ? p.getIntegerProperty("Max Life")
                                         : p.getIntegerProperty("Current Life") + o.getIntegerProperty("Increase Hp");
                         p.changeIntProperty("Current Life", l);
@@ -127,6 +125,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                                 p.getDoubleProperty("Speed") + o.getDoubleProperty("Increase Movement Speed"));
                     }
                     current.deleteEntity(o);
+                    p.changeIntProperty("Money", p.getIntegerProperty("Money") - o.getIntegerProperty("Cost"));
                 }
             }
         });
@@ -141,13 +140,10 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         final double var1 = Math.abs(otherEntity.getLocation().getX() - entity.getLocation().getX());
         final double var2 = Math.abs(otherEntity.getLocation().getY() - entity.getLocation().getY());
 
-        if (var1 < (otherEntity.getLocation().getArea().getWidth() + entity.getLocation().getArea().getWidth()) / 2
+        return var1 < (otherEntity.getLocation().getArea().getWidth() + entity.getLocation().getArea().getWidth()) / 2
                 && var2 < (otherEntity.getLocation().getArea().getHeight() + entity.getLocation().getArea().getHeight())
-                        / 2) {
-            return true;
-        }
+                        / 2;
 
-        return false;
     }
 
 }

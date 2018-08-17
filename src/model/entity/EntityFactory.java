@@ -20,6 +20,9 @@ public interface EntityFactory {
      * @param pos
      *            starting player position in the space
      * @return the player
+     * 
+     * @param who
+     *            what player gamer want
      */
     Entity createPlayer(Pair<Double, Double> pos, Player who);
 
@@ -35,6 +38,10 @@ public interface EntityFactory {
      * @param who
      *            how boss do you want create
      * @return the boss
+     * 
+     * @param eToStalk
+     *            entity that some boss want stalk
+     * 
      */
     Entity createBoss(double x, double y, Room currentRoom, Optional<Entity> eToStalk, Boss who);
 
@@ -52,6 +59,9 @@ public interface EntityFactory {
      * @param currentRoom
      *            room where the bullet is placed, needs to set the limit to move
      * @return the enemy
+     * 
+     * @param canShoot
+     *            if enemy can shoot or not
      */
     Entity isaacStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom, boolean canShoot);
 
@@ -68,10 +78,16 @@ public interface EntityFactory {
      *            bullet damage
      * @param speed
      *            bullet speed
+     * @param bulletType
+     *            bullet type
+     * 
+     * @param who
+     *            who shoot the bullet
+     * 
      * @return the bullet
      */
     Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType, int damage,
-            double speed, final EntityType who);
+            double speed, EntityType who);
 
     /**
      * @param x
@@ -79,10 +95,16 @@ public interface EntityFactory {
      * @param y
      *            door y-axis position
      * 
-     * @param currentRoom
-     *            room where the door is placed
      * @param nextRoom
      *            the room where the door leads
+     * @param status
+     *            if door is open or closed
+     * @param image
+     *            path for door image
+     * @param coor
+     *            where is set in the room
+     * @param area
+     *            door area
      * @return the door
      */
     Entity createDoor(double x, double y, DoorStatus status, Room nextRoom, String image, Coordinates coor, Area area);
@@ -101,17 +123,25 @@ public interface EntityFactory {
      *            x-axis position
      * @param y
      *            y-axis position
+     * @param eToStalk
+     *            entity to stalk
+     * @param currentRoom
+     *            where the enemy are set
      * @return create an enemy looks like mosquito that follow the player
      */
     Entity createMoscow(double x, double y, Entity eToStalk, Room currentRoom);
 
     /**
      * @param x
+     *            x-axis position
      * @param y
+     *            y-axis position
      * @param currentRoom
+     *            where the enemy are set
      * @param who
-     * @return
+     *            what power up you want
+     * @return the power up
      */
-    Entity createPowerUp(final double x, final double y, final Room currentRoom, final PowerUp who);
+    Entity createPowerUp(double x, double y, Room currentRoom, PowerUp who);
 
 }

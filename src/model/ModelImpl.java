@@ -2,12 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import org.junit.platform.commons.util.CollectionUtils;
-
-import model.entity.Boss;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
@@ -16,7 +10,6 @@ import model.entity.EntityFactoryImpl;
 import model.entity.EntityType;
 import model.entity.Player;
 import model.entity.PlayerBehavior;
-import model.entity.PowerUp;
 import model.room.Room;
 import model.world.GameWorld;
 import model.world.GameWorldImpl;
@@ -37,7 +30,7 @@ public final class ModelImpl implements Model {
     private CollisionSupervisor cs;
     private EntityFactory eFactory;
     private GameWorld map;
-    private Time time;
+    private TimeImpl time;
 
     @Override
     public String getRoomBackGround() {
@@ -55,7 +48,6 @@ public final class ModelImpl implements Model {
         l.add(new Pair<String, Location>(this.player.getImage(), this.player.getLocation()));
         return l;
     }
-
 
     @Override
     public void update(final Direction direction, final List<Direction> shoot) {
@@ -90,14 +82,15 @@ public final class ModelImpl implements Model {
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
             if (!r.equals(currentRoom)) {
-            	this.currentRoom.closeDoors();
+                this.currentRoom.closeDoors();
 
             }
         }
         if (this.player.getIntegerProperty("Current Life") <= 0) {
-           /* this.time.pause();
-            this.gameStatus = GameStatus.Over;*/
-        } 
+            /*
+             * this.time.pause(); this.gameStatus = GameStatus.Over;
+             */
+        }
         if (map.allRoomAreCompleted()) {
             this.time.pause();
             this.gameStatus = GameStatus.Won;
@@ -112,7 +105,7 @@ public final class ModelImpl implements Model {
         this.eFactory = new EntityFactoryImpl(this.cs);
         this.player = eFactory.createPlayer(STARTING_POSITION, who);
         this.map = new GameWorldImpl(eFactory, player);
-        this.time = new Time();
+        this.time = new TimeImpl();
         this.currentRoom = map.getRoom(DEFAULT_INIT_ROOM_ID).get();
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentRoom(currentRoom);
         this.map.toString();
@@ -187,24 +180,24 @@ public final class ModelImpl implements Model {
         return this.currentRoom;
     }
 
-	@Override
-	public int[][] getMapToView() {
-		return this.map.getMatrixView();
-	}
+    @Override
+    public int[][] getMapToView() {
+        return this.map.getMatrixView();
+    }
 
-	@Override
-	public int getXmap() {
-		return this.map.getColumnMatrix();
-	}
+    @Override
+    public int getXmap() {
+        return this.map.getColumnMatrix();
+    }
 
-	@Override
-	public int getYmap() {
-		return this.map.getRowMatrix();
-	}
+    @Override
+    public int getYmap() {
+        return this.map.getRowMatrix();
+    }
 
-	@Override
-	public void mapUpdate() {
-		this.map.matrixViewUpdate();
-		
-	}
+    @Override
+    public void mapUpdate() {
+        this.map.matrixViewUpdate();
+
+    }
 }

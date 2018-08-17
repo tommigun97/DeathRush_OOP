@@ -11,6 +11,8 @@ import model.room.Room;
 public class OnlyBulletSummonerBeahavior implements Behavior {
     private static final long F_SHOOT_FROM_CORNER = 4000; // millisec == 1 sec
     private static final long F_CHANGE_DIRECTION = 500; // millisec == 4 sec
+    private static final double LONGER = 0.8;
+    private static final double SHORTER = 0.2;
     private Entity e;
     private final ImageCalculator imgCalc;
     private long tShoot;
@@ -21,8 +23,18 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
     private final Room currentRoom;
     private final EntityFactory eFactory;
 
-    public OnlyBulletSummonerBeahavior(ImageCalculator imgCalc, CollisionSupervisor cs, Room currentRoom,
-            EntityFactory eFactory) {
+    /**
+     * @param imgCalc
+     *            image calculator
+     * @param cs
+     *            collision supervisor for collisions
+     * @param currentRoom
+     *            room where is placed
+     * @param eFactory
+     *            factory for summon enemy
+     */
+    public OnlyBulletSummonerBeahavior(final ImageCalculator imgCalc, final CollisionSupervisor cs,
+            final Room currentRoom, final EntityFactory eFactory) {
         super();
         this.imgCalc = imgCalc;
         this.tShoot = 0;
@@ -56,12 +68,16 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
     }
 
     @Override
-    public void setEntity(final Entity e) {
+    public final void setEntity(final Entity e) {
         this.e = e;
         checkProperties();
         this.e.setImage(this.imgCalc.getCurrentImage(Direction.NOTHING));
     }
 
+    /*
+     * (non-Javadoc) if you want overrid ethis method you need to know that with it
+     * you can summon bullet from room wall
+     */
     @Override
     public void update() {
         if (System.currentTimeMillis() - this.tChangeDirection >= F_CHANGE_DIRECTION) {
@@ -69,18 +85,18 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
             tChangeDirection = System.currentTimeMillis();
         }
         if (System.currentTimeMillis() - this.tShootFromCorner >= F_SHOOT_FROM_CORNER) {
-            this.currentRoom
-            		.addEntity(this.eFactory.createBullet(0.2, 0.8, currentRoom, Direction.SW, EntityType.ENEMY_BULLET,
-                    e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
-            this.currentRoom
-                    .addEntity(this.eFactory.createBullet(0.8, 0.2, currentRoom, Direction.SW, EntityType.ENEMY_BULLET,
-                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
-            this.currentRoom
-                    .addEntity(this.eFactory.createBullet(0.2, 0.2, currentRoom, Direction.SE, EntityType.ENEMY_BULLET,
-                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
-            this.currentRoom
-                    .addEntity(this.eFactory.createBullet(0.8, 0.8, currentRoom, Direction.NW, EntityType.ENEMY_BULLET,
-                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
+            this.currentRoom.addEntity(this.eFactory.createBullet(SHORTER, LONGER, currentRoom, Direction.SW,
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
+                    EntityType.ENEMY));
+            this.currentRoom.addEntity(this.eFactory.createBullet(LONGER, SHORTER, currentRoom, Direction.SW,
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
+                    EntityType.ENEMY));
+            this.currentRoom.addEntity(this.eFactory.createBullet(SHORTER, SHORTER, currentRoom, Direction.SE,
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
+                    EntityType.ENEMY));
+            this.currentRoom.addEntity(this.eFactory.createBullet(LONGER, LONGER, currentRoom, Direction.NW,
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
+                    EntityType.ENEMY));
             this.tShootFromCorner = System.currentTimeMillis();
         }
         if (System.currentTimeMillis() - this.tShoot >= (Long) this.e.getObjectProperty("Shoot Frequency")) {

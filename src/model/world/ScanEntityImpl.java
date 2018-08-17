@@ -20,7 +20,7 @@ import java.util.Set;
 import model.entity.Boss;
 import model.entity.Entity;
 import model.entity.EntityFactory;
-import model.entity.EntityPropieties;
+import model.entity.EntityProperties;
 import model.entity.PowerUp;
 import model.room.Room;
 import model.room.RoomType;
@@ -117,26 +117,26 @@ public class ScanEntityImpl implements ScanEntity {
 	}
 
 	private void scanFind(char type, double x, double y, Room currentRoom) {
-		if (EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.ENEMY1)) {
+		if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.ENEMY1)) {
 			currentRoom.addEntity(this.ef.isaacStalkerEnemy(x, y, this.entityToStolk, currentRoom, true));
-		} else if (EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.ENEMY2)) {
+		} else if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.ENEMY2)) {
 			currentRoom.addEntity(this.ef.createMoscow(x, y, this.entityToStolk, currentRoom));
-		} else if (EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.STOPPED)) {
+		} else if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.STOPPED)) {
 			currentRoom.addEntity(this.ef.createObstacle(x, y));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.GUITAR))) {
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.GUITAR))) {
 			currentRoom.addEntity(this.ef.createPowerUp(x, y, currentRoom, PowerUp.CHITARRA));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.SUGAR))) {
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.SUGAR))) {
 			currentRoom.addEntity(this.ef.createPowerUp(x, y, currentRoom, PowerUp.ZUCCHERO));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.GUN))) {
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.GUN))) {
 			currentRoom.addEntity(this.ef.createPowerUp(x, y, currentRoom, PowerUp.PISTOLA));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.SIGARETS))) {
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.SIGARETS))) {
 			currentRoom.addEntity(this.ef.createPowerUp(x, y, currentRoom, PowerUp.SIGARETTA));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.BOSS1))) {
-			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CIATTO));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.BOSS2))) {
-			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.CROATTI));
-		} else if ((EntityPropieties.getPropieties(String.valueOf(type)).equals(EntityPropieties.BOSS3))) {
-			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.THOR));
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.BOSS1))) {
+			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.BOSS_2));
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.BOSS2))) {
+			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.BOSS_3));
+		} else if ((EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.BOSS3))) {
+			currentRoom.addEntity(this.ef.createBoss(x, y, currentRoom, Optional.of(this.entityToStolk), Boss.BOSS_1));
 		}
 
 	}
