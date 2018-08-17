@@ -124,7 +124,7 @@ public class SettingsWindow extends Scene {
 
         if (this.checkRes(width, height)) {
             GenericBox.display("Success", "Settings saved", "Ok");
-            GameScreen.setResolution(width, height, SettingsWindow.fullScreen);
+            GameWorldView.setResolution(width, height, SettingsWindow.fullScreen);
         } else {
             GenericBox.display("Error", "Your screen is too small for this resolution!",
                     "Back to settings");

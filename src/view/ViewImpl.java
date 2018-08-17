@@ -18,7 +18,7 @@ public class ViewImpl implements View {
 
     private static Controller controller;
     private final InputHandler inputHandler = InputHandler.getInputHandler();
-    private static GameScreen gameScreen;
+    private static GameWorldView gameScreen;
     private Sound sound;
 
     /**
@@ -75,7 +75,7 @@ public class ViewImpl implements View {
      * @param gamescreen
      *            The GameScreen
      */
-    static void setGameScreen(final GameScreen gamescreen) {
+    static void setGameScreen(final GameWorldView gamescreen) {
         ViewImpl.gameScreen = gamescreen;
     }
 
