@@ -64,7 +64,7 @@ public enum Boss {
 
         @Override
         public int reward() {
-            return 50;
+            return 75;
         }
     },
     /**
@@ -94,7 +94,7 @@ public enum Boss {
 
         @Override
         public int getStartingMaxLife() {
-            return 3500;
+            return 3750;
         }
 
         @Override
@@ -119,7 +119,7 @@ public enum Boss {
 
         @Override
         public int reward() {
-            return 50;
+            return 65;
         }
     },
 
@@ -148,7 +148,7 @@ public enum Boss {
 
         @Override
         public int getStartingMaxLife() {
-            return 3000;
+            return 3500;
         }
 
         @Override
@@ -173,7 +173,7 @@ public enum Boss {
 
         @Override
         public int reward() {
-            return 50;
+            return 55;
         }
     };
 
