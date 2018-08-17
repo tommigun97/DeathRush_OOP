@@ -208,6 +208,10 @@ public class GameWorldImpl implements GameWorld {
 		this.roomSet.stream().filter(e -> e.getType().equals(RoomType.BOSS)).forEach(x -> this.scanE.loadBoss(x));
 	}
 	
+	public void matrixViewUpdate() {
+		this.mapForView.buildPath();
+	}
+	
 	public void printMatrixMap() {
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
