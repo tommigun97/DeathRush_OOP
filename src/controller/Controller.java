@@ -11,7 +11,6 @@ import view.View;
  *
  */
 public interface Controller {
-    
 
     /**
      * Make the Game Loop start to work.
@@ -22,17 +21,19 @@ public interface Controller {
     void startGameLoop() throws IllegalStateException;
 
     /**
-     * A method to choose the selected player
+     * A method to choose the selected player.
+     * 
      * @param pg
+     *            current player.
      */
-	void selectPlayer(Player pg);
-    
-	/**
-	 * 
-	 * @return the entity player in game
-	 */
+    void selectPlayer(Player pg);
+
+    /**
+     * 
+     * @return the entity player in game
+     */
     Player getPlayer();
-    
+
     /**
      * Set the GUI of the game.
      * 
@@ -89,57 +90,61 @@ public interface Controller {
      * @return true when the list is clear.
      */
     boolean emptyScores();
-    
+
     /**
-     * A method to save the score on the Score manager
-     * @return true if there is no error in loading save
+     * A method to save the score on the Score manager.
+     * 
+     * @return true if there is no error in loading save.
      */
     boolean saveScoreGame();
-    
+
     /**
-     * Set the player name for the Score List
-     * @param name
+     * Set the player name for the Score List.
+     * 
+     * @param name name of the current player.
      */
     void setPlayerName(String name);
-    
+
     /**
      * 
      * @return The name of the player
      */
     String getPlaterName();
-    
+
     /**
      * 
      * @return the map by a call from model
      */
     int[][] getViewMap();
-    
+
     /**
      * 
      * @return the column x of the map matrix
      */
     int getXmap();
-    
+
     /**
      * 
      * @return the column y of the map matrix
      */
     int getYmap();
-    
-   /**
-    * Update the map 
-    */
-    void mapUpdate();
-    
+
     /**
-     * Start the song s
-     * @param s
+     * Update the map.
+     */
+    void mapUpdate();
+
+    /**
+     * Start the song s.
+     * 
+     * @param s name of the current song.
      */
     void playSong(String s);
-    
+
     /**
-     * Method to change the song
-     * @param s
+     * Method to change the song.
+     * 
+     * @param s name of the song to change.
      */
     void changeSong(String s);
 
