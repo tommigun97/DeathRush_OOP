@@ -127,7 +127,7 @@ public class SelectCharacter extends Scene {
      * 
      */
     private void initGame(final Player pg) {
-        final GameScreen gameScreen = new GameScreen();
+        final GameWorldView gameScreen = new GameWorldView();
         InputHandler.getInputHandler().emptyList();
         ViewImpl.getController().selectPlayer(pg);
         ViewImpl.getController().startGameLoop();

@@ -98,9 +98,9 @@ public final class ShowMap {
         scene.getStylesheets().add("style.css");
         WINDOW.setScene(scene);
         WINDOW.setOnCloseRequest(e -> {
-            GameScreen.onCloseMap();
+            GameWorldView.onCloseMap();
         });
-        GameScreen.setMapActive(true);
+        GameWorldView.setMapActive(true);
         WINDOW.showAndWait();
     }
 

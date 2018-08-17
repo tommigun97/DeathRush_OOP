@@ -22,31 +22,28 @@ import model.Location;
 import utilities.Pair;
 
 /**
- * This class is responsible for handling the game screen and everything in it.
+ * This class is responsible for handling the game world and everything in it.
  * It extends Scene.
  *
  */
-public class GameScreen extends Scene {
+public class GameWorldView extends Scene {
 
+    // Constant for object dimension
     private static final double BASIC_BUTTON_WIDTH = 110;
     private static final double BASIC_BUTTON_HEIGHT = 25;
     private static final double BASIC_RES_WIDTH = 1280;
     private static final double BASIC_RES_HEIGHT = 720;
+    private static final double IMG_DIM = 20;
     private static final String PAUSE = "Pause";
     private static final String RESUME = "Resume";
-    private Stage mainStage;
-    private static boolean mapActive;
-
     private static double resConstantWidth = 1;
     private static double resConstantHeight = 1;
     private static double inGameWidth = BASIC_RES_WIDTH;
     private static double inGameHeight = BASIC_RES_HEIGHT;
-    private final Group root = new Group();
-    private final Pane backgroundLayer = new Pane();
-    private final ImagesMaker iMaker = new ImagesMaker();
-    private final HBox infoBox = new HBox();
-    private static final Button PAUSE_BUTTON = new Button(PAUSE);
+
+    // Screen Object
     private final Button infoButton = new Button("Info");
+    private static final Button PAUSE_BUTTON = new Button(PAUSE);
     private final Label hp = new Label();
     private final Label coin = new Label();
     private final Label damage = new Label();
@@ -54,10 +51,18 @@ public class GameScreen extends Scene {
     private final Label attspeed = new Label();
     private final Label timePlayed = new Label();
 
+    // Stage Object
+    private Stage mainStage;
+    private final Pane backgroundLayer = new Pane();
+    private final Group root = new Group();
+    private final ImagesMaker iMaker = new ImagesMaker();
+    private final HBox infoBox = new HBox();
+    private static boolean mapActive;
+
     /**
-     * Constructor for GameScreen. It sets up the scene.
+     * Constructor of GameWorldView create the main Scene.
      */
-    public GameScreen() {
+    public GameWorldView() {
         super(new StackPane());
 
         final HBox buttonGame = new HBox();
@@ -71,10 +76,10 @@ public class GameScreen extends Scene {
         infoButton.setFocusTraversable(false);
         infoButton.setOnAction(e -> GameHelp.display());
         timePlayed.setId("status-bar");
-        Image imageHeart = new Image(getClass().getResourceAsStream("/status/heart.gif"), 20, 20, true, true);
+        Image imageHeart = new Image(getClass().getResourceAsStream("/status/heart.gif"), IMG_DIM, IMG_DIM, true, true);
         hp.setGraphic(new ImageView(imageHeart));
         hp.setId("status-bar");
-        Image imageCoin = new Image(getClass().getResourceAsStream("/status/coin.gif"), 20, 20, true, true);
+        Image imageCoin = new Image(getClass().getResourceAsStream("/status/coin.gif"), IMG_DIM, IMG_DIM, true, true);
         coin.setGraphic(new ImageView(imageCoin));
         coin.setId("status-bar");
         damage.setId("status-bar");
@@ -110,7 +115,7 @@ public class GameScreen extends Scene {
     }
 
     /**
-     * Private method responsible for getting the inputs from the user.
+     * This method handling the user inputs.
      */
     private void getInput() {
         final InputHandler inputHandler = InputHandler.getInputHandler();
@@ -145,10 +150,10 @@ public class GameScreen extends Scene {
             if (ViewImpl.getController().isGameLoopPaused()) {
                 InputHandler.getInputHandler().emptyList();
                 ViewImpl.getController().resumeGameLoop();
-                GameScreen.PAUSE_BUTTON.setText(PAUSE);
+                GameWorldView.PAUSE_BUTTON.setText(PAUSE);
             } else {
                 ViewImpl.getController().pauseGameLoop();
-                GameScreen.PAUSE_BUTTON.setText(RESUME);
+                GameWorldView.PAUSE_BUTTON.setText(RESUME);
             }
         }
     }
@@ -159,7 +164,7 @@ public class GameScreen extends Scene {
      */
     private void showMap() {
         ViewImpl.getController().pauseGameLoop();
-        GameScreen.PAUSE_BUTTON.setText(RESUME);
+        GameWorldView.PAUSE_BUTTON.setText(RESUME);
         ViewImpl.getController().mapUpdate();
         ShowMap.print();
     }
@@ -193,11 +198,11 @@ public class GameScreen extends Scene {
     private void printImage(final Pane l, final String path, final Location loc) {
         final ImageView image = new ImageView(this.iMaker.getImageFromPath(path));
         image.setPreserveRatio(false);
-        image.setFitHeight(loc.getArea().getHeight() * GameScreen.inGameHeight);
-        image.setFitWidth(loc.getArea().getWidth() * GameScreen.inGameWidth);
+        image.setFitHeight(loc.getArea().getHeight() * GameWorldView.inGameHeight);
+        image.setFitWidth(loc.getArea().getWidth() * GameWorldView.inGameWidth);
         l.getChildren().add(image);
-        image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameScreen.inGameWidth);
-        image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameScreen.inGameHeight);
+        image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameWorldView.inGameWidth);
+        image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameWorldView.inGameHeight);
     }
 
     /**
@@ -230,10 +235,10 @@ public class GameScreen extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    GameScreen get(final Stage mainWindow) {
+    GameWorldView get(final Stage mainWindow) {
         this.mainStage = mainWindow;
-        this.mainStage.setWidth(GameScreen.inGameWidth);
-        this.mainStage.setHeight(GameScreen.inGameHeight);
+        this.mainStage.setWidth(GameWorldView.inGameWidth);
+        this.mainStage.setHeight(GameWorldView.inGameHeight);
         this.mainStage.centerOnScreen();
         this.mainStage.setTitle("Death Rush - v0.1");
         this.mainStage.setFullScreen(SettingsWindow.getIsFullScreen());
@@ -253,8 +258,8 @@ public class GameScreen extends Scene {
     static synchronized void setResolution(final double width, final double height, final boolean fullScreen) {
         inGameWidth = width;
         inGameHeight = height;
-        resConstantWidth = GameScreen.inGameWidth / BASIC_RES_WIDTH;
-        resConstantHeight = GameScreen.inGameHeight / BASIC_RES_HEIGHT;
+        resConstantWidth = GameWorldView.inGameWidth / BASIC_RES_WIDTH;
+        resConstantHeight = GameWorldView.inGameHeight / BASIC_RES_HEIGHT;
     }
 
     /**
