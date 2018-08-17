@@ -1,10 +1,6 @@
 package model.world;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
@@ -16,11 +12,9 @@ import model.room.RoomImpl.RoomBuilder;
 import model.world.ScanEntity;
 import model.world.ScanEntityImpl;
 import utilities.Pair;
-import model.entity.Boss;
 import model.entity.DoorStatus;
 import model.entity.Entity;
 import model.entity.EntityFactory;
-import model.entity.Player;
 
 public class GameWorldImpl implements GameWorld {
 
@@ -63,7 +57,7 @@ public class GameWorldImpl implements GameWorld {
 		this.scanE = new ScanEntityImpl(this.getRooms(), player, this.entityFactory);
 		this.scanE.populateRooms();
 		this.mapForView = new GameMapImpl(this, this.Y, this.X, this.player);
-		this.printMatrixMap();
+		//this.printMatrixMap();
 	}
 
 	private void initializeMapBuilding() {
@@ -76,7 +70,6 @@ public class GameWorldImpl implements GameWorld {
 				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
 		this.matrixMap[MIDDLEX + 1][MIDDLEY] = b;
 		this.addNewRoom(b);
-		//System.out.println(this.roomSet);
 		this.addLink(a, b, Coordinates.SOUTH, DoorStatus.OPEN);
 		b = this.roomBuilder.setComplited(false).setRoomID(3).setEntities(new CopyOnWriteArraySet<>())
 				.setDoors(new HashSet<>()).setTypes(RoomType.INTERMEDIATE).setVisited(false).build();
@@ -176,7 +169,7 @@ public class GameWorldImpl implements GameWorld {
 		this.roomSet.add(x);
 	}
 
-	public void printMatrixMap() {
+	/*public void printMatrixMap() {
 		for (int i = 0; i < X; i++) {
 			for (int j = 0; j < Y; j++) {
 				if (matrixMap[i][j] == null) {
@@ -187,7 +180,7 @@ public class GameWorldImpl implements GameWorld {
 			}
 			System.out.println("\n");
 		}
-	}
+	}*/
 
 	@Override
 	public boolean allRoomAreCompleted() {

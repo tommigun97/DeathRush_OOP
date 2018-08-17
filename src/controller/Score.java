@@ -16,7 +16,7 @@ public interface Score {
 	 * @param p
 	 *            The new score (Pair<String, Integer>)
 	 */
-	public void addScore(final Pair<Pair<String, Integer> ,String> p );
+	void addScore(final Pair<Pair<String, Integer> ,String> p );
 
 	/**
 	 * Save the score into the file

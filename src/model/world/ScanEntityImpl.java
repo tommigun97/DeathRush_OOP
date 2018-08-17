@@ -73,7 +73,6 @@ public class ScanEntityImpl implements ScanEntity {
 			in = ScanEntityImpl.class.getResourceAsStream(this.fileName);
 			this.bufferReader = new BufferedReader(new InputStreamReader(in));
 			for (int i = 0; i < row; i++) {
-				System.out.println(this.fileName);
 				final String line = this.bufferReader.readLine();
 				for (int j = 0; j < column; j++) {
 					if(line != null) {
