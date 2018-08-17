@@ -44,11 +44,6 @@ public class ScanEntityImpl implements ScanEntity {
 		this.entityToStolk = entityToStolk;
 	}
 
-	public void populateRooms() {
-		this.rooms.stream().filter(z -> !z.getType().equals(RoomType.BOSS)).forEach(x -> this.loadEntity(x));
-		this.populateBoss();
-		
-	}
 
 
 	private int calculateRow() throws IOException {

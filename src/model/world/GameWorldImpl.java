@@ -60,8 +60,7 @@ public class GameWorldImpl implements GameWorld {
 
 	private void buildWorldGame() {
 		this.initializeMapBuilding();
-		this.scanE = new ScanEntityImpl(this.getRooms(), player, this.entityFactory);
-		this.scanE.populateRooms();
+		this.scanE = new ScanEntityImpl(player, this.entityFactory);
 		this.mapForView = new GameMapImpl(this, this.Y, this.X, this.player);
 		this.printMatrixMap();
 	}
