@@ -1,6 +1,7 @@
 package test;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.stream.Collectors;
 import org.junit.Test;
@@ -58,6 +59,7 @@ public class GameMapTestV1 {
 		assertTrue(this.map.getRooms().stream().filter(e -> e.getType()
 				.equals(RoomType.INTERMEDIATE)).mapToInt(e1 -> e1.getDoor().size()).sum() == 
 					2 * this.map.getRooms().stream().filter(x -> x.getType().equals(RoomType.INTERMEDIATE)).collect(Collectors.toList()).size());
+		assertEquals(this.map.getRooms().stream().filter(x -> x.getType().equals(RoomType.BOSS)).mapToInt(e -> 1).sum(), 3);
 	}
 
 }

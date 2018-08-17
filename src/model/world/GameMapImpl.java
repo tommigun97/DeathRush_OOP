@@ -5,7 +5,6 @@ import model.entity.PlayerBehavior;
 import model.room.Room;
 /**
  * 
- * @author anisl
  * The GAMEMAP that is seen by user during the game
  * It is build when the gameloop start.
  */

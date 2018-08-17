@@ -9,7 +9,7 @@ import utilities.Pair;
 
 /**
  * 
- *
+ * Enumeration for doors coordinate
  */
 public enum Coordinates {
 	/**
@@ -45,13 +45,19 @@ public enum Coordinates {
 	 */
 
 	/**
-	 * 
+	 * Getter method for IDCoordinate 
 	 * @return .
+	 * 			Id coordinate
 	 */
 	public int getCoordinateId() {
 		return this.coordinateId;
 	}
 
+	/**
+	 * Getter method for filename
+	 * 
+	 * @return
+	 */
 	public String getOpen() {
 		return open;
 	}
@@ -94,17 +100,13 @@ public enum Coordinates {
 	public static Pair<Double, Double> reverseAfterCollisionDoor(Entity door) {
 		if (door.getLocation().getX() == EAST.getX() && door.getLocation().getY() == EAST.getY()) {
 			return new Pair<>(WEST.getX() + CORRECTOR, WEST.getY());
-		}
-		if (door.getLocation().getX() == WEST.getX() && door.getLocation().getY() == WEST.getY()) {
+		} else if (door.getLocation().getX() == WEST.getX() && door.getLocation().getY() == WEST.getY()) {
 			return new Pair<>(EAST.getX() - CORRECTOR, WEST.getY());
-		}
-		if (door.getLocation().getX() == NORTH.getX() && door.getLocation().getY() == NORTH.getY()) {
+		} else if (door.getLocation().getX() == NORTH.getX() && door.getLocation().getY() == NORTH.getY()) {
 			return new Pair<>(SOUTH.getX(), SOUTH.getY() - CORRECTOR);
-		}
-		if (door.getLocation().getX() == SOUTH.getX() && door.getLocation().getY() == SOUTH.getY()) {
+		} else {
 			return new Pair<>(NORTH.getX(), NORTH.getY() + CORRECTOR);
 		}
-		return null;
 	}
 
 	/**
