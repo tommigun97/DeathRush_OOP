@@ -1,9 +1,9 @@
 package model.entity;
 
 import model.Area;
-
+//CHECKSTYLE: MagicNumber OFF
 /**
- * Enum for power up
+ * Enum for power up.
  *
  */
 public enum PowerUp {
