@@ -28,7 +28,7 @@ public final class ModelImpl implements Model {
     private GameStatus gameStatus;
     private CollisionSupervisor cs;
     private GameWorld map;
-    private TimeImpl time;
+    private Time time;
 
     @Override
     public String getRoomBackGround() {
