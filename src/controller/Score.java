@@ -16,26 +16,24 @@ public interface Score {
 	 * @param p
 	 *            The new score (Pair<String, Integer>)
 	 */
-	void addScore(final Pair<Pair<String, Integer> ,String> p );
+	void addScore(final Pair<Pair<String, Integer>, String> p);
 
 	/**
-	 * Save the score into the file
+	 * Save the score into the file.
 	 * 
-	 * @param a
-	 *            the new Pair to add with the name and the time of player
 	 * @throws IOException
 	 *             If unable to save data
 	 */
 	void saveOnFile() throws IOException;
 
 	/**
-	 * Delete the scoreList
+	 * Delete the scoreList.
 	 * 
 	 */
 	void deleteAllScore();
 
 	/**
-	 * Check if themscore is also the best.
+	 * Check if this score is also the best.
 	 * 
 	 * @param a
 	 *            the score to test
@@ -46,6 +44,8 @@ public interface Score {
 	/**
 	 * Returns the list of scores.
 	 *
+	 * @throws IOException
+	 *             If unable to save data
 	 * @return The scoreList
 	 */
 	List<Pair<Pair<String, Integer>, String>> getScoreList() throws IOException;
