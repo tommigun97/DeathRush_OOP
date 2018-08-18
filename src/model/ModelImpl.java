@@ -5,7 +5,6 @@ import java.util.List;
 import model.entity.CollisionSupervisor;
 import model.entity.CollisionSupervisorImpl;
 import model.entity.Entity;
-import model.entity.EntityFactory;
 import model.entity.EntityFactoryImpl;
 import model.entity.EntityType;
 import model.entity.Player;
@@ -28,7 +27,6 @@ public final class ModelImpl implements Model {
     private Entity player;
     private GameStatus gameStatus;
     private CollisionSupervisor cs;
-    private EntityFactory eFactory;
     private GameWorld map;
     private TimeImpl time;
 
@@ -51,21 +49,16 @@ public final class ModelImpl implements Model {
 
     @Override
     public void update(final Direction direction, final List<Direction> shoot) {
-        // il giocatore si muove
         ((PlayerBehavior) player.getBehaviour().get()).setCurrentDirection(direction);
         player.getBehaviour().get().update();
-        // il giocatore spara
         shoot.forEach(d -> ((PlayerBehavior) player.getBehaviour().get()).shoot(d));
-        // vengono aggiornate tutte le altre entità della stanza
         currentRoom.getEntities().forEach(e -> {
             if (e.getBehaviour().isPresent()) {
                 e.getBehaviour().get().update();
             }
         });
-        // collisioni tra entità
         this.cs.collisionBetweenEntities(this.player, this.currentRoom.getEntities());
         this.currentRoom.getEntities().forEach(e -> cs.collisionBetweenEntities(e, this.currentRoom.getEntities()));
-        // eliminazione di entità morte e acquisto della ricompensa
         this.currentRoom.getEntities().forEach(e -> {
             if (e.getType() == EntityType.ENEMY && e.getIntegerProperty("Current Life") <= 0) {
                 this.currentRoom.deleteEntity(e);
@@ -73,12 +66,10 @@ public final class ModelImpl implements Model {
                         player.getIntegerProperty("Money") + e.getIntegerProperty("Reward"));
             }
         });
-        // collisioni con i powerUp
         this.cs.collisionWithPowerUp(player, currentRoom.getEntities(), currentRoom);
-        // collisioni con le porte
         if (this.currentRoom.isComplited()) {
             this.currentRoom.openDoors();
-            Room r = currentRoom;
+            final Room r = currentRoom;
             this.cs.collisionWithDoors(this.player, currentRoom.getDoor());
             this.currentRoom = ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom();
             if (!r.equals(currentRoom)) {
@@ -87,9 +78,8 @@ public final class ModelImpl implements Model {
             }
         }
         if (this.player.getIntegerProperty("Current Life") <= 0) {
-            
-             this.time.pause(); this.gameStatus = GameStatus.Over;
-             
+            this.time.pause();
+            this.gameStatus = GameStatus.Over;
         }
         if (map.allRoomAreCompleted()) {
             this.time.pause();
@@ -102,7 +92,7 @@ public final class ModelImpl implements Model {
     public void start(final Player who) {
         this.gameStatus = GameStatus.Running;
         this.cs = new CollisionSupervisorImpl();
-        this.eFactory = new EntityFactoryImpl(this.cs);
+        final EntityFactoryImpl eFactory = new EntityFactoryImpl(this.cs);
         this.player = eFactory.createPlayer(STARTING_POSITION, who);
         this.map = new GameWorldImpl(eFactory, player);
         this.map.buildWorldGame();

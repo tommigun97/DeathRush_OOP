@@ -53,21 +53,15 @@ public class StalkerEnemyBehavior implements Behavior {
         this.e.setImage(this.imgCalc.getCurrentImage(Direction.NOTHING));
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see model.entity.Behavior#update() this mehod could became better adding
-     * shooting properties
-     */
     @Override
-    public void update() {
+    public final void update() {
         currentDirection = checkNewDirection();
         final Location prev = new Location(e.getLocation());
 
             if (canShoot && System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
                 this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                         currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
-                        e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
+                        e.getDoubleProperty("Bullet Speed")));
                 t = System.currentTimeMillis();
             }
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));

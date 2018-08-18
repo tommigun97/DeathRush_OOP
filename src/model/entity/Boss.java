@@ -7,6 +7,7 @@ import java.util.List;
 import model.Area;
 import model.Direction;
 
+//CHECKSTYLE: MagicNumber OFF
 /**
  * Enum for boss statistics.
  *
