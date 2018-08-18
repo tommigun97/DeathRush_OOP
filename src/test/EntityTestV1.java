@@ -98,12 +98,6 @@ public class EntityTestV1 {
             // System.out.println(e.getMessage());
         }
     }
-    @Test
-    void twoImageCalculatorTest() {
-        TwoImageCalculator t = new TwoImageCalculator(COUPLE_IMAGES.getFirst(), COUPLE_IMAGES.getSecond());
-        assertEquals(COUPLE_IMAGES.getSecond(), t.getCurrentImage(Direction.NOTHING));
-        assertEquals(COUPLE_IMAGES.getFirst(), t.getCurrentImage(Direction.NOTHING));
-    }
 
     @Test
     void testPlayerBehavior() {
