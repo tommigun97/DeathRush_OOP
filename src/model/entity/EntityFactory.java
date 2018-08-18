@@ -63,7 +63,7 @@ public interface EntityFactory {
      * @param canShoot
      *            if enemy can shoot or not
      */
-    Entity isaacStalkerEnemy(double x, double y, Entity eToStalk, Room currentRoom, boolean canShoot);
+    Entity stalkerSpiritEnemy(double x, double y, Entity eToStalk, Room currentRoom, boolean canShoot);
 
     /**
      * @param x
@@ -81,13 +81,11 @@ public interface EntityFactory {
      * @param bulletType
      *            bullet type
      * 
-     * @param who
-     *            who shoot the bullet
      * 
      * @return the bullet
      */
     Entity createBullet(double x, double y, Room currentRoom, Direction direction, EntityType bulletType, int damage,
-            double speed, EntityType who);
+            double speed);
 
     /**
      * @param x

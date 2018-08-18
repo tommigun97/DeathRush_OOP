@@ -55,26 +55,26 @@
   </interface>  
   <association id="6">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="7" name="currentRoom">        
-        <position height="20" width="82" x="1264" y="518"/>      
+      <attribute id="7" name="cs">        
+        <position height="20" width="22" x="1285" y="524"/>      
       </attribute>      
       <multiplicity id="8" minimum="0" maximum="1">        
-        <position height="18" width="27" x="1289" y="521"/>      
+        <position height="18" width="27" x="1283" y="522"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="4" navigable="true"/>    
+    <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="9">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="10" name="imgCalc">        
-        <position height="20" width="55" x="1361" y="538"/>      
+      <attribute id="10" name="currentRoom">        
+        <position height="20" width="82" x="1264" y="518"/>      
       </attribute>      
       <multiplicity id="11" minimum="0" maximum="1">        
-        <position height="18" width="27" x="1366" y="551"/>      
+        <position height="18" width="27" x="1289" y="521"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="12">    
@@ -91,14 +91,14 @@
   </association>  
   <association id="15">    
     <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="16" name="cs">        
-        <position height="20" width="22" x="1285" y="524"/>      
+      <attribute id="16" name="imgCalc">        
+        <position height="20" width="55" x="1361" y="538"/>      
       </attribute>      
       <multiplicity id="17" minimum="0" maximum="1">        
-        <position height="18" width="27" x="1283" y="522"/>      
+        <position height="18" width="27" x="1366" y="551"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true"/>    
+    <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

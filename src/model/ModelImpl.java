@@ -90,9 +90,9 @@ public final class ModelImpl implements Model {
 
     @Override
     public void start(final Player who) {
-        final EntityFactoryImpl eFactory = new EntityFactoryImpl(this.cs);
         this.gameStatus = GameStatus.Running;
         this.cs = new CollisionSupervisorImpl();
+        final EntityFactoryImpl eFactory = new EntityFactoryImpl(this.cs);
         this.player = eFactory.createPlayer(STARTING_POSITION, who);
         this.map = new GameWorldImpl(eFactory, player);
         this.map.buildWorldGame();

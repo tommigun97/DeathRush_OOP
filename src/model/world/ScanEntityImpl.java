@@ -56,7 +56,7 @@ public class ScanEntityImpl implements ScanEntity {
 
 	private void scanFind(char type, double x, double y, Room currentRoom) {
 		if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.ENEMY1)) {
-			currentRoom.addEntity(this.ef.isaacStalkerEnemy(x, y, this.entityToStolk, currentRoom, true));
+			currentRoom.addEntity(this.ef.stalkerSpiritEnemy(x, y, this.entityToStolk, currentRoom, true));
 		} else if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.ENEMY2)) {
 			currentRoom.addEntity(this.ef.createMoscow(x, y, this.entityToStolk, currentRoom));
 		} else if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.STOPPED)) {

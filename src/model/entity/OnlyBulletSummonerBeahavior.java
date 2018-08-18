@@ -86,24 +86,20 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
         }
         if (System.currentTimeMillis() - this.tShootFromCorner >= F_SHOOT_FROM_CORNER) {
             this.currentRoom.addEntity(this.eFactory.createBullet(SHORTER, LONGER, currentRoom, Direction.SW,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
-                    EntityType.ENEMY));
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
             this.currentRoom.addEntity(this.eFactory.createBullet(LONGER, SHORTER, currentRoom, Direction.SW,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
-                    EntityType.ENEMY));
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
             this.currentRoom.addEntity(this.eFactory.createBullet(SHORTER, SHORTER, currentRoom, Direction.SE,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
-                    EntityType.ENEMY));
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
             this.currentRoom.addEntity(this.eFactory.createBullet(LONGER, LONGER, currentRoom, Direction.NW,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed"),
-                    EntityType.ENEMY));
+                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
             this.tShootFromCorner = System.currentTimeMillis();
         }
         if (System.currentTimeMillis() - this.tShoot >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
             Direction d = Direction.randomDirection();
             this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
                     currentRoom, d, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
-                    e.getDoubleProperty("Bullet Speed"), EntityType.ENEMY));
+                    e.getDoubleProperty("Bullet Speed")));
             tShoot = System.currentTimeMillis();
         }
         final Location prev = new Location(e.getLocation());

@@ -77,7 +77,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public Entity isaacStalkerEnemy(final double x, final double y, final Entity eToStalk, final Room currentRoom,
+    public Entity stalkerSpiritEnemy(final double x, final double y, final Entity eToStalk, final Room currentRoom,
             final boolean canShoot) {
         final StalkerEnemyBehavior sb = new StalkerEnemyBehavior(eToStalk,
                 new CompleteImageSetCalculator(DEFAULT_STALKER_ENEMY_N, DEFAULT_STALKER_ENEMY_S,
@@ -95,8 +95,8 @@ public final class EntityFactoryImpl implements EntityFactory {
 
     @Override
     public Entity createBullet(final double x, final double y, final Room currentRoom, final Direction direction,
-            final EntityType bulletType, final int damage, final double speed, final EntityType who) {
-        if (who == EntityType.PLAYER) {
+            final EntityType bulletType, final int damage, final double speed) {
+        if (bulletType == EntityType.PLAYER_BULLET) {
             final BulletBehavior bb = new BulletBehavior(direction, cs, currentRoom);
             return new EntityImpl.EntitiesBuilder().setType(bulletType).setBehaviour(bb).with("Shoot Damage", damage)
                     .setImage(PLAYER_BULLET).with("Speed", speed)
