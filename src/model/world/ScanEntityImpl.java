@@ -16,23 +16,39 @@ import model.room.Room;
 import model.room.RoomType;
 import model.world.BackgroundFromFile;
 
+/**
+ * 
+ * Implementation of ScanEntity
+ *
+ */
 public class ScanEntityImpl implements ScanEntity {
 
+	//Static Variables
 	private final static double HEIGHT = 1;
 	private final static double WEIGHT = 1;
 	private final static char NOSCAN = '0';
 
+	//Variables
 	private String fileName;
 	private EntityFactory ef;
 	private Entity entityToStolk;
 	private BufferedReader bufferReader;
 	private Iterator<String> bossIterator = BackgroundFromFile.getBossPath().iterator();
 
+	//Constructor
 	public ScanEntityImpl(Entity entityToStolk, EntityFactory ef) {
 		this.ef = ef;
 		this.entityToStolk = entityToStolk;
 	}
 
+	/**
+	 * Method for taking number of file lines
+	 * @return int
+	 * 			number of lines
+	 * 
+	 * @throws IOException
+	 * 
+	 */
 	private int calculateRow() throws IOException {
 		int rowCount = 0;
 
@@ -50,10 +66,28 @@ public class ScanEntityImpl implements ScanEntity {
 
 	}
 
+	/**
+	 * Setter method set che current file
+	 * @param file
+	 */
 	public void setFile(String file) {
 		this.fileName = file;
 	}
 
+	/**
+	 * method for adding entity to a selceted room
+	 * 
+	 * @param type
+	 * 			type of entity
+	 * 
+	 * @param x
+	 * 			room x position
+	 * @param y
+	 *			room y position
+	 *
+	 * @param currentRoom
+	 * 			room where to add 
+	 */
 	private void scanFind(char type, double x, double y, Room currentRoom) {
 		if (EntityProperties.getPropieties(String.valueOf(type)).equals(EntityProperties.ENEMY1)) {
 			currentRoom.addEntity(this.ef.stalkerSpiritEnemy(x, y, this.entityToStolk, currentRoom, true));
@@ -79,6 +113,7 @@ public class ScanEntityImpl implements ScanEntity {
 
 	}
 
+	@Override
 	public void loadEntity(Room x) {
 		try {
 
@@ -111,7 +146,8 @@ public class ScanEntityImpl implements ScanEntity {
 		}
 
 	}
-
+	
+	@Override
 	public void loadBoss(Room room) {
 		if (this.bossIterator.hasNext()) {
 			this.fileName = bossIterator.next();
