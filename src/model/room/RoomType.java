@@ -1,12 +1,26 @@
 package model.room;
 
 /**
- * 
- * .
+ * Enumeration to describe room's type .
  */
 public enum RoomType {
-    /**
-     * 
-     */
-    FIRTS, INTERMEDIATE, BOSS, VENDOR;
+	/**
+	 * FirstRoom
+	 */
+	FIRTS,
+	
+	/**
+	 * IntermediateRoom
+	 */
+	INTERMEDIATE,
+	
+	/**
+	 * BoosRoom
+	 */
+	BOSS,
+	
+	/**
+	 * VendorRoom
+	 */
+	VENDOR;
 }

@@ -23,6 +23,11 @@ import model.world.ScanEntityImpl;
 import model.room.RoomType;
 import utilities.Pair;
 
+/**
+ * 
+ * Class for testing scan
+ *
+ */
 public class EntityScanFromFileTest {
 
 	private RoomBuilder rb = new RoomBuilder();
@@ -30,6 +35,9 @@ public class EntityScanFromFileTest {
 	private Entity player = ef.createPlayer(new Pair<Double, Double>(0.5, 0.5), Player.ANIS);
 	private ScanEntity scanF = new ScanEntityImpl(player, ef);
 
+	/**
+	 * Test for firstRoom Scanning
+	 */
 	@Test
 	public void testFirstRoom() {
 		Room room = this.rb.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
@@ -38,6 +46,9 @@ public class EntityScanFromFileTest {
 		assertTrue(room.getEntities().size() == 0);
 	}
 
+	/**
+	 * Test for Vendor Scanning
+	 */
 	@Test
 	public void testVendorRoom() {
 		Room room = this.rb.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
@@ -48,7 +59,10 @@ public class EntityScanFromFileTest {
 		assertFalse(room.getEntities().stream().filter(x -> x.getType() == EntityType.ENEMY)
 				.collect(Collectors.toList()).size() > 0);
 	}
-
+	
+	/**
+	 * Test for BossRoom Scanning
+	 */
 	@Test
 	public void TestBossRooms() {
 		GameWorld gm = new GameWorldImpl(this.ef, this.player);
