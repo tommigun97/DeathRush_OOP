@@ -6,8 +6,7 @@ import java.util.Map;
 import javafx.scene.image.Image;
 
 /**
- * Class that load image and for optimize the game save the images just loaded
- * in a map.
+ * Class that load image and optimize the images just loaded in a map.
  *
  */
 public class ImagesMaker {

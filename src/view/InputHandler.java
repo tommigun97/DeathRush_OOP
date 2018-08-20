@@ -26,6 +26,34 @@ public final class InputHandler {
     }
 
     /**
+     * Private method. It can change the status of a key.
+     * 
+     * @param code
+     *            The KeyCode of the key pressed by the user.
+     * @param action
+     *            The current status of the key
+     */
+    private void process(final KeyCode code, final boolean action) {
+        if (code == KeyCode.W) {
+            this.w = action;
+        } else if (code == KeyCode.A) {
+            this.a = action;
+        } else if (code == KeyCode.S) {
+            this.s = action;
+        } else if (code == KeyCode.D) {
+            this.d = action;
+        } else if (code == KeyCode.UP) {
+            this.shotUp = action;
+        } else if (code == KeyCode.DOWN) {
+            this.shotDown = action;
+        } else if (code == KeyCode.LEFT) {
+            this.shotLeft = action;
+        } else if (code == KeyCode.RIGHT) {
+            this.shotRight = action;
+        }
+    }
+
+    /**
      * Getter of the current inputs(Movement). This method must be called every
      * frame.
      * 
@@ -103,34 +131,6 @@ public final class InputHandler {
      */
     public void release(final KeyCode code) {
         this.process(code, false);
-    }
-
-    /**
-     * Private method. It can change the status of a key.
-     * 
-     * @param code
-     *            The KeyCode of the key pressed by the user.
-     * @param action
-     *            The current status of the key
-     */
-    private void process(final KeyCode code, final boolean action) {
-        if (code == KeyCode.W) {
-            this.w = action;
-        } else if (code == KeyCode.A) {
-            this.a = action;
-        } else if (code == KeyCode.S) {
-            this.s = action;
-        } else if (code == KeyCode.D) {
-            this.d = action;
-        } else if (code == KeyCode.UP) {
-            this.shotUp = action;
-        } else if (code == KeyCode.DOWN) {
-            this.shotDown = action;
-        } else if (code == KeyCode.LEFT) {
-            this.shotLeft = action;
-        } else if (code == KeyCode.RIGHT) {
-            this.shotRight = action;
-        }
     }
 
 }
