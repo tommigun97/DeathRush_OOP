@@ -12,143 +12,143 @@ import view.View;
  */
 public interface Controller {
 
-	/**
-	 * Make the Game Loop start to work.
-	 * 
-	 * @throws IllegalStateException
-	 *             .
-	 */
-	void startGameLoop() throws IllegalStateException;
+    /**
+     * Make the Game Loop start to work.
+     * 
+     * @throws IllegalStateException
+     *             .
+     */
+    void startGameLoop() throws IllegalStateException;
 
-	/**
-	 * A method to choose the selected player.
-	 * 
-	 * @param pg
-	 *            current player.
-	 */
-	void selectPlayer(Player pg);
+    /**
+     * A method to choose the selected player.
+     * 
+     * @param pg
+     *            current player.
+     */
+    void selectPlayer(Player pg);
 
-	/**
-	 * 
-	 * @return the entity player in game
-	 */
-	Player getPlayer();
+    /**
+     * 
+     * @return the entity player in game
+     */
+    Player getPlayer();
 
-	/**
-	 * Set the GUI of the game.
-	 * 
-	 * @param view
-	 *            .
-	 */
-	void setView(View view);
+    /**
+     * Set the GUI of the game.
+     * 
+     * @param view
+     *            .
+     */
+    void setView(View view);
 
-	/**
-	 * Set Game loop in pause.
-	 */
-	void pauseGameLoop();
+    /**
+     * Set Game loop in pause.
+     */
+    void pauseGameLoop();
 
-	/***
-	 * Kill the Game loop.
-	 */
-	void abortGameLoop();
+    /***
+     * Kill the Game loop.
+     */
+    void abortGameLoop();
 
-	/**
-	 * Resume Game loop from pause.
-	 */
-	void resumeGameLoop();
+    /**
+     * Resume Game loop from pause.
+     */
+    void resumeGameLoop();
 
-	/**
-	 * Returns the scoreList. If the current list cannot be loaded, an empty list is
-	 * returned. The returned list is a defensive copy.
-	 *
-	 * @return A List of scores (Pair<String, Integer>, a player name and a score)
-	 */
-	List<Pair<Pair<String, Integer>, String>> getCurrentHighScores();
+    /**
+     * Returns the scoreList. If the current list cannot be loaded, an empty list is
+     * returned. The returned list is a defensive copy.
+     *
+     * @return A List of scores (Pair<String, Integer>, a player name and a score)
+     */
+    List<Pair<Pair<String, Integer>, String>> getCurrentHighScores();
 
-	/**
-	 * Checks if there is a running game (existing and not paused).
-	 *
-	 * @return True if there is a running GameLoop, false otherwise.
-	 */
-	boolean isGameLoopRunning();
+    /**
+     * Checks if there is a running game (existing and not paused).
+     *
+     * @return True if there is a running GameLoop, false otherwise.
+     */
+    boolean isGameLoopRunning();
 
-	/**
-	 * Checks if there is a paused game (existing and not running).
-	 *
-	 * @return True if there is a paused GameLoop, false otherwise.
-	 */
-	boolean isGameLoopPaused();
+    /**
+     * Checks if there is a paused game (existing and not running).
+     *
+     * @return True if there is a paused GameLoop, false otherwise.
+     */
+    boolean isGameLoopPaused();
 
-	/**
-	 * take Input List from view and call model to execute it.
-	 */
-	void processInput();
+    /**
+     * take Input List from view and call model to execute it.
+     */
+    void processInput();
 
-	/**
-	 * This method clear the score list.
-	 * 
-	 * @return true when the list is clear.
-	 */
-	boolean emptyScores();
+    /**
+     * This method clear the score list.
+     * 
+     * @return true when the list is clear.
+     */
+    boolean emptyScores();
 
-	/**
-	 * A method to save the score on the Score manager.
-	 * 
-	 * @return true if there is no error in loading save.
-	 */
-	boolean saveScoreGame();
+    /**
+     * A method to save the score on the Score manager.
+     * 
+     * @return true if there is no error in loading save.
+     */
+    boolean saveScoreGame();
 
-	/**
-	 * Set the player name for the Score List.
-	 * 
-	 * @param name
-	 *            name of the current player.
-	 */
-	void setPlayerName(String name);
+    /**
+     * Set the player name for the Score List.
+     * 
+     * @param name
+     *            name of the current player.
+     */
+    void setPlayerName(String name);
 
-	/**
-	 * 
-	 * @return The name of the player
-	 */
-	String getPlaterName();
+    /**
+     * 
+     * @return The name of the player
+     */
+    String getPlaterName();
 
-	/**
-	 * 
-	 * @return the map by a call from model
-	 */
-	int[][] getViewMap();
+    /**
+     * 
+     * @return the map by a call from model
+     */
+    int[][] getViewMap();
 
-	/**
-	 * 
-	 * @return the column x of the map matrix
-	 */
-	int getXmap();
+    /**
+     * 
+     * @return the column x of the map matrix
+     */
+    int getXmap();
 
-	/**
-	 * 
-	 * @return the column y of the map matrix
-	 */
-	int getYmap();
+    /**
+     * 
+     * @return the column y of the map matrix
+     */
+    int getYmap();
 
-	/**
-	 * Update the map.
-	 */
-	void mapUpdate();
+    /**
+     * Update the map.
+     */
+    void mapUpdate();
 
-	/**
-	 * Start the song s.
-	 * 
-	 * @param s
-	 *            name of the current song.
-	 */
-	void playSong(String s);
+    /**
+     * Start the song s.
+     * 
+     * @param s
+     *            name of the current song.
+     */
+    void playSong(String s);
 
-	/**
-	 * Method to change the song.
-	 * 
-	 * @param s
-	 *            name of the song to change.
-	 */
-	void changeSong(String s);
+    /**
+     * Method to change the song.
+     * 
+     * @param s
+     *            name of the song to change.
+     */
+    void changeSong(String s);
 
 }
