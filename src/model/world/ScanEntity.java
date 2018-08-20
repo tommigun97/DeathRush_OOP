@@ -4,21 +4,23 @@ import model.room.Room;
 
 /**
  * 
- * Scan entity from file, used to populate rooms randomly from file
+ * Scan entity from file, used to populate rooms randomly from file.
  *
  */
 public interface ScanEntity {
-	
-	/**
-	 * 
-	 * @param room
-	 */
-	void loadBoss(Room room);
-	
-	/**
-	 * 
-	 * @param x
-	 */
-	void loadEntity(Room room);
+
+    /**
+     * load the boos.
+     * 
+     * @param room room to fill
+     */
+    void loadBoss(Room room);
+
+    /**
+     * load the entities.
+     * 
+     * @param room room to fill
+     */
+    void loadEntity(Room room);
 
 }

@@ -4,14 +4,10 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 import model.room.Room;
 import model.room.RoomType;
 import model.room.RoomsFactory;
 import model.room.RoomsFactoryImpl;
-import model.room.RoomImpl.RoomBuilder;
-import model.world.ScanEntity;
-import model.world.ScanEntityImpl;
 import utilities.Pair;
 import model.entity.DoorStatus;
 import model.entity.Entity;
@@ -22,7 +18,7 @@ import model.entity.EntityFactory;
  * Implementation of GameWorld.
  * 
  */
-public class GameWorldImpl implements GameWorld {
+public final class GameWorldImpl implements GameWorld {
 
     private static final  int X = 14;
     private static final  int Y = 14;
@@ -31,7 +27,6 @@ public class GameWorldImpl implements GameWorld {
     private static final  int FIRSTROOM = 1;
     private static final  int VENDORROOM = 0;
 
-    // Variables
     private Room[][] matrixMap;
     private Set<Room> roomSet;
     private Set<Entity> doorSet;
@@ -42,8 +37,12 @@ public class GameWorldImpl implements GameWorld {
     private final Entity player;
     private int roomCount;
 
-    // Constructor
-    public GameWorldImpl(EntityFactory entityFactory, Entity player) {
+    /**
+     * Constructor.
+     * @param entityFactory factory for the entities
+     * @param player game player
+     */
+    public GameWorldImpl(final EntityFactory entityFactory, final Entity player) {
         this.rf = new RoomsFactoryImpl();
         this.entityFactory = entityFactory;
         this.player = player;
@@ -72,8 +71,7 @@ public class GameWorldImpl implements GameWorld {
      * @return true if has else false
      */
     private boolean checkDoor(final Room r, final Coordinates x) {
-        boolean b = r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
-        return b;
+        return r.getDoor().stream().anyMatch(y -> y.getObjectProperty("coordinate").equals(x));
     }
 
     /**
@@ -103,11 +101,8 @@ public class GameWorldImpl implements GameWorld {
      * @return true if has a loop else false
      */
     private boolean checkLoop(final int x, final int y) {
-        if (this.matrixMap[x + 1][y] != null && this.matrixMap[x][y + 1] != null && this.matrixMap[x - 1][y] != null
-                && this.matrixMap[x][y - 1] != null) {
-            return true;
-        }
-        return false;
+        return this.matrixMap[x + 1][y] != null && this.matrixMap[x][y + 1] != null && this.matrixMap[x - 1][y] != null
+                && this.matrixMap[x][y - 1] != null;
     }
 
     /**
@@ -139,7 +134,6 @@ public class GameWorldImpl implements GameWorld {
             x.addDoor(a);
             y.addDoor(b);
         }
-
     }
 
     /**
@@ -186,25 +180,27 @@ public class GameWorldImpl implements GameWorld {
      * @param roomsSinglePath
      *            number of rooms to be created in the path
      */
-    private void completePath(int x, int y, int roomsSinglePath) {
-
+    private void completePath(final int x, final int y, final int roomsSinglePath) {
+        int row = x;
+        int column = y;
+        int rooms = roomsSinglePath;
         boolean mapOK = true;
-        Room current = this.matrixMap[x][y];
-        while (roomsSinglePath > 0 && mapOK) {
+        Room current = this.matrixMap[row][column];
+        while (rooms > 0 && mapOK) {
 
             final Coordinates c = Coordinates.getRandomCoordinate();
             final Pair<Integer, Integer> movement = Coordinates.getMovementFromCoordinates(c);
-            if (!this.checkLoop(x, y)) {
-                if (!checkDoor(current, c) && this.checkNextRoom(x + movement.getFirst(), y + movement.getSecond())) {
+            if (!this.checkLoop(row, column)) {
+                if (!checkDoor(current, c) && this.checkNextRoom(row + movement.getFirst(), column + movement.getSecond())) {
                     this.roomCount++;
-                    final Room next = roomsSinglePath == 1 ? this.rf.bossRoom(this.roomCount, false)
+                    final Room next = rooms == 1 ? this.rf.bossRoom(this.roomCount, false)
                             : this.rf.intermediateRoom(this.roomCount, false);
-                    this.matrixMap[x + movement.getFirst()][y + movement.getSecond()] = next;
+                    this.matrixMap[row + movement.getFirst()][column + movement.getSecond()] = next;
                     this.addNewRoom(next);
                     this.addLink(current, next, c, DoorStatus.CLOSE);
-                    x = x + movement.getFirst();
-                    y = y + movement.getSecond();
-                    roomsSinglePath--;
+                    row = row + movement.getFirst();
+                    column = column + movement.getSecond();
+                    rooms--;
                     current = next;
                 }
             } else {
@@ -255,11 +251,11 @@ public class GameWorldImpl implements GameWorld {
     }
 
     @Override
-    public Optional<Room> getRoom(int x) {
+    public Optional<Room> getRoom(final int x) {
         return this.roomSet.stream().filter(y -> y.getRoomID() == x).findFirst();
     }
 
-    private void addNewRoom(Room x) {
+    private void addNewRoom(final Room x) {
         this.roomSet.add(x);
     }
 

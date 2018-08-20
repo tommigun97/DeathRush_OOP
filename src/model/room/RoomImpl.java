@@ -140,6 +140,7 @@ public final class RoomImpl implements Room {
          * setter for room id.
          * 
          * @param roomID
+         *            room id
          * @return the builder
          */
         public RoomBuilder setRoomID(final int roomID) {

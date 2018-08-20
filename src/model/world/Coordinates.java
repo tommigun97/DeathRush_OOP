@@ -37,7 +37,16 @@ public enum Coordinates {
     private final double y;
     private final Area area;
 
-    private Coordinates(final String openImage, final String closedImage, final int coordinateId, final double x,
+    /**
+     * Constructor.
+     * @param openImage door open image
+     * @param closedImage close open image
+     * @param coordinateId coordinate id
+     * @param x coordinate in cartesian plane
+     * @param y coordinate in cartesian plane
+     * @param area door area
+     */
+    Coordinates(final String openImage, final String closedImage, final int coordinateId, final double x,
             final double y, final Area area) {
         this.open = openImage;
         this.close = closedImage;
