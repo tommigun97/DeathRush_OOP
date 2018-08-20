@@ -130,6 +130,26 @@ public class GameWorldView extends Scene {
     }
 
     /**
+     * Private method. It print all images inside the GameWorld.
+     * 
+     * @param p
+     *            Pane to print.
+     * @param path
+     *            image path.
+     * @param loc
+     *            location of the image inside the pane.
+     */
+    private void printImage(final Pane p, final String path, final Location loc) {
+        final ImageView image = new ImageView(this.iMaker.getImageFromPath(path));
+        image.setPreserveRatio(false);
+        image.setFitHeight(loc.getArea().getHeight() * GameWorldView.inGameHeight);
+        image.setFitWidth(loc.getArea().getWidth() * GameWorldView.inGameWidth);
+        p.getChildren().add(image);
+        image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameWorldView.inGameWidth);
+        image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameWorldView.inGameHeight);
+    }
+
+    /**
      * Private method. Manages the user inputs.
      */
     private void getInput() {
@@ -164,6 +184,47 @@ public class GameWorldView extends Scene {
         PAUSEBUTTON.setText(RESUME);
         ViewImpl.getController().mapUpdate();
         ShowMap.print();
+    }
+
+    /**
+     * Private method. When called from the user this stop/resume the GameLoop.
+     * 
+     */
+    private void pause() {
+        if (!mapActive) {
+            if (ViewImpl.getController().isGameLoopPaused()) {
+                InputHandler.getInputHandler().emptyList();
+                ViewImpl.getController().resumeGameLoop();
+                PAUSEBUTTON.setText(PAUSE);
+            } else {
+                ViewImpl.getController().pauseGameLoop();
+                PAUSEBUTTON.setText(RESUME);
+            }
+        }
+    }
+
+    /**
+     * Private method. It's called every time a new GameWorld is created. It resizes
+     * everything in it according to the current resolution.
+     */
+    private void resize() {
+        this.infoBox.setMinWidth(inGameWidth);
+        this.infoBox.setMaxSize((MAX_BUTTON_WIDTH * resConstantWidth), (MAX_BUTTON_HEIGHT * resConstantHeight));
+        this.infoBox.setMinHeight((MAX_BUTTON_HEIGHT * resConstantHeight));
+        this.infoBox.setSpacing(SPACING * resConstantWidth);
+        this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
+        this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
+        PAUSEBUTTON.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
+        this.infoButton.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.infoButton.setOnMouseEntered(e -> this.infoButton.setFont(Font.font(FONT_SIZE * resConstantHeight)));
+        PAUSEBUTTON.setOnMouseEntered(e -> PAUSEBUTTON.setFont(Font.font(FONT_SIZE * resConstantHeight)));
+        PAUSEBUTTON.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.hp.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.coin.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.damage.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.attspeed.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.mvspeed.setFont(Font.font(FONT_SIZE * resConstantHeight));
+        this.timePlayed.setFont(Font.font(FONT_SIZE * resConstantHeight));
     }
 
     /**
@@ -203,26 +264,6 @@ public class GameWorldView extends Scene {
     }
 
     /**
-     * Private method. It print all images inside the GameWorld.
-     * 
-     * @param p
-     *            Pane to print.
-     * @param path
-     *            image path.
-     * @param loc
-     *            location of the image inside the pane.
-     */
-    private void printImage(final Pane p, final String path, final Location loc) {
-        final ImageView image = new ImageView(this.iMaker.getImageFromPath(path));
-        image.setPreserveRatio(false);
-        image.setFitHeight(loc.getArea().getHeight() * GameWorldView.inGameHeight);
-        image.setFitWidth(loc.getArea().getWidth() * GameWorldView.inGameWidth);
-        p.getChildren().add(image);
-        image.setX((loc.getX() - loc.getArea().getWidth() / 2) * GameWorldView.inGameWidth);
-        image.setY((loc.getY() - loc.getArea().getHeight() / 2) * GameWorldView.inGameHeight);
-    }
-
-    /**
      * This method update the players status bar info.
      * 
      * @param hp
@@ -246,23 +287,6 @@ public class GameWorldView extends Scene {
         this.damage.setText("Damage:" + damage);
         this.attspeed.setText("Attack Speed:" + attackSpeed);
         this.mvspeed.setText("Movement Speed:" + mvSpeed);
-    }
-
-    /**
-     * Private method. When called from the user this stop/resume the GameLoop.
-     * 
-     */
-    private void pause() {
-        if (!mapActive) {
-            if (ViewImpl.getController().isGameLoopPaused()) {
-                InputHandler.getInputHandler().emptyList();
-                ViewImpl.getController().resumeGameLoop();
-                PAUSEBUTTON.setText(PAUSE);
-            } else {
-                ViewImpl.getController().pauseGameLoop();
-                PAUSEBUTTON.setText(RESUME);
-            }
-        }
     }
 
     /**
@@ -297,30 +321,6 @@ public class GameWorldView extends Scene {
         inGameHeight = height;
         resConstantWidth = GameWorldView.inGameWidth / BASIC_RES_WIDTH;
         resConstantHeight = GameWorldView.inGameHeight / BASIC_RES_HEIGHT;
-    }
-
-    /**
-     * Private method. It's called every time a new Game Screen is created. It
-     * resizes everything in it according to the current resolution.
-     */
-    private void resize() {
-        this.infoBox.setMinWidth(inGameWidth);
-        this.infoBox.setMaxSize((MAX_BUTTON_WIDTH * resConstantWidth), (MAX_BUTTON_HEIGHT * resConstantHeight));
-        this.infoBox.setMinHeight((MAX_BUTTON_HEIGHT * resConstantHeight));
-        this.infoBox.setSpacing(SPACING * resConstantWidth);
-        this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
-        this.infoButton.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
-        PAUSEBUTTON.setPrefSize(BASIC_BUTTON_WIDTH * resConstantWidth, BASIC_BUTTON_HEIGHT * resConstantHeight);
-        this.infoButton.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.infoButton.setOnMouseEntered(e -> this.infoButton.setFont(Font.font(FONT_SIZE * resConstantHeight)));
-        PAUSEBUTTON.setOnMouseEntered(e -> PAUSEBUTTON.setFont(Font.font(FONT_SIZE * resConstantHeight)));
-        PAUSEBUTTON.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.hp.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.coin.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.damage.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.attspeed.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.mvspeed.setFont(Font.font(FONT_SIZE * resConstantHeight));
-        this.timePlayed.setFont(Font.font(FONT_SIZE * resConstantHeight));
     }
 
     /**

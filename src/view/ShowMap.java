@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * A simple help box with the instructions.
+ * This class print the in-game Map.
  *
  */
 public final class ShowMap {
@@ -25,7 +25,7 @@ public final class ShowMap {
     };
 
     /**
-     * It shows the box.
+     * It shows the map box.
      */
     public static void print() {
         final int[][] map = ViewImpl.getController().getViewMap();

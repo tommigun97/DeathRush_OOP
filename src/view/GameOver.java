@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
- * This class is responsible for showing to the user the Settings Window.
+ * This class is responsible for showing to the user the Game Over Window.
  */
 public class GameOver extends Scene {
 

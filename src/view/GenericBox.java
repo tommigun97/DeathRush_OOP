@@ -11,7 +11,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * This class create a MessageBox to interact with the user.
+ * This class create a GenericBox to interact with the user.
  *
  */
 public final class GenericBox {
@@ -22,12 +22,12 @@ public final class GenericBox {
     };
 
     /**
-     * Display the MessageBox.
+     * Display the GenericBox.
      * 
      * @param title
-     *            The title of the MessageBox.
+     *            The title of the GenericBox.
      * @param message
-     *            The message inside the MessageBox.
+     *            The message inside the GenericBox.
      * @param buttonMessage
      *            The text inside the buttons
      */
