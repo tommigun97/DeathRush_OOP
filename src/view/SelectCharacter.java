@@ -16,8 +16,7 @@ import javafx.stage.Stage;
 import model.entity.Player;
 
 /**
- * This class is responsible for showing to the user the Select Character
- * Window.
+ * This class is responsible for showing to the user the SelectCharacter Window.
  */
 public class SelectCharacter extends Scene {
 

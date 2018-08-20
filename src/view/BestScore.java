@@ -110,20 +110,6 @@ public class BestScore extends Scene {
     }
 
     /**
-     * Getter of this Scene.
-     * 
-     * @param mainWindow
-     *            The Stage to place this Scene.
-     * @return The current Scene.
-     */
-    public static Scene get(final Stage mainWindow) {
-        showScores();
-        mainStage = mainWindow;
-        mainStage.setTitle("Death Rush - Best Scores");
-        return MAINSCENE;
-    }
-
-    /**
      * This method reset the Score list , after user confirmation.
      */
     private void resetScores() {
@@ -138,6 +124,20 @@ public class BestScore extends Scene {
             mainStage.setScene(BestScore.get(mainStage));
         }
 
+    }
+
+    /**
+     * Getter of this Scene.
+     * 
+     * @param mainWindow
+     *            The Stage to place this Scene.
+     * @return The current Scene.
+     */
+    public static Scene get(final Stage mainWindow) {
+        showScores();
+        mainStage = mainWindow;
+        mainStage.setTitle("Death Rush - Best Scores");
+        return MAINSCENE;
     }
 
 }
