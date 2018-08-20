@@ -65,7 +65,7 @@ public class ViewImpl implements View {
      * @param gamescreen
      *            The GameScreen
      */
-    static void setGameScreen(final GameWorldView gamescreen) {
+    public static void setGameScreen(final GameWorldView gamescreen) {
         ViewImpl.gameScreen = gamescreen;
     }
 
@@ -74,7 +74,7 @@ public class ViewImpl implements View {
      * 
      * @return The controller of the game
      */
-    static Controller getController() {
+    public static Controller getController() {
         return ViewImpl.controller;
     }
 

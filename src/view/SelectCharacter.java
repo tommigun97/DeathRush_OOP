@@ -55,25 +55,25 @@ public class SelectCharacter extends Scene {
 
         final StackPane mainLayout = new StackPane();
 
-        Text mainTitle = new Text("Select your Character");
+        final Text mainTitle = new Text("Select your Character");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Select your Character");
         mainTitle.setId("title-character");
 
-        Image imageSimo = new Image(getClass().getResourceAsStream("/simo/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE, true,
-                true);
+        final Image imageSimo = new Image(getClass().getResourceAsStream("/simo/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE,
+                true, true);
         pgSimo.setGraphic(new ImageView(imageSimo));
 
-        Image imageCaso = new Image(getClass().getResourceAsStream("/kaso/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE, true,
-                true);
+        final Image imageCaso = new Image(getClass().getResourceAsStream("/kaso/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE,
+                true, true);
         pgCaso.setGraphic(new ImageView(imageCaso));
 
-        Image imageTommi = new Image(getClass().getResourceAsStream("/tommi/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE,
-                true, true);
+        final Image imageTommi = new Image(getClass().getResourceAsStream("/tommi/1.png"), MENU_ICON_SIZE,
+                MENU_ICON_SIZE, true, true);
         pgTommi.setGraphic(new ImageView(imageTommi));
 
-        Image imageAnis = new Image(getClass().getResourceAsStream("/anis/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE, true,
-                true);
+        final Image imageAnis = new Image(getClass().getResourceAsStream("/anis/1.png"), MENU_ICON_SIZE, MENU_ICON_SIZE,
+                true, true);
         pgAnis.setGraphic(new ImageView(imageAnis));
 
         final VBox vboxButton = new VBox(pgSimo, pgCaso, pgTommi, pgAnis);
@@ -145,7 +145,7 @@ public class SelectCharacter extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static Scene get(final Stage mainWindow) {
+    public static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - Select Character");
         return MAINSCENE;
