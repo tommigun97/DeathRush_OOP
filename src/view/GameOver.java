@@ -43,7 +43,7 @@ public class GameOver extends Scene {
 
         final StackPane mainLayout = new StackPane();
 
-        Text mainTitle = new Text("Settings");
+        final Text mainTitle = new Text("Settings");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Game Over");
         mainTitle.setId("title");
@@ -87,7 +87,7 @@ public class GameOver extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static Scene get(final Stage mainWindow) {
+    public static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - Game Over");
         return MAINSCENE;

@@ -8,7 +8,7 @@ import javafx.stage.Stage;
  */
 public final class ExitHandler {
 
-    private static final ExitHandler EXITHANDLER = new ExitHandler();
+    private static final ExitHandler EXIT = new ExitHandler();
 
     // Constructor of the ExitHandler Class, implementing Singleton.
     private ExitHandler() {
@@ -19,8 +19,8 @@ public final class ExitHandler {
      * 
      * @return The singleton instance of the class.
      */
-    static ExitHandler getExitHandler() {
-        return ExitHandler.EXITHANDLER;
+    public static ExitHandler getExitHandler() {
+        return ExitHandler.EXIT;
     }
 
     /**
@@ -30,7 +30,7 @@ public final class ExitHandler {
      * @param mainWindow
      *            current window in game.
      */
-    static void closeGame(final Stage mainWindow) {
+    public static void closeGame(final Stage mainWindow) {
         final Boolean answer = MessageBox.display("ATTENTION !", "Do you want to leave the game?");
         if (ViewImpl.getController().isGameLoopPaused()) {
             if (answer) {

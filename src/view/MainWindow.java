@@ -13,12 +13,6 @@ public class MainWindow extends Application {
     private final Stage mainWindow = new Stage();
 
     /**
-     * Constructor of the class. It sets up the Stage.
-     */
-    public MainWindow() {
-    }
-
-    /**
      * It starts the JavaFX application.
      */
     @Override
@@ -27,7 +21,7 @@ public class MainWindow extends Application {
         this.mainWindow.setWidth(WIDTH);
         this.mainWindow.setTitle("Death Rush v0.1");
         this.mainWindow.centerOnScreen();
-        this.mainWindow.setResizable(true);
+        this.mainWindow.setResizable(false);
 
         this.mainWindow.setOnCloseRequest(e -> {
             e.consume();

@@ -7,32 +7,45 @@ import model.room.RoomType;
 
 /**
  * 
- *
+ * Enumeration of room files
  */
 public enum BackgroundFromFile {
 
-	ZERO("/rooms/0.room", RoomType.VENDOR, 0), FIRST("/rooms/1.room", RoomType.INTERMEDIATE, 1),
-	SECOND("/rooms/2.room", RoomType.INTERMEDIATE, 2), THIRD("/rooms/3.room", RoomType.INTERMEDIATE, 3),
-	FOURTH("/rooms/4.room", RoomType.INTERMEDIATE, 4), FIVTH("/rooms/5.room", RoomType.INTERMEDIATE, 5),
-	SIXTH("/rooms/6.room", RoomType.INTERMEDIATE, 6), SEVENTH("/rooms/7.room", RoomType.BOSS, 7),
-	EIGHTH("/rooms/8.room", RoomType.BOSS, 8), NINETH("/rooms/9.room", RoomType.BOSS, 9);
+	
+	ZERO("/rooms/0.room"), FIRST("/rooms/1.room"),
+	SECOND("/rooms/2.room"), THIRD("/rooms/3.room"),
+	FOURTH("/rooms/4.room"), FIVTH("/rooms/5.room"),
+	SIXTH("/rooms/6.room"), SEVENTH("/rooms/7.room"),
+	EIGHTH("/rooms/8.room"), NINETH("/rooms/9.room");
 
+	//Variables
 	private final String path;
-	private final RoomType type;
-	private final int seqNumber;
 
-	private BackgroundFromFile(final String path, final RoomType type, final int seqNumber) {
+	//Enum Constructor
+	private BackgroundFromFile(final String path) {
 		this.path = path;
-		this.type = type;
-		this.seqNumber = seqNumber;
+
 	}
 
+	/**
+	 * Static enumeration method used to take a random room path
+	 * @param type
+	 * 			Rooms type
+	 * @return	String 
+	 * 				path 
+	 */
 	public static String getRandomPath(RoomType type) {
 		int seq = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(5) + 2
 				: type.equals(RoomType.FIRTS) ? 1 : type.equals(RoomType.VENDOR) ? 9 : 0;
 		return getPathName(seq);
 	}
 
+	/**
+	 * 
+	 * @param seqNumber
+	 * @return String
+	 * 			path
+	 */
 	private static String getPathName(int seqNumber) {
 		return seqNumber == 1 ? BackgroundFromFile.FIRST.getPath()
 				: seqNumber == 2 ? BackgroundFromFile.SECOND.getPath()
@@ -43,11 +56,19 @@ public enum BackgroundFromFile {
 														: seqNumber == 9 ? BackgroundFromFile.ZERO.getPath()
 																: BackgroundFromFile.FIRST.getPath();
 	}
-
+	/**
+	 * Getter method to take Enumeration path
+	 * @return
+	 */
 	public String getPath() {
 		return this.path;
 	}
 
+	/**
+	 * Getter method to take only bosses Enumeration path
+	 * @return List<String>
+	 * 				path of file roomType boss
+	 */
 	public static List<String> getBossPath() {
 		List<String> listCopy = Arrays.asList(BackgroundFromFile.SEVENTH.getPath(), BackgroundFromFile.NINETH.getPath(),
 				BackgroundFromFile.EIGHTH.getPath());
