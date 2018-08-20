@@ -41,7 +41,17 @@ public final class GameMapImpl implements GameMap {
         this.pathToView = new int[this.row][this.column];
 
     }
-
+    /**
+     * build a map copy.
+     * @param copy map copy
+     */
+    private void copyMatrix(int[][] copy) {
+    	for(int i = 0; i < row; i++) {
+    		for(int j = 0; j < column; j++) {
+    			copy[i][j] = this.pathToView[i][j];
+    		}
+    	}
+    }
     /**
      * Check method used to verify if a room is visited or not.
      * 
@@ -69,13 +79,8 @@ public final class GameMapImpl implements GameMap {
                 if (this.path[i][j] != null) {
                     if (this.path[i][j].getRoomID() == this.getPlayerCurrentRoom()) {
                         this.pathToView[i][j] = GameMapImpl.CURRENT;
-                        System.out.println(
-                                "[GameMapImpl] " + this.path[i][j] + " visited " + checkVisited(this.path[i][j]));
                     } else {
                         this.pathToView[i][j] = checkVisited(this.path[i][j]) ? GameMapImpl.VISITED : GameMapImpl.NOTVISITED;
-                        System.out.println(
-                                "[GameMapImpl] " + this.path[i][j] + " visited " + checkVisited(this.path[i][j]));
-
                     }
 
                 }
@@ -85,7 +90,10 @@ public final class GameMapImpl implements GameMap {
 
     @Override
     public int[][] getPathToView() {
-        return pathToView;
+    	int[][] copy = new int[row][column];
+    	this.copyMatrix(copy);
+        return copy;     
     }
 
+    
 }
