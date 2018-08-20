@@ -80,10 +80,12 @@ public class GameWorldView extends Scene {
         infoButton.setFocusTraversable(false);
         infoButton.setOnAction(e -> GameHelp.display());
         timePlayed.setId("status-bar");
-        Image imageHeart = new Image(getClass().getResourceAsStream("/status/heart.gif"), IMG_DIM, IMG_DIM, true, true);
+        final Image imageHeart = new Image(getClass().getResourceAsStream("/status/heart.gif"), IMG_DIM, IMG_DIM, true,
+                true);
         hp.setGraphic(new ImageView(imageHeart));
         hp.setId("status-bar");
-        Image imageCoin = new Image(getClass().getResourceAsStream("/status/coin.gif"), IMG_DIM, IMG_DIM, true, true);
+        final Image imageCoin = new Image(getClass().getResourceAsStream("/status/coin.gif"), IMG_DIM, IMG_DIM, true,
+                true);
         coin.setGraphic(new ImageView(imageCoin));
         coin.setId("status-bar");
         damage.setId("status-bar");
@@ -109,13 +111,22 @@ public class GameWorldView extends Scene {
     }
 
     /**
-     * setter for map active.
-     * 
-     * @param b
-     *            new mapActive value
+     * Private method. When called this method send a message to the user to inform
+     * about the current action if the user choose "yes" the GameLoop is stopped and
+     * the GameWorld destroyed and the user will redirect to the main MainMenu
+     * screen.
      */
-    public static void setMapActive(final boolean b) {
-        mapActive = b;
+    private void backMenu() {
+        final Boolean answer = MessageBox.display("Alert", "Are you sure you want to go back to the menu?");
+        if (answer) {
+            ViewImpl.getController().abortGameLoop();
+            InputHandler.getInputHandler().emptyList();
+            this.mainStage.setScene(MainMenu.get(this.mainStage));
+            ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong());
+        } else {
+            InputHandler.getInputHandler().emptyList();
+            ViewImpl.getController().resumeGameLoop();
+        }
     }
 
     /**
@@ -153,6 +164,16 @@ public class GameWorldView extends Scene {
         PAUSEBUTTON.setText(RESUME);
         ViewImpl.getController().mapUpdate();
         ShowMap.print();
+    }
+
+    /**
+     * setter for map active.
+     * 
+     * @param b
+     *            new mapActive value
+     */
+    public static void setMapActive(final boolean b) {
+        mapActive = b;
     }
 
     /**
@@ -217,8 +238,8 @@ public class GameWorldView extends Scene {
      * @param mvSpeed
      *            current player movement speed.
      */
-    void updateInfo(final int hp, final int money, final String time, final String damage, final String attackSpeed,
-            final String mvSpeed) {
+    public void updateInfo(final int hp, final int money, final String time, final String damage,
+            final String attackSpeed, final String mvSpeed) {
         this.timePlayed.setText(time);
         this.hp.setText(String.valueOf(hp));
         this.coin.setText(String.valueOf(money));
@@ -251,7 +272,7 @@ public class GameWorldView extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    GameWorldView get(final Stage mainWindow) {
+    public GameWorldView get(final Stage mainWindow) {
         this.mainStage = mainWindow;
         this.mainStage.setWidth(GameWorldView.inGameWidth);
         this.mainStage.setHeight(GameWorldView.inGameHeight);
@@ -271,7 +292,7 @@ public class GameWorldView extends Scene {
      * @param fullScreen
      *            The mode of the screen.
      */
-    static synchronized void setResolution(final double width, final double height, final boolean fullScreen) {
+    public static synchronized void setResolution(final double width, final double height, final boolean fullScreen) {
         inGameWidth = width;
         inGameHeight = height;
         resConstantWidth = GameWorldView.inGameWidth / BASIC_RES_WIDTH;
@@ -307,27 +328,8 @@ public class GameWorldView extends Scene {
      * 
      * @return True if the current window (Stage) is in full screen mode.
      */
-    boolean isFullScreen() {
+    public boolean isFullScreen() {
         return SettingsWindow.getIsFullScreen();
-    }
-
-    /**
-     * Private method. When called this method send a message to the user to inform
-     * about the current action if the user choose "yes" the GameLoop is stopped and
-     * the GameWorld destroyed and the user will redirect to the main MainMenu
-     * screen.
-     */
-    private void backMenu() {
-        final Boolean answer = MessageBox.display("Alert", "Are you sure you want to go back to the menu?");
-        if (answer) {
-            ViewImpl.getController().abortGameLoop();
-            InputHandler.getInputHandler().emptyList();
-            this.mainStage.setScene(MainMenu.get(this.mainStage));
-            ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong());
-        } else {
-            InputHandler.getInputHandler().emptyList();
-            ViewImpl.getController().resumeGameLoop();
-        }
     }
 
     /**

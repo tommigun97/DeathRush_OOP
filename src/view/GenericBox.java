@@ -31,7 +31,7 @@ public final class GenericBox {
      * @param buttonMessage
      *            The text inside the buttons
      */
-    static void display(final String title, final String message, final String buttonMessage) {
+    public static void display(final String title, final String message, final String buttonMessage) {
         final Stage window = new Stage();
         window.setResizable(false);
         window.centerOnScreen();

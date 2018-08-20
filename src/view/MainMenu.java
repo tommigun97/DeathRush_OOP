@@ -31,7 +31,7 @@ public final class MainMenu extends Scene {
     private MainMenu() {
         super(new StackPane(), WIDTH, HEIGHT);
 
-        Text mainTitle = new Text("Death Rush");
+        final Text mainTitle = new Text("Death Rush");
         mainTitle.setText("Death Rush");
         mainTitle.setId("title");
 
