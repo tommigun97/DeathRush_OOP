@@ -49,14 +49,14 @@ public final class CompleteImageSetCalculator implements ImageCalculator {
             if (d.equals(Direction.NOTHING)) {
                 currentImage = this.stand;
             } else {
-                currentImage = d.equals(Direction.N) || d.equals(Direction.NW) || d.equals(Direction.NE)
-                        ? this.northImages.get(c)
+                currentImage = d.equals(Direction.E) || d.equals(Direction.NW) || d.equals(Direction.NE)
+                        ? this.eastImages.get(c)
                         : currentImage;
-                currentImage = d.equals(Direction.S) || d.equals(Direction.SW) || d.equals(Direction.SE)
-                        ? this.southImages.get(c)
+                currentImage = d.equals(Direction.W) || d.equals(Direction.SW) || d.equals(Direction.SE)
+                        ? this.weastImages.get(c)
                         : currentImage;
-                currentImage = d.equals(Direction.E) ? this.eastImages.get(c) : currentImage;
-                currentImage = d.equals(Direction.W) ? this.weastImages.get(c) : currentImage;
+                currentImage = d.equals(Direction.N) ? this.northImages.get(c) : currentImage;
+                currentImage = d.equals(Direction.S) ? this.southImages.get(c) : currentImage;
                 c = c == 0 ? 1 : 0;
             }
             lastTimeSaved = System.currentTimeMillis();

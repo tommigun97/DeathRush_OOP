@@ -179,6 +179,7 @@ public enum Boss {
     };
 
     /**
+     * Get the list of images for a specific direction.
      * 
      * @param d
      *            direction required
@@ -187,41 +188,57 @@ public enum Boss {
     public abstract List<String> images(Direction d);
 
     /**
+     * Get the stand image.
+     * 
      * @return path for stand image
      */
     public abstract String standImage();
 
     /**
+     * Get Boss Area.
+     * 
      * @return the player area
      */
     public abstract Area getArea();
 
     /**
+     * Get Boss max life value.
+     * 
      * @return starting max Life
      */
     public abstract int getStartingMaxLife();
 
     /**
+     * Get Boss movement speed value.
+     * 
      * @return movement speed
      */
     public abstract double getSpeed();
 
     /**
+     * Get Boss Shoot frequency.
+     * 
      * @return shoot frequency
      */
     public abstract long startingBossShootFrequency();
 
     /**
+     * Get Boss shooting damage value.
+     * 
      * @return shooting damage
      */
     public abstract int shootingDamage();
 
     /**
+     * Get Boss collision damage value.
+     * 
      * @return collision damage.
      */
     public abstract int collisionDamage();
 
     /**
+     * Get boss reward after player kill it.
+     * 
      * @return reward.
      */
     public abstract int reward();

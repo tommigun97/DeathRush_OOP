@@ -48,64 +48,84 @@ public interface Model {
     void resumeTime();
 
     /**
+     * getter for player's life.
+     * 
      * @return the player life
      */
     int getPlayerLife();
 
     /**
+     * getter for player's money.
+     * 
      * @return the player money
      */
     int getMoney();
 
     /**
+     * getter for Time.
      * 
-     * @return .
+     * @return string that described the current time.
      */
     String getTime();
 
     /**
+     * Getter for game status.
      * 
-     * @return .
+     * @return status of the game
      */
     GameStatus getGameStatus();
 
     /**
+     * getter for the score.
+     * 
      * @return how many second the game still go
      */
     int getScore();
 
     /**
+     * getter for player's damage attack.
+     * 
      * @return player damage
      */
     String getPlayerDamage();
 
     /**
+     * Getter for player's speed attack.
+     * 
      * @return player attack frequency
      */
     String getPlayerAttSpeed();
 
     /**
+     * Getter for player's movement speed.
+     * 
      * @return player movement speed
      */
     String getPlayerMvSpeed();
 
     /**
+     * Getter for the map.
+     * 
      * @return matrix that looks like the game map
      */
     int[][] getMapToView();
 
     /**
+     * getter for matrix column.
+     * 
      * @return matrix columns
      */
     int getXmap();
 
     /**
+     * getter for matrix row.
+     * 
      * @return matrix rows
      */
     int getYmap();
 
     /**
-     * ask that the matrix that show the map is updated.
+     * update the map. ask that the matrix that show the map is updated.
      */
     void mapUpdate();
 }

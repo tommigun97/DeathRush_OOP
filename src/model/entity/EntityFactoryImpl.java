@@ -23,13 +23,13 @@ public final class EntityFactoryImpl implements EntityFactory {
     private static final double DEFAULT_OBSTACLE_HEIGHT = 0.04;
     private static final String DEFAULT_OBSTACLE_IMAGE = "room/rock.png";
     private static final List<String> DEFAULT_STALKER_ENEMY_S = new ArrayList<>(
-            Arrays.asList("images/enemies/stalker_S.png", "images/enemies/stalker_S2.png"));
+            Arrays.asList("images/enemies/stalker_S2.png", "images/enemies/stalker_S.png"));
     private static final List<String> DEFAULT_STALKER_ENEMY_N = new ArrayList<>(
-            Arrays.asList("images/enemies/stalker_N.png", "images/enemies/stalker_N.png"));
+            Arrays.asList("images/enemies/stalker_N.png", "images/enemies/stalker_N2.png"));
     private static final List<String> DEFAULT_STALKER_ENEMY_E = new ArrayList<>(
-            Arrays.asList("images/enemies/stalker_E.png", "images/enemies/stalker_E2.png"));
+            Arrays.asList("images/enemies/stalker_S2.png", "images/enemies/stalker_S.png"));
     private static final List<String> DEFAULT_STALKER_ENEMY_W = new ArrayList<>(
-            Arrays.asList("images/enemies/stalker_W.png", "images/enemies/stalker_W2.png"));
+            Arrays.asList("images/enemies/stalker_S2.png", "images/enemies/stalker_S.png"));
     private static final String DEFAULT_STALKER_ENEMY_STAND = "images/enemies/stalker_N.png";
     private static final double DEFAULT_STALKER_ENEMY_SPEED = 0.002;
     private static final int DEFAULT_STALKER_ENEMY_MAX_LIFE = 600;
