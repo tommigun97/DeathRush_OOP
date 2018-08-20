@@ -54,7 +54,7 @@ public final class ScoreImpl implements Score {
                 list.add(new Pair<Pair<String, Integer>, String>(new Pair<String, Integer>(name, score), time));
             }
         } catch (final Exception ex) {
-            ex.printStackTrace();
+            System.out.println(" ");
         }
         this.sortList(list);
         if (this.resizeList(list)) {
@@ -64,7 +64,7 @@ public final class ScoreImpl implements Score {
     }
 
     /**
-     * Mantain the list dimension to 10.
+     * Maintain the list dimension to 10.
      *
      * @param l
      *            The starting list
@@ -111,7 +111,7 @@ public final class ScoreImpl implements Score {
                 }
                 this.save = false;
             } catch (final Exception e) {
-                e.printStackTrace();
+                System.out.println(" ");
             }
         }
     }
