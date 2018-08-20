@@ -19,7 +19,7 @@ public final class TimeImpl implements Time {
     private int secondPassed;
     private int minutePassed;
     private int hourPassed;
-    private Timer myTimer;
+    private final Timer myTimer;
     private boolean running;
 
     /**
@@ -34,7 +34,7 @@ public final class TimeImpl implements Time {
         this.running = false;
     }
 
-    private TimerTask task = new TimerTask() {
+    private final TimerTask task = new TimerTask() {
 
         @Override
         public void run() {
@@ -109,7 +109,7 @@ public final class TimeImpl implements Time {
 
     @Override
     public List<Integer> transformSecondInTime() {
-        List<Integer> list = new LinkedList<>();
+        final List<Integer> list = new LinkedList<>();
         list.add(getHour());
         list.add(getMin());
         list.add(getSec());

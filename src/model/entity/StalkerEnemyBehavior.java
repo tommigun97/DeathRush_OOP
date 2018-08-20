@@ -46,55 +46,6 @@ public class StalkerEnemyBehavior implements Behavior {
         this.canShoot = canShoot;
     }
 
-    @Override
-    public final void setEntity(final Entity e) {
-        this.e = e;
-        checkProperties();
-        this.e.setImage(this.imgCalc.getCurrentImage(Direction.NOTHING));
-    }
-
-    @Override
-    public final void update() {
-        currentDirection = checkNewDirection();
-        final Location prev = new Location(e.getLocation());
-
-            if (canShoot && System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
-                this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
-                        currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
-                        e.getDoubleProperty("Bullet Speed")));
-                t = System.currentTimeMillis();
-            }
-        this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
-        cs.collisionWithBound(prev, e);
-        this.e.setImage(this.imgCalc.getCurrentImage(this.currentDirection));
-        cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
-    }
-
-    /**
-     * @return current direction
-     */
-    public Direction getCurrentDirection() {
-        return currentDirection;
-    }
-
-    /**
-     * @return the room where the entity is placed
-     */
-    public Room getCurrentRoom() {
-        return currentRoom;
-    }
-
-    private void checkProperties() {
-        e.getDoubleProperty("Speed");
-        e.getIntegerProperty("Max Life");
-        e.getIntegerProperty("Current Life");
-        e.getIntegerProperty("Collision Damage");
-        if (canShoot) {
-            e.getObjectProperty("Shoot Frequency");
-            e.getIntegerProperty("Shoot Damage");
-        }
-    }
-
     private Direction checkNewDirection() {
         Direction d = Direction.NOTHING;
         if (toStalk.getLocation().getY() < e.getLocation().getY()) {
@@ -118,5 +69,54 @@ public class StalkerEnemyBehavior implements Behavior {
         }
         d = toStalk.getLocation().locationsCollide(e.getLocation()) ? Direction.NOTHING : d;
         return d;
+    }
+
+    private void checkProperties() {
+        e.getDoubleProperty("Speed");
+        e.getIntegerProperty("Max Life");
+        e.getIntegerProperty("Current Life");
+        e.getIntegerProperty("Collision Damage");
+        if (canShoot) {
+            e.getObjectProperty("Shoot Frequency");
+            e.getIntegerProperty("Shoot Damage");
+        }
+    }
+
+    @Override
+    public final void setEntity(final Entity e) {
+        this.e = e;
+        checkProperties();
+        this.e.setImage(this.imgCalc.getCurrentImage(Direction.NOTHING));
+    }
+
+    @Override
+    public final void update() {
+        currentDirection = checkNewDirection();
+        final Location prev = new Location(e.getLocation());
+
+        if (canShoot && System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
+            this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
+                    currentRoom, currentDirection, EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"),
+                    e.getDoubleProperty("Bullet Speed")));
+            t = System.currentTimeMillis();
+        }
+        this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
+        cs.collisionWithBound(prev, e);
+        this.e.setImage(this.imgCalc.getCurrentImage(this.currentDirection));
+        cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
+    }
+
+    /**
+     * @return current direction
+     */
+    public Direction getCurrentDirection() {
+        return currentDirection;
+    }
+
+    /**
+     * @return the room where the entity is placed
+     */
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 }

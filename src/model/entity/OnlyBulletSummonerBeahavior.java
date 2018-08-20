@@ -46,6 +46,15 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
         this.eFactory = eFactory;
     }
 
+    private void checkProperties() {
+        e.getDoubleProperty("Speed");
+        e.getIntegerProperty("Max Life");
+        e.getIntegerProperty("Current Life");
+        e.getIntegerProperty("Collision Damage");
+        e.getObjectProperty("Shoot Frequency");
+        e.getIntegerProperty("Shoot Damage");
+    }
+
     /**
      * @return the current room
      */
@@ -85,14 +94,18 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
             tChangeDirection = System.currentTimeMillis();
         }
         if (System.currentTimeMillis() - this.tShootFromCorner >= F_SHOOT_FROM_CORNER) {
-            this.currentRoom.addEntity(this.eFactory.createBullet(SHORTER, LONGER, currentRoom, Direction.SW,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
-            this.currentRoom.addEntity(this.eFactory.createBullet(LONGER, SHORTER, currentRoom, Direction.SW,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
-            this.currentRoom.addEntity(this.eFactory.createBullet(SHORTER, SHORTER, currentRoom, Direction.SE,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
-            this.currentRoom.addEntity(this.eFactory.createBullet(LONGER, LONGER, currentRoom, Direction.NW,
-                    EntityType.ENEMY_BULLET, e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
+            this.currentRoom.addEntity(
+                    this.eFactory.createBullet(SHORTER, LONGER, currentRoom, Direction.SW, EntityType.ENEMY_BULLET,
+                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
+            this.currentRoom.addEntity(
+                    this.eFactory.createBullet(LONGER, SHORTER, currentRoom, Direction.SW, EntityType.ENEMY_BULLET,
+                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
+            this.currentRoom.addEntity(
+                    this.eFactory.createBullet(SHORTER, SHORTER, currentRoom, Direction.SE, EntityType.ENEMY_BULLET,
+                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
+            this.currentRoom.addEntity(
+                    this.eFactory.createBullet(LONGER, LONGER, currentRoom, Direction.NW, EntityType.ENEMY_BULLET,
+                            e.getIntegerProperty("Shoot Damage"), e.getDoubleProperty("Bullet Speed")));
             this.tShootFromCorner = System.currentTimeMillis();
         }
         if (System.currentTimeMillis() - this.tShoot >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
@@ -108,14 +121,4 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
         this.e.setImage(this.imgCalc.getCurrentImage(this.currentDirection));
         cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
     }
-
-    private void checkProperties() {
-        e.getDoubleProperty("Speed");
-        e.getIntegerProperty("Max Life");
-        e.getIntegerProperty("Current Life");
-        e.getIntegerProperty("Collision Damage");
-        e.getObjectProperty("Shoot Frequency");
-        e.getIntegerProperty("Shoot Damage");
-    }
-
 }

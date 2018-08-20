@@ -6,199 +6,203 @@ import model.entity.EntityType;
 import model.world.Coordinates;
 
 /**
- * Implementation of Room
+ * Implementation of Room.
  *
  */
-public class RoomImpl implements Room {
+public final class RoomImpl implements Room {
 
-	private final String image;
-	private final int roomID;
-	private boolean complited;
-	private final RoomType type;
-	private boolean visited;
-	private Set<Entity> entitiesRoom;
-	private Set<Entity> doorsRoom;
+    private final String image;
+    private final int roomID;
+    private final RoomType type;
+    private boolean visited;
+    private final Set<Entity> entitiesRoom;
+    private final Set<Entity> doorsRoom;
 
-	/**
-	 * 
-	 * @param image        .
-	 * @param roomID       .
-	 * @param complited    .
-	 * @param type         .
-	 * @param entitiesRoom .
-	 * @param doorsRoom    .
-	 */
-	public RoomImpl(final String image, final int roomID, final boolean complited, final RoomType type,
-			final Set<Entity> entitiesRoom, final Set<Entity> doorsRoom, final boolean visited) {
-		this.image = image;
-		this.roomID = roomID;
-		this.complited = complited;
-		this.type = type;
-		this.entitiesRoom = entitiesRoom;
-		this.doorsRoom = doorsRoom;
-		this.visited = visited;
-	}
+    /**
+     * 
+     * @param image
+     *            room back ground
+     * @param roomID
+     *            room ID
+     * @param type
+     *            room type
+     * @param entitiesRoom
+     *            collection of entity
+     * @param doorsRoom
+     *            collection of door
+     * @param visited
+     *            true if the room is just visited
+     */
+    public RoomImpl(final String image, final int roomID, final RoomType type, final Set<Entity> entitiesRoom,
+            final Set<Entity> doorsRoom, final boolean visited) {
+        this.image = image;
+        this.roomID = roomID;
+        this.type = type;
+        this.entitiesRoom = entitiesRoom;
+        this.doorsRoom = doorsRoom;
+        this.visited = visited;
+    }
 
-	@Override
-	public boolean isComplited() {
-		return (entitiesRoom.stream().filter(e -> e.getType() == EntityType.ENEMY).count() == 0);
+    @Override
+    public boolean isComplited() {
+        return (entitiesRoom.stream().filter(e -> e.getType() == EntityType.ENEMY).count() == 0);
 
-	}
+    }
 
-	@Override
-	public void setComplited(final boolean complited) {
-		this.complited = complited;
+    @Override
+    public void addDoor(final Entity door) {
+        this.doorsRoom.add(door);
+    }
 
-	}
+    @Override
+    public Set<Entity> getDoor() {
+        return this.doorsRoom;
+    }
 
-	@Override
-	public void addDoor(Entity door) {
-		this.doorsRoom.add(door);
-	}
+    @Override
+    public int getRoomID() {
+        return roomID;
+    }
 
-	@Override
-	public Set<Entity> getDoor() {
-		return this.doorsRoom;
-	}
+    @Override
+    public void openDoors() {
+        this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.OPEN));
+        this.doorsRoom.forEach(x -> x.setImage(((Coordinates) x.getObjectProperty("coordinate")).getOpen()));
+    }
 
-	@Override
-	public int getRoomID() {
-		return roomID;
-	}
+    @Override
+    public void closeDoors() {
+        this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.CLOSE));
+        this.doorsRoom.forEach(x -> x.setImage(((Coordinates) x.getObjectProperty("coordinate")).getClose()));
 
-	@Override
-	public void openDoors() {
-		// cambiare immagini quando apri e chiudi le porte
-		this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.OPEN));
-		this.doorsRoom.forEach(x -> x.setImage(((Coordinates) x.getObjectProperty("coordinate")).getOpen()));
-	}
+    }
 
-	@Override
-	public void closeDoors() {
-		this.doorsRoom.forEach(x -> x.changeObjectProperty("doorStatus", model.entity.DoorStatus.CLOSE));
-		this.doorsRoom.forEach(x -> x.setImage(((Coordinates) x.getObjectProperty("coordinate")).getClose()));
+    @Override
+    public void addEntity(final Entity entity) {
+        this.entitiesRoom.add(entity);
+    }
 
-	}
+    @Override
+    public void deleteEntity(final Entity entity) {
+        this.entitiesRoom.remove(entity);
+    }
 
-	@Override
-	public final void addEntity(final Entity entity) {
-		this.entitiesRoom.add(entity);
-	}
+    @Override
+    public Set<Entity> getEntities() {
+        return this.entitiesRoom;
+    }
 
-	@Override
-	public final void deleteEntity(final Entity entity) {
-		this.entitiesRoom.remove(entity);
-	}
+    @Override
+    public String getImage() {
+        return this.image;
+    }
 
-	@Override
-	public final Set<Entity> getEntities() {
-		return this.entitiesRoom;
-	}
+    @Override
+    public RoomType getType() {
+        return this.type;
+    }
 
-	@Override
-	public String getImage() {
-		return this.image;
-	}
+    @Override
+    public void setVisited(final boolean x) {
+        this.visited = x;
+    }
 
-	@Override
-	public RoomType getType() {
-		return this.type;
-	}
+    @Override
+    public boolean isVisited() {
+        return visited;
+    }
 
-	@Override
-	public void setVisited(boolean x) {
-		this.visited = x;
-	}
+    /**
+     * Builder room.
+     */
+    public static class RoomBuilder {
 
-	public boolean isVisited() {
-		return visited;
-	}
+        private String image;
+        private int roomID;
+        private RoomType type;
+        private boolean visited;
+        private Set<Entity> entitiesRoom;
+        private Set<Entity> doorsRoom;
 
-	/**
-	 * Builder room
-	 */
-	public static class RoomBuilder {
+        /**
+         * Setter for image.
+         * 
+         * @param image
+         *            path of image
+         * @return builder
+         */
+        public RoomBuilder setImage(final String image) {
+            this.image = image;
+            return this;
+        }
 
-		private String image;
-		private int roomID;
-		private boolean complited;
-		private RoomType type;
-		private boolean visited;
-		private Set<Entity> entitiesRoom;
-		private Set<Entity> doorsRoom;
+        /**
+         * setter for room id.
+         * 
+         * @param roomID
+         *            room id
+         * @return the builder
+         */
+        public RoomBuilder setRoomID(final int roomID) {
+            this.roomID = roomID;
+            return this;
+        }
 
-		/**
-		 * 
-		 * @param String image .
-		 * @return .
-		 */
-		public RoomBuilder setImage(final String image) {
-			this.image = image;
-			return this;
-		}
+        /**
+         * setter for room type.
+         * 
+         * @param type
+         *            room type
+         * @return the builder
+         */
+        public RoomBuilder setTypes(final RoomType type) {
+            this.type = type;
+            return this;
+        }
 
-		/**
-		 * 
-		 * @param roomID .
-		 * @return .
-		 */
-		public RoomBuilder setRoomID(final int roomID) {
-			this.roomID = roomID;
-			return this;
-		}
+        /**
+         * setter for set entity.
+         * 
+         * @param entitiesRoom
+         *            entity set
+         * @return the builder
+         */
+        public RoomBuilder setEntities(final Set<Entity> entitiesRoom) {
+            this.entitiesRoom = entitiesRoom;
+            return this;
+        }
 
-		/**
-		 * 
-		 * @param complited .
-		 * @return .
-		 */
-		public RoomBuilder setComplited(final boolean complited) {
-			this.complited = complited;
-			return this;
-		}
+        /**
+         * setter for door set.
+         * 
+         * @param doorsRoom
+         *            door set
+         * @return the builder
+         */
+        public RoomBuilder setDoors(final Set<Entity> doorsRoom) {
+            this.doorsRoom = doorsRoom;
+            return this;
+        }
 
-		/**
-		 * 
-		 * @param type .
-		 * @return .
-		 */
-		public RoomBuilder setTypes(final RoomType type) {
-			this.type = type;
-			return this;
-		}
+        /**
+         * setter true if room is just visited.
+         * 
+         * @param x
+         *            true if room is just visited
+         * @return the builder
+         */
+        public RoomBuilder setVisited(final boolean x) {
+            this.visited = x;
+            return this;
+        }
 
-		/**
-		 * 
-		 * @param entitiesRoom .
-		 * @return .
-		 */
-		public RoomBuilder setEntities(final Set<Entity> entitiesRoom) {
-			this.entitiesRoom = entitiesRoom;
-			return this;
-		}
-
-		/**
-		 * 
-		 * @param doorsRoom .
-		 * @return .
-		 */
-		public RoomBuilder setDoors(final Set<Entity> doorsRoom) {
-			this.doorsRoom = doorsRoom;
-			return this;
-		}
-
-		public RoomBuilder setVisited(final boolean x) {
-			this.visited = x;
-			return this;
-		}
-
-		/**
-		 * 
-		 * @return .
-		 */
-		public RoomImpl build() {
-			return new RoomImpl(image, roomID, complited, type, entitiesRoom, doorsRoom, visited);
-		}
-	}
+        /**
+         * 
+         * @return .
+         */
+        public RoomImpl build() {
+            return new RoomImpl(image, roomID, type, entitiesRoom, doorsRoom, visited);
+        }
+    }
 
 }
