@@ -46,7 +46,7 @@ public interface EntityFactory {
     Entity createBoss(double x, double y, Room currentRoom, Optional<Entity> eToStalk, Boss who);
 
     /**
-     * Create enemy that stalk the player.
+     * Create spirit enemy.
      * 
      * @param x
      *            x-axis position
@@ -66,6 +66,7 @@ public interface EntityFactory {
     Entity stalkerSpiritEnemy(double x, double y, Entity eToStalk, Room currentRoom, boolean canShoot);
 
     /**
+     * Create a bullet.
      * @param x
      *            door x-axis position
      * @param y
@@ -88,6 +89,7 @@ public interface EntityFactory {
             double speed);
 
     /**
+     * Create a door.
      * @param x
      *            door x-axis position
      * @param y
@@ -108,6 +110,7 @@ public interface EntityFactory {
     Entity createDoor(double x, double y, DoorStatus status, Room nextRoom, String image, Coordinates coor, Area area);
 
     /**
+     * Create a obstacle.
      * @param x
      *            door x-axis position
      * @param y
@@ -117,6 +120,7 @@ public interface EntityFactory {
     Entity createObstacle(double x, double y);
 
     /**
+     * create moscow enemy.
      * @param x
      *            x-axis position
      * @param y
@@ -130,6 +134,7 @@ public interface EntityFactory {
     Entity createMoscow(double x, double y, Entity eToStalk, Room currentRoom);
 
     /**
+     * create a power up.
      * @param x
      *            x-axis position
      * @param y

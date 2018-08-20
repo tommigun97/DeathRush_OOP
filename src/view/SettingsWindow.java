@@ -64,7 +64,7 @@ public class SettingsWindow extends Scene {
 
         final StackPane mainLayout = new StackPane();
 
-        Text mainTitle = new Text("Settings");
+        final Text mainTitle = new Text("Settings");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Settings");
         mainTitle.setId("title");
@@ -144,8 +144,8 @@ public class SettingsWindow extends Scene {
      */
     private boolean checkRes(final double currentWidth, final double currentHeight) {
         final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        double screenWidth = screenSize.getWidth();
-        double screenHeight = screenSize.getHeight();
+        final double screenWidth = screenSize.getWidth();
+        final double screenHeight = screenSize.getHeight();
         if (currentWidth > screenWidth || currentHeight > screenHeight) {
             return false;
         }
@@ -157,7 +157,11 @@ public class SettingsWindow extends Scene {
         return true;
     }
 
-    static boolean getIsFullScreen() {
+    /**
+     * 
+     * @return true if the screen is in full size mode.
+     */
+    public static boolean getIsFullScreen() {
         return fullScreen;
     }
 
@@ -168,7 +172,7 @@ public class SettingsWindow extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static Scene get(final Stage mainWindow) {
+    public static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - Settings");
         return MAINSCENE;

@@ -13,12 +13,6 @@ public class MainWindow extends Application {
     private final Stage mainWindow = new Stage();
 
     /**
-     * Constructor of the class. It sets up the Stage.
-     */
-    public MainWindow() {
-    }
-
-    /**
      * It starts the JavaFX application.
      */
     @Override

@@ -16,6 +16,11 @@ import model.room.RoomType;
 import model.world.GameWorldImpl;
 import utilities.Pair;
 
+/**
+ * 
+ * Test for GameWorld creation
+ *
+ */
 public class GameMapTestV1 {
 
 	private final static int MAXROOM = 20;
@@ -29,15 +34,21 @@ public class GameMapTestV1 {
 	private final int x = map.getRowMatrix() / 2;
 	private final int y = map.getColumnMatrix() / 2;
 
+	/**
+	 * Used to see the map
+	 */
 	@Test
 	public void printmappa() {
 		map.toString();
 	}
 
+	/**
+	 * Test for initializing world
+	 */
 	@Test
 	public void initialMap() {
 		this.map.buildWorldGame();
-		Room[][] matrix = this.map.getPath();
+		Room[][] matrix = this.map.getMatrixMap();
 		assertTrue(matrix[x][y].getRoomID() == 1);
 		assertTrue(matrix[x][y - 1].getRoomID() == 0);
 		assertTrue(matrix[x + 1][y].getRoomID() == 2);
@@ -45,6 +56,9 @@ public class GameMapTestV1 {
 		assertTrue(matrix[x][y + 1].getRoomID() == 4);
 	}
 
+	/**
+	 * Test for counting roomcreated
+	 */
 	@Test
 	public void countTypeRoom() {
 		this.map.buildWorldGame();

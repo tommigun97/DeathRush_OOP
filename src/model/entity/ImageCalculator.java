@@ -9,6 +9,7 @@ import model.Direction;
 public interface ImageCalculator {
 
     /**
+     * Getter for correct image.
      * @param d
      *            the direction where the entity moves
      * @return the path of the correct image

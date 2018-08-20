@@ -25,7 +25,7 @@ public final class GameHelp {
     /**
      * It shows the box.
      */
-    static void display() {
+    public static void display() {
         final Stage window = new Stage();
         window.setResizable(false);
         window.centerOnScreen();

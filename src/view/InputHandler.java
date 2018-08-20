@@ -12,12 +12,9 @@ import utilities.Input;
  */
 public final class InputHandler {
 
-    private static final InputHandler INPUTHANDLER = new InputHandler();
+    private static final InputHandler INPUT = new InputHandler();
 
     private boolean w, a, s, d, shotUp, shotDown, shotLeft, shotRight = false;
-
-    private InputHandler() {
-    };
 
     /**
      * Getter of the singleton.
@@ -25,11 +22,12 @@ public final class InputHandler {
      * @return The singleton instance of this class.
      */
     public static InputHandler getInputHandler() {
-        return InputHandler.INPUTHANDLER;
+        return InputHandler.INPUT;
     }
 
     /**
-     * Getter of the current inputs(Movement). This method must be called every frame.
+     * Getter of the current inputs(Movement). This method must be called every
+     * frame.
      * 
      * @return A list of the current inputs.
      */
@@ -52,6 +50,7 @@ public final class InputHandler {
 
     /**
      * Getter of the current inputs(Shots). This method must be called every frame.
+     * 
      * @return A list of the current inputs.
      */
     public List<Input> getShotList() {
@@ -92,7 +91,7 @@ public final class InputHandler {
      * @param code
      *            The KeyCode of the pressed key
      */
-    void press(final KeyCode code) {
+    public void press(final KeyCode code) {
         this.process(code, true);
     }
 
@@ -102,7 +101,7 @@ public final class InputHandler {
      * @param code
      *            The KeyCode of the released key.
      */
-    void release(final KeyCode code) {
+    public void release(final KeyCode code) {
         this.process(code, false);
     }
 

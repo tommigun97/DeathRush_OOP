@@ -66,7 +66,7 @@ public class StalkerEnemyBehavior implements Behavior {
             }
         this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
         cs.collisionWithBound(prev, e);
-        this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));
+        this.e.setImage(this.imgCalc.getCurrentImage(this.currentDirection));
         cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
     }
 

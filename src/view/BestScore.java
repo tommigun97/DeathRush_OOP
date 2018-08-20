@@ -41,7 +41,7 @@ public class BestScore extends Scene {
     public BestScore() {
         super(new StackPane());
 
-        Text mainTitle = new Text("Scores");
+        final Text mainTitle = new Text("Scores");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Scores");
         mainTitle.setId("title");
@@ -116,7 +116,7 @@ public class BestScore extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static Scene get(final Stage mainWindow) {
+    public static Scene get(final Stage mainWindow) {
         showScores();
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - Best Scores");
