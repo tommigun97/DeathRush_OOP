@@ -123,7 +123,7 @@ public class ControllerImpl implements Controller {
      * 
      */
     public void processInput() {
-        List<Direction> shotDirectionList = new LinkedList<>();
+        final List<Direction> shotDirectionList = new LinkedList<>();
         this.input.getShotList().forEach(x -> {
             shotDirectionList.add(translateShot(x));
         });

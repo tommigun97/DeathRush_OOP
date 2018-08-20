@@ -37,6 +37,7 @@ public class GameLoop extends Thread {
      *            set model.
      */
     public GameLoop(final Controller controller, final View view, final Model model) {
+        super();
         this.controller = controller;
         this.view = view;
         this.model = model;
@@ -69,6 +70,7 @@ public class GameLoop extends Thread {
                     try {
                         Thread.sleep(period - wait);
                     } catch (Exception ex) {
+                        ex.printStackTrace();
                     }
                 }
             }
