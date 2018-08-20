@@ -18,6 +18,19 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
     private static final double TIME_TO_ACCEPT_COLLISION = 1000; // Ms
     private long t;
 
+    private boolean collision(final Entity entity, final Entity otherEntity) {
+        if (otherEntity.getLocation().equals(entity.getLocation())) {
+            return true;
+        }
+
+        final double var1 = Math.abs(otherEntity.getLocation().getX() - entity.getLocation().getX());
+        final double var2 = Math.abs(otherEntity.getLocation().getY() - entity.getLocation().getY());
+
+        return var1 < (otherEntity.getLocation().getArea().getWidth() + entity.getLocation().getArea().getWidth()) / 2
+                && var2 < (otherEntity.getLocation().getArea().getHeight() + entity.getLocation().getArea().getHeight())
+                        / 2;
+
+    }
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
         if (e.getLocation().getY() - CORRECTOR_Y <= e.getLocation().getArea().getHeight() / 2
@@ -131,19 +144,4 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
         });
 
     }
-
-    private boolean collision(final Entity entity, final Entity otherEntity) {
-        if (otherEntity.getLocation().equals(entity.getLocation())) {
-            return true;
-        }
-
-        final double var1 = Math.abs(otherEntity.getLocation().getX() - entity.getLocation().getX());
-        final double var2 = Math.abs(otherEntity.getLocation().getY() - entity.getLocation().getY());
-
-        return var1 < (otherEntity.getLocation().getArea().getWidth() + entity.getLocation().getArea().getWidth()) / 2
-                && var2 < (otherEntity.getLocation().getArea().getHeight() + entity.getLocation().getArea().getHeight())
-                        / 2;
-
-    }
-
 }

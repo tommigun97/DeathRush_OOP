@@ -52,7 +52,7 @@ public class EntityTestV1 {
     private static final List<String> W_IMAGE = new ArrayList<>(Arrays.asList("w_sx", "w_dx", "w_stand"));
     private static final Location DEFAULT_LOC = new Location(0.50, 0.50, new Area(0.50, 0.50));
     private static final CollisionSupervisor CS = new CollisionSupervisorImpl();
-    private static final Room DEFAULT_ROOM = new RoomImpl(" ", 0, false, RoomType.INTERMEDIATE, new HashSet<Entity>(),
+    private static final Room DEFAULT_ROOM = new RoomImpl(" ", 0, RoomType.INTERMEDIATE, new HashSet<Entity>(),
             new HashSet<Entity>(), true);
     private static final EntityFactory E_FACTORY = new EntityFactoryImpl(CS);
 
@@ -260,7 +260,7 @@ public class EntityTestV1 {
     @Test
     public void obstacleCollisionTest() {
         System.out.println("START [ obstacleCollisionTest ] ");
-        final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(),
+        final Room r = new RoomImpl(" ", 1, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(),
                 true);
         final Entity o = E_FACTORY.createObstacle(0.70, DEFAULT_LOC.getY());
         final Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), Player.TOMMI);
@@ -335,7 +335,7 @@ public class EntityTestV1 {
      */
     @Test
     public void testStalkerEnemyBehaviorV2() {
-        final Room r = new RoomImpl(" ", 1, false, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(),
+        final Room r = new RoomImpl(" ", 1, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(),
                 true);
         final Entity p = E_FACTORY.createPlayer(new Pair<>(0.30, 0.50), Player.ANIS);
         ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom(r);

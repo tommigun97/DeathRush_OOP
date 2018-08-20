@@ -34,6 +34,10 @@ public final class BulletBehavior implements Behavior {
         checkProperty();
 
     }
+    private void checkProperty() {
+        b.getIntegerProperty("Shoot Damage");
+        b.getDoubleProperty("Speed");
+    }
 
     @Override
     public void update() {
@@ -42,9 +46,5 @@ public final class BulletBehavior implements Behavior {
         cs.collisionWithObstacles(b, currentRoom);
     }
 
-    private void checkProperty() {
-        b.getIntegerProperty("Shoot Damage");
-        b.getDoubleProperty("Speed");
-    }
 
 }

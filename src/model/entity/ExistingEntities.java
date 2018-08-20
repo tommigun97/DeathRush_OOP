@@ -1,5 +1,9 @@
 package model.entity;
 
+/**
+ * Enum for entities in the game. used for scan from file.
+ *
+ */
 public enum ExistingEntities {
 
     ENEMY1("1"), 

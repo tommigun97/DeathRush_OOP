@@ -187,5 +187,4 @@ public final class EntityFactoryImpl implements EntityFactory {
                     .with("Cost", who.getCost()).setImage(who.getImage()).build();
         }
     }
-
 }

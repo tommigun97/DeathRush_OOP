@@ -34,6 +34,16 @@ public final class PlayerBehavior implements Behavior {
         this.cs = cs;
     }
 
+    private void checkProperties() {
+        e.getDoubleProperty("Speed");
+        e.getIntegerProperty("Max Life");
+        e.getIntegerProperty("Current Life");
+        e.getObjectProperty("Shoot Frequency");
+        e.getIntegerProperty("Shooting Damage");
+        e.getIntegerProperty("Shooting Damage");
+        e.getDoubleProperty("Bullet Speed");
+    }
+
     /**
      * @return the current room where is set the player
      */
@@ -93,20 +103,6 @@ public final class PlayerBehavior implements Behavior {
         cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
         this.e.setImage(this.imgCalc.getCurrentImage(this.getCurrentDirection()));
         this.currentDirection = Direction.NOTHING;
-
-        // controllo sugli ostacoli
-    }
-
-    private void checkProperties() {
-        // check per verificare che ci siano tutte le proprietà necessarie per
-        // l'utilizzo del player
-        e.getDoubleProperty("Speed");
-        e.getIntegerProperty("Max Life");
-        e.getIntegerProperty("Current Life");
-        e.getObjectProperty("Shoot Frequency");
-        e.getIntegerProperty("Shooting Damage");
-        e.getIntegerProperty("Shooting Damage");
-        e.getDoubleProperty("Bullet Speed");
     }
 
 }

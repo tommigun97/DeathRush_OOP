@@ -40,7 +40,7 @@ public class EntityScanFromFileTest {
 	 */
 	@Test
 	public void testFirstRoom() {
-		Room room = this.rb.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
+		Room room = this.rb.setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
 				.setDoors(new HashSet<>()).setTypes(RoomType.FIRTS).setVisited(true).build();
 		this.scanF.loadEntity(room);
 		assertTrue(room.getEntities().size() == 0);
@@ -51,7 +51,7 @@ public class EntityScanFromFileTest {
 	 */
 	@Test
 	public void testVendorRoom() {
-		Room room = this.rb.setComplited(true).setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
+		Room room = this.rb.setRoomID(1).setEntities(new CopyOnWriteArraySet<>())
 				.setDoors(new HashSet<>()).setTypes(RoomType.VENDOR).setVisited(true).build();
 		this.scanF.loadEntity(room);
 		assertTrue(room.getEntities().stream().filter(x -> x.getType() == EntityType.POWER_UP)

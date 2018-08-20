@@ -8,86 +8,82 @@ import model.room.Room;
 
 /**
  * 
- * Game  World 
+ * Game World.
  *
  */
 public interface GameWorld {
 
-	/**
-	 * Getter method to take all doors in game
-	 * 
-	 * @return Set<Entity>
-	 * 	
-	 */
+    /**
+     * Getter method to take all doors in game.
+     * 
+     * @return Set<Entity> door set.
+     * 
+     */
     Set<Entity> getDoors();
 
-    
     /**
-     * Getter method to take a single room
-     * @param x
-     * 			roomID
+     * Getter method to take a single room.
      * 
-     * @return Optional<Room>
-     * 			room with roomID = x
+     * @param x
+     *            roomID
+     * 
+     * @return Optional<Room> room with roomID = x
      * 
      */
     Optional<Room> getRoom(int x);
-    
-    
+
     /**
-     * Getter method to take all rooms
+     * Getter method to take all rooms.
      * 
      * @return Set<Room>
      * 
      */
     Set<Room> getRooms();
-     
-    
+
     /**
-     * Getter method to take matrix map
+     * Getter method to take matrix map.
      * 
-     * @return Room[][] matrix map
-     * 				matrix that represents game world
+     * @return Room[][] matrix map matrix that represents game world
      * 
      */
     Room[][] getMatrixMap();
 
     /**
-     * Getter method to take a matrix to show the player
+     * Getter method to take a matrix to show the player.
      * 
      * @return int[][] matrix map
      * 
      */
     int[][] getMatrixView();
-    
+
     /**
-     * Getter method to take matrix map column
+     * Getter method to take matrix map column.
      * 
-     * @return int 
+     * @return int
      * 
      */
     int getColumnMatrix();
-    
+
     /**
-     * Getter method to take matrix map row
+     * Getter method to take matrix map row.
      * 
-     * @return int 
+     * @return int
      * 
      */
     int getRowMatrix();
 
     /**
-     * Initiale the game world
+     * Initiale the game world.
      * 
      */
-    public void buildWorldGame();
-    
+    void buildWorldGame();
+
     /**
-     * Update matrix map view
+     * Update matrix map view.
      * 
      */
     void matrixViewUpdate();
-    
+
     /**
      * @return true if all room are completed
      * 
