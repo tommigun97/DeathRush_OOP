@@ -47,7 +47,7 @@ public class Won extends Scene {
 
         final StackPane mainLayout = new StackPane();
 
-        Text mainTitle = new Text("won");
+        final Text mainTitle = new Text("won");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("You Win");
         mainTitle.setId("title");
@@ -98,7 +98,7 @@ public class Won extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static Scene get(final Stage mainWindow) {
+    public static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - You Win");
         return MAINSCENE;

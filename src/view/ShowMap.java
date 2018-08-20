@@ -27,8 +27,8 @@ public final class ShowMap {
     /**
      * It shows the box.
      */
-    static void print() {
-        int[][] map = ViewImpl.getController().getViewMap();
+    public static void print() {
+        final int[][] map = ViewImpl.getController().getViewMap();
         WINDOW.setResizable(false);
         WINDOW.centerOnScreen();
         WINDOW.setTitle("In Game Map");
@@ -41,16 +41,16 @@ public final class ShowMap {
 
         final VBox listInfo = new VBox(10);
 
-        int length = ViewImpl.getController().getYmap();
-        int width = ViewImpl.getController().getXmap();
+        final int length = ViewImpl.getController().getYmap();
+        final int width = ViewImpl.getController().getXmap();
 
-        GridPane grid = new GridPane();
+        final GridPane grid = new GridPane();
 
         for (int y = 0; y < length; y++) {
             for (int x = 0; x < width; x++) {
 
                 // Create a new TextField in each Iteration
-                TextField tf = new TextField();
+                final TextField tf = new TextField();
                 tf.setPrefHeight(SQUARE_SIZE);
                 tf.setPrefWidth(SQUARE_SIZE);
                 tf.setAlignment(Pos.CENTER);
