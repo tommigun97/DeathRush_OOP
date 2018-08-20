@@ -93,16 +93,19 @@ public enum PowerUp {
     };
 
     /**
+     * Getter for power up area.
      * @return the PowerUp area
      */
     public abstract Area getArea();
 
     /**
+     * getter for power up image.
      * @return powerUpImage
      */
     public abstract String getImage();
 
     /**
+     * getter for power up cost.
      * @return power up cost
      */
     public abstract int getCost();

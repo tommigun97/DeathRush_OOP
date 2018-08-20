@@ -1,6 +1,6 @@
 package model;
 /**
- * 
+ * Enum that described the status of the game.
  *
  */
 public enum GameStatus {

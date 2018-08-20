@@ -54,11 +54,13 @@ public interface CollisionSupervisor {
      * @param e
      *            entity that could collide with something
      * @param currentRoom
-     *            the room where entity is setted
+     *            the room where entity is set
      */
     void collisionWithObstacles(Entity e, Room currentRoom);
 
     /**
+     * the methods check if entity collide with some enity in the list of other
+     * entities and act accordingly.
      * @param e
      *            entity to check if it collide with something
      * @param others

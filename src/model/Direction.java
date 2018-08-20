@@ -10,8 +10,8 @@ import java.util.Random;
 public enum Direction {
 
     /**
-    *
-    */
+     * No direction.
+     */
     NOTHING {
         @Override
         public void changeLocation(final Location loc, final double speed) {
@@ -19,7 +19,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * North.
      */
     N {
         @Override
@@ -28,7 +28,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * South.
      */
     S {
         @Override
@@ -37,7 +37,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * Weast.
      */
     W {
         @Override
@@ -46,7 +46,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * East.
      */
     E {
         @Override
@@ -55,7 +55,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * NorthWeast.
      */
     NW {
         @Override
@@ -65,7 +65,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * NorthEast.
      */
     NE {
         @Override
@@ -75,7 +75,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * SouthWeast.
      */
     SW {
         @Override
@@ -85,7 +85,7 @@ public enum Direction {
         }
     },
     /**
-     * 
+     * SouthWeast.
      */
     SE {
         @Override
@@ -107,6 +107,8 @@ public enum Direction {
     public abstract void changeLocation(Location loc, double speed);
 
     /**
+     * Get a random direction.
+     * 
      * @return a random direction
      */
     public static Direction randomDirection() {
