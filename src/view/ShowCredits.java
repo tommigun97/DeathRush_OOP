@@ -36,7 +36,7 @@ public class ShowCredits extends Scene {
     public ShowCredits() {
         super(new StackPane());
 
-        Text mainTitle = new Text("Death Rush - Credits");
+        final Text mainTitle = new Text("Death Rush - Credits");
         mainTitle.setFont(Font.font(null, FontWeight.BOLD, FONT_SIZE));
         mainTitle.setText("Credits");
         mainTitle.setId("title");
@@ -107,7 +107,7 @@ public class ShowCredits extends Scene {
      *            The Stage to place this Scene.
      * @return The current Scene.
      */
-    static Scene get(final Stage mainWindow) {
+    public static Scene get(final Stage mainWindow) {
         mainStage = mainWindow;
         mainStage.setTitle("Death Rush - Credits");
         return MAINSCENE;

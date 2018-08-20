@@ -32,7 +32,7 @@ public final class MessageBox {
      *            The message inside the MessageBox..
      * @return The choice of the user where true equals yes and false equals no.
      */
-    static boolean display(final String title, final String message) {
+    public static boolean display(final String title, final String message) {
         final Stage window = new Stage();
         window.setResizable(false);
         window.centerOnScreen();
