@@ -10,6 +10,7 @@ public interface ImageCalculator {
 
     /**
      * Getter for correct image.
+     * 
      * @param d
      *            the direction where the entity moves
      * @return the path of the correct image
@@ -18,7 +19,7 @@ public interface ImageCalculator {
 
     /**
      * return true when is time to refresh.
-
+     * 
      * @param lastTimeSaved
      *            last time that this method is used
      * @return true if is time to refresh

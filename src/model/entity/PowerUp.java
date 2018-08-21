@@ -1,6 +1,7 @@
 package model.entity;
 
 import model.Area;
+
 //CHECKSTYLE: MagicNumber OFF
 /**
  * Enum for power up.
@@ -8,7 +9,7 @@ import model.Area;
  */
 public enum PowerUp {
     /**
-     * chitarra.
+     * Guitar.
      *
      */
     CHITARRA {
@@ -30,7 +31,7 @@ public enum PowerUp {
     },
 
     /**
-     * sigaretta.
+     * cigarette.
      *
      */
     SIGARETTA {
@@ -51,7 +52,7 @@ public enum PowerUp {
     },
 
     /**
-     * zucchero sintattico.
+     * sugar.
      *
      */
     ZUCCHERO {
@@ -72,7 +73,7 @@ public enum PowerUp {
     },
 
     /**
-     * pistola.
+     * hand gun.
      *
      */
     PISTOLA {
@@ -94,18 +95,21 @@ public enum PowerUp {
 
     /**
      * Getter for power up area.
+     * 
      * @return the PowerUp area
      */
     public abstract Area getArea();
 
     /**
      * getter for power up image.
+     * 
      * @return powerUpImage
      */
     public abstract String getImage();
 
     /**
      * getter for power up cost.
+     * 
      * @return power up cost
      */
     public abstract int getCost();

@@ -24,6 +24,8 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
     private final EntityFactory eFactory;
 
     /**
+     * Constructor of the class.
+     * 
      * @param imgCalc
      *            image calculator
      * @param cs
@@ -46,6 +48,9 @@ public class OnlyBulletSummonerBeahavior implements Behavior {
         this.eFactory = eFactory;
     }
 
+    /**
+     * Check entity properties.
+     */
     private void checkProperties() {
         e.getDoubleProperty("Speed");
         e.getIntegerProperty("Max Life");

@@ -3,7 +3,7 @@ package model;
 import java.util.List;
 
 /**
- * 
+ * Interface of Time class.
  *
  */
 public interface Time {

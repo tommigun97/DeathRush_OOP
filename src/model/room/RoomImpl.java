@@ -19,6 +19,7 @@ public final class RoomImpl implements Room {
     private final Set<Entity> doorsRoom;
 
     /**
+     * Constructor of the class.
      * 
      * @param image
      *            room back ground
@@ -198,7 +199,7 @@ public final class RoomImpl implements Room {
 
         /**
          * 
-         * @return .
+         * @return the room.
          */
         public RoomImpl build() {
             return new RoomImpl(image, roomID, type, entitiesRoom, doorsRoom, visited);

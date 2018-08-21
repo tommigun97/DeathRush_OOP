@@ -67,6 +67,7 @@ public interface EntityFactory {
 
     /**
      * Create a bullet.
+     * 
      * @param x
      *            door x-axis position
      * @param y
@@ -90,6 +91,7 @@ public interface EntityFactory {
 
     /**
      * Create a door.
+     * 
      * @param x
      *            door x-axis position
      * @param y
@@ -111,6 +113,7 @@ public interface EntityFactory {
 
     /**
      * Create a obstacle.
+     * 
      * @param x
      *            door x-axis position
      * @param y
@@ -120,7 +123,8 @@ public interface EntityFactory {
     Entity createObstacle(double x, double y);
 
     /**
-     * create moscow enemy.
+     * create fly enemy.
+     * 
      * @param x
      *            x-axis position
      * @param y
@@ -131,10 +135,11 @@ public interface EntityFactory {
      *            where the enemy are set
      * @return create an enemy looks like mosquito that follow the player
      */
-    Entity createMoscow(double x, double y, Entity eToStalk, Room currentRoom);
+    Entity createFly(double x, double y, Entity eToStalk, Room currentRoom);
 
     /**
      * create a power up.
+     * 
      * @param x
      *            x-axis position
      * @param y

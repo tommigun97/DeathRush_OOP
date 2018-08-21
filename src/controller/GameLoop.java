@@ -12,10 +12,10 @@ import view.View;
 public class GameLoop extends Thread {
 
     /**
-     * Enum to describe the possible states of the GameLoop.
+     * Enumeration to describe the possible states of the GameLoop.
      */
     private enum Status {
-        RUNNING, PAUSED, KILLED, READY;
+    RUNNING, PAUSED, KILLED, READY;
     }
 
     private static final long PERIOD = 20;
@@ -41,6 +41,25 @@ public class GameLoop extends Thread {
         this.controller = controller;
         this.view = view;
         this.model = model;
+    }
+
+    /**
+     * Ask if the Status state is the current state.
+     * 
+     * @param state
+     * @return true if the state is equal to the current.
+     */
+    private synchronized boolean isInState(final Status state) {
+        return this.state.equals(state);
+    }
+
+    /**
+     * Method used to set the state of the game.
+     * 
+     * @param state
+     */
+    private synchronized void setState(final Status state) {
+        this.state = state;
     }
 
     /**
@@ -85,25 +104,6 @@ public class GameLoop extends Thread {
         this.view.draw(this.model.getEntitiesToDrow(), this.model.getRoomBackGround());
         this.view.updateInfoToDraw(this.model.getPlayerLife(), this.model.getMoney(), this.model.getTime(),
                 this.model.getPlayerDamage(), this.model.getPlayerAttSpeed(), this.model.getPlayerMvSpeed());
-    }
-
-    /**
-     * Ask if the Status state is the current state.
-     * 
-     * @param state
-     * @return true if the state is equal to the current.
-     */
-    private synchronized boolean isInState(final Status state) {
-        return this.state.equals(state);
-    }
-
-    /**
-     * Method used to set the state of the game.
-     * 
-     * @param state
-     */
-    private synchronized void setState(final Status state) {
-        this.state = state;
     }
 
     /**

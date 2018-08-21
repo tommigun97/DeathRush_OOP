@@ -15,7 +15,7 @@ import utilities.Pair;
 
 /**
  * 
- * 
+ * Implementation of the Score interface.
  *
  */
 public final class ScoreImpl implements Score {
@@ -29,7 +29,7 @@ public final class ScoreImpl implements Score {
     /**
      * The Constructor of the class ScoreImple.
      * 
-     * @param fileName
+     * @param fileName name of score file.
      *            .
      */
     public ScoreImpl(final String fileName) {

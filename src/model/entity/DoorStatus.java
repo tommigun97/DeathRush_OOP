@@ -1,7 +1,7 @@
 package model.entity;
 
 /**
- * Enum for door status.
+ * Enumeration for door status.
  *
  */
 public enum DoorStatus {

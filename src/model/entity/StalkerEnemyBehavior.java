@@ -46,6 +46,11 @@ public class StalkerEnemyBehavior implements Behavior {
         this.canShoot = canShoot;
     }
 
+    /**
+     * Select new direction for stalker enemies.
+     * 
+     * @return The current direction.
+     */
     private Direction checkNewDirection() {
         Direction d = Direction.NOTHING;
         if (toStalk.getLocation().getY() < e.getLocation().getY()) {
@@ -71,6 +76,9 @@ public class StalkerEnemyBehavior implements Behavior {
         return d;
     }
 
+    /**
+     * Check entity properties.
+     */
     private void checkProperties() {
         e.getDoubleProperty("Speed");
         e.getIntegerProperty("Max Life");

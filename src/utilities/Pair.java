@@ -1,4 +1,5 @@
 package utilities;
+
 /**
  * This class models a "pair" of elements.
  *

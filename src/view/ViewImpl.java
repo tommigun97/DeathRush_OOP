@@ -78,36 +78,24 @@ public class ViewImpl implements View {
         return ViewImpl.controller;
     }
 
-    /**
-     * Getter of the current movement.
-     * 
-     * @return The list of the current movement.
-     */
+    @Override
     public final List<Input> getMovementInput() {
         return this.inputHandler.getMovementList();
     }
 
-    /**
-     * Getter of the current shots.
-     * 
-     * @return The list of the current shots.
-     */
+    @Override
     public final List<Input> getShotInput() {
         return this.inputHandler.getShotList();
     }
 
-    /**
-     * Call the Game Over Screen from the GameScreen.
-     */
+    @Override
     public final void gameOver() {
         Platform.runLater(() -> ViewImpl.gameScreen.gameOver());
         Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong()));
     }
 
-    /**
-     * Call the You Win inside the GameScreen.
-     */
-    public void youWin() {
+    @Override
+    public final void youWin() {
         Platform.runLater(() -> ViewImpl.gameScreen.youWin());
         Platform.runLater(() -> ViewImpl.getController().changeSong(Sound.SONG.MENUSONG.getPathToSong()));
     }

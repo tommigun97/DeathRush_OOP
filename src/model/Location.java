@@ -2,7 +2,7 @@ package model;
 
 /**
  * Location Define the center point and the area of an entity. Center Point
- * defined as x and y values in a cartesian plane.
+ * defined as x and y values in a Cartesian plane.
  */
 public final class Location {
 

@@ -17,7 +17,7 @@ import view.InputHandler;
 import view.View;
 
 /**
- * Description of Controller.
+ * Controller implementation.
  * 
  * 
  */
@@ -70,13 +70,8 @@ public class ControllerImpl implements Controller {
 
     }
 
-    /**
-     * Setter of the View from the interface.
-     * 
-     * @param view
-     *            the current view.
-     */
-    public void setView(final View view) {
+    @Override
+    public final void setView(final View view) {
         this.view = view;
 
     }
@@ -119,10 +114,8 @@ public class ControllerImpl implements Controller {
         return this.gameLoop.get().isPaused();
     }
 
-    /**
-     * 
-     */
-    public void processInput() {
+    @Override
+    public final void processInput() {
         final List<Direction> shotDirectionList = new LinkedList<>();
         this.input.getShotList().forEach(x -> {
             shotDirectionList.add(translateShot(x));
@@ -232,23 +225,13 @@ public class ControllerImpl implements Controller {
 
     }
 
-    /**
-     * call the view playSong and pass the song name.
-     * 
-     * @param s
-     *            song name.
-     */
-    public void playSong(final String s) {
+    @Override
+    public final void playSong(final String s) {
         this.view.play(s);
     }
 
-    /**
-     * call the view changeSong and pass the song name.
-     * 
-     * @param s
-     *            song name.
-     */
-    public void changeSong(final String s) {
+    @Override
+    public final void changeSong(final String s) {
         this.view.changeSong(s);
     }
 

@@ -18,6 +18,15 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
     private static final double TIME_TO_ACCEPT_COLLISION = 1000; // Ms
     private long t;
 
+    /**
+     * Check collision.
+     * 
+     * @param entity
+     *            Principal entity.
+     * @param otherEntity
+     *            Secondary entities.
+     * @return True if collides with someone.
+     */
     private boolean collision(final Entity entity, final Entity otherEntity) {
         if (otherEntity.getLocation().equals(entity.getLocation())) {
             return true;
@@ -31,6 +40,7 @@ public final class CollisionSupervisorImpl implements CollisionSupervisor {
                         / 2;
 
     }
+
     @Override
     public void collisionWithBound(final Location prev, final Entity e) {
         if (e.getLocation().getY() - CORRECTOR_Y <= e.getLocation().getArea().getHeight() / 2

@@ -6,9 +6,10 @@ import java.util.List;
 
 import model.Area;
 import model.Direction;
+
 //CHECKSTYLE: MagicNumber OFF
 /**
- * Enum for player statistic.
+ * Enumeration for player statistic.
  *
  */
 public enum Player {
@@ -196,6 +197,7 @@ public enum Player {
 
     /**
      * Getter for images list of the correct direction.
+     * 
      * @param d
      *            direction required
      * @return images for specific direction
@@ -204,36 +206,42 @@ public enum Player {
 
     /**
      * getter for stand image.
+     * 
      * @return path for stand image
      */
     public abstract String standImage();
 
     /**
      * Getter for player Area.
+     * 
      * @return the player area
      */
     public abstract Area getArea();
 
     /**
      * Getter for player max life value.
+     * 
      * @return starting max Life
      */
     public abstract int getStartingMaxLife();
 
     /**
      * Getter for player movement speed value.
+     * 
      * @return movement speed
      */
     public abstract double getSpeed();
 
     /**
      * Getter for player player shoot frequency value.
+     * 
      * @return shoot frequency
      */
     public abstract long startingPlayerShootFrequency();
 
     /**
      * Getter for player shooting damage value.
+     * 
      * @return shooting damage
      */
     public abstract int shootingDamage();

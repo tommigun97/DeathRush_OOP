@@ -39,12 +39,19 @@ public enum Coordinates {
 
     /**
      * Constructor.
-     * @param openImage door open image
-     * @param closedImage close open image
-     * @param coordinateId coordinate id
-     * @param x coordinate in cartesian plane
-     * @param y coordinate in cartesian plane
-     * @param area door area
+     * 
+     * @param openImage
+     *            door open image
+     * @param closedImage
+     *            close open image
+     * @param coordinateId
+     *            coordinate id
+     * @param x
+     *            coordinate in cartesian plane
+     * @param y
+     *            coordinate in cartesian plane
+     * @param area
+     *            door area
      */
     Coordinates(final String openImage, final String closedImage, final int coordinateId, final double x,
             final double y, final Area area) {
@@ -125,11 +132,11 @@ public enum Coordinates {
     }
 
     /**
-     * Static method for taking the new movment after select Coordinate.
+     * Static method for taking the new movement after select Coordinate.
      * 
      * @param c
      *            Coordinate required
-     * @return a pair that indicates the movment in a cartesian plane
+     * @return a pair that indicates the movement in a Cartesian plane
      */
     public static Pair<Integer, Integer> getMovementFromCoordinates(final Coordinates c) {
         return c.equals(NORTH) ? new Pair<Integer, Integer>(-1, 0)

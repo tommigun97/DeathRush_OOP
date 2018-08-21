@@ -28,15 +28,19 @@ public final class BulletBehavior implements Behavior {
         this.currentRoom = currentRoom;
     }
 
+    /**
+     * Check entity properties.
+     */
+    private void checkProperty() {
+        b.getIntegerProperty("Shoot Damage");
+        b.getDoubleProperty("Speed");
+    }
+
     @Override
     public void setEntity(final Entity e) {
         this.b = e;
         checkProperty();
 
-    }
-    private void checkProperty() {
-        b.getIntegerProperty("Shoot Damage");
-        b.getDoubleProperty("Speed");
     }
 
     @Override
@@ -45,6 +49,5 @@ public final class BulletBehavior implements Behavior {
         cs.collisionWithBound(b, currentRoom);
         cs.collisionWithObstacles(b, currentRoom);
     }
-
 
 }

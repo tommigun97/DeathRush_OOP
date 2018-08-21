@@ -7,7 +7,7 @@ import utilities.Pair;
 import view.View;
 
 /**
- * 
+ * Controller interface.
  *
  */
 public interface Controller {
@@ -48,7 +48,7 @@ public interface Controller {
     void pauseGameLoop();
 
     /***
-     * Kill the Game loop.
+     * Abort the Game loop.
      */
     void abortGameLoop();
 

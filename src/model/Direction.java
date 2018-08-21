@@ -37,7 +37,7 @@ public enum Direction {
         }
     },
     /**
-     * Weast.
+     * West.
      */
     W {
         @Override

@@ -9,7 +9,7 @@ import model.Direction;
 
 //CHECKSTYLE: MagicNumber OFF
 /**
- * Enum for boss statistics.
+ * Enumeration for boss statistics.
  *
  */
 public enum Boss {

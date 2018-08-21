@@ -33,8 +33,11 @@ public final class ScanEntityImpl implements ScanEntity {
 
     /**
      * Constructor.
-     * @param entityToStolk entity to Stalk
-     * @param ef factory
+     * 
+     * @param entityToStolk
+     *            entity to Stalk
+     * @param ef
+     *            factory
      */
     public ScanEntityImpl(final Entity entityToStolk, final EntityFactory ef) {
         this.ef = ef;
@@ -67,16 +70,17 @@ public final class ScanEntityImpl implements ScanEntity {
     }
 
     /**
-     * Setter method set che current file.
+     * Setter method set the current file.
      * 
-     * @param file file path
+     * @param file
+     *            file path
      */
     public void setFile(final String file) {
         this.fileName = file;
     }
 
     /**
-     * method for adding entity to a selceted room.
+     * method for adding entity to a selected room.
      * 
      * @param type
      *            type of entity
@@ -93,7 +97,7 @@ public final class ScanEntityImpl implements ScanEntity {
         if (ExistingEntities.getPropieties(String.valueOf(type)).equals(ExistingEntities.ENEMY1)) {
             currentRoom.addEntity(this.ef.stalkerSpiritEnemy(x, y, this.entityToStolk, currentRoom, true));
         } else if (ExistingEntities.getPropieties(String.valueOf(type)).equals(ExistingEntities.ENEMY2)) {
-            currentRoom.addEntity(this.ef.createMoscow(x, y, this.entityToStolk, currentRoom));
+            currentRoom.addEntity(this.ef.createFly(x, y, this.entityToStolk, currentRoom));
         } else if (ExistingEntities.getPropieties(String.valueOf(type)).equals(ExistingEntities.STOPPED)) {
             currentRoom.addEntity(this.ef.createObstacle(x, y));
         } else if ((ExistingEntities.getPropieties(String.valueOf(type)).equals(ExistingEntities.GUITAR))) {

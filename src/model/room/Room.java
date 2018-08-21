@@ -12,7 +12,8 @@ public interface Room {
     /**
      * Add door to the room.
      * 
-     * @param door to add
+     * @param door
+     *            to add
      */
     void addDoor(Entity door);
 
@@ -40,14 +41,16 @@ public interface Room {
     /**
      * Method for adding entity to the room.
      * 
-     * @param entity Entity to add
+     * @param entity
+     *            Entity to add
      */
     void addEntity(Entity entity);
 
     /**
      * Method for deleting entity to the room.
      * 
-     * @param entity Entity to delete
+     * @param entity
+     *            Entity to delete
      */
     void deleteEntity(Entity entity);
 
@@ -85,7 +88,8 @@ public interface Room {
     /**
      * Setter method for setting up room visited.
      * 
-     * @param  x true if is visited else false
+     * @param x
+     *            true if is visited else false
      */
     void setVisited(boolean x);
 

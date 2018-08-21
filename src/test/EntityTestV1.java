@@ -227,7 +227,8 @@ public class EntityTestV1 {
         prev = new Location(stalker.getLocation());
         // System.out.println("start " + stalker.getLocation());
         IntStream.range(0, 20).forEach(i -> {
-            ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update(); });
+            ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        });
         assertTrue(isMuchNear(prev, stalker.getLocation(), p.getLocation()));
     }
 
@@ -260,8 +261,7 @@ public class EntityTestV1 {
     @Test
     public void obstacleCollisionTest() {
         System.out.println("START [ obstacleCollisionTest ] ");
-        final Room r = new RoomImpl(" ", 1, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(),
-                true);
+        final Room r = new RoomImpl(" ", 1, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(), true);
         final Entity o = E_FACTORY.createObstacle(0.70, DEFAULT_LOC.getY());
         final Entity p = E_FACTORY.createPlayer(new Pair<Double, Double>(0.20, 0.50), Player.TOMMI);
         ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom(r);
@@ -335,8 +335,7 @@ public class EntityTestV1 {
      */
     @Test
     public void testStalkerEnemyBehaviorV2() {
-        final Room r = new RoomImpl(" ", 1, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(),
-                true);
+        final Room r = new RoomImpl(" ", 1, RoomType.INTERMEDIATE, new CopyOnWriteArraySet<>(), new HashSet<>(), true);
         final Entity p = E_FACTORY.createPlayer(new Pair<>(0.30, 0.50), Player.ANIS);
         ((PlayerBehavior) p.getBehaviour().get()).setCurrentRoom(r);
         final Entity se = E_FACTORY.stalkerSpiritEnemy(DEFAULT_LOC.getX(), DEFAULT_LOC.getY(), p, r, true);

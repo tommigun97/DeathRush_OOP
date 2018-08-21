@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import model.room.RoomType;
+
 //CHECKSTYLE: MagicNumber OFF
 /**
  * 
@@ -66,19 +67,7 @@ public enum BackgroundFromFile {
     }
 
     /**
-     * Static enumeration method used to take a random room path.
-     * 
-     * @param type
-     *            Rooms type
-     * @return String path
-     */
-    public static String getRandomPath(final RoomType type) {
-        final int seq = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(5) + 2
-                : type.equals(RoomType.FIRTS) ? 1 : type.equals(RoomType.VENDOR) ? 9 : 0;
-        return getPathName(seq);
-    }
-
-    /**
+     * Return the enumeration of path.
      * 
      * @param seqNumber
      * @return String path
@@ -95,6 +84,19 @@ public enum BackgroundFromFile {
     }
 
     /**
+     * Static enumeration method used to take a random room path.
+     * 
+     * @param type
+     *            Rooms type
+     * @return String path
+     */
+    public static String getRandomPath(final RoomType type) {
+        final int seq = type.equals(RoomType.INTERMEDIATE) ? new Random().nextInt(5) + 2
+                : type.equals(RoomType.FIRTS) ? 1 : type.equals(RoomType.VENDOR) ? 9 : 0;
+        return getPathName(seq);
+    }
+
+    /**
      * Getter method to take Enumeration path.
      * 
      * @return file path
@@ -105,6 +107,7 @@ public enum BackgroundFromFile {
 
     /**
      * Getter method to take only bosses Enumeration path.
+     * 
      * @return List<String> path of file roomType boss
      */
     public static List<String> getBossPath() {

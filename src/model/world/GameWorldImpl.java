@@ -20,12 +20,12 @@ import model.entity.EntityFactory;
  */
 public final class GameWorldImpl implements GameWorld {
 
-    private static final  int X = 14;
-    private static final  int Y = 14;
-    private static final  int MIDDLEX = X / 2;
-    private static final  int MIDDLEY = Y / 2;
-    private static final  int FIRSTROOM = 1;
-    private static final  int VENDORROOM = 0;
+    private static final int X = 14;
+    private static final int Y = 14;
+    private static final int MIDDLEX = X / 2;
+    private static final int MIDDLEY = Y / 2;
+    private static final int FIRSTROOM = 1;
+    private static final int VENDORROOM = 0;
 
     private Room[][] matrixMap;
     private Set<Room> roomSet;
@@ -39,8 +39,11 @@ public final class GameWorldImpl implements GameWorld {
 
     /**
      * Constructor.
-     * @param entityFactory factory for the entities
-     * @param player game player
+     * 
+     * @param entityFactory
+     *            factory for the entities
+     * @param player
+     *            game player
      */
     public GameWorldImpl(final EntityFactory entityFactory, final Entity player) {
         this.rf = new RoomsFactoryImpl();
@@ -152,7 +155,6 @@ public final class GameWorldImpl implements GameWorld {
         roomB = this.rf.intermediateRoom(2, false);
         this.matrixMap[MIDDLEX + 1][MIDDLEY] = roomB;
         this.addNewRoom(roomB);
-        System.out.println(this.roomSet);
         this.addLink(roomA, roomB, Coordinates.SOUTH, DoorStatus.OPEN);
         roomB = this.rf.intermediateRoom(3, false);
         this.addNewRoom(roomB);
@@ -191,7 +193,8 @@ public final class GameWorldImpl implements GameWorld {
             final Coordinates c = Coordinates.getRandomCoordinate();
             final Pair<Integer, Integer> movement = Coordinates.getMovementFromCoordinates(c);
             if (!this.checkLoop(row, column)) {
-                if (!checkDoor(current, c) && this.checkNextRoom(row + movement.getFirst(), column + movement.getSecond())) {
+                if (!checkDoor(current, c)
+                        && this.checkNextRoom(row + movement.getFirst(), column + movement.getSecond())) {
                     this.roomCount++;
                     final Room next = rooms == 1 ? this.rf.bossRoom(this.roomCount, false)
                             : this.rf.intermediateRoom(this.roomCount, false);

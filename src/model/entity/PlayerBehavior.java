@@ -8,6 +8,14 @@ import model.room.Room;
  * Class define player behavior.
  *
  */
+/**
+ * @author lorenzo
+ *
+ */
+/**
+ * @author lorenzo
+ *
+ */
 public final class PlayerBehavior implements Behavior {
 
     private Entity e;
@@ -34,6 +42,9 @@ public final class PlayerBehavior implements Behavior {
         this.cs = cs;
     }
 
+    /**
+     * Check entity properties.
+     */
     private void checkProperties() {
         e.getDoubleProperty("Speed");
         e.getIntegerProperty("Max Life");

@@ -69,7 +69,7 @@ public final class GameMapImpl implements GameMap {
     /**
      * Getter method to take player current room.
      * 
-     * @return  player current room
+     * @return player current room
      */
     private int getPlayerCurrentRoom() {
         return ((PlayerBehavior) this.player.getBehaviour().get()).getCurrentRoom() == null ? 1

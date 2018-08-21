@@ -14,6 +14,20 @@ public final class EntityImpl implements Entity {
     private final EntityType type;
     private final PropertyMap properties;
 
+    /**
+     * Constructor of the class.
+     * 
+     * @param image
+     *            current image.
+     * @param loc
+     *            current location.
+     * @param behavior
+     *            entity behavior.
+     * @param type
+     *            entity type.
+     * @param properties
+     *            entity properties.
+     */
     private EntityImpl(final String image, final Location loc, final Behavior behavior, final EntityType type,
             final PropertyMap properties) {
         super();
@@ -146,6 +160,7 @@ public final class EntityImpl implements Entity {
             this.properties.putProperty(property, value);
             return this;
         }
+
         /**
          * @param property
          *            the name of the property

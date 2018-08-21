@@ -44,6 +44,7 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, int value);
+
     /**
      * @param property
      *            property's name
@@ -59,6 +60,7 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, double value);
+
     /**
      * @param property
      *            property's name
@@ -74,6 +76,7 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, boolean value);
+
     /**
      * @param property
      *            property's name
@@ -89,6 +92,7 @@ public interface PropertyMap {
      *            property's value
      */
     void putProperty(String property, Object value);
+
     /**
      * @param property
      *            property's name

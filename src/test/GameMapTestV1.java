@@ -36,11 +36,15 @@ public class GameMapTestV1 {
     private final int y = map.getColumnMatrix() / 2;
 
     /**
-     * Used to see the map.
+     * Used to test the map generation.
      */
-    @Test
-    public void printmappa() {
-        map.toString();
+    private void printmappa() {
+        for (int i = 0; i < this.x; i++) {
+            for (int j = 0; j < this.y; j++) {
+                System.out.print(this.map.getMatrixMap()[i][j]);
+            }
+            System.out.println();
+        }
     }
 
     /**
@@ -55,6 +59,7 @@ public class GameMapTestV1 {
         assertSame(matrix[x + 1][y].getRoomID(), 2);
         assertSame(matrix[x - 1][y].getRoomID(), 3);
         assertSame(matrix[x][y + 1].getRoomID(), 4);
+        printmappa();
     }
 
     /**
@@ -65,15 +70,17 @@ public class GameMapTestV1 {
         this.map.buildWorldGame();
         assertTrue(this.map.getRooms().size() <= MAXROOM);
         assertFalse(this.map.getRooms().size() < MINROOM);
-        assertSame(this.map.getRooms().stream().filter(x -> x.getType().equals(RoomType.BOSS)).mapToInt(e -> 1)
-                .sum(), 3);
+        assertSame(this.map.getRooms().stream().filter(x -> x.getType().equals(RoomType.BOSS)).mapToInt(e -> 1).sum(),
+                3);
         assertTrue(this.map.getRooms().stream().map(e -> e.getType()).collect(Collectors.toList())
                 .contains(RoomType.VENDOR));
         assertFalse(this.map.getRooms().stream().filter(e -> e.getType().equals(RoomType.FIRTS)).mapToInt(x -> 1)
                 .sum() > 1);
-        assertSame(this.map.getRooms().stream().filter(e -> e.getType().equals(RoomType.INTERMEDIATE))
-                .mapToInt(e1 -> e1.getDoor().size()).sum(), 2 * this.map.getRooms().stream()
-                        .filter(x -> x.getType().equals(RoomType.INTERMEDIATE)).collect(Collectors.toList()).size());
+        assertSame(
+                this.map.getRooms().stream().filter(e -> e.getType().equals(RoomType.INTERMEDIATE))
+                        .mapToInt(e1 -> e1.getDoor().size()).sum(),
+                2 * this.map.getRooms().stream().filter(x -> x.getType().equals(RoomType.INTERMEDIATE))
+                        .collect(Collectors.toList()).size());
         assertEquals(this.map.getRooms().stream().filter(x -> x.getType().equals(RoomType.BOSS)).mapToInt(e -> 1).sum(),
                 3);
     }

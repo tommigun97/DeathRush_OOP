@@ -10,16 +10,18 @@ import model.room.Room;
 public interface ScanEntity {
 
     /**
-     * load the boos.
+     * load the boss.
      * 
-     * @param room room to fill
+     * @param room
+     *            room to fill
      */
     void loadBoss(Room room);
 
     /**
      * load the entities.
      * 
-     * @param room room to fill
+     * @param room
+     *            room to fill
      */
     void loadEntity(Room room);
 

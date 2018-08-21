@@ -89,8 +89,9 @@ public final class EntityFactoryImpl implements EntityFactory {
                 .with("Current Life", DEFAULT_STALKER_ENEMY_MAX_LIFE)
                 .with("Shoot Frequency", DEFAULT_STALKER_ENEMY_SHOOT_FREQUENCY)
                 .with("Collision Damage", DEFAULT_STALKER_ENEMY_COLLISION_DAMAGE)
-                .with("Bullet Speed", DEFAULT_BULLET_SPEED_ENEMY).with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE)
-                .with("Reward", DEFAULT_STALKER_ENEMY_REWARD).build();
+                .with("Bullet Speed", DEFAULT_BULLET_SPEED_ENEMY)
+                .with("Shoot Damage", DEFAULT_STALKER_ENEMY_SHOOT_DAMAGE).with("Reward", DEFAULT_STALKER_ENEMY_REWARD)
+                .build();
     }
 
     @Override
@@ -126,7 +127,7 @@ public final class EntityFactoryImpl implements EntityFactory {
     }
 
     @Override
-    public Entity createMoscow(final double x, final double y, final Entity eToStalk, final Room currentRoom) {
+    public Entity createFly(final double x, final double y, final Entity eToStalk, final Room currentRoom) {
         final StalkerEnemyBehavior b = new StalkerEnemyBehavior(eToStalk,
                 new TwoImageCalculator(DEFAULT_MOSQUITO_IMAGE_1, DEFAULT_MOSQUITO_IMAGE_2), cs, currentRoom, this,
                 false);

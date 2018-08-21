@@ -1,7 +1,7 @@
 package model.entity;
 
 /**
- * Enum list every entity types.
+ * Enumeration list every entity types.
  *
  */
 public enum EntityType {
