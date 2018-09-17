@@ -1,0 +1,336 @@
+Found a 35 line (200 tokens) duplication in the following files: 
+Starting at line 94 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/SelectCharacter.java
+Starting at line 85 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/SettingsWindow.java
+
+            initGame(Player.ANIS);
+        });
+
+        final VBox layout = new VBox(10);
+        final Button back = new Button("Main Menu");
+        final StackPane bottomLayout = new StackPane();
+        final HBox bottomBox = new HBox();
+        back.setId("menu-buttons");
+
+        bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
+        bottomBox.setSpacing(BOTTOM_BOX_SPACING);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
+        bottomBox.setTranslateY(BUTTON_TRANS);
+        bottomBox.getChildren().add(back);
+        bottomLayout.getChildren().add(bottomBox);
+
+        layout.getChildren().addAll(mainTitle, vboxButton, bottomBox);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(8));
+        layout.setAlignment(Pos.TOP_CENTER);
+
+        mainLayout.getChildren().addAll(layout);
+        mainLayout.setId("mainPane");
+        this.setRoot(mainLayout);
+        this.getStylesheets().add("style.css");
+        back.setOnAction(e -> {
+            mainStage.setScene(MainMenu.get(mainStage));
+        });
+    }
+
+    /**
+     * Private method. When called initiate the whole GameWorld.
+     */
+    private void initGame(final Player pg) {
+=====================================================================
+Found a 35 line (180 tokens) duplication in the following files: 
+Starting at line 58 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/GameOver.java
+Starting at line 69 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/Won.java
+
+            mainStage.setScene(MainMenu.get(mainStage));
+        });
+
+        final VBox layout = new VBox(10);
+        final StackPane bottomLayout = new StackPane();
+        final HBox bottomBox = new HBox();
+
+        bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
+        bottomBox.setSpacing(BOTTOM_BOX_SPACING);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
+        bottomBox.setTranslateY(BUTTON_TRANS);
+        bottomLayout.getChildren().add(bottomBox);
+
+        layout.getChildren().addAll(mainTitle, vboxButton, bottomBox);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(8));
+        layout.setAlignment(Pos.TOP_CENTER);
+
+        mainLayout.getChildren().addAll(layout);
+        mainLayout.setId("mainPane");
+        this.setRoot(mainLayout);
+        this.getStylesheets().add("style.css");
+    }
+
+    /**
+     * Getter of this Scene.
+     * 
+     * @param mainWindow
+     *            The Stage to place this Scene.
+     * @return The current Scene.
+     */
+    public static Scene get(final Stage mainWindow) {
+        mainStage = mainWindow;
+        mainStage.setTitle("Death Rush - Game Over");
+=====================================================================
+Found a 5 line (121 tokens) duplication in the following files: 
+Starting at line 45 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/CollisionSupervisorImpl.java
+Starting at line 65 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/CollisionSupervisorImpl.java
+
+    public void collisionWithBound(final Location prev, final Entity e) {
+        if (e.getLocation().getY() - CORRECTOR_Y <= e.getLocation().getArea().getHeight() / 2
+                || e.getLocation().getY() + CORRECTOR_Y >= 1 - e.getLocation().getArea().getHeight() / 2
+                || e.getLocation().getX() - CORRECTOR_X <= e.getLocation().getArea().getWidth() / 2
+                || e.getLocation().getX() + CORRECTOR_X >= 1 - e.getLocation().getArea().getWidth() / 2) {
+=====================================================================
+Found a 14 line (87 tokens) duplication in the following files: 
+Starting at line 52 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/GameHelp.java
+Starting at line 85 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/ShowMap.java
+
+        listInfo.getChildren().addAll(instructionTitle, instructions);
+
+        final VBox layout = new VBox(10);
+        final StackPane mainLayout = new StackPane();
+
+        layout.getChildren().addAll(listInfo);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(8));
+        layout.setAlignment(Pos.TOP_CENTER);
+
+        mainLayout.getChildren().addAll(layout);
+        mainLayout.setId("helpPane");
+        final Scene scene = new Scene(mainLayout);
+        scene.getStylesheets().add("style.css");
+=====================================================================
+Found a 12 line (81 tokens) duplication in the following files: 
+Starting at line 69 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/GameOver.java
+Starting at line 108 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/SelectCharacter.java
+Starting at line 99 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/SettingsWindow.java
+Starting at line 80 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/Won.java
+
+        bottomBox.setTranslateY(BUTTON_TRANS);
+        bottomLayout.getChildren().add(bottomBox);
+
+        layout.getChildren().addAll(mainTitle, vboxButton, bottomBox);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(8));
+        layout.setAlignment(Pos.TOP_CENTER);
+
+        mainLayout.getChildren().addAll(layout);
+        mainLayout.setId("mainPane");
+        this.setRoot(mainLayout);
+        this.getStylesheets().add("style.css");
+=====================================================================
+Found a 12 line (81 tokens) duplication in the following files: 
+Starting at line 55 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/GenericBox.java
+Starting at line 64 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/MessageBox.java
+
+        layoutButton.getChildren().addAll(yesButton);
+        layoutButton.setSpacing(10);
+        layoutButton.setPadding(new Insets(8));
+        layoutButton.setAlignment(Pos.CENTER);
+
+        layout.setMinWidth(MIN_WIDTH);
+        layout.getChildren().addAll(label, layoutButton);
+        layout.setAlignment(Pos.CENTER);
+        final Scene scene = new Scene(layout);
+        scene.getStylesheets().add("style.css");
+        window.setScene(scene);
+        window.showAndWait();
+=====================================================================
+Found a 13 line (81 tokens) duplication in the following files: 
+Starting at line 95 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/SelectCharacter.java
+Starting at line 86 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/SettingsWindow.java
+Starting at line 71 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/ShowCredits.java
+
+        });
+
+        final VBox layout = new VBox(10);
+        final Button back = new Button("Main Menu");
+        final StackPane bottomLayout = new StackPane();
+        final HBox bottomBox = new HBox();
+        back.setId("menu-buttons");
+
+        bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
+        bottomBox.setSpacing(BOTTOM_BOX_SPACING);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
+        bottomBox.setTranslateY(BUTTON_TRANS);
+=====================================================================
+Found a 3 line (74 tokens) duplication in the following files: 
+Starting at line 121 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 170 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        final Entity p = new EntityImpl.EntitiesBuilder().setLocation(DEFAULT_LOC).setImage("error").setBehaviour(pB)
+                .with("Speed", 0.2).with("Max Life", 10).with("Current Life", 10).with("Shoot Frequency", (long) 10)
+                .with("Shooting Damage", 10).with("Bullet Speed", 10.0).build();
+=====================================================================
+Found a 12 line (68 tokens) duplication in the following files: 
+Starting at line 34 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/GenericBox.java
+Starting at line 35 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/MessageBox.java
+
+    public static void display(final String title, final String message, final String buttonMessage) {
+        final Stage window = new Stage();
+        window.setResizable(false);
+        window.centerOnScreen();
+        window.initModality(Modality.APPLICATION_MODAL);
+        window.setTitle(title);
+        window.setMinWidth(MIN_WIDTH);
+        final Label label = new Label();
+        label.setText(message);
+        label.setId("message-text");
+
+        final Button yesButton = new Button("Continue");
+=====================================================================
+Found a 11 line (66 tokens) duplication in the following files: 
+Starting at line 72 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/BestScore.java
+Starting at line 89 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/ShowCredits.java
+
+        layout.getChildren().addAll(mainTitle, listScores);
+        layout.setSpacing(10);
+        layout.setPadding(new Insets(8));
+        layout.setAlignment(Pos.TOP_CENTER);
+
+        mainLayout.getChildren().addAll(layout, bottomLayout);
+        mainLayout.setId("mainPane");
+        this.setRoot(mainLayout);
+
+        this.getStylesheets().add("style.css");
+        back.setOnAction(e -> {
+=====================================================================
+Found a 5 line (61 tokens) duplication in the following files: 
+Starting at line 124 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/OnlyBulletSummonerBeahavior.java
+Starting at line 111 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/StalkerEnemyBehavior.java
+
+        this.currentDirection.changeLocation(e.getLocation(), e.getDoubleProperty("Speed"));
+        cs.collisionWithBound(prev, e);
+        this.e.setImage(this.imgCalc.getCurrentImage(this.currentDirection));
+        cs.collisionWithObstacles(e, this.currentRoom.getEntities(), prev);
+    }
+=====================================================================
+Found a 3 line (57 tokens) duplication in the following files: 
+Starting at line 101 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/PlayerBehavior.java
+Starting at line 105 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/StalkerEnemyBehavior.java
+
+        if (System.currentTimeMillis() - this.t >= (Long) this.e.getObjectProperty("Shoot Frequency")) {
+            this.currentRoom.addEntity(this.eFactory.createBullet(e.getLocation().getX(), e.getLocation().getY(),
+                    currentRoom, d, EntityType.PLAYER_BULLET, e.getIntegerProperty("Shooting Damage"),
+=====================================================================
+Found a 5 line (57 tokens) duplication in the following files: 
+Starting at line 145 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 152 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        assertTrue(p.getLocation().getY() <= 1 - p.getLocation().getArea().getHeight() / 2);
+        // east Bound
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.E);
+=====================================================================
+Found a 3 line (55 tokens) duplication in the following files: 
+Starting at line 186 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 206 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 210 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        stalker.setLocation(new Location(0.50, 0.30, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.S));
+=====================================================================
+Found a 3 line (55 tokens) duplication in the following files: 
+Starting at line 190 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 194 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 214 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        stalker.setLocation(new Location(0.30, 0.50, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.E));
+=====================================================================
+Found a 3 line (55 tokens) duplication in the following files: 
+Starting at line 198 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 202 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        stalker.setLocation(new Location(0.30, 0.70, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.NE));
+=====================================================================
+Found a 25 line (54 tokens) duplication in the following files: 
+Starting at line 44 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/Boss.java
+Starting at line 99 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/model/entity/Boss.java
+
+        }
+
+        @Override
+        public double getSpeed() {
+            return 0.005;
+        }
+
+        @Override
+        public long startingBossShootFrequency() {
+            return 500;
+        }
+
+        @Override
+        public int shootingDamage() {
+            return 1;
+        }
+
+        @Override
+        public int collisionDamage() {
+            return 1;
+        }
+
+        @Override
+        public int reward() {
+            return 75;
+=====================================================================
+Found a 5 line (53 tokens) duplication in the following files: 
+Starting at line 132 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 145 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 152 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        p.changeDoubleProperty("Speed", 0.04);
+        // north Bound
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
+=====================================================================
+Found a 3 line (53 tokens) duplication in the following files: 
+Starting at line 186 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 190 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 194 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 198 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 202 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 206 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 210 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 214 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        stalker.setLocation(new Location(0.50, 0.30, new Area(0.2, 0.2)));
+        ((StalkerEnemyBehavior) stalker.getBehaviour().get()).update();
+        assertTrue(((StalkerEnemyBehavior) stalker.getBehaviour().get()).getCurrentDirection().equals(Direction.S));
+=====================================================================
+Found a 3 line (52 tokens) duplication in the following files: 
+Starting at line 134 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 140 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 147 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+Starting at line 154 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/test/EntityTestV1.java
+
+        p.setLocation(new Location(0.50, 0.50, new Area(0.50, 0.50)));
+        for (int i = 0; i < 100; i++) {
+            ((PlayerBehavior) p.getBehaviour().get()).setCurrentDirection(Direction.N);
+=====================================================================
+Found a 8 line (51 tokens) duplication in the following files: 
+Starting at line 60 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/BestScore.java
+Starting at line 76 of /home/danysk/git/oop17-casini-lorenzo-del-gatto-simone-ghini-tommaso-lico-anis/src/view/ShowCredits.java
+
+        reset.setId("menu-buttons");
+        back.setId("menu-buttons");
+
+        bottomLayout.setAlignment(Pos.BOTTOM_CENTER);
+        bottomLayout.setPadding(new Insets(0, 0, BOTTOM_LAYOUT_PADDING, 0));
+        bottomBox.setSpacing(BOTTOM_BOX_SPACING);
+        bottomBox.setAlignment(Pos.BOTTOM_CENTER);
+        bottomBox.getChildren().addAll(back, reset);

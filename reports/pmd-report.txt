@@ -1,0 +1,38 @@
+src/controller/GameLoop.java:23:	Private field 'period' could be made final; it is only initialized in the declaration or constructor.
+src/controller/GameLoop.java:75:	Local variable 'time' could be declared final
+src/controller/GameLoop.java:87:	Local variable 'wait' could be declared final
+src/model/entity/CollisionSupervisorImpl.java:93:	The String literal "Current Life" appears 9 times in this file; the first occurrence is on line 93
+src/model/entity/CollisionSupervisorImpl.java:134:	These nested if statements could be combined
+src/model/entity/EntityFactoryImpl.java:71:	The String literal "Speed" appears 6 times in this file; the first occurrence is on line 71
+src/model/entity/EntityFactoryImpl.java:72:	The String literal "Current Life" appears 4 times in this file; the first occurrence is on line 72
+src/model/entity/EntityFactoryImpl.java:72:	The String literal "Max Life" appears 4 times in this file; the first occurrence is on line 72
+src/model/entity/EntityFactoryImpl.java:93:	The String literal "Shoot Damage" appears 4 times in this file; the first occurrence is on line 93
+src/model/entity/EntityFactoryImpl.java:173:	The String literal "Type" appears 4 times in this file; the first occurrence is on line 173
+src/model/entity/EntityFactoryImpl.java:174:	The String literal "Cost" appears 4 times in this file; the first occurrence is on line 174
+src/model/entity/EntityImpl.java:224:	Avoid instantiation through private constructors from outside of the constructors class.
+src/model/entity/OnlyBulletSummonerBeahavior.java:60:	The String literal "Shoot Damage" appears 6 times in this file; the first occurrence is on line 60
+src/model/entity/OnlyBulletSummonerBeahavior.java:104:	The String literal "Bullet Speed" appears 5 times in this file; the first occurrence is on line 104
+src/model/entity/OnlyBulletSummonerBeahavior.java:117:	Local variable 'd' could be declared final
+src/model/world/GameMapImpl.java:51:	Consider using varargs for methods or constructors which take an array the last parameter.
+src/model/world/GameWorldImpl.java:248:	Returning 'matrixMap' may expose an internal array.
+src/test/EntityTestV1.java:64:	The String literal "alive" appears 4 times in this file; the first occurrence is on line 64
+src/test/EntityTestV1.java:64:	The String literal "speed" appears 4 times in this file; the first occurrence is on line 64
+src/test/EntityTestV1.java:65:	The String literal "maxLife" appears 4 times in this file; the first occurrence is on line 65
+src/test/EntityTestV1.java:111:	The String literal "Current Life" appears 5 times in this file; the first occurrence is on line 111
+src/test/EntityTestV1.java:111:	The String literal "Max Life" appears 5 times in this file; the first occurrence is on line 111
+src/test/EntityTestV1.java:116:	The String literal "Speed" appears 5 times in this file; the first occurrence is on line 116
+src/test/EntityTestV1.java:293:	Local variable 'shoots' could be declared final
+src/test/EntityTestV1.java:294:	Local variable 'm' could be declared final
+src/view/BestScore.java:34:	Possible unsafe assignment to a non-final static field in a constructor.
+src/view/GameWorldView.java:41:	Field PAUSE has the same name as a method
+src/view/GameWorldView.java:82:	The String literal "status-bar" appears 6 times in this file; the first occurrence is on line 82
+src/view/GameWorldView.java:282:	Rather than using a lot of String arguments, consider using a container object for those values.
+src/view/InputHandler.java:17:	Avoid using redundant field initializer for 'shotRight'
+src/view/MainMenu.java:45:	The String literal "menu-buttons" appears 5 times in this file; the first occurrence is on line 45
+src/view/MainWindow.java:13:	It is somewhat confusing to have a field name matching the declaring class name
+src/view/SettingsWindow.java:57:	Avoid using redundant field initializer for 'fullScreen'
+src/view/SettingsWindow.java:164:	A getX() method which returns a boolean should be named isX()
+src/view/ShowCredits.java:21:	All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
+src/view/ShowCredits.java:53:	The String literal "credits-text" appears 5 times in this file; the first occurrence is on line 53
+src/view/View.java:69:	Rather than using a lot of String arguments, consider using a container object for those values.
+src/view/ViewImpl.java:56:	Rather than using a lot of String arguments, consider using a container object for those values.
